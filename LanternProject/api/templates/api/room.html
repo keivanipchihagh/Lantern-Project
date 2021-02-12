@@ -1,49 +1,91 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Chat Room</title>
-</head>
-<body>
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
-    <input id="chat-message-submit" type="button" value="Send">
-    {{ room_name|json_script:"room-name" }}
-    <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+{% load static %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/css/uikit.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/js/uikit-icons.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<link href="{% static 'api/styles/style.css' %}" type="text/css" rel="stylesheet" />
 
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
-        );
+{{ room_name|json_script:"room-name" }}
 
-        chatSocket.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
-        };
+<!-- Chatbox App - start -->
+<div id="chatbox-app" class="chatbox-app" v-bind:class="{'chatbox-app-show': showApp, 'chatbox-app-left': (position == 'left')}">
+    <div class="uk-container uk-width-large">
+        <div id="chatbox-container" class="uk-card uk-card-default uk-border-rounded uk-margin-large-top chat" v-bind:class="{'uk-app-dark': (theme == 'dark'), 'uk-app-light': (theme == 'light')}">
+            <!-- Header - start -->
+            <div id="chatbox-header" class="uk-width-auto uk-header" v-bind:class="{'header-high-contrast': headerHighContrast}">
+                <a uk-icon="icon: user" class="uk-hover-blue"></a>
+                <span id="title" class="chatbox-cursor-pointer" v-on:click="toggleApp" v-bind:class="{'header-high-contrast-span': headerHighContrast}"></span><span class="chatbox-icon-green chatbox-icon-status"> ⬤</span>
+                <ul class="uk-iconnav uk-margin-small-right uk-float-right">
+                    <li class="chatbox-icon" v-bind:class="{'chatbox-icon-show': expandApp}" v-if="showSettings">
+                        <a class="chatbox-cursor-pointer" uk-icon="icon: settings" title="settings" v-bind:class="{'uk-icon-light': (theme == 'dark')}"></a>                        
 
-        chatSocket.onclose = function(e) {
-            console.error('Chat socket closed unexpectedly');
-        };
+                        <!-- Settings - start -->
+                        <div class="chatbox-dropdown" uk-dropdown="pos: bottom-center; animation: uk-animation-slide-top-small; duration: 200">
+                            <div class=".uk-container-xsmall" v-if="themeControl">
+                                <span class="chatbox-dropdown-desc">Theme</span>
+                                <ul class="uk-subnav uk-subnav-pill chatbox-cursor-pointer">
+                                    <li v-bind:class="{'uk-active': (theme == 'light')}"><a class="chatbox-dropdown-li-radius-left" v-on:click="changeTheme">Light</a></li>
+                                    <li v-bind:class="{'uk-active': (theme == 'dark')}"><a class="chatbox-dropdown-li-radius-right" v-on:click="changeTheme">Dark</a></li>
+                                </ul>
+                            </div>
+                            <br v-if="themeControl && positionControl" />
+                            <div class=".uk-container-xsmall" v-if="positionControl">
+                                <span class="chatbox-dropdown-desc">Position</span>
+                                <ul class="uk-subnav uk-subnav-pill chatbox-cursor-pointer">
+                                    <li v-bind:class="{'uk-active': (position == 'left')}"><a class="chatbox-dropdown-li-radius-left" v-on:click="changePosition">Left</a></li>
+                                    <li v-bind:class="{'uk-active': (position == 'right')}"><a class="chatbox-dropdown-li-radius-right" v-on:click="changePosition">Right</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Settings - end -->
+                    </li>
+                    <li><a id="toggler" class="chatbox-cursor-pointer" uk-icon="icon: chevron-up" title="maximize" v-bind:class="{'uk-icon-light': (theme == 'dark')}" v-on:click="toggleApp"></a></li>
+                    <li><a class="chatbox-cursor-pointer" uk-icon="icon: close" title="close" v-on:click="closeApp" v-bind:class="{'uk-icon-light': (theme == 'dark')}"></a></li>
+                </ul>
+            </div>
+            <!-- Header - end -->
+            <!-- Content - start -->
+            <div id="chatbox-content" class="chatbox-content" v-bind:class="{'chatbox-content-show': expandApp}">            
 
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function(e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
+                <!-- Body - start -->
+                <div id="chatbox-body" class="uk-card-body uk-padding-small chatbox-body">
 
-        document.querySelector('#chat-message-submit').onclick = function(e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
-        };
-    </script>
-</body>
-</html>
+                    <!-- Status - start -->
+                    <div id="chatbox-status-container" style="height: 100%; width: 100%; text-align: center;" v-if="!ready & expandApp">
+                        <p class="uk-margin-remove uk-select-none"><span class="etc" v-bind:class="{'uk-icon-bg-light': (theme == 'dark')}"><i></i><i></i><i></i></span></p>
+                        <p id="chatbox-status" class="uk-margin-remove uk-select-none" style="color: black;" v-bind:class="{'uk-font-light': (theme == 'dark')}">Connecting...</p>
+                    </div>
+                    <!-- Status - end -->
+                    <!-- Chat context - start -->
+                    <div id="chat-log" v-if="ready & expandApp"></div>                    
+                    <!-- Chat context - end -->
+
+                </div>
+                <!-- Body - end -->                
+                <!-- Footer - start -->
+                <div class="uk-card-footer uk-padding-remove uk-stick-bottom" v-show="ready & expandApp">                    
+
+                    <div class="uk-grid-small uk-flex-middle uk-margin-small-left" uk-grid>
+                        <div class="uk-width-expand">
+                            <form class="uk-padding-small uk-padding-remove-horizontal">
+                                <textarea id="chat-message-input" class="uk-textarea uk-padding-remove uk-border-remove" rows="2" placeholder="Message..." v-on:keyup.enter="sendPackage" v-model="message" v-bind:class="{'uk-font-light': (theme == 'dark')}"></textarea>                                
+                            </form>
+                        </div>
+                        <div class="uk-width-auto">
+                            <ul class="uk-iconnav uk-margin-small-right">
+                                <li><a class="chatbox-cursor-pointer" uk-icon="icon: image" title="image" v-bind:class="{'uk-icon-light': (theme == 'dark')}"></a></li>
+                                <li><a id="chat-message-submit" class="chatbox-cursor-pointer chatbox-icon-blue" uk-icon="icon: forward" title="send"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- Footer - end -->
+            </div>
+            <!-- Content - end -->
+        </div>
+    </div>
+</div>
+<!-- Chatbox App - end -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'api/scripts/script.js' %}"></script>
