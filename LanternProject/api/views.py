@@ -1,5 +1,8 @@
 from django.shortcuts import render
 
+def template(request):
+    return render(request = request, context = {}, template_name = 'api/template.html')
+
 def index(request):
     return render(request = request, context = {}, template_name =  'api/index.html')
 

@@ -1,0 +1,274 @@
+.uk-card-small.uk-card-body {
+    padding: 5px 8px;
+    font-size: 13px;
+}
+
+.uk-border-remove {
+    border: 0 none;
+}
+
+.uk-textarea {
+    background: none !important;
+    resize: none;
+}
+
+@keyframes dot-anim {
+    100% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(0, -6px);
+    }
+
+    0% {
+        transform: translate(0, 0);
+    }
+}
+
+.etc i {
+    width: 6px;
+    height: 6px;
+    background: #222;
+    border-radius: 100%;
+    display: inline-block;
+    animation: dot-anim 1s infinite linear;
+    transform: translate(0, 0);
+}
+
+.etc {
+    display: block;
+    position: relative;
+}
+
+.etc i+i {
+    margin-left: 3px;
+}
+
+.etc i:nth-child(1) {
+    animation-delay: .5s;
+}
+
+.etc i:nth-child(2) {
+    animation-delay: .4s;
+}
+
+.etc i:nth-child(3) {
+    animation-delay: .3s;
+}
+
+.uk-card {
+    position: relative;
+    z-index: 1;
+}
+
+.agent .uk-card:after, .me .uk-card:after {
+    width: 10px;
+    height: 45px;
+    position: absolute;
+    bottom: 0;
+}
+
+.agent .uk-card:after {
+    background: #fff;
+    left: -4px;
+    clip-path: polygon(100% 70%, 0% 100%, 100% 100%);
+}
+
+.me .uk-card:after {
+    background: #1e87f0;
+    right: -4px;
+    clip-path: polygon(0 70%, 0% 100%, 100% 100%);
+}
+
+.uk-header {
+    padding: 10px;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 5px 5px 0px 0px;
+}
+
+.uk-float-right {
+    float: right;
+}
+
+.uk-float-left {
+    float: left;
+}
+
+.uk-flex {
+    display: flex;
+}
+
+.uk-flex-1 {
+    flex: 1;
+}
+
+.uk-hover-blue {
+    color: #1e87f0;
+    cursor: auto;
+}
+
+.chatbox-app {
+    padding-bottom: 30px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: none;
+}
+
+.chatbox-app-left {
+    right: auto;
+}
+
+.chatbox-app-show {
+    display: block;
+}
+
+.chatbox-body {
+    overflow-y: auto;
+}
+
+.chatbox-content {
+    opacity: 0;
+    height: 0;
+    transition: 1s;
+    transition-delay: 0.1s;
+}
+
+.chatbox-content-show {
+    opacity: 1;
+    height: 500px;
+    transition: 1s;    
+    transition-delay: 0.1s;
+}
+
+.chatbox-icon {
+    display: none;
+}
+
+.chatbox-icon-blue {
+    color: #1e87f0 !important;
+}
+
+.chatbox-icon-green {
+    color: #96d636 !important;
+}
+
+.chatbox-icon-yellow {
+    color: #ffed00 !important;
+}
+
+.chatbox-icon-red {
+    color: #ff0000 !important;
+}
+
+.chatbox-icon-show {
+    display: block;
+}
+
+.chatbox-icon-status {
+    font-size: 9px;
+    vertical-align: text-top;
+}
+
+.chatbox-cursor-pointer {
+    cursor: pointer;
+}
+
+.chatbox-dropdown {
+    padding: 15px;
+    border-radius   : 5px;
+}
+
+.chatbox-dropdown-desc {
+    padding: 0px;
+    font-size: 12px;
+    color: #999;
+}
+
+.chatbox-dropdown ul {
+    display: inline-flex;
+    margin: 0px;
+    border: 0.5px solid #e5e5e5;
+    border-radius: 7px;
+    float: right;
+}
+
+.chatbox-dropdown li {
+    padding: 0px;
+}
+
+.chatbox-dropdown-li-radius-left {
+    font-size: 10px !important;
+    padding: 5px 7px !important;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.chatbox-dropdown-li-radius-right {
+    font-size: 10px !important;
+    padding: 5px 7px !important;
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+
+.uk-app-dark {
+    background-color:rgb(58, 58, 58);
+    color: #ffffff;
+    transition: 0.5s;
+}
+
+.uk-app-light {
+    background-color: #ffffff;
+    color: #999 !important;
+    transition: 0.5s;
+}
+
+.uk-icon-light {
+    color:#ffffff !important;
+}
+
+.uk-icon-bg-light i {
+    background-color:#ffffff !important;
+}
+
+.uk-font-light {
+    color: #ffffff !important;
+}
+
+.uk-select-none {
+    user-select: none;
+    -moz-user-select: none;    
+    -webkit-user-select: none;
+}
+
+.uk-time-p {
+    color: #999;
+    font-size: 9px;    
+}
+
+.uk-border-rounded-agent {
+    border-radius: 5px 5px 5px 0px;
+}
+
+.uk-border-rounded-me {
+    border-radius: 5px 5px 0px 5px;
+}
+
+.uk-stick-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.header-high-contrast {
+    background-color: #1e87f0dc;
+}
+
+.header-high-contrast a {
+    color: #ffffff;
+}
+
+.header-high-contrast-span {
+    color: #ffffff;
+}
