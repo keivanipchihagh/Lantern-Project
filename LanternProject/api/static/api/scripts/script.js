@@ -37,6 +37,10 @@ const chatboxApp = new Vue({
     data: {
         packages: [],        
         session_token: null,
+        message: '',
+
+        roomName: null,
+        chatSocket: null,
 
         // General settings
         title: '',
@@ -47,9 +51,6 @@ const chatboxApp = new Vue({
 
         // Ready server
         ready: false,
-
-        // Current message
-        message: "",
 
         // State of App (Minimized | Maximized)
         expandApp: false,
@@ -78,38 +79,10 @@ const chatboxApp = new Vue({
     },
 
     methods: {
-        sendPackage: function () {
 
-            if (this.message && !/^\s*$/.test(this.message)) {
-
-                var package = { id: this.packages.length, message: this.message.trim(), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: "me" }
-
-                this.packages.push(package)
-
-                // AJAX POST Request
-                $.ajax({
-                    url: 'http://127.0.0.1:8000/api/v1/packages/send',
-                    type: 'POST',
-                    headers: {
-                        'X-CSRFToken': $("[name=csrfmiddlewaretoken]").val()
-                    },
-                    data: {
-                        token: this.session_token,
-                        message: package.message,
-                        datetime: new Date().toLocaleString().replace(',', ''),     // 0000/00/00 00:00:00 AM
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus);
-                        console.log(errorThrown);
-                        console.log(jqXHR);
-                    },
-                    success: function (data) {
-                        console.log('Package Sent Successfully.');
-                    },
-                });
-            }
-
-            this.message = "";
+        sendMessage: function () {
+            document.querySelector('#chat-message-input').focus();
+            document.querySelector('#chat-message-submit').click();
         },
 
         toggleApp: function () {
@@ -155,19 +128,25 @@ const chatboxApp = new Vue({
 
     mounted: function () {
 
-        // ------------------------------------------------------- Channels --------------------------------------------------------------------
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        // let newItem = new Vue(Object.assign({}, 'package', {
+        //     parent: this,
+        //     propsData: {
+        //         message: 'Hi',
+        //         _sender: 'me',
+        //         datetime: new Date().getTime(),
+        //         _id: 1
+        //     },
+        // })).$mount('#chat-log');
 
-        const chatSocket = new WebSocket(
-            'ws://'
-            + window.location.host
-            + '/ws/chat/'
-            + roomName
-            + '/'
-        );
+        // console.log(newItem);
+
+        // ------------------------------------------------------- Channels --------------------------------------------------------------------                
+
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/' );
 
         chatSocket.onmessage = function (e) {
-            const data = JSON.parse(e.data);
+            const data = JSON.parse(e.data);            
             document.querySelector('#chat-log').innerHTML += (data.message + '\n');
         };
 
@@ -175,12 +154,11 @@ const chatboxApp = new Vue({
             console.error('Chat socket closed unexpectedly');
         };
 
-        document.querySelector('#chat-message-input').focus();
-        document.querySelector('#chat-message-input').onkeyup = function (e) {
-            if (e.keyCode === 13) {  // enter, return
-                document.querySelector('#chat-message-submit').click();
-            }
-        };
+        // document.querySelector('#chat-message-input').focus();
+        // document.querySelector('#chat-message-input').onkeyup = function (e) {
+        //     if (e.keyCode === 13)
+        //         document.querySelector('#chat-message-submit').click();
+        // };
 
         document.querySelector('#chat-message-submit').onclick = function (e) {
             const messageInputDom = document.querySelector('#chat-message-input');
