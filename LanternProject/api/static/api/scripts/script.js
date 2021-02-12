@@ -202,15 +202,30 @@ const chatboxApp = new Vue({
     },
 
     components: {
-        'package': {
+        'SentPackage': {
             props: ['message', '_sender', 'datetime', '_id'],
 
             template: `
-                <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-text-right uk-flex" v-bind:class="[(this.sender == 'me') ? 'me' : 'agent']" uk-grid>
-                    <div class="uk-width-auto uk-flex-1" v-if="this.sender == 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-me" v-bind:class="[(this.sender == 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
-                    <div class="uk-width-auto" v-if="this.sender == 'me'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
-                    <div class="uk-width-auto" v-if="this.sender != 'me'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
-                    <div class="uk-width-auto uk-flex-1" v-if="this.sender != 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-agent" v-bind:class="[(this.sender == 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
+                <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-flex me" uk-grid>
+                <div class="uk-width-auto"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
+                    <div class="uk-width-auto uk-flex-1"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-me uk-card-default uk-float-left"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>                    
+                </div>`,
+
+            data: function () {
+                return {
+                    sender: this._sender,
+                    id: this._id,
+                }
+            }
+        },
+
+        'RecievedPackage': {
+            props: ['message', '_sender', 'datetime', '_id'],
+
+            template: `
+                <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-flex agent" uk-grid>                    
+                    <div class="uk-width-auto uk-flex-1"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-agent uk-card-primary uk-float-right"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
+                    <div class="uk-width-auto"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
                 </div>`,
 
             data: function () {

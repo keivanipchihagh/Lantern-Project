@@ -247,11 +247,11 @@
     font-size: 9px;    
 }
 
-.uk-border-rounded-agent {
+.uk-border-rounded-me {
     border-radius: 5px 5px 5px 0px;
 }
 
-.uk-border-rounded-me {
+.uk-border-rounded-agent {
     border-radius: 5px 5px 0px 5px;
 }
 
