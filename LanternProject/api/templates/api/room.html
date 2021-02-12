@@ -10,10 +10,10 @@
 </head>
 
 <body>
-    {{ room_name|json_script:"room-name" }}
+    {{ room_name|json_script:"room-name" }}        
 
     <!-- Chatbox App - start -->
-    <div id="chatbox-app" class="chatbox-app" v-bind:class="{'chatbox-app-show': showApp, 'chatbox-app-left': (position == 'left')}">
+    <div id="chatbox-app" class="chatbox-app" v-bind:class="{'chatbox-app-show': showApp, 'chatbox-app-left': (position == 'left')}">    
         <div class="uk-container uk-width-large">
             <div id="chatbox-container" class="uk-card uk-card-default uk-border-rounded uk-margin-large-top chat" v-bind:class="{'uk-app-dark': (theme == 'dark'), 'uk-app-light': (theme == 'light')}">
                 <!-- Header - start -->
@@ -62,7 +62,10 @@
                         </div>
                         <!-- Status - end -->
                         <!-- Chat context - start -->
-                        <div id="chat-log" v-if="ready & expandApp"></div>
+                        {% comment %} <div id="chat-log" v-if="ready & expandApp">
+                            <div v-for="RecievedPackage in packages" v-bind:key="RecievedPackage.id" v-bind:message="RecievedPackage.message" v-bind:datetime="RecievedPackage.datetime" v-bind:id="RecievedPackage.id"></div>
+                        </div> {% endcomment %}
+                        <div id="chat-log" is="package" v-for="package in packages" v-bind:key="package.id" v-bind:message="package.message" v-bind:_sender="package.sender" v-bind:datetime="package.datetime" v-bind:id="package.id" v-if="ready & expandApp"></div>
                         <!-- Chat context - end -->
 
                     </div>

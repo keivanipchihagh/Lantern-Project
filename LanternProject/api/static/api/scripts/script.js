@@ -75,14 +75,22 @@ const chatboxApp = new Vue({
         overrideHeight: false,
 
         // Text direction | Default: 'LTR'
-        dir: 'LTR',        
+        dir: 'LTR',
+
+
+
+        posts: [
+            { id: 1, title: 'My journey with Vue' },
+            { id: 2, title: 'Blogging with Vue' },
+            { id: 3, title: 'Why Vue is so fun' }
+          ]
     },
 
     methods: {
 
         sendMessage: function () {
             document.querySelector('#chat-message-input').focus();
-            document.querySelector('#chat-message-submit').click();
+            document.querySelector('#chat-message-submit').click();            
         },
 
         toggleApp: function () {
@@ -106,6 +114,9 @@ const chatboxApp = new Vue({
         changePosition: function () {
             this.position = (this.position == 'left') ? 'right' : 'left'
         },
+        printMessage: function(data) {
+            console.log(data);
+        },
         startSession: function () {
         
             $("#chatbox-status").text('Starting Session...')
@@ -126,19 +137,7 @@ const chatboxApp = new Vue({
         },
     },
 
-    mounted: function () {
-
-        // let newItem = new Vue(Object.assign({}, 'package', {
-        //     parent: this,
-        //     propsData: {
-        //         message: 'Hi',
-        //         _sender: 'me',
-        //         datetime: new Date().getTime(),
-        //         _id: 1
-        //     },
-        // })).$mount('#chat-log');
-
-        // console.log(newItem);
+    mounted: function () {        
 
         // ------------------------------------------------------- Channels --------------------------------------------------------------------                
 
@@ -147,18 +146,14 @@ const chatboxApp = new Vue({
 
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);            
-            document.querySelector('#chat-log').innerHTML += (data.message + '\n');
+
+            // Push to messages list
+            chatboxApp.packages.push({id: chatboxApp.packages.length, message: data.message, datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })})
         };
 
         chatSocket.onclose = function (e) {
             console.error('Chat socket closed unexpectedly');
         };
-
-        // document.querySelector('#chat-message-input').focus();
-        // document.querySelector('#chat-message-input').onkeyup = function (e) {
-        //     if (e.keyCode === 13)
-        //         document.querySelector('#chat-message-submit').click();
-        // };
 
         document.querySelector('#chat-message-submit').onclick = function (e) {
             const messageInputDom = document.querySelector('#chat-message-input');
@@ -206,13 +201,6 @@ const chatboxApp = new Vue({
         $('#chatbox-content').css({'max-height': (this.overrideHeight) ? this.height : $(document).height() * 0.5})
     },
 
-    watch: {
-        'session_token': function(token) {
-          if (token != null)
-            this.ready = true
-        }
-    },
-
     components: {
         'package': {
             props: ['message', '_sender', 'datetime', '_id'],
@@ -223,8 +211,7 @@ const chatboxApp = new Vue({
                     <div class="uk-width-auto" v-if="this.sender == 'me'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
                     <div class="uk-width-auto" v-if="this.sender != 'me'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
                     <div class="uk-width-auto uk-flex-1" v-if="this.sender != 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-agent" v-bind:class="[(this.sender == 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
-                </div>
-                `,
+                </div>`,
 
             data: function () {
                 return {
