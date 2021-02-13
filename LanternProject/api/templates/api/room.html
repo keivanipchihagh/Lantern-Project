@@ -61,9 +61,8 @@
                             <p id="chatbox-status" class="uk-margin-remove uk-select-none" style="color: black;" v-bind:class="{'uk-font-light': (theme == 'dark')}">Connecting...</p>
                         </div>
                         <!-- Status - end -->
-                        <!-- Chat context - start -->
-                        <div id="chat-log" is="RecievedPackage" v-for="package in packages" v-bind:key="package.id" v-bind:message="package.message" v-bind:_sender="package.sender" v-bind:datetime="package.datetime" v-bind:id="package.id" v-if="ready & expandApp"></div>
-                        <!-- Chat context - end -->
+
+                        <div id="chat-log" is="package" v-for="package in packages" v-bind:key="package.id" v-bind:_sender="package.sender" v-bind:message="package.message" v-bind:datetime="package.datetime" v-bind:id="package.id" v-if="ready & expandApp"></div>
 
                     </div>
                     <!-- Body - end -->
