@@ -86,7 +86,7 @@ const chatboxApp = new Vue({
 
             if (!this.active) {
                 this.startSession()
-                this.active = !this.active                
+                this.active = !this.active
             }
 
             document.querySelector('#chat-message-input').focus()
@@ -139,7 +139,7 @@ const chatboxApp = new Vue({
                 const messageInputDom = document.querySelector('#chat-message-input')
                 const message = messageInputDom.value
 
-                var package = { id: chatboxApp.packages.length, message: message, datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'me' }
+                var package = { id: chatboxApp.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'me' }
 
                 chatSocket.send(JSON.stringify({
                     'id': package['id'],
