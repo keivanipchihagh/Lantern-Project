@@ -1,4 +1,4 @@
-config = { 
+config = {
     'lantern-project': {
         'id': '012023',                                  // Unique ID for the client
         'version': '1.0.0',                              // App version
@@ -36,13 +36,15 @@ const chatboxApp = new Vue({
 
     data: {
         packages: [],
+        api_key: 'a531e3b1d0231ee1fc32bb8346a76979',
+        session_token: '',
 
         // General settings
         title: '',
         headerHighContrast: false,
 
         // Visible
-        showSettings: true,        
+        showSettings: true,
 
         // Ready server
         ready: false,
@@ -76,22 +78,19 @@ const chatboxApp = new Vue({
     methods: {
 
         sendMessage: function () {
-            document.querySelector('#chat-message-input').focus();
-            document.querySelector('#chat-message-submit').click();            
+            document.querySelector('#chat-message-submit').click()
         },
-
         toggleApp: function () {
             $("#toggler").attr({ "uk-icon": function (index, currentvalue) { return (currentvalue == "icon: chevron-down") ? "icon: chevron-up" : "icon: chevron-down" }, "title": function (index, currentvalue) { return (currentvalue == "minimize") ? "maximize" : "minimize" } })
-            this.expandApp = !this.expandApp
+            this.expandApp = !this.expandApp            
 
             if (!this.active) {
-                // this.startSession()
+                this.startSession()
+                this.active = !this.active                
+            }
 
-                this.active = !this.active
-                this.ready = true
-            }            
+            document.querySelector('#chat-message-input').focus()
         },
-
         closeApp: function () {
             this.showApp = false
         },
@@ -101,70 +100,66 @@ const chatboxApp = new Vue({
         changePosition: function () {
             this.position = (this.position == 'left') ? 'right' : 'left'
         },
-        printMessage: function(data) {
-            console.log(data);
-        },
         startSession: function () {
-        
-            // $("#chatbox-status").text('Starting Session...')
 
-            // $.ajax({
-            //     url: 'http://127.0.0.1:8000/api/v1/sessions/start',
-            //     type: 'GET',
-            //     context: this,      // Essential for VueJS
-            //     error: function (jqXHR, textStatus, errorThrown) {
-            //         console.log(textStatus);
-            //         console.log(errorThrown);
-            //         console.log(jqXHR);
-            //     },
-            //     success: function (data) {
-            //         this.session_token = data; console.log('Session started successfully.');
-            //     },
-            // });
+            $("#chatbox-status").text('Starting Session...')
+
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/sessions/start',
+                type: 'GET',
+                context: this,      // Essential for VueJS
+                data: {
+                    'key': this.api_key
+                },
+                error: function () {
+                    console.log('There was a problem creating a session.');
+                },
+                success: function (data) {
+                    this.ready = true
+                    this.session_token = data       // Set session token
+                    this.startSocket()              // Start socket
+                    console.log('Session started successfully.');
+                },
+            });
         },
-        messageExists: function(id) {
+        startSocket: function () {
+
+            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + this.session_token + '/');
+
+            chatSocket.onmessage = function (e) {
+                const data = JSON.parse(e.data)
+
+                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'agent' }
+
+                // Push agent packages only
+                if (!chatboxApp.messageExists(package['id'])) chatboxApp.packages.push(package)
+            }
+
+            document.querySelector('#chat-message-submit').onclick = function (e) {
+                const messageInputDom = document.querySelector('#chat-message-input')
+                const message = messageInputDom.value
+
+                var package = { id: chatboxApp.packages.length, message: message, datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'me' }
+
+                chatSocket.send(JSON.stringify({
+                    'id': package['id'],
+                    'message': package['message'],
+                    'datetime': package['datetime'],
+                }));
+
+                messageInputDom.value = ''
+                chatboxApp.packages.push(package)
+            }
+
+            chatSocket.onclose = function (e) { console.error('Server unexpectedly closed the connection.') }
+        },
+        messageExists: function (id) {
             for (var i = 0; i < this.packages.length; i++) if (this.packages[i]['id'] == id) return true
             return false
-        }
+        },
     },
 
-    mounted: function () {        
-
-        // ------------------------------------------------------- Channels --------------------------------------------------------------------                
-
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
-        const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + roomName + '/' );
-
-        chatSocket.onmessage = function (e) {
-            const data = JSON.parse(e.data);
-            
-            var package = {id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'agent'}
-        
-            // Push to messages list
-            if (!chatboxApp.messageExists(package['id']))
-                chatboxApp.packages.push(package)
-        };
-
-        chatSocket.onclose = function (e) {
-            console.error('Chat socket closed unexpectedly');
-        };
-
-        document.querySelector('#chat-message-submit').onclick = function (e) {
-            const messageInputDom = document.querySelector('#chat-message-input');
-            const message = messageInputDom.value;
-
-            var package = {id: chatboxApp.packages.length, message: message, datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'me'}
-
-            chatSocket.send(JSON.stringify({
-                'id': package['id'],
-                'message': package['message'],
-                'datetime': package['datetime'],
-            }));
-            messageInputDom.value = '';
-
-            chatboxApp.packages.push(package)
-        };
-        // ------------------------------------------------------- Channels --------------------------------------------------------------------
+    mounted: function () {
 
         // global
         this.token = config['lantern-project']['token']
@@ -199,7 +194,7 @@ const chatboxApp = new Vue({
         // Set settings
         $('#chatbox-app').css('padding-bottom', this.paddingBottom)
         $('#chatbox-app').children(0).css({ 'padding-left': this.paddingSides, 'padding-right': this.paddingSides, 'width': this.width })
-        $('#chatbox-content').css({'max-height': (this.overrideHeight) ? this.height : $(document).height() * 0.5})
+        $('#chatbox-content').css({ 'max-height': (this.overrideHeight) ? this.height : $(document).height() * 0.5 })
     },
 
     components: {
