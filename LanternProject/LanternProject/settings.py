@@ -36,10 +36,13 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
-    'channels',                         # channels
-    'api.apps.ApiConfig',               # api
-    'core.apps.CoreConfig',               # core
+    'django.contrib.staticfiles',
+
+    'channels',                             # channels
+    
+    'api.apps.ApiConfig',                   # api
+    'core.apps.CoreConfig',                 # core
+    'dashboard.apps.DashBoardConfig',       # dashboard
 ]
 
 MIDDLEWARE = [
