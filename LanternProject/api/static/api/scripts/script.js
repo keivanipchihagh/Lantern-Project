@@ -30,7 +30,7 @@ config = {
     }
 }
 
-const chatboxApp = new Vue({
+const App = new Vue({
 
     el: "#chatbox-app",
 
@@ -132,14 +132,14 @@ const chatboxApp = new Vue({
                 var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'agent' }
 
                 // Push agent packages only
-                if (!chatboxApp.messageExists(package['id'])) chatboxApp.packages.push(package)
+                if (!App.messageExists(package['id'])) App.packages.push(package)
             }
 
             document.querySelector('#chat-message-submit').onclick = function (e) {
                 const messageInputDom = document.querySelector('#chat-message-input')
                 const message = messageInputDom.value
 
-                var package = { id: chatboxApp.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'me' }
+                var package = { id: App.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'me' }
 
                 chatSocket.send(JSON.stringify({
                     'id': package['id'],
@@ -148,7 +148,7 @@ const chatboxApp = new Vue({
                 }));
 
                 messageInputDom.value = ''
-                chatboxApp.packages.push(package)
+                App.packages.push(package)
             }
 
             chatSocket.onclose = function (e) { console.error('Server unexpectedly closed the connection.') }
@@ -198,7 +198,7 @@ const chatboxApp = new Vue({
     },
 
     components: {
-        'package': {
+        'Package': {
             props: ['message', '_sender', 'datetime', '_id'],
 
             template: `

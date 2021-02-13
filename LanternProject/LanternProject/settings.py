@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',    
     'channels',                         # channels
     'api.apps.ApiConfig',               # api
+    'core.apps.CoreConfig',               # core
 ]
 
 MIDDLEWARE = [
