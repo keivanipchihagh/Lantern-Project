@@ -1,6 +1,10 @@
-from django.http.response import HttpResponse
+# Django packages
+from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseForbidden
 from django.shortcuts import render
-import secrets
+
+# Core Models
+from core.models import CoreSite as Site
+
 
 def index(request):
     return render(request = request, context = {}, template_name =  'api/index.html')
@@ -11,5 +15,18 @@ def room(request, room_name):
 
 
 def create_session(request):
-    # return HttpResponse(secrets.token_hex(16))
-    return HttpResponse(request.GET['key'])
+    
+    URL = request.META['HTTP_HOST']    
+
+    try:
+        site_ref = Site.objects.get(url = URL)
+
+        if site_ref.public_key == request.GET['key']:
+            return HttpResponse(request.GET['key'])
+        else:
+            return HttpResponseForbidden()     # Invalid API key
+
+    except Site.DoesNotExist:   # Request URL match not found in database
+        return HttpResponseBadRequest()
+
+    

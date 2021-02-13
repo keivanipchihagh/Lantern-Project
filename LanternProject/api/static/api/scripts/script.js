@@ -36,7 +36,7 @@ const App = new Vue({
 
     data: {
         packages: [],
-        api_key: 'a531e3b1d0231ee1fc32bb8346a76979',
+        api_key: '123456789',
         session_token: '',
 
         // General settings
