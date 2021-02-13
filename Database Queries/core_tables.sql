@@ -8,12 +8,12 @@ CREATE TABLE `core_package` (
 
 CREATE TABLE `core_session` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
-  `url` varchar(50) NOT NULL COMMENT 'The URL the session was created for',
   `session_key` varchar(64) UNIQUE NOT NULL COMMENT 'Unique key for the session',
   `status` ENUM ('open', 'closed') NOT NULL COMMENT 'Current state of the session',
-  `start` datetime NOT NULL COMMENT 'Starting datetime',
-  `end` datetime COMMENT 'Ending datetime',
-  `user_id` int NOT NULL COMMENT 'Foreign Key'
+  `date_opened` datetime NOT NULL COMMENT 'Starting datetime',
+  `date_closed` datetime COMMENT 'Ending datetime',
+  `user_id` int COMMENT 'Foreign Key',
+  `site_id` int NOT NULL COMMENT 'Foreign Key'
 );
 
 CREATE TABLE `core_user` (
@@ -46,3 +46,5 @@ ALTER TABLE `core_package` ADD FOREIGN KEY (`session_id`) REFERENCES `core_sessi
 ALTER TABLE `core_session` ADD FOREIGN KEY (`user_id`) REFERENCES `core_user` (`id`);
 
 ALTER TABLE `core_user` ADD FOREIGN KEY (`site_id`) REFERENCES `core_site` (`id`);
+
+ALTER TABLE `core_session` ADD FOREIGN KEY (`site_id`) REFERENCES `core_site` (`id`);
