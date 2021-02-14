@@ -1,4 +1,4 @@
-const ChatboxApp = new Vue({
+const App = new Vue({
 
     // el: "#chatbox-app",
     el: "#app",
@@ -15,16 +15,12 @@ const ChatboxApp = new Vue({
         expandHeader: false,
         showHeader: false,
         expandApp: false,
-        active: false,
 
         // Visibility of the App
         showApp: true,
 
         // Theme
-        theme: 'light',
-
-        // Position
-        position: 'right',        
+        isDark: false,
     },
 
     methods: {
@@ -33,6 +29,11 @@ const ChatboxApp = new Vue({
             document.querySelector('#chat-message-submit').click()
         },
         toggleHeader: function() {
+
+            // No action when app is already open
+            if (this.expandApp)
+                return
+
             this.expandHeader = !this.expandHeader
 
             var self = this
@@ -46,10 +47,8 @@ const ChatboxApp = new Vue({
             $("#toggler").attr({ "uk-icon": function (index, currentvalue) { return (currentvalue == "icon: chevron-down") ? "icon: chevron-up" : "icon: chevron-down" }, "title": function (index, currentvalue) { return (currentvalue == "minimize") ? "maximize" : "minimize" } })
             this.expandApp = !this.expandApp            
 
-            if (!this.active) {
+            if (!this.ready)
                 this.startSession()
-                this.active = !this.active
-            }
 
             document.querySelector('#chat-message-input').focus()
         },
@@ -57,14 +56,9 @@ const ChatboxApp = new Vue({
             this.showApp = false
         },
         changeTheme: function () {
-            this.theme = (this.theme == 'light') ? 'dark' : 'light'
-        },
-        changePosition: function () {
-            this.position = (this.position == 'left') ? 'right' : 'left'
+            this.isDark = !this.isDark
         },
         startSession: function () {
-
-            $("#chatbox-status").text('Starting Session...')
 
             $.ajax({
                 url: 'http://127.0.0.1:8000/api/v1/services/sessions/start',
@@ -80,7 +74,7 @@ const ChatboxApp = new Vue({
                     this.ready = true
                     this.session_token = data       // Set session token
                     this.startSocket()              // Start socket
-                    console.log('Session started successfully.');
+                    console.log('Session started.');
                 },
             });
         },
@@ -131,10 +125,10 @@ const ChatboxApp = new Vue({
 
             template: `
                 <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-text-left uk-flex" v-bind:class="[(this.sender != 'me') ? 'me' : 'agent']" uk-grid>
-                    <div class="uk-width-auto uk-flex-1" v-if="this.sender != 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-me" v-bind:class="[(this.sender != 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
+                    <div class="uk-width-auto uk-flex-1" v-if="this.sender != 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type1" v-bind:class="[(this.sender != 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
                     <div class="uk-width-auto" v-if="this.sender != 'me'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
                     <div class="uk-width-auto" v-if="this.sender == 'me'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
-                    <div class="uk-width-auto uk-flex-1" v-if="this.sender == 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-agent" v-bind:class="[(this.sender != 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
+                    <div class="uk-width-auto uk-flex-1" v-if="this.sender == 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type2" v-bind:class="[(this.sender != 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
                 </div>`,
 
             data: function () {
