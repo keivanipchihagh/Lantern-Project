@@ -105,7 +105,7 @@ const App = new Vue({
             $("#chatbox-status").text('Starting Session...')
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/sessions/start',
+                url: 'http://127.0.0.1:8000/api/v1/services/sessions/start',
                 type: 'GET',
                 context: this,      // Essential for VueJS
                 data: {
@@ -124,7 +124,7 @@ const App = new Vue({
         },
         startSocket: function () {
 
-            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/chat/' + this.session_token + '/');
+            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/session/' + this.session_token + '/');
 
             chatSocket.onmessage = function (e) {
                 const data = JSON.parse(e.data)

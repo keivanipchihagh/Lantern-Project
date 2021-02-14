@@ -9,8 +9,8 @@ from core.models import CoreSite as Site
 from core.models import CoreSession as Session
 
 
-def room(request, room_name):
-    return render(request = request, context = {'room_name': room_name}, template_name = 'api/room.html')
+def room(request):
+    return render(request = request, context = {}, template_name = 'api/room.html')
 
 
 def create_session(request):

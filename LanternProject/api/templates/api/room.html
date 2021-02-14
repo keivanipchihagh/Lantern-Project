@@ -10,8 +10,7 @@
     <link href="{% static 'api/styles/style.css' %}" type="text/css" rel="stylesheet" />
 </head>
 
-<body>
-    {{ room_name|json_script:"room-name" }}        
+<body>    
 
     <!-- Chatbox App - start -->
     <div id="chatbox-app" class="chatbox-app" v-bind:class="{'chatbox-app-show': showApp, 'chatbox-app-left': (position == 'left')}">    
