@@ -11,52 +11,6 @@
     background: none !important;
     resize: none;
 }
-
-@keyframes dot-anim {
-    100% {
-        transform: translate(0, 0);
-    }
-
-    50% {
-        transform: translate(0, -6px);
-    }
-
-    0% {
-        transform: translate(0, 0);
-    }
-}
-
-.etc i {
-    width: 6px;
-    height: 6px;
-    background: #222;
-    border-radius: 100%;
-    display: inline-block;
-    animation: dot-anim 1s infinite linear;
-    transform: translate(0, 0);
-}
-
-.etc {
-    display: block;
-    position: relative;
-}
-
-.etc i+i {
-    margin-left: 3px;
-}
-
-.etc i:nth-child(1) {
-    animation-delay: .5s;
-}
-
-.etc i:nth-child(2) {
-    animation-delay: .4s;
-}
-
-.etc i:nth-child(3) {
-    animation-delay: .3s;
-}
-
 .uk-card {
     position: relative;
     z-index: 1;
@@ -252,4 +206,20 @@
     background-color: #ffffff;
     color: #999 !important;
     transition: 0.5s;
+}
+
+.uk-etc-dot {
+    font-size: 25px;
+    position: absolute;
+    color: white;
+    z-index: 9999;
+    top: 0px;
+}
+
+.uk-etc-dot-show {
+    display: block;
+}
+
+.uk-etc-dot-hide {
+    display: none;
 }

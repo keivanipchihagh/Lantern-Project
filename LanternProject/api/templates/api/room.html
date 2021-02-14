@@ -17,8 +17,11 @@
         <div class="head">
             <!-- Logo - start -->
             <div class="app-logo" v-on:mouseover="toggleHeader">
-                <img src="{% static 'api/images/logo.png' %}" />
+                <img src="{% static 'api/images/logo.png' %}" />                
             </div>
+            <span id="dot_1" class="uk-etc-dot uk-etc-dot-hide" style="left: -13px">•</span>
+            <span id="dot_2" class="uk-etc-dot uk-etc-dot-hide" style="left: -5px">•</span>
+            <span id="dot_3" class="uk-etc-dot uk-etc-dot-hide" style="left: 3px">•</span>
             <!-- Logo - end -->
             <!-- Header - start -->
             <div id="app-header" class="uk-width-auto app-header" v-bind:class="{'app-header-expand': expandHeader}">

@@ -21,6 +21,9 @@ const App = new Vue({
 
         // Theme
         isDark: false,
+
+        // Etc toggle
+        dotToToggle: 0,
     },
 
     methods: {
@@ -42,10 +45,7 @@ const App = new Vue({
             else
                 self.showHeader = false
         },
-        toggleApp: function () {
-
-            $("#toggler").attr({ "uk-icon": function (index, currentvalue) { return (currentvalue == "icon: chevron-down") ? "icon: chevron-up" : "icon: chevron-down" }, "title": function (index, currentvalue) { return (currentvalue == "minimize") ? "maximize" : "minimize" } })
-            this.expandApp = !this.expandApp            
+        toggleApp: function () {            
 
             if (!this.ready)
                 this.startSession()
@@ -60,6 +60,10 @@ const App = new Vue({
         },
         startSession: function () {
 
+            var self = this
+            var dots = [$("#dot_1"), $("#dot_2"), $("#dot_3")]
+            var await = setInterval(function() {dots[self.dotToToggle++].toggleClass('uk-etc-dot-show uk-etc-dot-hide'); if (self.dotToToggle == 3) self.dotToToggle = 0; }, 500)
+
             $.ajax({
                 url: 'http://127.0.0.1:8000/api/v1/services/sessions/start',
                 type: 'GET',
@@ -71,10 +75,19 @@ const App = new Vue({
                     console.log('There was a problem creating a session.');
                 },
                 success: function (data) {
-                    this.ready = true
-                    this.session_token = data       // Set session token
-                    this.startSocket()              // Start socket
+                    this.ready = true                       // Ready status
+                    this.session_token = data               // Set session token                    
+                    this.startSocket()                      // Start socket
                     console.log('Session started.');
+
+                    // Open chat when ready
+                    this.expandApp = !this.expandApp
+                    $("#toggler").attr({ "uk-icon": function (index, currentvalue) { return (currentvalue == "icon: chevron-down") ? "icon: chevron-up" : "icon: chevron-down" }, "title": function (index, currentvalue) { return (currentvalue == "minimize") ? "maximize" : "minimize" } })            
+
+                    clearInterval(await)
+                    dots.map(function(e) {
+                        e.addClass('uk-etc-dot-hide')
+                    })
                 },
             });
         },
