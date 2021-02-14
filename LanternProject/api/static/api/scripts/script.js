@@ -1,78 +1,30 @@
-config = {
-    'lantern-project': {
-        'id': '012023',                                  // Unique ID for the client
-        'version': '1.0.0',                              // App version
+const ChatboxApp = new Vue({
 
-        'settings': {
-            'position': {
-                'default': 'right',                     // Default position (right | left)
-                'control': 'true',                      // User control over position (true | false)
-                'padding-bottom': '30px',               // Bottom padding
-                'padding-sides': '40px',                // Sides padding
-            },
-            'size': {
-                'width': '420px',                       // Width
-                'height': '500px',                      // Height
-                'override-height': 'false'              // When 'true', max-height will be ignored (true | false)
-            },
-            'theme': {
-                'default': 'light',                     // Default theme (light | dark)
-                'control': 'true'                       // User control over (true | false)
-            },
-            'dir': {
-                'default': 'LTR'                        // Text direction (LTR | RTL)
-            },
-            'general': {
-                'title': 'Live Support',                // Title
-                'header-high-contrast': 'false'         // High contrast for header
-            }
-        },
-    }
-}
-
-const App = new Vue({
-
-    el: "#chatbox-app",
+    // el: "#chatbox-app",
+    el: "#app",
 
     data: {
         packages: [],
         api_key: '123456789',
         session_token: '',
-
-        // General settings
-        title: '',
-        headerHighContrast: false,
-
-        // Visible
-        showSettings: true,
-
+        
         // Ready server
         ready: false,
 
         // State of App (Minimized | Maximized)
+        expandHeader: false,
+        showHeader: false,
         expandApp: false,
         active: false,
 
         // Visibility of the App
         showApp: true,
 
-        // Theme | Default: 'light' | Default-Control: 'true'
+        // Theme
         theme: 'light',
-        themeControl: true,
 
-        // Position | Default: 'right' | Default-Control: 'true'
-        position: 'right',
-        positionControl: true,
-        paddingBottom: 0,
-        paddingSides: 0,
-
-        // Size
-        width: 0,
-        height: 0,
-        overrideHeight: false,
-
-        // Text direction | Default: 'LTR'
-        dir: 'LTR',
+        // Position
+        position: 'right',        
     },
 
     methods: {
@@ -80,7 +32,17 @@ const App = new Vue({
         sendMessage: function () {
             document.querySelector('#chat-message-submit').click()
         },
+        toggleHeader: function() {
+            this.expandHeader = !this.expandHeader
+
+            var self = this
+            if (this.expandHeader)
+                setTimeout(function() { self.showHeader = true }, 350)
+            else
+                self.showHeader = false
+        },
         toggleApp: function () {
+
             $("#toggler").attr({ "uk-icon": function (index, currentvalue) { return (currentvalue == "icon: chevron-down") ? "icon: chevron-up" : "icon: chevron-down" }, "title": function (index, currentvalue) { return (currentvalue == "minimize") ? "maximize" : "minimize" } })
             this.expandApp = !this.expandApp            
 
@@ -160,41 +122,7 @@ const App = new Vue({
     },
 
     mounted: function () {
-
-        // global
-        this.token = config['lantern-project']['token']
-
-        // settings - theme
-        this.theme = config['lantern-project']['settings']['theme']['default']
-        this.themeControl = (config['lantern-project']['settings']['theme']['control'] == 'true')
-
-        // settings - position
-        this.position = config['lantern-project']['settings']['position']['default']
-        this.positionControl = (config['lantern-project']['settings']['position']['control'] == 'true')
-        this.paddingBottom = config['lantern-project']['settings']['position']['padding-bottom']
-        this.paddingSides = config['lantern-project']['settings']['position']['padding-sides']
-
-        // settings - size
-        this.width = config['lantern-project']['settings']['size']['width']
-        this.height = config['lantern-project']['settings']['size']['height']
-        this.overrideHeight = (config['lantern-project']['settings']['size']['override-height'] == 'true')
-
-        // settings - dir
-        this.dir = config['lantern-project']['settings']['dir']['default']
-
-        // settings - general
-        this.title = config['lantern-project']['settings']['general']['title']
-        $("#title").html('&nbsp; ' + this.title)
-        this.headerHighContrast = (config['lantern-project']['settings']['general']['header-high-contrast'] == 'true')
-
-        // Hides the Settings panel if no settings are shown
-        if (!(this.positionControl || this.themeControl))
-            this.showSettings = false
-
-        // Set settings
-        $('#chatbox-app').css('padding-bottom', this.paddingBottom)
-        $('#chatbox-app').children(0).css({ 'padding-left': this.paddingSides, 'padding-right': this.paddingSides, 'width': this.width })
-        $('#chatbox-content').css({ 'max-height': (this.overrideHeight) ? this.height : $(document).height() * 0.5 })
+        $('#app-content').css({ 'max-height': $(document).height() * 0.5 })
     },
 
     components: {

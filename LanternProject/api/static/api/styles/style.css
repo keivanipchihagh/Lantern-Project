@@ -81,12 +81,6 @@
     clip-path: polygon(0 70%, 0% 100%, 100% 100%);
 }
 
-.uk-header {
-    padding: 10px;
-    border-bottom: 1px solid #e5e5e5;
-    border-radius: 5px 5px 0px 0px;
-}
-
 .uk-float-right {
     float: right;
 }
@@ -109,11 +103,16 @@
 }
 
 .chatbox-app {
-    padding-bottom: 30px;
     position: fixed;
     bottom: 0;
     right: 0;
     display: none;
+}
+
+.chatbox-box {
+    margin: 20px;
+    padding: 0px;
+    width: 350px;
 }
 
 .chatbox-app-left {
@@ -126,20 +125,6 @@
 
 .chatbox-body {
     overflow-y: auto;
-}
-
-.chatbox-content {
-    opacity: 0;
-    height: 0;
-    transition: 1s;
-    transition-delay: 0.1s;
-}
-
-.chatbox-content-show {
-    opacity: 1;
-    height: 500px;
-    transition: 1s;    
-    transition-delay: 0.1s;
 }
 
 .chatbox-icon {
@@ -271,4 +256,80 @@
 
 .header-high-contrast-span {
     color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.app {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;   
+    margin: 30px;
+    box-shadow: 0px 0px 20px rgb(0 0 0 / 10%);
+}
+
+.head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app-logo {    
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    left: -30px;
+    position: absolute;
+    z-index: 999;
+    box-shadow: 0px 0px 20px rgb(0 0 0 / 10%);
+}
+
+.app-logo img {
+    width: 100%;
+    height: 100%;
+    -webkit-user-drag: none;
+}
+
+.app-header {
+    width: 0px;
+    height: 40px;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: width 0.5s;
+}
+
+.app-header-expand {
+    width: 300px;
+    height: 40px;
+    transition: width 0.5s;
+}
+
+.app-header-container {
+    margin-left: 30px;
+}
+
+.app-content {
+    opacity: 0;
+    height: 0;
+    transition: 1s;
+    transition-delay: 0.1s;
+}
+
+.app-content-show {
+    opacity: 1;
+    height: 500px;
+    transition: 1s;    
+    transition-delay: 0.1s;
 }
