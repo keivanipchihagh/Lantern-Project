@@ -114,23 +114,22 @@
     cursor: pointer;
 }
 
-.app-icon {
-    display: none;
-}
-
 .app-header {
     width: 0px;
     height: 40px;
     cursor: pointer;
     padding: 10px;
     border-radius: 5px;
-    transition: width 0.5s;
+    opacity: 0;
+    transition: 0.5s;
+    overflow: hidden;
 }
 
 .app-header-expand {
     width: 300px;
     height: 40px;
-    transition: width 0.5s;
+    opacity: 1;
+    transition: 0.5s;
 }
 
 .app-header-container {
@@ -188,6 +187,14 @@
     border-bottom-right-radius: 7px;
 }
 
+.app-icon {
+    display: none;
+}
+
+.app-icon:hover {
+    color: #1b7fe2 !important;
+}
+
 .app-icon-show {
     display: block !important;
 }
@@ -221,5 +228,21 @@
 }
 
 .uk-etc-dot-hide {
+    display: none;
+}
+
+.uk-margin-small {
+    margin: 10px !important;
+}
+
+.uk-border-top {
+    border-top: 1px solid #999;
+}
+
+ul, li {
+    overflow: hidden;
+}
+
+.app-icon-hide {
     display: none;
 }

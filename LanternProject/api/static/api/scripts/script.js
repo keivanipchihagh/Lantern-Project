@@ -32,24 +32,18 @@ const App = new Vue({
             document.querySelector('#chat-message-submit').click()
         },
         toggleHeader: function() {
-
-            // No action when app is already open
-            if (this.expandApp)
-                return
-
-            this.expandHeader = !this.expandHeader
-
-            var self = this
-            if (this.expandHeader)
-                setTimeout(function() { self.showHeader = true }, 350)
-            else
-                self.showHeader = false
+            if (!this.expandApp)
+                this.expandHeader = !this.expandHeader         
         },
-        toggleApp: function () {            
+        toggleApp: function () {
 
             if (!this.ready)
                 this.startSession()
-
+            else {
+                this.expandApp = !this.expandApp
+                $("#toggler").attr({ "uk-icon": function (index, currentvalue) { return (currentvalue == "icon: chevron-down") ? "icon: chevron-up" : "icon: chevron-down" }})            
+            }
+            
             document.querySelector('#chat-message-input').focus()
         },
         closeApp: function () {
@@ -98,7 +92,7 @@ const App = new Vue({
             chatSocket.onmessage = function (e) {
                 const data = JSON.parse(e.data)
 
-                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'agent' }
+                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'me' }
 
                 // Push agent packages only
                 if (!App.messageExists(package['id'])) App.packages.push(package)
@@ -108,7 +102,7 @@ const App = new Vue({
                 const messageInputDom = document.querySelector('#chat-message-input')
                 const message = messageInputDom.value
 
-                var package = { id: App.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'me' }
+                var package = { id: App.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
 
                 chatSocket.send(JSON.stringify({
                     'id': package['id'],
@@ -129,7 +123,7 @@ const App = new Vue({
     },
 
     mounted: function () {
-        $('#app-content').css({ 'max-height': $(document).height() * 0.5 })
+        $('#app-content').css({ 'max-height': $(document).height() * 0.5 })       
     },
 
     components: {

@@ -17,7 +17,7 @@
         <div class="head">
             <!-- Logo - start -->
             <div class="app-logo" v-on:mouseover="toggleHeader">
-                <img src="{% static 'api/images/logo.png' %}" />                
+                <img src="{% static 'api/images/logo.png' %}" />
             </div>
             <span id="dot_1" class="uk-etc-dot uk-etc-dot-hide" style="left: -13px">•</span>
             <span id="dot_2" class="uk-etc-dot uk-etc-dot-hide" style="left: -5px">•</span>
@@ -25,11 +25,11 @@
             <!-- Logo - end -->
             <!-- Header - start -->
             <div id="app-header" class="uk-width-auto app-header" v-bind:class="{'app-header-expand': expandHeader}">
-                <div class="app-header-container" v-if="showHeader">
-                    <span id="title" class="app-cursor-pointer" v-on:click="toggleApp">Lantern Project</span>
+                <div id="app-header-content" class="app-header-container">
+                    <span class="app-cursor-pointer" v-on:click="toggleApp">Live Support</span>
                     <ul class="uk-iconnav uk-margin-small-right uk-float-right">
-                        <li class="app-icon" v-bind:class="{'app-icon-show': expandApp}">
-                            <a class="app-cursor-pointer" uk-icon="icon: settings" title="settings" v-bind:class="{'uk-icon-light': isDark}"></a>
+                        <li v-bind:class="{'app-icon-hide': !expandApp}">
+                            <a class="app-cursor-pointer app-icon" uk-icon="icon: settings" v-bind:class="{'uk-icon-light': isDark}"></a>
 
                             <!-- Settings - start -->
                             <div class="app-dropdown" uk-dropdown="pos: bottom-center; animation: uk-animation-slide-top-small; duration: 200">
@@ -43,8 +43,8 @@
                             </div>
                             <!-- Settings - end -->
                         </li>
-                        <li><a id="toggler" class="app-cursor-pointer" uk-icon="icon: chevron-up" title="maximize" v-bind:class="{'uk-icon-light': isDark}" v-on:click="toggleApp"></a></li>
-                        <li><a class="app-cursor-pointer" uk-icon="icon: close" title="close" v-on:click="closeApp" v-bind:class="{'uk-icon-light': isDark}"></a></li>
+                        <li><a id="toggler" class="app-cursor-pointer app-icon" uk-icon="icon: chevron-up" v-bind:class="{'uk-icon-light': isDark}" v-on:click="toggleApp"></a></li>
+                        <li><a class="app-cursor-pointer app-icon" uk-icon="icon: close" v-on:click="closeApp" v-bind:class="{'uk-icon-light': isDark}"></a></li>
                     </ul>
                 </div>
             </div>
@@ -62,9 +62,9 @@
             </div>
             <!-- Body - end -->
             <!-- Footer - start -->
-            <div class="uk-card-footer uk-padding-remove uk-stick-bottom" v-show="ready & expandApp">
+            <div class="uk-card-footer uk-padding-remove uk-stick-bottom uk-border-top" v-show="ready & expandApp">
 
-                <div class="uk-grid-small uk-flex-middle uk-margin-small-left" uk-grid>
+                <div class="uk-grid-small uk-flex-middle uk-margin-small" uk-grid>
                     <div class="uk-width-expand">
                         <form class="uk-padding-small uk-padding-remove-horizontal">
                             <textarea id="chat-message-input" class="uk-textarea uk-padding-remove uk-border-remove" rows="2" maxlength="300" placeholder="Message..." v-on:keyup.enter="sendMessage" v-bind:class="{'uk-font-light': isDark}"></textarea>
@@ -72,8 +72,8 @@
                     </div>
                     <div class="uk-width-auto">
                         <ul class="uk-iconnav uk-margin-small-right">
-                            <li><a class="app-cursor-pointer" uk-icon="icon: image" title="image" v-bind:class="{'uk-icon-light': isDark}"></a></li>
-                            <li><a id="chat-message-submit" class="app-cursor-pointer app-icon-blue" uk-icon="icon: forward" title="send"></a></li>
+                            <li><a class="app-cursor-pointer app-icon" uk-icon="icon: image" v-bind:class="{'uk-icon-light': isDark}"></a></li>
+                            <li><a id="chat-message-submit" class="app-cursor-pointer app-icon" uk-icon="icon: forward" v-bind:class="{'uk-icon-light': isDark}"></a></li>
                         </ul>
                     </div>
                 </div>
