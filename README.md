@@ -12,7 +12,9 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 	- channels (```$ pip install channels```)
  	- redis-server (```$ pip install redis```)
  	- channels_redis (```$ pip install channels_redis```)
-3. Run *docker* services (```docker run -p 6379:6379 -d redis:5`
+3. Run *docker* services (```docker run -p 6379:6379 -d redis:5```)
+4. Run ```$ py manage.py runserver ```
+5. Enjoy (:
 
 ## Used Technologies / Languages
 - [VueJS](www.vuejs.org) v2.0
