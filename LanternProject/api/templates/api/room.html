@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div id="app" class="app" v-bind:class="{'uk-app-dark': isDark, 'uk-app-light': !isDark}">
+    <div id="app" class="app" v-bind:class="{'uk-app-dark': isDark, 'uk-app-light': !isDark, 'app-hide': !showApp}">
 
         <!-- Head - start -->
         <div class="head">
@@ -26,7 +26,7 @@
             <!-- Header - start -->
             <div id="app-header" class="uk-width-auto app-header" v-bind:class="{'app-header-expand': expandHeader}">
                 <div id="app-header-content" class="app-header-container">
-                    <span class="app-cursor-pointer" v-on:click="toggleApp">Live Support</span>
+                    <span class="app-title">Live Support</span>
                     <ul class="uk-iconnav uk-margin-small-right uk-float-right">
                         <li v-bind:class="{'app-icon-hide': !expandApp}">
                             <a class="app-cursor-pointer app-icon" uk-icon="icon: settings" v-bind:class="{'uk-icon-light': isDark}"></a>
@@ -48,7 +48,7 @@
                     </ul>
                 </div>
             </div>
-            <!-- Header - end -->
+            <!-- Header - end -->            
         </div>
         <!-- Head - end -->
         <!-- Content - start -->
@@ -62,24 +62,23 @@
             </div>
             <!-- Body - end -->
             <!-- Footer - start -->
-            <div class="uk-card-footer uk-padding-remove uk-stick-bottom uk-border-top" v-show="ready & expandApp">
+            <div class="uk-card-footer uk-padding-remove uk-stick-bottom app-footer" v-show="ready & expandApp">
 
                 <div class="uk-grid-small uk-flex-middle uk-margin-small" uk-grid>
                     <div class="uk-width-expand">
-                        <form class="uk-padding-small uk-padding-remove-horizontal">
-                            <textarea id="chat-message-input" class="uk-textarea uk-padding-remove uk-border-remove" rows="2" maxlength="300" placeholder="Message..." v-on:keyup.enter="sendMessage" v-bind:class="{'uk-font-light': isDark}"></textarea>
-                        </form>
+                        <textarea id="chat-message-input" class="uk-textarea uk-padding-remove uk-border-remove" rows="2" maxlength="300" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message" v-bind:class="{'uk-font-light': isDark}"></textarea>
                     </div>
                     <div class="uk-width-auto">
                         <ul class="uk-iconnav uk-margin-small-right">
                             <li><a class="app-cursor-pointer app-icon" uk-icon="icon: image" v-bind:class="{'uk-icon-light': isDark}"></a></li>
-                            <li><a id="chat-message-submit" class="app-cursor-pointer app-icon" uk-icon="icon: forward" v-bind:class="{'uk-icon-light': isDark}"></a></li>
+                            <li v-show="!emptyMessage"><a id="chat-message-submit" class="app-cursor-pointer app-icon" uk-icon="icon: forward" v-bind:class="{'uk-icon-light': isDark}"></a></li>
+                            <li v-show="emptyMessage"><a class="app-cursor-pointer app-icon" uk-icon="icon: happy" v-bind:class="{'uk-icon-light': isDark}"></a></li>
                         </ul>
                     </div>
-                </div>
+                </div>                                           
             </div>
             <!-- Footer - end -->
-        </div>
+        </div>        
         <!-- Content - end -->
     </div>
 

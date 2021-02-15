@@ -11,6 +11,9 @@ const App = new Vue({
         // Ready server
         ready: false,
 
+        message: '',
+        emptyMessage: true,
+
         // State of App (Minimized | Maximized)
         expandHeader: false,
         showHeader: false,
@@ -43,8 +46,6 @@ const App = new Vue({
                 this.expandApp = !this.expandApp
                 $("#toggler").attr({ "uk-icon": function (index, currentvalue) { return (currentvalue == "icon: chevron-down") ? "icon: chevron-up" : "icon: chevron-down" }})            
             }
-            
-            document.querySelector('#chat-message-input').focus()
         },
         closeApp: function () {
             this.showApp = false
@@ -88,6 +89,7 @@ const App = new Vue({
         startSocket: function () {
 
             const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/session/' + this.session_token + '/');
+            self = this
 
             chatSocket.onmessage = function (e) {
                 const data = JSON.parse(e.data)
@@ -97,10 +99,9 @@ const App = new Vue({
                 // Push agent packages only
                 if (!App.messageExists(package['id'])) App.packages.push(package)
             }
-
+            
             document.querySelector('#chat-message-submit').onclick = function (e) {
-                const messageInputDom = document.querySelector('#chat-message-input')
-                const message = messageInputDom.value
+                const message = self.message                
 
                 var package = { id: App.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
 
@@ -110,11 +111,11 @@ const App = new Vue({
                     'datetime': package['datetime'],
                 }));
 
-                messageInputDom.value = ''
+                self.message = ''
                 App.packages.push(package)
             }
 
-            chatSocket.onclose = function (e) { console.error('Server unexpectedly closed the connection.') }
+            chatSocket.onclose = function (e) { console.error('Server connection was terminated.') }
         },
         messageExists: function (id) {
             for (var i = 0; i < this.packages.length; i++) if (this.packages[i]['id'] == id) return true
@@ -124,6 +125,15 @@ const App = new Vue({
 
     mounted: function () {
         $('#app-content').css({ 'max-height': $(document).height() * 0.5 })       
+    },
+
+    watch: {
+        message: function(val) {
+            if (val == '' || val == undefined)
+                this.emptyMessage = true
+            else
+                this.emptyMessage = false
+        }
     },
 
     components: {
