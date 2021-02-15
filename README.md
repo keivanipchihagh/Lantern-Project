@@ -1,21 +1,24 @@
-# Lantern-Project
+# Lantern Project
 Lightweight web-based platform designed provide synchronous chat capability &amp; AI-driven conversation with customers.
-<br/>
-## Front-End
-[VueJs](www.vuejs.org) and [UIkit](www.getuikit.com) are used for the Front-End as well as **Django**'s build-in support for the templates.
-<br/>
-## Back-End
-**Django 3.1** as used the backend framework due to its utility & community support. Despite the reputation for speed, it has handled pretty much everything by now. In the meantime, a **.NET Core 5.1** version is also being developed as a replacement if I decided to publish the product.
-<br/>
-## Database
-The database is designed using [dbdiagram.io](www.dbdiagram.io) and managed by **MySQL**. System is designed to automate everything from payment and registration to template creation and analysis.
-![database design](https://github.com/keivanipchihagh/keivanipchihagh/blob/main/Lantern-Project.png?raw=true)
-<br/>
-## Authentication 
-I used **Digital signature**, **Cryptography (RSA, ECC)** and **Authentication tokens** to enforce safety of the service. Although nothing sensitive should be sent through the service, I tried a few concepts just for fun! :sunglasses:
-## Requirements / Technologies
+
+## Demo
+![gif](https://github.com/keivanipchihagh/Lantern-Project/blob/main/README%20files/gif-1.gif)
+
+
+## Installation
+1. download & install *docker* ([get-docker](https://docs.docker.com/get-docker/))
+2. Install python packages
+	- Django +3 (```$ pip install django```)
+	- channels (```$ pip install channels```)
+ 	- redis-server (```$ pip install redis```)
+ 	- channels_redis (```$ pip install channels_redis```)
+3. Run *docker* services (```docker run -p 6379:6379 -d redis:5`
+
+## Used Technologies / Languages
 - [VueJS](www.vuejs.org) v2.0
 - [jQuery](www.jquery.com) v3.5.1
 - [UIkit](www.getuikit.com) v3.6.14
-- [Django](www.djangoproject.com) v3.1
-<br/>
+- [Django](www.djangoproject.com) v3.1.0
+
+## Credits
+- **Admin dashboard template** from [AdminLTE](https://github.com/ColorlibHQ/AdminLTE)
