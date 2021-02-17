@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Dashboard | Lantern Project</title>
+
+    <!-- Metta - Start -->
+    <meta name="description" content="Admin, Dashboard, Lantern-Project" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Metta - End -->
+    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+    <link rel="apple-touch-icon" href="../../../themes/flatkit/assets/images/logo.png">
+    <meta name="apple-mobile-web-app-title" content="Flatkit">
+
+    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="196x196" href="../../../themes/flatkit/assets/images/logo.png">
+
+    <!-- style -->
+    <link rel="stylesheet" href="../../../themes/flatkit/assets/animate-css/animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../themes/flatkit/assets/glyphicons/glyphicons.css" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../themes/flatkit/assets/material-design-icons/material-design-icons.css" type="text/css" />
+    <link rel="stylesheet" href="../../../themes/flatkit/assets/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../../../themes/flatkit/assets/styles/app.min.css">
+    <link rel="stylesheet" href="../../../themes/flatkit/assets/styles/font.css" type="text/css" />
+</head>
+<body>
+    <div class="app" id="app">
+        <!-- ############ LAYOUT START-->
+        <!-- aside -->
+        <div id="aside" class="app-aside modal fade folded md nav-expand">
+            <div class="left navside indigo-900 dk" layout="column">
+                <div class="navbar navbar-md no-radius">
+                    <!-- brand -->
+                    <a class="navbar-brand">
+                        <div ui-include="'../assets/images/logo.png'"></div>
+                        <img src="../../../themes/flatkit/assets/images/logo.png" alt="." class="hide">
+                        <span class="hidden-folded inline">Lantern Project</span>
+                    </a>
+                    <!-- / brand -->
+                </div>
+                <div flex class="hide-scroll">
+                    <nav class="scroll nav-active-primary">
+                        <ul class="nav" ui-nav>
+                            <!-- Agent - start -->
+                            <li class="nav-header hidden-folded">
+                                <small class="text-muted">Agent</small>
+                            </li>
+                            <li>
+                                <a href="../../../themes/flatkit/html/index.html">
+                                    <span class="nav-icon">
+                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Dashboard</span>
+                                </a>
+                            </li>
+                            <!-- Agent - end -->
+                            <!-- Admin - start -->
+                            <li class="nav-header hidden-folded">
+                                <small class="text-muted">Admin</small>
+                            </li>
+                            <li>
+                                <a>
+                                    <span class="nav-caret">
+                                        <i class="fa fa-caret-down"></i>
+                                    </span>
+                                    <span class="nav-icon">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Agents</span>
+                                </a>
+                                <ul class="nav-sub" style="padding-left:10px">
+                                    <li>
+                                        <span class="avatar w-24">
+                                            <img src="../../../themes/flatkit/assets/images/a0.jpg" alt="Alex">
+                                        </span>
+                                        <a href="../../../index.html" style="display:inline-block; padding-left: 18px">
+                                            <span class="nav-text">Alex</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <span class="avatar w-24">
+                                            <img src="../../../themes/flatkit/assets/images/a3.jpg" alt="Alex">
+                                        </span>
+                                        <a href="../../../index.html" style="display:inline-block; padding-left: 18px">
+                                            <span class="nav-text">Janet</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>
+                                    <span class="nav-caret">
+                                        <i class="fa fa-caret-down"></i>
+                                    </span>
+                                    <span class="nav-icon">
+                                        <i class="fa fa-pie-chart" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Charts</span>
+                                </a>
+                                <ul class="nav-sub">
+                                    <li>
+                                        <a href="../../../index.html">
+                                            <span class="nav-text">System</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Admin - end -->
+                            <!-- Staff - start -->
+                            <li class="nav-header hidden-folded">
+                                <small class="text-muted">Staff</small>
+                            </li>
+                            <li>
+                                <a>
+                                    <span class="nav-caret">
+                                        <i class="fa fa-caret-down"></i>
+                                    </span>
+                                    <span class="nav-icon">
+                                        <i class="fa fa-users" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Sites</span>
+                                </a>
+                                <ul class="nav-sub">
+                                    <li>
+                                        <a href="../../../index.html">
+                                            <span class="nav-text">Google.com</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="../../../index.html">
+                                            <span class="nav-text">Amazon.com</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Staff - end -->
+                            <!-- Shared - start -->
+                            <li class="nav-header hidden-folded">
+                                <small class="text-muted">Shared</small>
+                            </li>
+                            <li class="active">
+                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                    <span class="nav-icon">
+                                        <i class="fa fa-child" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Service</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                    <span class="nav-label">
+                                        <b class="label rounded label-sm primary">5</b>
+                                    </span>
+                                    <span class="nav-icon">
+                                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Newsletter</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                    <span class="nav-icon">
+                                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                    <span class="nav-icon">
+                                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Settings</span>
+                                </a>
+                            </li>
+                            <!-- Shared - end -->
+                        </ul>
+                    </nav>
+                </div>
+                <div flex-no-shrink="">
+                    <nav ui-nav="">
+                        <ul class="nav">
+                            <li>
+                                <div class="b-b b m-t-sm"></div>
+                            </li>
+                            <li class="no-bg">
+                                <a>
+                                    <span class="nav-icon">
+                                        <i class="material-icons"></i>
+                                    </span>
+                                    <span class="nav-text">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- / aside -->
+        <!-- content -->
+        <div id="content" class="app-content box-shadow-z0" role="main">
+            <div class="app-header white box-shadow navbar-md">
+                <div class="navbar">
+                    <!-- Open side - Naviation on mobile -->
+                    <a data-toggle="modal" data-target="#aside" class="navbar-item pull-left hidden-lg-up">
+                        <i class="material-icons">&#xe5d2;</i>
+                    </a>
+                    <!-- / -->
+                    <!-- Page title - Bind to $state's title -->
+                    <div class="navbar-item pull-left h5" ng-bind="$state.current.data.title" id="pageTitle"></div>
+                    <!-- navbar right -->
+                    <ul class="nav navbar-nav pull-right">
+                        <li class="nav-item dropdown pos-stc-xs">
+                            <a class="nav-link" href data-toggle="dropdown">
+                                <i class="material-icons">&#xe7f5;</i>
+                                <span class="label label-sm up warn">3</span>
+                            </a>
+                            <div class="dropdown-menu pull-right w-xl animated fadeInUp no-bg no-border no-shadow">
+                                <div class="scrollable" style="max-height: 220px">
+                                    <ul class="list-group list-group-gap m-a-0">
+                                        <li class="list-group-item dark-white lt box-shadow-z0 b">
+                                            <span class="pull-left m-r"><img src="../assets/images/a0.jpg" alt="..." class="w-40 img-circle"></span>
+                                            <span class="clear block">
+                                                Use awesome <a href="" class="text-primary">animate.css</a>
+                                                <br><small class="text-muted">10 minutes ago</small>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item dark-white lt box-shadow-z0 b">
+                                            <span class="pull-left m-r">
+                                                <img src="../assets/images/a1.jpg" alt="..." class="w-40 img-circle">
+                                            </span>
+                                            <span class="clear block">
+                                                <a href="" class="text-primary">Joe</a> Added you as friend<br>
+                                                <small class="text-muted">2 hours ago</small>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item dark-white text-color box-shadow-z0 b">
+                                            <span class="pull-left m-r">
+                                                <img src="../assets/images/a2.jpg" alt="..." class="w-40 img-circle">
+                                            </span>
+                                            <span class="clear block">
+                                                <a href="" class="text-primary">Danie</a> sent you a message<br>
+                                                <small class="text-muted">1 day ago</small>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link clear" href data-toggle="dropdown">
+                                <span class="avatar w-32">
+                                    <img src="../../../themes/flatkit/assets/images/a0.jpg" alt="...">
+                                    <i class="on b-white bottom"></i>
+                                </span>
+                            </a>
+                            <div ui-include="'../views/blocks/dropdown.user.html'"></div>
+                        </li>
+                        <li class="nav-item hidden-md-up">
+                            <a class="nav-link" data-toggle="collapse" data-target="#collapse">
+                                <i class="material-icons">&#xe5d4;</i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- / navbar right -->
+                </div>
+            </div>
+            <div class="app-footer">
+                <div class="p-a text-xs">
+                    <div class="text-muted" style="width:100%; text-align:center">
+                        <span>
+                            &copy; Copyright <strong><a href="#">Lantern-Project</a></strong> <span class="hidden-xs-down">- Built with ❤</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div ui-view class="app-body" id="view">
+                <!-- ############ PAGE START-->
+                <div class="padding">
+                    <div class="col-md-6">
+                           Hi
+                    </div>
+                    <div class="col-md-6">
+                        Hello
+                    </div>
+                </div>
+                <!-- ############ PAGE END-->
+            </div>
+        </div>
+        <!-- / -->
+        <!-- ############ LAYOUT END-->
+    </div>
+    <script src="../../../themes/flatkit/html/scripts/app.html.js"></script>
+</body>
+</html>
