@@ -23,4 +23,4 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 - [Django](www.djangoproject.com) v3.1.0
 
 ## Credits
-- **Admin dashboard template** from [AdminLTE](https://github.com/ColorlibHQ/AdminLTE)
+- **Admin dashboard template** from [FlatFull](https://flatfull.com)
