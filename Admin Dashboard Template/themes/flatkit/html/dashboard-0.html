@@ -1,23 +1,30 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>Dashboard | Lantern Project</title>
-    <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
+
+    <!-- Metta - Start -->
+    <meta name="description" content="Admin, Dashboard, Lantern-Project" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Metta - End -->
+
     <!-- for ios 7 style, multi-resolution icon of 152x152 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
     <link rel="apple-touch-icon" href="../../../themes/flatkit/assets/images/logo.png">
     <meta name="apple-mobile-web-app-title" content="Flatkit">
+
     <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="shortcut icon" sizes="196x196" href="../../../themes/flatkit/assets/images/logo.png">
+
     <!-- style -->
     <link rel="stylesheet" href="../../../themes/flatkit/assets/animate-css/animate.min.css" type="text/css" />
     <link rel="stylesheet" href="../../../themes/flatkit/assets/glyphicons/glyphicons.css" type="text/css" />
-    <link rel="stylesheet" href="../../../themes/flatkit/assets/font-awesome/css/font-awesome.min.css" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="../../../themes/flatkit/assets/material-design-icons/material-design-icons.css" type="text/css" />
     <link rel="stylesheet" href="../../../themes/flatkit/assets/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../../../themes/flatkit/assets/styles/app.min.css">
@@ -32,7 +39,7 @@
                 <div class="navbar navbar-md no-radius">
                     <!-- brand -->
                     <a class="navbar-brand">
-                        <div ui-include="'../assets/images/logo.svg'"></div>
+                        <div ui-include="'../assets/images/logo.png'"></div>
                         <img src="../../../themes/flatkit/assets/images/logo.png" alt="." class="hide">
                         <span class="hidden-folded inline">Lantern Project</span>
                     </a>
@@ -47,10 +54,7 @@
                             <li>
                                 <a href="../../../themes/flatkit/html/dashboard-0.html">
                                     <span class="nav-icon">
-                                        <i class="material-icons">
-                                            &#xe3fc;
-                                            <span ui-include="'../assets/images/i_0.svg'"></span>
-                                        </i>
+                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
                                     </span>
                                     <span class="nav-text">Dashboard</span>
                                 </a>
@@ -59,9 +63,6 @@
                                 <a>
                                     <span class="nav-caret">
                                         <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-label">
-                                        <b class="label rounded label-sm primary">5</b>
                                     </span>
                                     <span class="nav-icon">
                                         <i class="material-icons">
@@ -89,48 +90,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a>
-                                    <span class="nav-caret">
-                                        <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-icon">
-                                        <i class="material-icons">
-                                            &#xe8f0;
-                                            <span ui-include="'../assets/images/i_2.svg'"></span>
-                                        </i>
-                                    </span>
-                                    <span class="nav-text">Layouts</span>
-                                </a>
-                                <ul class="nav-sub">
-                                    <li>
-                                        <a href="../../../themes/flatkit/html/headers.html">
-                                            <span class="nav-text">Header</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../themes/flatkit/html/asides.html">
-                                            <span class="nav-text">Aside</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../themes/flatkit/html/footers.html">
-                                            <span class="nav-text">Footer</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="../../../themes/flatkit/html/widget.html">
-                                    <span class="nav-icon">
-                                        <i class="material-icons">
-                                            &#xe8d2;
-                                            <span ui-include="'../assets/images/i_3.svg'"></span>
-                                        </i>
-                                    </span>
-                                    <span class="nav-text">Widgets</span>
-                                </a>
-                            </li>
                             <li class="nav-header hidden-folded">
                                 <small class="text-muted">Admin</small>
                             </li>
@@ -139,101 +98,26 @@
                                     <span class="nav-caret">
                                         <i class="fa fa-caret-down"></i>
                                     </span>
-                                    <span class="nav-label">
-                                        <b class="label label-sm accent">8</b>
-                                    </span>
                                     <span class="nav-icon">
-                                        <i class="material-icons">
-                                            &#xe429;
-                                            <span ui-include="'../assets/images/i_4.svg'"></span>
-                                        </i>
+                                        <i class="fa fa-users" aria-hidden="true"></i>
                                     </span>
-                                    <span class="nav-text">UI kit</span>
+                                    <span class="nav-text">Agents</span>
                                 </a>
-                                <ul class="nav-sub nav-mega nav-mega-3">
+                                <ul class="nav-sub" style="padding-left:10px">
                                     <li>
-                                        <a href="../../../themes/flatkit/html/arrow.html">
-                                            <span class="nav-text">Arrow</span>
+                                        <span class="avatar w-24">
+                                            <img src="../../../themes/flatkit/assets/images/a0.jpg" alt="Alex">
+                                        </span>
+                                        <a href="../../../index.html" style="display:inline-block; padding-left: 18px">
+                                            <span class="nav-text">Alex</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Box</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Button</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Color</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Dropdown</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Grid</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Icon</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Label</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">List Group</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Modal</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Nav</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Progress</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Social</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Sortable</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Streamline</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Timeline</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Vector Map</span>
+                                        <span class="avatar w-24">
+                                            <img src="../../../themes/flatkit/assets/images/a3.jpg" alt="Alex">
+                                        </span>
+                                        <a href="../../../index.html" style="display:inline-block; padding-left: 18px">
+                                            <span class="nav-text">Janet</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -242,183 +126,6 @@
                                 <a>
                                     <span class="nav-caret">
                                         <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-label"><b class="label no-bg">9</b></span>
-                                    <span class="nav-icon">
-                                        <i class="material-icons">
-                                            &#xe3e8;
-                                            <span ui-include="'../assets/images/i_5.svg'"></span>
-                                        </i>
-                                    </span>
-                                    <span class="nav-text">Pages</span>
-                                </a>
-                                <ul class="nav-sub nav-mega">
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Setting</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Search</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">FAQ</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Gallery</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Invoice</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Price</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Blank</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Sign In</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Sign Up</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Forgot Password</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Lockme Screen</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Error 404</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Error 505</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>
-                                    <span class="nav-caret">
-                                        <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-icon">
-                                        <i class="material-icons">
-                                            &#xe39e;
-                                            <span ui-include="'../assets/images/i_6.svg'"></span>
-                                        </i>
-                                    </span>
-                                    <span class="nav-text">Form</span>
-                                </a>
-                                <ul class="nav-sub">
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Form Layout</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Form Element</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Form Validation</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Select</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Editor</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Picker</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Wizard</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html" class="no-ajax">
-                                            <span class="nav-text">File Upload</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>
-                                    <span class="nav-caret">
-                                        <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-icon">
-                                        <i class="material-icons">
-                                            &#xe896;
-                                            <span ui-include="'../assets/images/i_7.svg'"></span>
-                                        </i>
-                                    </span>
-                                    <span class="nav-text">Tables</span>
-                                </a>
-                                <ul class="nav-sub">
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Static table</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Datatable</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="../../../index.html">
-                                            <span class="nav-text">Footable</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>
-                                    <span class="nav-caret">
-                                        <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-label hidden-folded">
-                                        <b class="label label-sm info">N</b>
                                     </span>
                                     <span class="nav-icon">
                                         <i class="material-icons">
@@ -431,54 +138,9 @@
                                 <ul class="nav-sub">
                                     <li>
                                         <a href="../../../index.html">
-                                            <span class="nav-text">Chart</span>
+                                            <span class="nav-text">System</span>
                                         </a>
-                                    </li>
-                                    <li>
-                                        <a>
-                                            <span class="nav-caret">
-                                                <i class="fa fa-caret-down"></i>
-                                            </span>
-                                            <span class="nav-text">Echarts</span>
-                                        </a>
-                                        <ul class="nav-sub">
-                                            <li>
-                                                <a href="../../../index.html">
-                                                    <span class="nav-text">line</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="../../../index.html">
-                                                    <span class="nav-text">Bar</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="../../../index.html">
-                                                    <span class="nav-text">Pie</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="../../../index.html">
-                                                    <span class="nav-text">Scatter</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="../../../index.html">
-                                                    <span class="nav-text">Radar &amp; Chord</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="../../../index.html">
-                                                    <span class="nav-text">Gauges &amp; Funnel</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="../../../index.html">
-                                                    <span class="nav-text">Map</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    </li>                                    
                                 </ul>
                             </li>
                             <li class="nav-header hidden-folded">
@@ -487,24 +149,57 @@
                             <li>
                                 <a href="../../../themes/flatkit/html/dashboard-0.html">
                                     <span class="nav-icon">
-                                        <i class="material-icons">
-                                            &#xe3fc;
-                                            <span ui-include="'../assets/images/i_0.svg'"></span>
-                                        </i>
+                                        <i class="fa fa-child" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Service</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                    <span class="nav-icon">
+                                        <i class="fa fa-user-o" aria-hidden="true"></i>
                                     </span>
                                     <span class="nav-text">Profile</span>
                                 </a>
                             </li>
-                            <li class="hidden-folded">
-                                <a href="../../../index.html">
-                                    <span class="nav-text">Documents</span>
+                            <li>
+                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                    <span class="nav-label">
+                                        <b class="label rounded label-sm primary">5</b>
+                                    </span>
+                                    <span class="nav-icon">
+                                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Newsletter</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                    <span class="nav-icon">
+                                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Settings</span>
                                 </a>
                             </li>
                         </ul>
                     </nav>
                 </div>
-                <div flex-no-shrink>
-                    <div ui-include="'../views/blocks/aside.bottom.0.html'"></div>
+                <div flex-no-shrink="">
+                    <nav ui-nav="">
+                        <ul class="nav">                            
+                            <li>
+                                <div class="b-b b m-t-sm"></div>
+                            </li>
+                            <li class="no-bg">
+                                <a>
+                                    <span class="nav-icon">
+                                        <i class="material-icons"></i>
+                                    </span>
+                                    <span class="nav-text">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -545,22 +240,6 @@
                         </li>
                     </ul>
                     <!-- / navbar right -->
-                    <!-- navbar collapse -->
-                    <div class="collapse navbar-toggleable-sm" id="collapse">
-                        <div ui-include="'../views/blocks/navbar.form.right.html'"></div>
-                        <!-- link and dropdown -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href data-toggle="dropdown">
-                                    <i class="fa fa-fw fa-plus text-muted"></i>
-                                    <span>New</span>
-                                </a>
-                                <div ui-include="'../views/blocks/dropdown.new.html'"></div>
-                            </li>
-                        </ul>
-                        <!-- / -->
-                    </div>
-                    <!-- / navbar collapse -->
                 </div>
             </div>
             <div class="app-footer">
