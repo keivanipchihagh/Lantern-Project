@@ -1,22 +1,22 @@
 const ChatApp = new Vue({
 
-    // el: "#chatbox-app",
-    el: "#chat-app",
+    el: "#app",
 
     data: {
         packages: [],
         message: '',
-        session_token: '589c12f50202230bf06cd6c3cdf53afc',
+        session_token: '',
     },
 
     methods: {
 
-        sendMessage: function () {
+        sendMessage: function () {            
             document.querySelector('#chat-message-submit').click()
-        },                
-        startSocket: function () {
-
-            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/session/' + this.session_token + '/');
+        },
+        openChat: function (session_key) {
+            
+            document.querySelector('#chatTitle').innerText = 'Chat - ' + session_key
+            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/session/' + session_key + '/');
             self = this
             
             chatSocket.onmessage = function (e) {
@@ -52,7 +52,7 @@ const ChatApp = new Vue({
     },
 
     mounted: function () {
-        this.startSocket()
+        
     },
 
     watch: {
@@ -66,7 +66,7 @@ const ChatApp = new Vue({
             template: `
                 <!-- Agent - start -->
                 <div class="m-b" v-if="this.sender != 'me'">
-                    <a href="" class="pull-right w-40 m-l-sm"><img src="../../static/dashboard/images/a3.jpg" class="w-full img-circle" alt="..."></a>
+                    <a href="" class="pull-right w-40 m-l-sm"><img src="../../../static/dashboard/images/a3.jpg" class="w-full img-circle" alt="..."></a>
                     <div class="clear text-right">
                         <div class="p-a p-y-sm info inline text-left r">{{ message }}</div>
                         <div class="text-muted text-xs m-t-xs">{{ datetime }}</div>
@@ -76,7 +76,7 @@ const ChatApp = new Vue({
                 
                 <!-- User - start -->
                 <div class="m-b" v-else>
-                <a href="" class="pull-left w-40 m-r-sm"><img src="../../static/dashboard/images/a3.jpg" class="w-full img-circle" alt="..."></a>
+                <a href="" class="pull-left w-40 m-r-sm"><img src="../../../static/dashboard/images/a3.jpg" class="w-full img-circle" alt="..."></a>
                     <div class="clear">
                         <div><div class="p-a p-y-sm dark-white inline r">{{ message }}</div></div>
                         <div class="text-muted text-xs m-t-xs"><i class="fa fa-ok text-success"></i>{{ datetime }}</div>

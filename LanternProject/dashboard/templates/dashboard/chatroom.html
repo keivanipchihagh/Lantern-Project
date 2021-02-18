@@ -52,7 +52,6 @@
     <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/" crossorigin="anonymous" async></script>
 </head>
 <body>
-
     <!-- app - start -->
     <div id="app" class="app">
 
@@ -336,9 +335,12 @@
                                             <i class="nav-label"><b class="label label-sm no-bg">2</b></i> <span class="nav-icon">
                                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                                             </span> <span class="nav-text">Assigned</span>
-                                        </a><ul class="nav-sub">                                        
+                                        </a><ul class="nav-sub">
                                             {% for session in assigned_sessions %}
-                                                <li><a><span class="nav-text">{{ session.session_key }}</span></a></li>
+                                            <li style="padding: 0px 10px" @click="openChat('{{ session.session_key }}')">
+                                                <span class="nav-icon" style="margin: 0px"><svg data-jdenticon-value="icon"></svg></span>
+                                                <a style="padding-left: 2rem;"><span class="nav-text">{{ session.session_key }}</span></a>
+                                            </li>
                                             {% endfor %}
                                         </ul>
                                     </li>
@@ -350,7 +352,10 @@
                                             </span> <span class="nav-text">All</span>
                                         </a><ul class="nav-sub">
                                             {% for session in open_sessions %}
-                                                <li><a><span class="nav-text">{{ session.session_key }}</span></a></li>
+                                            <li style="padding: 0px 10px">
+                                                <span class="nav-icon" style="margin: 0px"><svg data-jdenticon-value="icon"></svg></span>
+                                                <a style="padding-left: 2rem;"><span class="nav-text">{{ session.session_key }}</span></a>
+                                            </li>
                                             {% endfor %}
                                         </ul>
                                     </li>
@@ -360,10 +365,10 @@
                     </div>
                     <!-- Left column - end -->
                     <!-- Right column - start -->
-                    <div id="chat-app" class="col-md-8">
+                    <div class="col-md-8">
                         <div class="box row-col" style="min-height:600px">
                             <div class="box-header b-b">
-                                <strong>Chat</strong>
+                                <strong id="chatTitle">Chat</strong>
                                 <a href="#" style="text-decoration:underline; font-weight: bold; float: right">Close</a>
                             </div>
                             <div class="row-row dker">
@@ -377,8 +382,8 @@
                             </div>
                             <div class="box-footer b-t">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message">
-                                    <span class="input-group-btn">
+                                    <input id="chat-message-input" type="text" class="form-control" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message">
+                                    <span id="chat-app" class="input-group-btn">
                                         <button id="chat-message-submit" class="btn white b-a no-shadow">SEND</button>
                                     </span>
                                 </div>
@@ -391,10 +396,12 @@
         </div>
         <!-- content - end -->
         <!-- app - end -->
+
     </div>
     <!-- app - end -->
     <!-- Scripts -->
-    <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'dashboard/scripts/script.js' %}"></script>
+    <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
 </body>
 </html>
