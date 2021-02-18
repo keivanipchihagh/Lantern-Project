@@ -5,7 +5,7 @@ const ChatApp = new Vue({
     data: {
         packages: [],
         message: '',
-        session_token: '',
+        user_key: '123456789',
     },
 
     methods: {
@@ -14,7 +14,7 @@ const ChatApp = new Vue({
             document.querySelector('#chat-message-submit').click()
         },
         openChat: function (session_key) {
-            
+
             document.querySelector('#chatTitle').innerText = 'Chat - ' + session_key
             const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/session/' + session_key + '/');
             self = this
@@ -37,7 +37,7 @@ const ChatApp = new Vue({
                     'id': package['id'],
                     'message': package['message'],
                     'datetime': package['datetime'],
-                    'session_key': self.session_token,
+                    'session_key': session_key,
                     'sender': package['sender'],
                 }));
 
@@ -46,12 +46,14 @@ const ChatApp = new Vue({
             }
 
             chatSocket.onclose = function (e) { console.error('Server connection was terminated.') }
+
+            this.getChat(session_key, this.user_key)
         },
-        getMessages: function(session_key, user_key) {
+        getChat: function(session_key, user_key) {
             var self = this            
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/v1/services/sessions/start',
+                url: 'http://127.0.0.1:8000/dashboard/v1/fetch/chat',
                 type: 'GET',
                 context: this,      // Essential for VueJS
                 data: {
@@ -62,7 +64,11 @@ const ChatApp = new Vue({
                     console.log('There was a problem fetching messages from server.');
                 },
                 success: function (data) {
-                    console.log('Messages fetched.');
+                    var i = 0
+                    for (i; i < data.length; i++) {
+                        var entry = JSON.parse(data[i].replace(/'/g, '"'))
+                        self.packages.push({id: entry['id'], message: entry['content'], datetime: entry['datetime'], sender: entry['sender']})
+                    }
                 },
             });
         },        

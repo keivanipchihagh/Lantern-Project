@@ -37,8 +37,8 @@ class ChatConsumer(WebsocketConsumer):
         sender = text_data_json['sender']
 
         # Save the message
-        # session_id = Session.objects.get(session_key = session_key).id
-        # Message(content = message, ip = None, datetime = dt.now(), session_id = session_id).save()
+        session_id = Session.objects.get(session_key = session_key).id
+        Message(content = message, ip = None, datetime = dt.now(), sender = sender, session_id = session_id).save()
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(

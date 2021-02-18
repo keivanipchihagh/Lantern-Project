@@ -22,7 +22,7 @@
     z-index: 1;
 }
 
-.agent .uk-card:after, .me .uk-card:after {
+.agent .uk-card:after, .client .uk-card:after {
     width: 10px;
     height: 45px;
     position: absolute;
@@ -35,7 +35,7 @@
     clip-path: polygon(100% 70%, 0% 100%, 100% 100%);
 }
 
-.me .uk-card:after {
+.client .uk-card:after {
     background: #1e87f0;
     right: -4px;
     clip-path: polygon(0 70%, 0% 100%, 100% 100%);

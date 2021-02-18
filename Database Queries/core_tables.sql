@@ -2,6 +2,7 @@ CREATE TABLE `core_message` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
   `content` varchar(300) NOT NULL COMMENT 'The transmitted massage',
   `ip` varchar(15) COMMENT 'IP Address the message is transmitted from',
+  `sender` varchar(6) COMMENT 'Sender',
   `datetime` datetime NOT NULL COMMENT 'Time of the message submission',
   `session_id` int NOT NULL COMMENT 'Foreign Key'
 );

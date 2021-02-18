@@ -130,9 +130,7 @@ const App = new Vue({
     },
 
     watch: {
-        message: function(val) {
-            this.emptyMessage = (val == '' || val == undefined) ? true : false
-        }
+        message: function(val) { this.emptyMessage = (val == '' || val == undefined) ? true : false }
     },
 
     components: {
@@ -140,15 +138,13 @@ const App = new Vue({
             props: ['message', '_sender', 'datetime', '_id'],
 
             template: `
-                <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-text-left uk-flex" v-bind:class="[(this.sender == 'client') ? 'client' : 'agent']" uk-grid>
-
-                    <!-- Client -->
-                    <div class="uk-width-auto uk-flex-1" v-if="this.sender == 'client'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type1" v-bind:class="[(this.sender == 'client') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
-                    <div class="uk-width-auto" v-if="this.sender == 'client'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
-
-                    <!-- Agent -->
-                    <div class="uk-width-auto" v-if="this.sender == 'agent'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
-                    <div class="uk-width-auto uk-flex-1" v-if="this.sender == 'agent'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type2" v-bind:class="[(this.sender == 'client') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
+                <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-text-left uk-flex client" v-if="this.sender == 'client'" uk-grid>                    
+                    <div class="uk-width-auto uk-flex-1"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type1 uk-card-primary uk-float-right"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
+                    <div class="uk-width-auto"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
+                </div>
+                <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-text-left uk-flex agent" v-else uk-grid>                    
+                    <div class="uk-width-auto"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
+                    <div class="uk-width-auto uk-flex-1"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type2 uk-card-default uk-float-left"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
                 </div>`,
 
             data: function () {

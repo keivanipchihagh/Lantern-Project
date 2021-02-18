@@ -7,11 +7,21 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+
 class CoreMessage(models.Model):
     content = models.CharField(max_length=300)
     ip = models.CharField(max_length=15, blank=True, null=True)
+    sender = models.CharField(max_length=6, blank=True, null=True)
     datetime = models.DateTimeField()
     session = models.ForeignKey('CoreSession', models.DO_NOTHING)
+
+    def as_dict(self):
+        return {
+            'content': self.content,
+            'datetime': self.datetime.strftime("%I:%M %p"),
+            'sender': self.sender,
+            'session_id': self.session.id
+        }
 
     class Meta:
         managed = False
