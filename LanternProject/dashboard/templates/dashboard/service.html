@@ -361,86 +361,28 @@
                     </div>
                     <!-- Left column - end -->
                     <!-- Right column - start -->
-                    <div class="col-md-8">
+                    <div id="chat-app" class="col-md-8">
                         <div class="box row-col" style="min-height:600px">
                             <div class="box-header b-b">
                                 <strong>Chat</strong>
+                                <a href="#" style="text-decoration:underline; font-weight: bold; float: right">Close</a>
                             </div>
                             <div class="row-row dker">
                                 <div class="row-body">
                                     <div class="row-inner">
                                         <div class="p-a-md">
-                                            <div class="m-b">
-                                                <a href="" class="pull-left w-40 m-r-sm">
-                                                    <svg data-jdenticon-value="icon"></svg>
-                                                </a>
-                                                <div class="clear">
-                                                    <div>
-                                                        <div class="p-a p-y-sm dark-white inline r">
-                                                            Hi John, What's up...
-                                                        </div>
-                                                    </div>
-                                                    <div class="m-t-xs">
-                                                        <div class="p-a p-y-sm dark-white inline r">
-                                                            hmm...
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-muted text-xs m-t-xs"><i class="fa fa-ok text-success"></i> 2 minutes ago</div>
-                                                </div>
-                                            </div>
-                                            <div class="m-b">
-                                                <a href="" class="pull-right w-40 m-l-sm">
-                                                    <img src="{% static 'dashboard/images/a3.jpg'%}" class="w-full img-circle" alt="...">
-                                                </a>
-                                                <div class="clear text-right">
-                                                    <div class="p-a p-y-sm info inline text-left r">
-                                                        Lorem ipsum dolor soe rooke..
-                                                    </div>
-                                                    <div class="text-muted text-xs m-t-xs">1 minutes ago</div>
-                                                </div>
-                                            </div>
-                                            <div class="m-b">
-                                                <a href="" class="pull-left w-40 m-r-sm">
-                                                    <svg data-jdenticon-value="icon"></svg>
-                                                </a>
-                                                <div class="clear">
-                                                    <div class="p-a p-y-sm dark-white inline r">
-                                                        Good!
-                                                    </div>
-                                                    <div class="text-muted text-xs m-t-xs"><i class="fa fa-ok text-success"></i> 5 seconds ago</div>
-                                                </div>
-                                            </div>
-                                            <div class="m-b">
-                                                <a href="" class="pull-right w-40 m-l-sm">
-                                                    <img src="{% static 'dashboard/images/a3.jpg'%}" class="w-full img-circle" alt="...">
-                                                </a>
-                                                <div class="clear text-right">
-                                                    <div>
-                                                        <div class="p-a p-y-sm info inline text-left r">
-                                                            Dlor soe isep slie gosese..
-                                                        </div>
-                                                    </div>
-                                                    <div class="m-t-xs">
-                                                        <div class="p-a p-y-sm info inline text-left r">
-                                                            Loris aspim..
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-muted text-xs m-t-xs">Just now</div>
-                                                </div>
-                                            </div>
+                                            <div id="chat-log" is="Package" v-for="package in packages" v-bind:key="package.id" v-bind:_sender="package.sender" v-bind:message="package.message" v-bind:datetime="package.datetime" v-bind:id="package.id"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="box-footer b-t">
-                                <form>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Say something">
-                                        <span class="input-group-btn">
-                                            <button class="btn white b-a no-shadow" type="button">SEND</button>
-                                        </span>
-                                    </div>
-                                </form>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message">
+                                    <span class="input-group-btn">
+                                        <button id="chat-message-submit" class="btn white b-a no-shadow">SEND</button>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -454,5 +396,6 @@
     <!-- app - end -->
     <!-- Scripts -->
     <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
+    <script src="{% static 'dashboard/scripts/script.js' %}"></script>
 </body>
 </html>
