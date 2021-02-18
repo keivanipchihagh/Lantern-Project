@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿{% load static %}
+
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -13,21 +15,21 @@
     <!-- for ios 7 style, multi-resolution icon of 152x152 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
-    <link rel="apple-touch-icon" href="../../../themes/flatkit/assets/images/logo.png">
+    <link rel="apple-touch-icon" href="{% static 'dashboard/images/logo.png' %}">
     <meta name="apple-mobile-web-app-title" content="Flatkit">
 
     <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="shortcut icon" sizes="196x196" href="../../../themes/flatkit/assets/images/logo.png">
+    <link rel="shortcut icon" sizes="196x196" href="{% static 'dashboard/images/logo.png' %}">
 
     <!-- style -->
-    <link rel="stylesheet" href="../../../themes/flatkit/assets/animate-css/animate.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../../themes/flatkit/assets/glyphicons/glyphicons.css" type="text/css" />
+    <link rel="stylesheet" href="{% static 'dashboard/animate-css/animate.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'dashboard/glyphicons/glyphicons.css' %}" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../themes/flatkit/assets/material-design-icons/material-design-icons.css" type="text/css" />
-    <link rel="stylesheet" href="../../../themes/flatkit/assets/bootstrap/dist/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../../../themes/flatkit/assets/styles/app.min.css">
-    <link rel="stylesheet" href="../../../themes/flatkit/assets/styles/font.css" type="text/css" />
+    <link rel="stylesheet" href="{% static 'dashboard/material-design-icons/material-design-icons.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />
 
     <!-- VueJS 2.0 -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -55,7 +57,7 @@
             integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/" crossorigin="anonymous">
     </script>
 </head>
-<body>    
+<body>
     <div class="app" id="app">
         <!-- ############ LAYOUT START-->
         <!-- aside -->
@@ -64,8 +66,8 @@
                 <div class="navbar navbar-md no-radius">
                     <!-- brand -->
                     <a class="navbar-brand">
-                        <div ui-include="'../assets/images/logo.png'"></div>
-                        <img src="../../../themes/flatkit/assets/images/logo.png" alt="." class="hide">
+                        <div ui-include="{% static 'dashboard/images/logo.png' %}"></div>
+                        <img src="{% static 'dashboard/images/logo.png' %}" alt="." class="hide">
                         <span class="hidden-folded inline">Lantern Project</span>
                     </a>
                     <!-- / brand -->
@@ -78,9 +80,9 @@
                                 <small class="text-muted">Agent</small>
                             </li>
                             <li>
-                                <a href="../../../themes/flatkit/html/index.html">
+                                <a href="{% url 'index' %}">
                                     <span class="nav-icon">
-                                        <i class="fa fa-tachometer" aria-hidden="true"></i>                                        
+                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
                                     </span>
                                     <span class="nav-text">Dashboard</span>
                                 </a>
@@ -103,17 +105,17 @@
                                 <ul class="nav-sub" style="padding-left:10px">
                                     <li>
                                         <span class="avatar w-24">
-                                            <img src="../../../themes/flatkit/assets/images/a0.jpg" alt="Alex">
+                                            <img src="{% static 'dashboard/images/a0.jpg' %}" alt="Alex">
                                         </span>
-                                        <a href="../../../index.html" style="display:inline-block; padding-left: 18px">
+                                        <a href="{% url 'index' %}" style="display:inline-block; padding-left: 18px">
                                             <span class="nav-text">Alex</span>
                                         </a>
                                     </li>
                                     <li>
                                         <span class="avatar w-24">
-                                            <img src="../../../themes/flatkit/assets/images/a3.jpg" alt="Alex">
+                                            <img src="{% static 'dashboard/images/a3.jpg' %}" alt="Alex">
                                         </span>
-                                        <a href="../../../index.html" style="display:inline-block; padding-left: 18px">
+                                        <a href="{% url 'index' %}" style="display:inline-block; padding-left: 18px">
                                             <span class="nav-text">Janet</span>
                                         </a>
                                     </li>
@@ -131,7 +133,7 @@
                                 </a>
                                 <ul class="nav-sub">
                                     <li>
-                                        <a href="../../../index.html">
+                                        <a href="{% url 'index' %}">
                                             <span class="nav-text">System</span>
                                         </a>
                                     </li>
@@ -154,12 +156,12 @@
                                 </a>
                                 <ul class="nav-sub">
                                     <li>
-                                        <a href="../../../index.html">
+                                        <a href="{% url 'index' %}">
                                             <span class="nav-text">Google.com</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="../../../index.html">
+                                        <a href="{% url 'index' %}">
                                             <span class="nav-text">Amazon.com</span>
                                         </a>
                                     </li>
@@ -171,7 +173,7 @@
                                 <small class="text-muted">Shared</small>
                             </li>
                             <li class="active">
-                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                <a href="{% url 'index' %}">
                                     <span class="nav-icon">
                                         <i class="fa fa-child" aria-hidden="true"></i>
                                     </span>
@@ -179,7 +181,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                <a href="{% url 'index' %}">
                                     <span class="nav-label">
                                         <b class="label rounded label-sm primary">5</b>
                                     </span>
@@ -190,7 +192,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                <a href="{% url 'index' %}">
                                     <span class="nav-icon">
                                         <i class="fa fa-user-o" aria-hidden="true"></i>
                                     </span>
@@ -198,7 +200,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="../../../themes/flatkit/html/dashboard-0.html">
+                                <a href="{% url 'index' %}">
                                     <span class="nav-icon">
                                         <i class="fa fa-cogs" aria-hidden="true"></i>
                                     </span>
@@ -251,7 +253,7 @@
                                 <div class="scrollable" style="max-height: 220px">
                                     <ul class="list-group list-group-gap m-a-0">
                                         <li class="list-group-item dark-white lt box-shadow-z0 b">
-                                            <span class="pull-left m-r"><img src="../assets/images/a0.jpg" alt="..." class="w-40 img-circle"></span>
+                                            <span class="pull-left m-r"><img src="{% static 'dashboard/images/a0.jpg'%}" alt="..." class="w-40 img-circle"></span>
                                             <span class="clear block">
                                                 Use awesome <a href="" class="text-primary">animate.css</a>
                                                 <br><small class="text-muted">10 minutes ago</small>
@@ -259,7 +261,7 @@
                                         </li>
                                         <li class="list-group-item dark-white lt box-shadow-z0 b">
                                             <span class="pull-left m-r">
-                                                <img src="../assets/images/a1.jpg" alt="..." class="w-40 img-circle">
+                                                <img src="{% static 'dashboard/images/a1.jpg'%}" alt="..." class="w-40 img-circle">
                                             </span>
                                             <span class="clear block">
                                                 <a href="" class="text-primary">Joe</a> Added you as friend<br>
@@ -268,7 +270,7 @@
                                         </li>
                                         <li class="list-group-item dark-white text-color box-shadow-z0 b">
                                             <span class="pull-left m-r">
-                                                <img src="../assets/images/a2.jpg" alt="..." class="w-40 img-circle">
+                                                <img src="{% static 'dashboard/images/a2.jpg'%}" alt="..." class="w-40 img-circle">
                                             </span>
                                             <span class="clear block">
                                                 <a href="" class="text-primary">Danie</a> sent you a message<br>
@@ -282,11 +284,11 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link clear" href data-toggle="dropdown">
                                 <span class="avatar w-32">
-                                    <img src="../../../themes/flatkit/assets/images/a0.jpg" alt="...">
+                                    <img src="{% static 'dashboard/images/a0.jpg'%}" alt="...">
                                     <i class="on b-white bottom"></i>
                                 </span>
                             </a>
-                            <div ui-include="'../views/blocks/dropdown.user.html'"></div>
+                            <div ui-include="{% url 'index' %}"></div>
                         </li>
                         <li class="nav-item hidden-md-up">
                             <a class="nav-link" data-toggle="collapse" data-target="#collapse">
@@ -410,7 +412,7 @@
                                         <div><a href="">Mogen Polish</a></div>
                                         <small class="text-muted text-ellipsis">Writter, Mag Editor</small>
                                     </div>
-                                </li>                                
+                                </li>
                             </ul>
                         </div>
                         <!-- Ongoing sessions lsit - end -->
@@ -446,7 +448,7 @@
                                             </div>
                                             <div class="m-b">
                                                 <a href="" class="pull-right w-40 m-l-sm">
-                                                    <img src="../assets/images/a3.jpg" class="w-full img-circle" alt="...">
+                                                    <img src="{% static 'dashboard/images/a3.jpg'%}" class="w-full img-circle" alt="...">
                                                 </a>
                                                 <div class="clear text-right">
                                                     <div class="p-a p-y-sm info inline text-left r">
@@ -468,7 +470,7 @@
                                             </div>
                                             <div class="m-b">
                                                 <a href="" class="pull-right w-40 m-l-sm">
-                                                    <img src="../assets/images/a3.jpg" class="w-full img-circle" alt="...">
+                                                    <img src="{% static 'dashboard/images/a3.jpg'%}" class="w-full img-circle" alt="...">
                                                 </a>
                                                 <div class="clear text-right">
                                                     <div>
@@ -507,6 +509,6 @@
         <!-- / -->
         <!-- ############ LAYOUT END-->
     </div>
-    <script src="../../../themes/flatkit/html/scripts/app.html.js"></script>
+    <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
 </body>
 </html>
