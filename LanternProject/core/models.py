@@ -7,16 +7,15 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-
-class CorePackage(models.Model):
-    message = models.CharField(max_length=300)
+class CoreMessage(models.Model):
+    content = models.CharField(max_length=300)
     ip = models.CharField(max_length=15, blank=True, null=True)
     datetime = models.DateTimeField()
     session = models.ForeignKey('CoreSession', models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'core_package'
+        db_table = 'core_message'
 
 
 class CoreSession(models.Model):

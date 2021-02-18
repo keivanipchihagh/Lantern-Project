@@ -1,5 +1,8 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from core.models import CoreSession as Session
+from core.models import CoreUser as User
+from Core.models import CoreMessage as Message
 
 
 def index(request):
@@ -14,11 +17,16 @@ def onload_chatroom(request, user_key):
     return render(request = request, context = {'open_sessions': open_sessions, 'assigned_sessions': assigned_sessions}, template_name = 'dashboard/chatroom.html')
 
 
+def fetch_messages(request):
 
+    # Get request data
+    session_key, user_key = request.GET['session_key'], request.GET['user_key']
 
-
-
-
+    user_id = User.objects.get(user_key = user_key)
+    session_id = Session.objects.get(session_key = session_key, user_id = user_id).id
+    messages = Message.objects.filter(session_id = session_id)
+    
+    return HttpResponse()
 
 
 

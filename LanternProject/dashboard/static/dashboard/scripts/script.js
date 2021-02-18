@@ -37,6 +37,8 @@ const ChatApp = new Vue({
                     'id': package['id'],
                     'message': package['message'],
                     'datetime': package['datetime'],
+                    'session_key': self.session_token,
+                    'sender': package['sender'],
                 }));
 
                 self.message = ''
@@ -45,6 +47,25 @@ const ChatApp = new Vue({
 
             chatSocket.onclose = function (e) { console.error('Server connection was terminated.') }
         },
+        getMessages: function(session_key, user_key) {
+            var self = this            
+
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/v1/services/sessions/start',
+                type: 'GET',
+                context: this,      // Essential for VueJS
+                data: {
+                    'session_key': session_key,
+                    'user_key': user_key
+                },
+                error: function () {
+                    console.log('There was a problem fetching messages from server.');
+                },
+                success: function (data) {
+                    console.log('Messages fetched.');
+                },
+            });
+        },        
         messageExists: function (id) {
             for (var i = 0; i < this.packages.length; i++) if (this.packages[i]['id'] == id) return true
             return false

@@ -1,6 +1,6 @@
-CREATE TABLE `core_package` (
+CREATE TABLE `core_message` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
-  `message` varchar(300) NOT NULL COMMENT 'The transmitted massage',
+  `content` varchar(300) NOT NULL COMMENT 'The transmitted massage',
   `ip` varchar(15) COMMENT 'IP Address the message is transmitted from',
   `datetime` datetime NOT NULL COMMENT 'Time of the message submission',
   `session_id` int NOT NULL COMMENT 'Foreign Key'
@@ -41,7 +41,7 @@ CREATE TABLE `core_site` (
   `service` boolean COMMENT 'Accept service'
 );
 
-ALTER TABLE `core_package` ADD FOREIGN KEY (`session_id`) REFERENCES `core_session` (`id`);
+ALTER TABLE `core_message` ADD FOREIGN KEY (`session_id`) REFERENCES `core_session` (`id`);
 
 ALTER TABLE `core_session` ADD FOREIGN KEY (`user_id`) REFERENCES `core_user` (`id`);
 

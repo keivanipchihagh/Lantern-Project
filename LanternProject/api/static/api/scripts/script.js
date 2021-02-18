@@ -109,6 +109,8 @@ const App = new Vue({
                     'id': package['id'],
                     'message': package['message'],
                     'datetime': package['datetime'],
+                    'session_key': self.session_token,
+                    'sender': package['sender'],
                 }));
 
                 self.message = ''
