@@ -2,7 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from core.models import CoreSession as Session
 from core.models import CoreUser as User
-from Core.models import CoreMessage as Message
+from core.models import CoreMessage as Message
 
 
 def index(request):

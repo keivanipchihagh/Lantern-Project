@@ -34,10 +34,11 @@ class ChatConsumer(WebsocketConsumer):
         message = text_data_json['message']
         datetime = text_data_json['datetime']
         session_key = text_data_json['session_key']
+        sender = text_data_json['sender']
 
         # Save the message
-        session_id = Session.objects.get(session_key = session_key).id
-        Message(content = message, ip = None, datetime = dt.now(), session_id = session_id).save()
+        # session_id = Session.objects.get(session_key = session_key).id
+        # Message(content = message, ip = None, datetime = dt.now(), session_id = session_id).save()
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
@@ -48,8 +49,9 @@ class ChatConsumer(WebsocketConsumer):
                 'message': message,
                 'datetime': datetime,
                 'session_key': session_key,
+                'sender': sender,
             }
-        )
+        )        
 
     # Receive message from room group
     def chat_message(self, event):
@@ -58,6 +60,7 @@ class ChatConsumer(WebsocketConsumer):
         message = event['message']
         datetime = event['datetime']
         session_key = event['session_key']
+        sender = event['sender']
 
         # Send message to WebSocket
         self.send(text_data = json.dumps({
@@ -65,4 +68,5 @@ class ChatConsumer(WebsocketConsumer):
             'message': message,
             'datetime': datetime,
             'session_key': session_key,
+            'sender': sender,
         }))

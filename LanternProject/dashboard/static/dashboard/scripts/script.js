@@ -22,7 +22,7 @@ const ChatApp = new Vue({
             chatSocket.onmessage = function (e) {
                 const data = JSON.parse(e.data)
 
-                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'me' }
+                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'client' }
 
                 // Push agent packages only
                 if (!ChatApp.messageExists(package['id'])) ChatApp.packages.push(package)
@@ -32,7 +32,7 @@ const ChatApp = new Vue({
                 const message = self.message                
 
                 var package = { id: ChatApp.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
-
+                
                 chatSocket.send(JSON.stringify({
                     'id': package['id'],
                     'message': package['message'],
@@ -86,7 +86,7 @@ const ChatApp = new Vue({
 
             template: `
                 <!-- Agent - start -->
-                <div class="m-b" v-if="this.sender != 'me'">
+                <div class="m-b" v-if="this.sender != 'client'">
                     <a href="" class="pull-right w-40 m-l-sm"><img src="../../../static/dashboard/images/a3.jpg" class="w-full img-circle" alt="..."></a>
                     <div class="clear text-right">
                         <div class="p-a p-y-sm info inline text-left r">{{ message }}</div>

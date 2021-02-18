@@ -94,7 +94,7 @@ const App = new Vue({
             chatSocket.onmessage = function (e) {
                 const data = JSON.parse(e.data)
 
-                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'me' }
+                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'agent' }
 
                 // Push agent packages only
                 if (!App.messageExists(package['id'])) App.packages.push(package)
@@ -103,7 +103,7 @@ const App = new Vue({
             document.querySelector('#chat-message-submit').onclick = function (e) {
                 const message = self.message                
 
-                var package = { id: App.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
+                var package = { id: App.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'client' }
 
                 chatSocket.send(JSON.stringify({
                     'id': package['id'],
@@ -131,10 +131,7 @@ const App = new Vue({
 
     watch: {
         message: function(val) {
-            if (val == '' || val == undefined)
-                this.emptyMessage = true
-            else
-                this.emptyMessage = false
+            this.emptyMessage = (val == '' || val == undefined) ? true : false
         }
     },
 
@@ -143,11 +140,15 @@ const App = new Vue({
             props: ['message', '_sender', 'datetime', '_id'],
 
             template: `
-                <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-text-left uk-flex" v-bind:class="[(this.sender != 'me') ? 'me' : 'agent']" uk-grid>
-                    <div class="uk-width-auto uk-flex-1" v-if="this.sender != 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type1" v-bind:class="[(this.sender != 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
-                    <div class="uk-width-auto" v-if="this.sender != 'me'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
-                    <div class="uk-width-auto" v-if="this.sender == 'me'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
-                    <div class="uk-width-auto uk-flex-1" v-if="this.sender == 'me'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type2" v-bind:class="[(this.sender != 'me') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
+                <div id="this.id" class="uk-grid-small uk-flex-bottom uk-flex-right uk-text-left uk-flex" v-bind:class="[(this.sender == 'client') ? 'client' : 'agent']" uk-grid>
+
+                    <!-- Client -->
+                    <div class="uk-width-auto uk-flex-1" v-if="this.sender == 'client'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type1" v-bind:class="[(this.sender == 'client') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
+                    <div class="uk-width-auto" v-if="this.sender == 'client'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
+
+                    <!-- Agent -->
+                    <div class="uk-width-auto" v-if="this.sender == 'agent'"><img class="uk-border-circle" width="32" height="32" src="../../../static/api/images/avatar.jpg" /></div>
+                    <div class="uk-width-auto uk-flex-1" v-if="this.sender == 'agent'"><div class="uk-card uk-card-body uk-card-small uk-border-rounded-type2" v-bind:class="[(this.sender == 'client') ? ['uk-card-primary', 'uk-float-right'] : ['uk-card-default', 'uk-float-left']]"><p class="uk-margin-remove">{{ message }}</p><p class="uk-margin-remove uk-time-p">{{ datetime }}</p></div></div>
                 </div>`,
 
             data: function () {
