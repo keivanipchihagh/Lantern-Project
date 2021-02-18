@@ -36,9 +36,6 @@
 
     <!-- Jdenticon -->
     <script>
-
-        // Custom identicon style
-        // https://jdenticon.com/icon-designer.html?config=864444000141640028501e5a
         window.jdenticon_config = {
             lightness: {
                 color: [Math.random() * (1), Math.random() * (1)],
@@ -50,31 +47,32 @@
             },
             backColor: "#0000"
         };
-
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" async
-            integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/" crossorigin="anonymous" async></script>
 </head>
 <body>
-    <div class="app" id="app">
-        <!-- ############ LAYOUT START-->
-        <!-- aside -->
-        <div id="aside" class="app-aside modal fade folded md nav-expand">
+    <!-- app - start -->
+    <div id="app" class="app">
+
+        <!-- navbar - start -->
+        <div id="aside" class="app-aside modal fade md nav-expand">
             <div class="left navside indigo-900 dk" layout="column">
                 <div class="navbar navbar-md no-radius">
-                    <!-- brand -->
+
+                    <!-- brand - start -->
                     <a class="navbar-brand">
                         <div ui-include="{% static 'dashboard/images/logo.png' %}"></div>
                         <img src="{% static 'dashboard/images/logo.png' %}" alt="." class="hide">
                         <span class="hidden-folded inline">Lantern Project</span>
                     </a>
-                    <!-- / brand -->
+                    <!-- brand - end -->
+
                 </div>
                 <div flex class="hide-scroll">
                     <nav class="scroll nav-active-primary">
                         <ul class="nav" ui-nav>
+
                             <!-- Agent - start -->
                             <li class="nav-header hidden-folded">
                                 <small class="text-muted">Agent</small>
@@ -208,6 +206,7 @@
                                 </a>
                             </li>
                             <!-- Shared - end -->
+
                         </ul>
                     </nav>
                 </div>
@@ -220,7 +219,7 @@
                             <li class="no-bg">
                                 <a>
                                     <span class="nav-icon">
-                                        <i class="material-icons"></i>
+                                        <i class="fa fa-power-off" aria-hidden="true"></i>
                                     </span>
                                     <span class="nav-text">Logout</span>
                                 </a>
@@ -230,19 +229,20 @@
                 </div>
             </div>
         </div>
-        <!-- / aside -->
-        <!-- content -->
+        <!-- navbar - end -->
+        <!-- content - start -->
         <div id="content" class="app-content box-shadow-z0" role="main">
             <div class="app-header white box-shadow navbar-md">
                 <div class="navbar">
-                    <!-- Open side - Naviation on mobile -->
+                    <!-- Open side - Naviation on mobile - start -->
                     <a data-toggle="modal" data-target="#aside" class="navbar-item pull-left hidden-lg-up">
                         <i class="material-icons">&#xe5d2;</i>
                     </a>
-                    <!-- / -->
-                    <!-- Page title - Bind to $state's title -->
+                    <!-- Open side - Naviation on mobile - end -->
+                    <!-- Page title - start -->
                     <div class="navbar-item pull-left h5" ng-bind="$state.current.data.title" id="pageTitle"></div>
-                    <!-- navbar right -->
+                    <!-- Page title - end -->
+                    <!-- notifications - start -->
                     <ul class="nav navbar-nav pull-right">
                         <li class="nav-item dropdown pos-stc-xs">
                             <a class="nav-link" href data-toggle="dropdown">
@@ -282,13 +282,29 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link clear" href data-toggle="dropdown">
+                            <a class="nav-link" href="" data-toggle="dropdown">
                                 <span class="avatar w-32">
-                                    <img src="{% static 'dashboard/images/a0.jpg'%}" alt="...">
+                                    <img src="{% static 'dashboard/images/a3.jpg'%}" alt="...">
                                     <i class="on b-white bottom"></i>
+                                </span> <span class="hidden-md-down nav-text m-l-sm text-left">
+                                    <span class="_500">Rose Martin</span>
+                                    <small class="text-muted">Administrator</small>
                                 </span>
-                            </a>
-                            <div ui-include="{% url 'index' %}"></div>
+                            </a><div class="dropdown-menu pull-right dropdown-menu-scale">
+                                <a class="dropdown-item" ui-sref="app.inbox.list"><span>Inbox</span> <span class="label warn m-l-xs">3</span></a>
+                                <a class="dropdown-item" ui-sref="app.page.profile"><span>Profile</span></a> <a class="dropdown-item" ui-sref="app.page.setting">
+                                    <span>Settings</span> <span class="label primary m-l-xs">3/9</span>
+                                </a><div class="dropdown-divider"></div>
+                                <a class="dropdown-item" ui-sref="app.docs">Need help?</a> <a class="dropdown-item" ui-sref="access.signin">Sign out</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link p-l b-l" href="" data-toggle="dropdown" aria-expanded="false"><i class="material-icons"></i></a>
+                            <div class="dropdown-menu dropdown-menu-scale pull-right text-color" role="menu">
+                                <a class="dropdown-item" href="">Action</a>
+                                <a class="dropdown-item" href="">Another action</a> <a class="dropdown-item" href="">Something else here</a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item" href="">Separated link</a>
+                            </div>
                         </li>
                         <li class="nav-item hidden-md-up">
                             <a class="nav-link" data-toggle="collapse" data-target="#collapse">
@@ -296,129 +312,55 @@
                             </a>
                         </li>
                     </ul>
-                    <!-- / navbar right -->
+                    <!-- notifications - end -->
                 </div>
             </div>
-            <div class="app-footer">
-                <div class="p-a text-xs">
-                    <div class="text-muted" style="width:100%; text-align:center">
-                        <span>
-                            &copy; Copyright <strong><a href="#">Lantern-Project</a></strong> <span class="hidden-xs-down">- Built with ❤</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
+
+            <!-- footer - start -->
+            <div class="app-footer"><div class="p-a text-xs"><div class="text-muted" style="width:100%; text-align:center"><span>&copy; Copyright <strong><a href="#">Lantern-Project</a></strong> <span class="hidden-xs-down">- Built with ❤</span></span></div></div></div>
+            <!-- footer - end -->
+
             <div ui-view class="app-body" id="view">
                 <div class="padding">
-                    <!-- Left panel - start -->
+
+                    <!-- Left column - start -->
                     <div class="col-md-4">
-                        <!-- Sessions list - start -->
-                        <div class="box">
-                            <div class="box-header">
-                                <h3>All Sessions<b class="label label-sm primary" style="vertical-align:top; float: right; padding: .35em .45em">5</b></h3>
+                        <div class="navside white r box-shadow-z0 m-b">
+                            <div class="nav-stacked nav-active-primary" flex="">
+                                <ul class="nav" ui-nav="" style="padding-bottom:10px">
+                                    <li class="nav-header hidden-folded"><strong>Ongoing Sessions</strong></li>
+                                    <li class="active">
+                                        <a>
+                                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
+                                            <i class="nav-label"><b class="label label-sm no-bg">2</b></i> <span class="nav-icon">
+                                                <i class="fa fa-bullseye" aria-hidden="true"></i>
+                                            </span> <span class="nav-text">Assigned</span>
+                                        </a><ul class="nav-sub">
+                                            <li><a><span class="nav-text">Session 1</span></a></li>
+                                            <li>
+                                                <a><span class="nav-text">Session 2</span></a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a>
+                                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
+                                            <i class="nav-label"><b class="label label-sm no-bg">4</b></i> <span class="nav-icon">
+                                                <i class="fa fa-podcast" aria-hidden="true"></i>
+                                            </span> <span class="nav-text">All</span>
+                                        </a><ul class="nav-sub">
+                                            <li><a><span class="nav-text">Session 3</span></a></li>
+                                            <li><a><span class="nav-text">Session 4</span></a></li>
+                                            <li><a><span class="nav-text">Session 5</span></a></li>
+                                            <li><a><span class="nav-text">Session 6</span></a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
-                            <div class="box-divider m-a-0"></div>
-                            <ul class="list no-border p-b" style="max-height:400px; overflow-y:auto">
-                                <li class="list-item">
-                                    <a herf="" class="list-left">
-                                        <span class="w-40 avatar">
-                                            <svg data-jdenticon-value="icon"></svg>
-                                            <i class="on b-white bottom"></i>
-                                        </span>
-                                    </a>
-                                    <div class="list-body">
-                                        <div><a href="">Chris Fox</a></div>
-                                        <small class="text-muted text-ellipsis">Designer, Blogger</small>
-                                    </div>
-                                </li>
-                                <li class="list-item">
-                                    <a herf="" class="list-left">
-                                        <span class="w-40 avatar">
-                                            <svg data-jdenticon-value="icon"></svg>
-                                            <i class="on b-white bottom"></i>
-                                        </span>
-                                    </a>
-                                    <div class="list-body">
-                                        <div><a href="">Mogen Polish</a></div>
-                                        <small class="text-muted text-ellipsis">Writter, Mag Editor</small>
-                                    </div>
-                                </li>
-                                <li class="list-item">
-                                    <a herf="" class="list-left">
-                                        <span class="w-40 avatar">
-                                            <svg data-jdenticon-value="icon"></svg>
-                                            <i class="busy b-white bottom"></i>
-                                        </span>
-                                    </a>
-                                    <div class="list-body">
-                                        <div><a href="">Joge Lucky</a></div>
-                                        <small class="text-muted text-ellipsis">Art director, Movie Cut</small>
-                                    </div>
-                                </li>
-                                <li class="list-item">
-                                    <a herf="" class="list-left">
-                                        <span class="w-40 avatar">
-                                            <svg data-jdenticon-value="icon"></svg>
-                                            <i class="away b-white bottom"></i>
-                                        </span>
-                                    </a>
-                                    <div class="list-body">
-                                        <div><a href="">Folisise Chosielie</a></div>
-                                        <small class="text-muted text-ellipsis">Musician, Player</small>
-                                    </div>
-                                </li>
-                                <li class="list-item">
-                                    <a herf="" class="list-left">
-                                        <span class="w-40 circle avatar">
-                                            <svg data-jdenticon-value="icon"></svg>
-                                            <i class="away b-white bottom"></i>
-                                        </span>
-                                    </a>
-                                    <div class="list-body">
-                                        <div><a href="">Peter</a></div>
-                                        <small class="text-muted text-ellipsis">Musician, Player</small>
-                                    </div>
-                                </li>
-                            </ul>
                         </div>
-                        <!-- Sessions list - end -->
-                        <!-- Ongoing sessinos list - start -->
-                        <div class="box">
-                            <div class="box-header">
-                                <h3>Ongoing Sessions<b class="label label-sm primary" style="vertical-align:top; float: right; padding: .35em .45em">3</b></h3>
-                            </div>
-                            <div class="box-divider m-a-0"></div>
-                            <ul class="list no-border p-b" style="max-height:200px; overflow-y:auto">
-                                <li class="list-item">
-                                    <a herf="" class="list-left">
-                                        <span class="w-40 avatar">
-                                            <svg data-jdenticon-value="icon"></svg>
-                                            <i class="on b-white bottom"></i>
-                                        </span>
-                                    </a>
-                                    <div class="list-body">
-                                        <div><a href="">Chris Fox</a></div>
-                                        <small class="text-muted text-ellipsis">Designer, Blogger</small>
-                                    </div>
-                                </li>
-                                <li class="list-item">
-                                    <a herf="" class="list-left">
-                                        <span class="w-40 avatar">
-                                            <svg data-jdenticon-value="icon"></svg>
-                                            <i class="on b-white bottom"></i>
-                                        </span>
-                                    </a>
-                                    <div class="list-body">
-                                        <div><a href="">Mogen Polish</a></div>
-                                        <small class="text-muted text-ellipsis">Writter, Mag Editor</small>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- Ongoing sessions lsit - end -->
                     </div>
-                    <!-- Left panel - end -->
-                    <!-- Right panel - start -->
+                    <!-- Left column - end -->
+                    <!-- Right column - start -->
                     <div class="col-md-8">
                         <div class="box row-col" style="min-height:600px">
                             <div class="box-header b-b">
@@ -502,13 +444,15 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Right panel - end -->
+                    <!-- Right column - end -->
                 </div>
             </div>
         </div>
-        <!-- / -->
-        <!-- ############ LAYOUT END-->
+        <!-- content - end -->
+        <!-- app - end -->
     </div>
+    <!-- app - end -->
+    <!-- Scripts -->
     <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
 </body>
 </html>
