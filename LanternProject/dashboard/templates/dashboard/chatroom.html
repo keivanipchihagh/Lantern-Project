@@ -52,6 +52,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/" crossorigin="anonymous" async></script>
 </head>
 <body>
+
     <!-- app - start -->
     <div id="app" class="app">
 
@@ -175,7 +176,7 @@
                                     <span class="nav-icon">
                                         <i class="fa fa-child" aria-hidden="true"></i>
                                     </span>
-                                    <span class="nav-text">Service</span>
+                                    <span class="nav-text">Chatroom</span>
                                 </a>
                             </li>
                             <li>
@@ -335,11 +336,10 @@
                                             <i class="nav-label"><b class="label label-sm no-bg">2</b></i> <span class="nav-icon">
                                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                                             </span> <span class="nav-text">Assigned</span>
-                                        </a><ul class="nav-sub">
-                                            <li><a><span class="nav-text">Session 1</span></a></li>
-                                            <li>
-                                                <a><span class="nav-text">Session 2</span></a>
-                                            </li>
+                                        </a><ul class="nav-sub">                                        
+                                            {% for session in assigned_sessions %}
+                                                <li><a><span class="nav-text">{{ session.session_key }}</span></a></li>
+                                            {% endfor %}
                                         </ul>
                                     </li>
                                     <li>
@@ -349,10 +349,9 @@
                                                 <i class="fa fa-podcast" aria-hidden="true"></i>
                                             </span> <span class="nav-text">All</span>
                                         </a><ul class="nav-sub">
-                                            <li><a><span class="nav-text">Session 3</span></a></li>
-                                            <li><a><span class="nav-text">Session 4</span></a></li>
-                                            <li><a><span class="nav-text">Session 5</span></a></li>
-                                            <li><a><span class="nav-text">Session 6</span></a></li>
+                                            {% for session in open_sessions %}
+                                                <li><a><span class="nav-text">{{ session.session_key }}</span></a></li>
+                                            {% endfor %}
                                         </ul>
                                     </li>
                                 </ul>
