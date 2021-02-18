@@ -4,8 +4,10 @@
     "\\themes",
     "\\themes\\flatkit",
     "\\themes\\flatkit\\assets",
-    "\\themes\\flatkit\\html"
+    "\\themes\\flatkit\\assets\\styles",
+    "\\themes\\flatkit\\html",
+    "\\themes\\flatkit\\html\\scripts"
   ],
-  "SelectedNode": "\\themes\\flatkit\\html\\dashboard-0.html",
+  "SelectedNode": "\\themes\\flatkit\\html\\scripts\\app.html.js",
   "PreviewInSolutionExplorer": false
 }
