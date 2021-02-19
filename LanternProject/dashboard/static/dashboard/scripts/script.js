@@ -12,7 +12,7 @@ const ChatApp = new Vue({
 
         sendMessage: function () {            
             document.querySelector('#chat-message-submit').click()
-        },
+        },        
         openChat: function (session_key) {
 
             document.querySelector('#chatTitle').innerText = 'Chat - ' + session_key
@@ -49,11 +49,12 @@ const ChatApp = new Vue({
 
             this.getChat(session_key, this.user_key)
         },
+
         getChat: function(session_key, user_key) {
             var self = this            
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/fetch/chat',
+                url: 'http://127.0.0.1:8000/dashboard/v1/fetch/session',
                 type: 'GET',
                 context: this,      // Essential for VueJS
                 data: {
@@ -65,17 +66,42 @@ const ChatApp = new Vue({
                 },
                 success: function (data) {
                     var i = 0
+                    self.packages = []
                     for (i; i < data.length; i++) {
-                        var entry = JSON.parse(data[i].replace(/'/g, '"'))
+                        var entry = JSON.parse(data[i].replace(/'/g, '"'))                        
                         self.packages.push({id: entry['id'], message: entry['content'], datetime: entry['datetime'], sender: entry['sender']})
                     }
                 },
             });
-        },        
+        },
+
+        closeChat: function(session_key) {
+            // Close the session, delete the chats and remove the session from dashboard
+            $.ajax({
+                url: 'http://127.0.0.1:8000/dashboard/v1/close/session',
+                type: 'GET',
+                data: { 'session_key': session_key, 'user_key': this.user_key },
+                error: function () { console.error('Session could not be closed') },
+                success: function () {
+                    console.log('Session Closed.')
+
+                    $("#assigned_" + session_key).remove()
+                    $("#open_" + session_key).remove()
+                    $('#chatTitle').text('Chat')
+                    $("#assigned_sessions_count").text(parseInt($("#assigned_sessions_count").text()) - 1)
+                    $("#open_sessions_count").text(parseInt($("#open_sessions_count").text()) - 1)
+                },
+            });            
+        },
+
         messageExists: function (id) {
             for (var i = 0; i < this.packages.length; i++) if (this.packages[i]['id'] == id) return true
             return false
         },
+
+        star: function() {
+            $("#star").toggleClass('fa-star-o fa-star')
+        }
     },
 
     mounted: function () {

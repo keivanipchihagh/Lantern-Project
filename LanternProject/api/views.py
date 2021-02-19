@@ -26,7 +26,7 @@ def create_session(request):
             session_key = secrets.token_hex(16)
             status = 'open'
             date_opened = datetime.now()
-            user_id = 2
+            user_id = 1
             site_id = site.id
             
             # Save session
