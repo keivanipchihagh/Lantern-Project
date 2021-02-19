@@ -326,7 +326,8 @@
                         <div class="navside white r box-shadow-z0 m-b">
                             <div class="nav-stacked nav-active-primary" flex="">
                                 <ul class="nav" ui-nav="" style="padding-bottom:10px">
-                                    <li class="nav-header hidden-folded"><strong>Ongoing Sessions</strong></li>
+                                    <li class="nav-header hidden-folded"><strong>Ongoing Sessions</strong></li>                                    
+                                    <!-- Assigned sessions - start -->
                                     <li class="active">
                                         <a>
                                             <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
@@ -343,7 +344,7 @@
                                                 <ul class="nav-sub">
                                                     <li>
                                                         <a class="md-btn md-flat m-b-sm text-danger col-md-4"  style="text-align: center; padding: 0.1rem">Block</a>
-                                                        <a class="md-btn md-flat m-b-sm text-accent col-md-4"  style="text-align: center; padding: 0.1rem" v-on:click="star">Star</a>
+                                                        <a class="md-btn md-flat m-b-sm text-accent col-md-4"  style="text-align: center; padding: 0.1rem" v-on:click="starChat('{{ session.session_key }}')">Star</a>
                                                         <a class="md-btn md-flat m-b-sm text-success col-md-4"  style="text-align: center; padding: 0.1rem" v-on:click="closeChat('{{ session.session_key }}')">Close</a>
                                                     </li>
                                                 </ul>
@@ -351,6 +352,34 @@
                                             {% endfor %}                                            
                                         </ul>
                                     </li>
+                                    <!-- Assigned sessions - end -->
+                                    <!-- Starred sessions - start -->
+                                    <li>
+                                        <a>
+                                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
+                                            <i class="nav-label"><b id="assigned_sessions_count" class="label label-sm no-bg">{{ starred_sessions|length }}</b></i> <span class="nav-icon">
+                                                <i class="fa fa-bullseye" aria-hidden="true"></i>
+                                            </span> <span class="nav-text">Starred</span>
+                                        </a><ul class="nav-sub">
+                                            {% for session in starred_sessions %}
+                                            <li id="assigned_{{ session.session_key }}" @click="openChat('{{ session.session_key }}')">                                            
+                                                <a style="padding-left: 1rem;">
+                                                    <span class="nav-icon"><svg data-jdenticon-value="icon" style="vertical-align: middle"></svg></span>
+                                                    <span class="nav-text">{{ session.session_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></span>
+                                                </a>
+                                                <ul class="nav-sub">
+                                                    <li>
+                                                        <a class="md-btn md-flat m-b-sm text-danger col-md-4"  style="text-align: center; padding: 0.1rem">Block</a>
+                                                        <a class="md-btn md-flat m-b-sm text-accent col-md-4"  style="text-align: center; padding: 0.1rem">Star</a>
+                                                        <a class="md-btn md-flat m-b-sm text-success col-md-4"  style="text-align: center; padding: 0.1rem" v-on:click="closeChat('{{ session.session_key }}')">Close</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            {% endfor %}                                            
+                                        </ul>
+                                    </li>
+                                    <!-- Starred sessions - end -->
+                                    <!-- All sessions - start -->
                                     <li>
                                         <a>
                                             <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
@@ -371,6 +400,7 @@
                                             {% endfor %}
                                         </ul>
                                     </li>
+                                    <!-- All sessions - end -->
                                 </ul>
                             </div>
                         </div>
@@ -380,7 +410,7 @@
                     <div class="col-md-8">
                         <div class="box row-col" style="min-height:600px">
                             <div class="box-header b-b">
-                                <i id="star" class="fa fa-star-o rounded b-info text-info" aria-hidden="true" style="padding: 3px"></i>
+                                <i id="star" class="" aria-hidden="true" style="padding: 3px"></i>
                                 <strong id="chatTitle">Chat</strong>
                             </div>
                             <div class="row-row dker">

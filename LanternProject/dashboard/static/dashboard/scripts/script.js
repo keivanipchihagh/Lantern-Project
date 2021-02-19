@@ -70,7 +70,8 @@ const ChatApp = new Vue({
                     for (i; i < data.length; i++) {
                         var entry = JSON.parse(data[i].replace(/'/g, '"'))                        
                         self.packages.push({id: entry['id'], message: entry['content'], datetime: entry['datetime'], sender: entry['sender']})
-                    }
+                        $("#star").attr('class', (entry['starred'] == 1)  ?'fa fa-star text-info' : ' fa fa-star-o text-info')
+                    }                    
                 },
             });
         },
@@ -91,17 +92,27 @@ const ChatApp = new Vue({
                     $("#assigned_sessions_count").text(parseInt($("#assigned_sessions_count").text()) - 1)
                     $("#open_sessions_count").text(parseInt($("#open_sessions_count").text()) - 1)
                 },
-            });            
+            });
+        },
+
+        starChat: function(session_key) {
+            // Star the session
+            $.ajax({
+                url: 'http://127.0.0.1:8000/dashboard/v1/star/session',
+                type: 'GET',
+                data: { 'session_key': session_key, 'user_key': this.user_key },
+                error: function () { console.error('Session could not be starred') },
+                success: function () {
+                    console.log('Session Starred.')
+                    $("#star").toggleClass('fa-star-o fa-star')
+                },
+            });
         },
 
         messageExists: function (id) {
             for (var i = 0; i < this.packages.length; i++) if (this.packages[i]['id'] == id) return true
             return false
-        },
-
-        star: function() {
-            $("#star").toggleClass('fa-star-o fa-star')
-        }
+        },        
     },
 
     mounted: function () {

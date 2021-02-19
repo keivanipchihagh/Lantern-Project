@@ -13,9 +13,9 @@ def index(request):
 def onload_chatroom(request, user_key):
     
     # Sessions
-    open_sessions, assigned_sessions = get_sessions(user_key = user_key)
+    open_sessions, assigned_sessions, starred_sessions = get_sessions(user_key = user_key)
     
-    return render(request = request, context = {'open_sessions': open_sessions, 'assigned_sessions': assigned_sessions}, template_name = 'dashboard/chatroom.html')
+    return render(request = request, context = {'open_sessions': open_sessions, 'assigned_sessions': assigned_sessions, 'starred_sessions': starred_sessions}, template_name = 'dashboard/chatroom.html')
 
 
 def fetch_session(request):
@@ -28,8 +28,11 @@ def fetch_session(request):
     session_id = Session.objects.get(session_key = session_key, user_id = user_id).id
     messages = Message.objects.filter(session_id = session_id)
     
+    # Format messages
     dictionaries = [str(obj.as_dict()) for obj in messages]
-    return HttpResponse(json.dumps(dictionaries), content_type='application/json')    # Serialized response
+
+    # Return serialized response
+    return HttpResponse(json.dumps(dictionaries), content_type='application/json')
 
 
 def close_session(request):
@@ -41,7 +44,7 @@ def close_session(request):
     user_id = User.objects.get(user_key = user_key).id
     session_id = Session.objects.get(session_key = session_key, user_id = user_id).id
 
-    # Close session
+    # Update session - Close
     session = Session.objects.get(id = session_id)
     session.status = 'closed'
     session.save()
@@ -53,11 +56,30 @@ def close_session(request):
     return HttpResponse('')
 
 
+def star_session(request):
+
+    # Get request data
+    session_key, user_key = request.GET['session_key'], request.GET['user_key']
+
+    # Verification
+    user_id = User.objects.get(user_key = user_key).id
+    session_id = Session.objects.get(session_key = session_key, user_id = user_id).id
+
+    # Update session - Star
+    session = Session.objects.get(id = session_id)
+    session.starred = 0 if (session.starred) else 1
+    session.save()
+
+    # Return empty response
+    return HttpResponse('')
+
+
 # -------------------------------------------------------------- Methods --------------------------------------------------------------
 
 def get_sessions(user_key):
 
     open_sessions = Session.objects.filter(status = 'open')                     # Fetch open sessions
     assigned_sessions = open_sessions.filter(user_id__user_key = user_key)      # Query assigned sessions
+    starred_sessions = open_sessions.filter(starred = True)                     # Query starred sessions
 
-    return open_sessions, assigned_sessions     # Return QuerySets
+    return open_sessions, assigned_sessions, starred_sessions                   # Return QuerySets

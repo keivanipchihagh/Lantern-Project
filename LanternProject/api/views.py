@@ -30,7 +30,7 @@ def create_session(request):
             site_id = site.id
             
             # Save session
-            Session(session_key = session_key, status = status, date_opened = date_opened, user_id = user_id, site_id = site_id).save()
+            Session(session_key = session_key, status = status, date_opened = date_opened, user_id = user_id, site_id = site_id, starred = 0).save()
 
             return HttpResponse(session_key)            # Return session key
         else:

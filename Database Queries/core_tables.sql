@@ -11,6 +11,7 @@ CREATE TABLE `core_session` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
   `session_key` varchar(64) UNIQUE NOT NULL COMMENT 'Unique key for the session',
   `status` ENUM ('open', 'closed') NOT NULL COMMENT 'Current state of the session',
+  `starred` boolean NOT NULL DEFAULT 0 COMMENT 'Starred message',
   `date_opened` datetime NOT NULL COMMENT 'Starting datetime',
   `date_closed` datetime COMMENT 'Ending datetime',
   `user_id` int COMMENT 'Foreign Key',
