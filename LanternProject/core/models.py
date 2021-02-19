@@ -7,6 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
+
 class CoreMessage(models.Model):
     content = models.CharField(max_length=300)
     ip = models.CharField(max_length=15, blank=True, null=True)
@@ -62,7 +63,9 @@ class CoreUser(models.Model):
     username = models.CharField(unique=True, max_length=30)
     password = models.CharField(max_length=30)
     role = models.CharField(max_length=5)
-    status = models.CharField(max_length=7)
+    location = models.CharField(max_length=30, blank=True, null=True)
+    bio = models.CharField(max_length=75, blank=True, null=True)
+    rating = models.FloatField(blank=True, null=True)
     user_key = models.CharField(unique=True, max_length=255)
     last_online = models.DateTimeField(blank=True, null=True)
     date_joined = models.DateTimeField(blank=True, null=True)
