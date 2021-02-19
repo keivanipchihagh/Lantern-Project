@@ -105,6 +105,17 @@ const ChatApp = new Vue({
                 success: function () {
                     console.log('Session Starred.')
                     $("#star").toggleClass('fa-star-o fa-star')
+                    
+                    if ($("#star").attr("class").includes('fa-star-o')) {
+                        $("#starred_" + session_key).remove()
+                        $("#starred_sessions_count").text(parseInt($("#starred_sessions_count").text()) - 1)
+                    } else {
+                        var starred = $("#assigned_" + session_key).clone(true)
+                        starred.attr({"id": "starred_" + session_key, "class": ""})
+                        
+                        $("#starred_sessions").html($("#starred_sessions").html() + $("<div />").append(starred.clone()).html())                        
+                        $("#starred_sessions_count").text(parseInt($("#starred_sessions_count").text()) + 1)
+                    }
                 },
             });
         },

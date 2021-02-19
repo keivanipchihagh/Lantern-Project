@@ -326,7 +326,7 @@
                         <div class="navside white r box-shadow-z0 m-b">
                             <div class="nav-stacked nav-active-primary" flex="">
                                 <ul class="nav" ui-nav="" style="padding-bottom:10px">
-                                    <li class="nav-header hidden-folded"><strong>Ongoing Sessions</strong></li>                                    
+                                    <li class="nav-header hidden-folded"><strong>Ongoing Sessions</strong></li>
                                     <!-- Assigned sessions - start -->
                                     <li class="active">
                                         <a>
@@ -334,22 +334,22 @@
                                             <i class="nav-label"><b id="assigned_sessions_count" class="label label-sm no-bg">{{ assigned_sessions|length }}</b></i> <span class="nav-icon">
                                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                                             </span> <span class="nav-text">Assigned</span>
-                                        </a><ul class="nav-sub">
+                                        </a><ul id="assigned_sessions" class="nav-sub">
                                             {% for session in assigned_sessions %}
-                                            <li id="assigned_{{ session.session_key }}" @click="openChat('{{ session.session_key }}')">                                            
+                                            <li id="assigned_{{ session.session_key }}" @click="openChat('{{ session.session_key }}')">
                                                 <a style="padding-left: 1rem;">
                                                     <span class="nav-icon"><svg data-jdenticon-value="icon" style="vertical-align: middle"></svg></span>
                                                     <span class="nav-text">{{ session.session_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></span>
                                                 </a>
                                                 <ul class="nav-sub">
                                                     <li>
-                                                        <a class="md-btn md-flat m-b-sm text-danger col-md-4"  style="text-align: center; padding: 0.1rem">Block</a>
-                                                        <a class="md-btn md-flat m-b-sm text-accent col-md-4"  style="text-align: center; padding: 0.1rem" v-on:click="starChat('{{ session.session_key }}')">Star</a>
-                                                        <a class="md-btn md-flat m-b-sm text-success col-md-4"  style="text-align: center; padding: 0.1rem" v-on:click="closeChat('{{ session.session_key }}')">Close</a>
+                                                        <a class="md-btn md-flat m-b-sm text-danger col-md-4" style="text-align: center; padding: 0.1rem">Block</a>
+                                                        <a class="md-btn md-flat m-b-sm text-accent col-md-4" style="text-align: center; padding: 0.1rem" v-on:click="starChat('{{ session.session_key }}')">Star</a>
+                                                        <a class="md-btn md-flat m-b-sm text-success col-md-4" style="text-align: center; padding: 0.1rem" v-on:click="closeChat('{{ session.session_key }}')">Close</a>
                                                     </li>
                                                 </ul>
                                             </li>
-                                            {% endfor %}                                            
+                                            {% endfor %}
                                         </ul>
                                     </li>
                                     <!-- Assigned sessions - end -->
@@ -357,25 +357,21 @@
                                     <li>
                                         <a>
                                             <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
-                                            <i class="nav-label"><b id="assigned_sessions_count" class="label label-sm no-bg">{{ starred_sessions|length }}</b></i> <span class="nav-icon">
+                                            <i class="nav-label"><b id="starred_sessions_count" class="label label-sm no-bg">{{ starred_sessions|length }}</b></i> <span class="nav-icon">
                                                 <i class="fa fa-bullseye" aria-hidden="true"></i>
                                             </span> <span class="nav-text">Starred</span>
-                                        </a><ul class="nav-sub">
+                                        </a><ul id="starred_sessions" class="nav-sub">
                                             {% for session in starred_sessions %}
-                                            <li id="assigned_{{ session.session_key }}" @click="openChat('{{ session.session_key }}')">                                            
+                                            <li id="starred_{{ session.session_key }}" @click="openChat('{{ session.session_key }}')">
                                                 <a style="padding-left: 1rem;">
                                                     <span class="nav-icon"><svg data-jdenticon-value="icon" style="vertical-align: middle"></svg></span>
                                                     <span class="nav-text">{{ session.session_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></span>
                                                 </a>
                                                 <ul class="nav-sub">
-                                                    <li>
-                                                        <a class="md-btn md-flat m-b-sm text-danger col-md-4"  style="text-align: center; padding: 0.1rem">Block</a>
-                                                        <a class="md-btn md-flat m-b-sm text-accent col-md-4"  style="text-align: center; padding: 0.1rem">Star</a>
-                                                        <a class="md-btn md-flat m-b-sm text-success col-md-4"  style="text-align: center; padding: 0.1rem" v-on:click="closeChat('{{ session.session_key }}')">Close</a>
-                                                    </li>
+                                                    <li><a class="md-btn md-flat text-black" style="text-align: center; padding: 0px">Assign</a></li>
                                                 </ul>
                                             </li>
-                                            {% endfor %}                                            
+                                            {% endfor %}
                                         </ul>
                                     </li>
                                     <!-- Starred sessions - end -->
@@ -386,15 +382,13 @@
                                             <i class="nav-label"><b id="open_sessions_count" class="label label-sm no-bg">{{ open_sessions|length }}</b></i> <span class="nav-icon">
                                                 <i class="fa fa-podcast" aria-hidden="true"></i>
                                             </span> <span class="nav-text">All</span>
-                                        </a><ul class="nav-sub">
+                                        </a><ul id="open_sessions" class="nav-sub">
                                             {% for session in open_sessions %}
                                             <li id="open_{{ session.session_key }}">
                                                 <span class="nav-icon" style="margin-left: 10px"><svg data-jdenticon-value="icon" style="vertical-align: -webkit-baseline-middle"></svg></span>
                                                 <a class="nav-text" style="padding-left: 2rem">{{ session.session_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></a>
                                                 <ul class="nav-sub">
-                                                    <li>
-                                                        <a class="md-btn md-flat text-black" style="text-align: center; padding: 0px">Assign</a>
-                                                    </li>
+                                                    <li><a class="md-btn md-flat text-black" style="text-align: center; padding: 0px">Assign</a></li>
                                                 </ul>
                                             </li>
                                             {% endfor %}
