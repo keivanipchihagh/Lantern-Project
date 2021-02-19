@@ -18,13 +18,18 @@ def profile(request, user_key):
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
 
     data = {
-        'fullname': ' '.join([user.firstname, user.lastname]),
+        'firstname': user.firstname,
+        'lastname': user.lastname,
+        'username': user.username,
+        'phonenumber': user.phonenumber,
+        'country': user.country,
+        'city': user.city,
         'role': user.role,
         'bio': user.bio,
         'rating': user.rating,
-        'location': user.location,
         'activities': len(Session.objects.filter(user_id = user.id)),
         'other_users': other_users,
+        'last_login': user.last_login
     }
 
     return render(request = request, context = {'data': data}, template_name = 'dashboard/profile.html')

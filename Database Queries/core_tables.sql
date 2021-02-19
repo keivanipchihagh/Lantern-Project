@@ -25,12 +25,14 @@ CREATE TABLE `core_user` (
   `email` varchar(50) UNIQUE NOT NULL COMMENT 'Email Address',
   `username` varchar(30) UNIQUE NOT NULL COMMENT 'Unique username',
   `password` varchar(30) NOT NULL COMMENT 'SHA-512 hashed password',
+  `phonenumber` varchar(12) NOT NULL COMMENT 'Phone Number',
   `role` ENUM ('staff', 'admin', 'agent') NOT NULL COMMENT 'Role of the user',
-  `location` varchar(30) COMMENT 'Location of the user',
+  `country` varchar(30) COMMENT 'Country',
+  `city` varchar(30) COMMENT 'City',
   `bio` varchar(75) COMMENT 'Bio',
   `rating` float COMMENT 'Rating of the user: 8.7 / 10',
   `user_key` varchar(255) UNIQUE NOT NULL COMMENT 'Unique key for the user',
-  `last_online` datetime COMMENT 'Last online datetime',
+  `last_login` datetime COMMENT 'Last online datetime',
   `date_joined` datetime COMMENT 'datetime the user was registered',
   `site_id` int NOT NULL COMMENT 'Foregin Key'
 );

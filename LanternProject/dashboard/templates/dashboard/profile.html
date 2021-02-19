@@ -335,16 +335,17 @@
                                     </span>
                                 </a>
                                 <div class="clear m-b">
-                                    <h3 class="m-a-0 m-b-xs">{{ data.fullname }}</h3>
+                                    <h3 class="m-a-0 m-b-xs">{{ data.firstname }} {{ data.lastname }}</h3>
                                     <p class="text-muted">
-                                    {% if data.role == 'staff' %}
-                                      <small class="label indigo m-r">{{ data.role|title }}</small>
-                                    {% elif data.role == 'admin' %}
-                                      <small class="label light-blue m-r">{{ data.role|title }}</small>
-                                    {% else %}
-                                      <small class="label teal m-r">{{ data.role|title }}</small>
-                                    {% endif %}
-                                    <small><i class="fa fa-map-marker m-r-xs"></i>{{ data.location }}</small></p>
+                                        {% if data.role == 'staff' %}
+                                        <small class="label indigo m-r">{{ data.role|title }}</small>
+                                        {% elif data.role == 'admin' %}
+                                        <small class="label light-blue m-r">{{ data.role|title }}</small>
+                                        {% else %}
+                                        <small class="label teal m-r">{{ data.role|title }}</small>
+                                        {% endif %}
+                                        <small><i class="fa fa-map-marker m-r-xs"></i>{{ data.city|title }}, {{ data.country|title }}</small>
+                                    </p>
                                     <div class="block clearfix m-b">
                                         <a href="" class="btn btn-icon btn-social rounded white btn-sm">
                                             <i class="fa fa-facebook"></i>
@@ -560,35 +561,197 @@
                                 <!-- Activities - end -->
                                 <!-- Profile - start -->
                                 <div class="tab-pane p-v-sm" id="tab_2">
-                                    <div class="row m-b">
-                                        <div class="col-xs-6">
-                                            <small class="text-muted">Cell Phone</small>
-                                            <div class="_500">1243 0303 0333</div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <small class="text-muted">Family Phone</small>
-                                            <div class="_500">+32(0) 3003 234 543</div>
+                                    <!-- Personal Information - start -->
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h2>Personal Information</h2>
+                                                <small>Some changes may take time to apply across the site, like your profile image.</small>
+                                            </div>
+                                            <div class="box-divider m-a-0"></div>
+                                            <div class="box-body">
+                                                <form role="form">
+                                                    <div class="form-group row">
+                                                        <!-- Firstname - start -->
+                                                        <div class="col-md-6" style="padding: 5px 10px">
+                                                            <label for="form_firstname" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="text" title="Firstname" class="form-control" value="{{ data.firstname }}" style="border: none; border-bottom: 1px solid #999" id="form_firstname" placeholder="Firstname"></div>
+                                                        </div>
+                                                        <!-- Firstname - end -->
+                                                        <!-- Lastname - start -->
+                                                        <div class="col-md-6" style="padding: 5px 10px">
+                                                            <label for="form_lastname" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="text" title="Lastname" class="form-control" value="{{ data.lastname }}" style="border: none; border-bottom: 1px solid #999" id="form_lastname" placeholder="Lastname"></div>
+                                                        </div>
+                                                        <!-- Lastname - end -->
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <!-- Username - start -->
+                                                        <div class="col-md-6" style="padding: 5px 10px">
+                                                            <label for="form_username" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="text" title="Username" class="form-control" value="{{ data.username }}" style="border: none; border-bottom: 1px solid #999" id="form_username" placeholder="Username"></div>
+                                                        </div>
+                                                        <!-- Username - end -->
+                                                        <!-- Phone Number - start -->
+                                                        <div class="col-md-6" style="padding: 5px 10px">
+                                                            <label for="form_phonenumber" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="text" title="Phone Number" class="form-control" value="{{ data.phonenumber }}" style="border: none; border-bottom: 1px solid #999" id="form_phonenumber" placeholder="Phone Number"></div>
+                                                        </div>
+                                                        <!-- Phone Number - end -->
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <!-- Country - start -->
+                                                        <div class="col-md-6" style="padding: 5px 10px">
+                                                            <label for="form_country" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="text" title="Country" class="form-control" value="{{ data.country }}" style="border: none; border-bottom: 1px solid #999" id="form_country" placeholder="Country"></div>
+                                                        </div>
+                                                        <!-- Country - end -->
+                                                        <!-- City - start -->
+                                                        <div class="col-md-6" style="padding: 5px 10px">
+                                                            <label for="form_city" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="text" title="City" class="form-control" value="{{ data.city }}" style="border: none; border-bottom: 1px solid #999" id="form_city" placeholder="City"></div>
+                                                        </div>
+                                                        <!-- City - end -->
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <!-- Bio - start -->
+                                                        <div class="col-md-6" style="padding: 5px 10px">
+                                                            <label for="form_bio" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="text" title="Bio" class="form-control" value="{{ data.bio }}" style="border: none; border-bottom: 1px solid #999" id="form_bio" placeholder="Bio"></div>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <!-- File upload - start -->
+                                                            <div class="col-md-8">
+                                                                <label for="exampleInputFile">Profile picture (size < 1M)</label>
+                                                                <input type="file" id="exampleInputFile" class="form-control" style="font-size: small">
+                                                            </div>
+                                                            <!-- File upload - start -->
+                                                            <!-- File display - start -->
+                                                            <div class="col-md-4">
+                                                                <img style="width: 100px; height: 100px" />
+                                                            </div>
+                                                            <!-- File display - start -->
+                                                        </div>
+                                                        <!-- Bio - end -->
+                                                    </div>
+                                                    <button type="submit" class="btn white m-b">Submit</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row m-b">
-                                        <div class="col-xs-6">
-                                            <small class="text-muted">Reporter</small>
-                                            <div class="_500">Coch Jose</div>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <small class="text-muted">Manager</small>
-                                            <div class="_500">James Richo</div>
+                                    <!-- Personal Information - end -->
+                                    <!-- Change Password - start -->
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h2>Change Password</h2>
+                                                <small>You may double-check before chaning the below fields</small>
+                                            </div>
+                                            <div class="box-divider m-a-0"></div>
+                                            <div class="box-body">
+                                                <form role="form">
+                                                    <div class="form-group row">
+                                                        <!-- Password - start -->
+                                                        <div class="col-md-5" style="padding: 5px 10px">
+                                                            <label for="form_password" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="password" title="Password" class="form-control" style="border: none; border-bottom: 1px solid #999" id="form_password" placeholder="Password"></div>
+                                                        </div>
+                                                        <!-- Password - end -->
+                                                        <!-- Password Confirmation - start -->
+                                                        <div class="col-md-5" style="padding: 5px 10px">
+                                                            <label for="form_passwordconfirmation" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="password" title="Password Confirmation" class="form-control" style="border: none; border-bottom: 1px solid #999" id="form_passwordconfirmation" placeholder="Password Confirmation"></div>
+                                                        </div>
+                                                        <!-- Password Confirmation - end -->
+                                                        <div class="col-md-2">
+                                                            <button type="submit" class="btn white m-b" style="margin-top: 15px">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <small class="text-muted">Bio</small>
-                                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis ipsum ac feugiat. Vestibulum ullamcorper sodales nisi nec condimentum. Mauris convallis mauris at pellentesque volutpat. Phasellus at ultricies neque, quis malesuada augue.</div>
+                                    <!-- Change Password - end -->
+                                    <!-- Change Email - start -->
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h2>Change Email Address</h2>
+                                                <small>You may double-check before chaning the below fields</small>
+                                            </div>
+                                            <div class="box-divider m-a-0"></div>
+                                            <div class="box-body">
+                                                <form role="form">
+                                                    <div class="form-group row">
+                                                        <!-- Primary Email - start -->
+                                                        <div class="col-md-5" style="padding: 5px 10px">
+                                                            <label for="form_primaryemail" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="email" title="Primary Email Address" class="form-control" style="border: none; border-bottom: 1px solid #999" id="form_primaryemail" placeholder="Email Address"></div>
+                                                        </div>
+                                                        <!-- Primary Email - end -->
+                                                        <!-- Secondary Email - start -->
+                                                        <div class="col-md-5" style="padding: 5px 10px">
+                                                            <label for="form_secondaryemail" class="col-sm-2 form-control-label"></label>
+                                                            <div><input type="email" title="Backup Email Address" class="form-control" style="border: none; border-bottom: 1px solid #999" id="form_secondaryemail" placeholder="Backup Email Address"></div>
+                                                        </div>
+                                                        <!-- Secondary Email - end -->
+                                                        <div class="col-md-2">
+                                                            <button type="submit" class="btn white m-b" style="margin-top: 15px">Submit</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <!-- Change Email - end -->
+                                    <!-- Security Token - start -->
+                                    <div class="col-md-12">
+                                        <div class="box">
+                                            <div class="box-header">
+                                                <h2>Change Security Token</h2>
+                                                <small>Revoke your security token, ONLY if you notice a security breach!</small>
+                                            </div>
+                                            <div class="box-divider m-a-0"></div>
+                                            <div class="box-body">
+                                                <form role="form">
+                                                  <div class="form-group row">
+                                                    <!-- Token - start -->
+                                                    <div class="col-md-10" style="padding: 5px 10px">
+                                                        <label for="form_token" class="col-sm-2 form-control-label"></label>
+                                                        <div><input type="password" title="Security Token" class="form-control" style="border: none; border-bottom: 1px solid #999" id="form_token" placeholder="Security Token"></div>
+                                                    </div>
+                                                    <!-- Token - end -->
+                                                    <div class="col-md-2">
+                                                        <button type="submit" class="btn white m-b" style="margin-top: 15px">Submit</button>
+                                                    </div>
+                                                  </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Security Token - end -->
                                 </div>
                                 <!-- Profile - end -->
                             </div>
                         </div>
                         <div class="col-sm-4 col-lg-3">
+                            <!-- Activity Status - start -->
+                            <div>
+                                <div class="box">
+                                    <div class="box-header">
+                                        <h3>Activity</h3>
+                                    </div>
+                                    <div class="box-divider m-a-0"></div>
+                                    <ul class="list no-border p-b">
+                                        <li class="list-item">
+                                            <span>Last Login</span>
+                                            <span class="pull-right">{{ data.last_login|date:'Y-m-d H:i:s' }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Activity Status - end -->
+                            <!-- Online Agents - start -->
                             <div>
                                 <div class="box">
                                     <div class="box-header">
@@ -607,11 +770,11 @@
                                             <div class="list-body">
                                                 <div><a href>{{ user.firstname }} {{ user.lastname }}</a></div>
                                                 {% if user.role == 'staff' %}
-                                                  <small class="label indigo m-r">{{ user.role|title }}</small>
+                                                <small class="label indigo m-r">{{ user.role|title }}</small>
                                                 {% elif user.role == 'admin' %}
-                                                  <small class="label light-blue m-r">{{ user.role|title }}</small>
+                                                <small class="label light-blue m-r">{{ user.role|title }}</small>
                                                 {% else %}
-                                                  <small class="label teal m-r">{{ user.role|title }}</small>
+                                                <small class="label teal m-r">{{ user.role|title }}</small>
                                                 {% endif %}
                                             </div>
                                         </li>
@@ -619,6 +782,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            <!-- Online Agents - end -->
                         </div>
                     </div>
                 </div>
