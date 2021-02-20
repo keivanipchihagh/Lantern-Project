@@ -4,6 +4,7 @@ from core.models import CoreSession as Session
 from core.models import CoreUser as User
 from core.models import CoreMessage as Message
 import json
+import hashlib
 
 
 def index(request):
@@ -29,7 +30,7 @@ def profile(request, user_key):
         'rating': user.rating,
         'activities': len(Session.objects.filter(user_id = user.id)),
         'other_users': other_users,
-        'last_login': user.last_login
+        'last_login': user.last_login,
     }
 
     return render(request = request, context = {'data': data}, template_name = 'dashboard/profile.html')
