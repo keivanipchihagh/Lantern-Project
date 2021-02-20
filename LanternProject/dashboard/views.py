@@ -5,6 +5,7 @@ from core.models import CoreUser as User
 from core.models import CoreMessage as Message
 import json
 import hashlib
+from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
@@ -31,9 +32,24 @@ def profile(request, user_key):
         'activities': len(Session.objects.filter(user_id = user.id)),
         'other_users': other_users,
         'last_login': user.last_login,
+        'user_key': user.user_key
     }
 
     return render(request = request, context = {'data': data}, template_name = 'dashboard/profile.html')
+
+@csrf_exempt
+def profile_update_pi(request, user_key):
+
+    user = User.objects.get(user_key = user_key)
+    user.firstname = request.POST['form_firstname']
+    user.lastname = request.POST['form_lastname']
+    user.phonenumber = request.POST['form_phonenumber']
+    user.country = request.POST['form_country']
+    user.city = request.POST['form_city']
+    user.bio = request.POST['form_bio']
+    user.save()
+
+    return HttpResponse('A')
 
 ################################################################### Chatroom #############################################################################
 

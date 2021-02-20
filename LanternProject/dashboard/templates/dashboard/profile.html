@@ -411,7 +411,7 @@
                 </div>
                 <!-- Tab page - end -->
                 <!-- body - start -->
-                <div class="padding">
+                <div id="profile" class="padding">
                     <div class="row">
                         <div class="col-sm-8 col-lg-9">
                             <div class="tab-content">
@@ -570,18 +570,19 @@
                                             </div>
                                             <div class="box-divider m-a-0"></div>
                                             <div class="box-body">
-                                                <form role="form">
+                                                <form id="form_pi" role="form" method="put" action="{% url 'profile' data.user_key %}" onsubmit="return false">
+                                                    {% csrf_token %}
                                                     <div class="form-group row">
                                                         <!-- Firstname - start -->
                                                         <div class="col-md-6" style="padding: 5px 10px">
                                                             <label for="form_firstname" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="text" title="Firstname" class="form-control" value="{{ data.firstname }}" style="border: none; border-bottom: 1px solid #999" id="form_firstname" placeholder="Firstname"></div>
+                                                            <div><input type="text" title="Firstname" class="form-control" value="{{ data.firstname }}" style="border: none; border-bottom: 1px solid #999" id="form_firstname" placeholder="Firstname" maxlength="30" pattern="[A-Za-z ]+" required></div>
                                                         </div>
                                                         <!-- Firstname - end -->
                                                         <!-- Lastname - start -->
                                                         <div class="col-md-6" style="padding: 5px 10px">
                                                             <label for="form_lastname" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="text" title="Lastname" class="form-control" value="{{ data.lastname }}" style="border: none; border-bottom: 1px solid #999" id="form_lastname" placeholder="Lastname"></div>
+                                                            <div><input type="text" title="Lastname" class="form-control" value="{{ data.lastname }}" style="border: none; border-bottom: 1px solid #999" id="form_lastname" placeholder="Lastname" maxlength="30" pattern="[A-Za-z ]+" required></div>
                                                         </div>
                                                         <!-- Lastname - end -->
                                                     </div>
@@ -589,13 +590,13 @@
                                                         <!-- Username - start -->
                                                         <div class="col-md-6" style="padding: 5px 10px">
                                                             <label for="form_username" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="text" title="Username" class="form-control" value="{{ data.username }}" style="border: none; border-bottom: 1px solid #999" id="form_username" placeholder="Username"></div>
+                                                            <div><input type="text" title="Username" class="form-control" value="{{ data.username }}" style="border: none; border-bottom: 1px solid #999" id="form_username" placeholder="Username" disabled></div>
                                                         </div>
                                                         <!-- Username - end -->
                                                         <!-- Phone Number - start -->
                                                         <div class="col-md-6" style="padding: 5px 10px">
                                                             <label for="form_phonenumber" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="text" title="Phone Number" class="form-control" value="{{ data.phonenumber }}" style="border: none; border-bottom: 1px solid #999" id="form_phonenumber" placeholder="Phone Number"></div>
+                                                            <div><input type="text" title="Phone Number" class="form-control" value="{{ data.phonenumber }}" style="border: none; border-bottom: 1px solid #999" id="form_phonenumber" placeholder="Phone Number (09XX XXX XXXX)" pattern="[0-9]{11}" required></div>
                                                         </div>
                                                         <!-- Phone Number - end -->
                                                     </div>
@@ -603,13 +604,13 @@
                                                         <!-- Country - start -->
                                                         <div class="col-md-6" style="padding: 5px 10px">
                                                             <label for="form_country" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="text" title="Country" class="form-control" value="{{ data.country }}" style="border: none; border-bottom: 1px solid #999" id="form_country" placeholder="Country"></div>
+                                                            <div><input type="text" title="Country" class="form-control" value="{{ data.country }}" style="border: none; border-bottom: 1px solid #999" id="form_country" placeholder="Country" pattern="[A-Za-z ]+" maxlength="30" required></div>
                                                         </div>
                                                         <!-- Country - end -->
                                                         <!-- City - start -->
                                                         <div class="col-md-6" style="padding: 5px 10px">
                                                             <label for="form_city" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="text" title="City" class="form-control" value="{{ data.city }}" style="border: none; border-bottom: 1px solid #999" id="form_city" placeholder="City"></div>
+                                                            <div><input type="text" title="City" class="form-control" value="{{ data.city }}" style="border: none; border-bottom: 1px solid #999" id="form_city" placeholder="City" pattern="[A-Za-z ]+" maxlength="30" required></div>
                                                         </div>
                                                         <!-- City - end -->
                                                     </div>
@@ -617,7 +618,7 @@
                                                         <!-- Bio - start -->
                                                         <div class="col-md-6" style="padding: 5px 10px">
                                                             <label for="form_bio" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="text" title="Bio" class="form-control" value="{{ data.bio }}" style="border: none; border-bottom: 1px solid #999" id="form_bio" placeholder="Bio"></div>
+                                                            <div><input type="text" title="Bio" class="form-control" value="{{ data.bio }}" style="border: none; border-bottom: 1px solid #999" id="form_bio" placeholder="Bio (Max 75 characters)" pattern="{\w\s}+" maxlength="75"></div>
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <!-- File upload - start -->
@@ -633,45 +634,42 @@
                                                             <!-- File display - start -->
                                                         </div>
                                                         <!-- Bio - end -->
-                                                    </div>
-                                                    <button type="submit" class="btn white m-b">Update</button>
-                                                </form>
+                                                    </div>                                                    
+                                                    <button type="submit" class="btn white m-b">Update</button>                                                    
+                                                </form>                                                
                                             </div>
                                         </div>
                                     </div>
                                     <!-- Personal Information - end -->
-                                    <!-- Change Password - start -->
+                                    <!-- Security Information - start -->
                                     <div class="col-md-12">
                                         <div class="box">
                                             <div class="box-header">
-                                                <h2>Change Password</h2>
-                                                <small>A confirmation email will be sent to your email address</small>
+                                                <h2>Security Information</h2>
+                                                <small>A confirmation email will be sent to your email address to complete the process</small>
                                             </div>
                                             <div class="box-divider m-a-0"></div>
                                             <div class="box-body">
                                                 <form role="form">
                                                     <div class="form-group row">
                                                         <!-- Password - start -->
-                                                        <div class="col-md-5" style="padding: 5px 10px">
-                                                            <label for="form_password" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="password" title="Password" class="form-control" style="border: none; border-bottom: 1px solid #999" id="form_password" placeholder="New Password"></div>
+                                                         <div class="col-md-6" style="padding: 5px 10px">
+                                                         <label for="form_bio" class="col-sm-7 form-control-label">You will Recieve an email with the instructions to reset your password.</label>
+                                                            <button type="submit" class="col-sm-5 btn white m-b" style="margin-top: 15px">Reset Password</button>
                                                         </div>
                                                         <!-- Password - end -->
-                                                        <!-- Password Confirmation - start -->
-                                                        <div class="col-md-5" style="padding: 5px 10px">
-                                                            <label for="form_passwordconfirmation" class="col-sm-2 form-control-label"></label>
-                                                            <div><input type="password" title="Password Confirmation" class="form-control" style="border: none; border-bottom: 1px solid #999" id="form_passwordconfirmation" placeholder="Confirm New Password"></div>
+                                                        <!-- Token - start -->
+                                                         <div class="col-md-6" style="padding: 5px 10px">
+                                                         <label for="form_bio" class="col-sm-7 form-control-label">If you notice suspicious activity on your account, revoke your token.</label>
+                                                            <button type="submit" class="btn white m-b" style="margin-top: 15px">Revoke Token</button>
                                                         </div>
-                                                        <!-- Password Confirmation - end -->
-                                                        <div class="col-md-2">
-                                                            <button type="submit" class="btn white m-b" style="margin-top: 15px">Change</button>
-                                                        </div>
+                                                        <!-- Token - end -->
                                                     </div>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Change Password - end -->                                    
+                                    <!-- Security Information - end -->                                    
                                 </div>
                                 <!-- Profile - end -->
                             </div>
