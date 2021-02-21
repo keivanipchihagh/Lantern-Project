@@ -20,7 +20,11 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 	- [x] Core Site
 	- [ ] Core Log
 - [ ] Dashboard Front-End desgin (Vue.js, FlatFull)
-	- [ ] Profile Section (Admin | Agent | Staff)
+	- [ ] Layout
+	- [x] Profile Section (Admin | Agent | Staff)
+		- [x] Basic information update
+		- [ ] Image upload
+		- [ ] Password change - (Confirmation Email)
 	- [x] Chatroom Section (Agent | Admin)
 		- [x] Basics
 		- [ ] WebSocket
@@ -39,7 +43,6 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
  	- channels_redis (```$ pip install channels_redis```)
 3. Run *docker* services (```docker run -p 6379:6379 -d redis:5```)
 4. Run ```$ py manage.py runserver ```
-5. Enjoy (:
 
 ## Used Technologies / Languages
 - [VueJS](www.vuejs.org) v2.0
