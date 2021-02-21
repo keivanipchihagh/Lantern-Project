@@ -7,41 +7,21 @@ const ChatApp = new Vue({
     },
 
     methods: {
-
-        update_pi: function() {            
-            self = this
-
-            $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/profile/' + self.user_key + '/update/pi',
-                headers: { "X-CSRFToken": $('#csrfmiddlewaretoken').val() },
-                type: 'GET',
-                context: this,      // Essential for VueJS
-                data: $('#form_pi').serialize(),
-                error: function(xhr, ajaxOptions, thrownError){
-                    alert(thrownError + '\n' + xhr.status + '\n' + ajaxOptions);
-                },
-                success: function (data) {
-                },
-            });
-        },
     },
 
     mounted: function () {
         self = this
-        $('#form_pi').submit(function(e) {            
+
+        $('form#form_pi').submit(function(e) {
             $.ajax({
                 url: 'http://127.0.0.1:8000/dashboard/v1/profile/' + self.user_key + '/update/pi',
-                type: 'PUT',
-                context: this,      // Essential for VueJS
-                data: $('#form_pi').serialize(),
-                error: function(xhr, ajaxOptions, thrownError){
-                    alert(thrownError + '\n' + xhr.status + '\n' + ajaxOptions);
-                },
-                success: function (data) {
-                    alert(data)
-                },
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                error: function(){$("#submit_btn").val('Oops! Somthing went wrong').attr('class', 'btn white m-b danger') },
+                success: function (response) { $("#submit_btn").val(response).attr('class', (response == 'Updated!' ? 'btn white m-b success' : 'btn white m-b warn')).prop('disabled', true); },
             });
         })
+
         
     },
 

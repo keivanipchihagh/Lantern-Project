@@ -570,26 +570,28 @@
                                             </div>
                                             <div class="box-divider m-a-0"></div>
                                             <div class="box-body">
-                                                <form id="form_pi" role="form" method="put" action="" onsubmit="return false">
-                                                    {% csrf_token %}                                                    
-                                                    {% for field in form %}
+                                                <!-- Profile Form - start -->
+                                                <form id="form_pi" role="form" method="post" onsubmit="return false" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    {% for field in form %}                                                        
                                                         <div class="form-group row">
-                                                        <!-- Username - start -->
                                                         <div class="col-md-12" style="padding: 5px 10px">
                                                             <label for="form_username" class="col-lg-2 form-control-label">{{ field.label_tag }}</label>
                                                             <div class="col-lg-10">
-                                                                {{ field.errors }}                                                                
-                                                                <input type="text" title="{{ field.label }}" class="form-control" value="{{ data.username }}" style="border: none; border-bottom: 1px solid #999" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="{{ field.label }}" {% if field.field.disabled %}readonly{% endif %}>
-                                                                {% if field.help_text %}
-                                                                    <p style="color: #999">{{ field.help_text|safe }}</p>
-                                                                {% endif %}
+                                                                {% if field.field.label == 'Profile picture' %}
+                                                                    <input type="file" accept="image/png,image/jpg,image/jpeg" id="{{ field.id_for_label }}" name="{{ field.html_name }}" title="{{ field.label }}" class="form-control" style="border: none; border-bottom: 1px solid #999">
+                                                                {% else %}
+                                                                    <input type="text" id="{{ field.id_for_label }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="form-control" style="border: none; border-bottom: 1px solid #999" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %} {% if field.field.disabled %}readonly disabled{% endif %} maxlength="{{ field.field.max_length }}">
+                                                                {% endif %}                                                                
+                                                                {% if field.help_text %} <p style="color: #999">{{ field.help_text|safe }}</p> {% endif %}
+                                                                {{ field.errors }}
                                                             </div>
                                                         </div>
-                                                        <!-- Username - end -->
                                                     </div>
                                                     {% endfor %}
-                                                    <button type="submit" class="btn white m-b" value="Update"></button>
+                                                    <input id="submit_btn" type="submit" class="btn white m-b" value="Update" style="transition: 0.5s"></button>
                                                 </form>
+                                                <!-- Profile Form - end -->
                                             </div>
                                         </div>
                                     </div>

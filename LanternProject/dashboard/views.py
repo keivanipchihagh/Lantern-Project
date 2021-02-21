@@ -8,6 +8,7 @@ import json
 from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UserForm
+from django.views.decorators.http import require_http_methods   # Request restrictions
 
 
 def index(request):
@@ -16,13 +17,15 @@ def index(request):
 
 ################################################################### Profile ##############################################################################
 
+@require_http_methods(['GET'])
 def profile(request, user_key):
 
     user = User.objects.get(user_key = user_key)
     sitename = Site.objects.get(id = user.site_id).name
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
 
-    form_initial_data = {
+    # Data for initial form fields and other attributes
+    data = {
         'firstname': user.firstname,
         'lastname': user.lastname,
         'username': user.username,
@@ -32,37 +35,42 @@ def profile(request, user_key):
         'site_name': sitename,
         'country': user.country,
         'city': user.city,        
-        'bio': user.bio,        
-    }
-
-    data = {
+        'bio': user.bio,
         'rating': user.rating,
         'activities': len(Session.objects.filter(user_id = user.id)),
         'other_users': other_users,
         'last_login': user.last_login,
-        'user_key': user.user_key,                
+        'user_key': user.user_key,
     }
 
-    # return render(request = request, context = {'data': data}, template_name = 'dashboard/profile.html')
-    form = UserForm(auto_id = True, initial = form_initial_data)
-    return render(request = request, context = {'form': form}, template_name = 'dashboard/profile.html')
+    return render(request = request, context = {'form': UserForm(auto_id = True, initial = data), 'data': data}, template_name = 'dashboard/profile.html')
 
+
+@require_http_methods(['POST'])
 @csrf_exempt
 def profile_update_pi(request, user_key):
 
-    put = QueryDict(request.body)
-    return HttpResponse(put.get('form_firstname'))
+    form = UserForm(request.POST, request.FILES)
 
-    user = User.objects.get(user_key = user_key)
-    user.firstname = request.POST['form_firstname']
-    user.lastname = request.POST['form_lastname']
-    user.phonenumber = request.POST['form_phonenumber']
-    user.country = request.POST['form_country']
-    user.city = request.POST['form_city']
-    user.bio = request.POST['form_bio']
-    user.save()
+    if form.is_valid():
+        user = User.objects.get(user_key = user_key)
+        user.firstname = form.cleaned_data['firstname']
+        user.lastname = form.cleaned_data['lastname']
+        user.phonenumber = form.cleaned_data['phone_number'].replace(' ', '')
+        user.country = form.cleaned_data['country']
+        user.city = form.cleaned_data['city']
+        user.bio = form.cleaned_data['bio']
+        user.save()
 
-    return HttpResponse('A')
+        # image = form.cleaned_data.get('profile_image', False)        
+        # with open('some/file/name.txt', 'wb+') as destination:
+        #     for chunk in request.FILES['file'].chunks():
+        #         destination.write(chunk)
+        form.save()
+
+        return HttpResponse('Updated!')
+    else:
+        return HttpResponse(form.errors.as_text())  # Validation failed
 
 ################################################################### Chatroom #############################################################################
 

@@ -72,6 +72,7 @@ class CoreUser(models.Model):
     user_key = models.CharField(unique=True, max_length=255)
     last_login = models.DateTimeField(blank=True, null=True)
     date_joined = models.DateTimeField(blank=True, null=True)
+    image = models.FileField(upload_to = 'A/')
     site = models.ForeignKey(CoreSite, models.DO_NOTHING)
 
     class Meta:
