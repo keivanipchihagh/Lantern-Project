@@ -1,6 +1,8 @@
 # Lantern Project
 Lightweight web-based platform designed provide synchronous chat capability &amp; AI-driven conversation with customers.
 
+**NOTE: SOME FILES HAVE BEEN REMOVED DUE TO COPY RIGHT, THE PROJECT WILL NOT RUN WITHOUT THESE FILES & CONFIGURATIONS.**
+
 ## Demo
 ![gif](https://github.com/keivanipchihagh/Lantern-Project/blob/main/README%20files/gif-1.gif)
 
