@@ -3,9 +3,11 @@ from django.shortcuts import render
 from core.models import CoreSession as Session
 from core.models import CoreUser as User
 from core.models import CoreMessage as Message
+from core.models import CoreSite as Site
 import json
-import hashlib
+from django.http import QueryDict
 from django.views.decorators.csrf import csrf_exempt
+from .forms import UserForm
 
 
 def index(request):
@@ -17,28 +19,39 @@ def index(request):
 def profile(request, user_key):
 
     user = User.objects.get(user_key = user_key)
+    sitename = Site.objects.get(id = user.site_id).name
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
 
-    data = {
+    form_initial_data = {
         'firstname': user.firstname,
         'lastname': user.lastname,
         'username': user.username,
-        'phonenumber': user.phonenumber,
-        'country': user.country,
-        'city': user.city,
+        'email_address': user.email,
+        'phone_number': user.phonenumber,
         'role': user.role,
-        'bio': user.bio,
+        'site_name': sitename,
+        'country': user.country,
+        'city': user.city,        
+        'bio': user.bio,        
+    }
+
+    data = {
         'rating': user.rating,
         'activities': len(Session.objects.filter(user_id = user.id)),
         'other_users': other_users,
         'last_login': user.last_login,
-        'user_key': user.user_key
+        'user_key': user.user_key,                
     }
 
-    return render(request = request, context = {'data': data}, template_name = 'dashboard/profile.html')
+    # return render(request = request, context = {'data': data}, template_name = 'dashboard/profile.html')
+    form = UserForm(auto_id = True, initial = form_initial_data)
+    return render(request = request, context = {'form': form}, template_name = 'dashboard/profile.html')
 
 @csrf_exempt
 def profile_update_pi(request, user_key):
+
+    put = QueryDict(request.body)
+    return HttpResponse(put.get('form_firstname'))
 
     user = User.objects.get(user_key = user_key)
     user.firstname = request.POST['form_firstname']

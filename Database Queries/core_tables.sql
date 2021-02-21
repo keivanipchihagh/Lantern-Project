@@ -39,6 +39,7 @@ CREATE TABLE `core_user` (
 
 CREATE TABLE `core_site` (
   `id` int PRIMARY KEY AUTO_INCREMENT COMMENT 'Primary Key',
+  `name` varchar(50) COMMENT 'Name of the site',
   `url` varchar(50) UNIQUE NOT NULL COMMENT 'Registered URL',
   `private_key` varchar(512) UNIQUE NOT NULL COMMENT 'Public API key',
   `public_key` varchar(512) UNIQUE NOT NULL COMMENT 'Private API key',

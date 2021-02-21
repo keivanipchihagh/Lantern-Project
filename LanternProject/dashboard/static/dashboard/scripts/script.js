@@ -38,7 +38,7 @@ const ChatApp = new Vue({
                     alert(thrownError + '\n' + xhr.status + '\n' + ajaxOptions);
                 },
                 success: function (data) {
-                    alert('Done')
+                    alert(data)
                 },
             });
         })
