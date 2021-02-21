@@ -1,10 +1,33 @@
 # Lantern Project
-Lightweight web-based platform designed provide synchronous chat capability &amp; AI-driven conversation with customers.
+Lightweight web-based platform designed provide synchronous chat capability &amp; AI-driven conversation with customers. The goal is to provide a system that can connect clients to agents for support by various means of communications like: live chat, AI chat, Email, ...
 
 **NOTE: SOME FILES HAVE BEEN REMOVED DUE TO COPY RIGHT, THE PROJECT WILL NOT RUN WITHOUT THESE FILES & CONFIGURATIONS.**
 
 ## Demo
 ![gif](https://github.com/keivanipchihagh/Lantern-Project/blob/main/README%20files/gif-1.gif)
+
+## RoadMap
+- [x] API Front-End design (Vue.js, UIkit)
+	- [x] Basic Template
+	- [ ] Responsive Frame	
+- [x] API WebSocket (Django, channels)
+	- [x] Single-layer costumer
+	- [ ] Multi-layer costumers
+	- [x] Security (Handshake, Session token)
+- [x] Database (MySql)
+	- [x] Core Message
+	- [x] Core User
+	- [x] Core Site
+	- [ ] Core Log
+- [ ] Dashboard Front-End desgin (Vue.js, FlatFull)
+	- [ ] Profile Section (Admin | Agent | Staff)
+	- [x] Chatroom Section (Agent | Admin)
+		- [x] Basics
+		- [ ] WebSocket
+	- [ ] Home Section (Admin | Agent | Staff)
+	- [ ] Charts Section (Admin | Staff)
+	- [ ] Newsletter (Admin | Staff)
+	- [ ] Security (Handshake, Session token)
 
 
 ## Installation
@@ -26,3 +49,4 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 
 ## Credits
 - **Admin dashboard template** from [FlatFull](https://flatfull.com)
+ 
