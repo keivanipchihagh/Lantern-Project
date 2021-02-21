@@ -9,11 +9,14 @@ from .forms import Profile
 from django.views.decorators.http import require_http_methods   # Request restrictions
 
 
-def index(request):
+##################################################################### Index ##############################################################################
+
+
+def index(request, user_key):
     return render(request = request, context = {}, template_name = 'dashboard/index.html')
 
 
-################################################################### Profile ##############################################################################
+##################################################################### Profile ##############################################################################
 
 @require_http_methods(['GET'])
 def profile(request, user_key):
@@ -57,6 +60,7 @@ def profile_update_pi(request, user_key):
             city = form.cleaned_data.get('city'),
             bio = form.cleaned_data.get('bio'),
         )
+        # form.save()
 
         return HttpResponse('Updated!')
     else:

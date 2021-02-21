@@ -10,7 +10,7 @@ class Profile(forms.ModelForm):
         model = CoreUser
 
         # Used fields
-        fields = ['firstname', 'lastname', 'email', 'username', 'phonenumber', 'role', 'country', 'city', 'bio', 'image', 'site']
+        fields = ['firstname', 'lastname', 'email', 'username', 'phonenumber', 'role', 'country', 'city', 'bio']
 
         # Error messages
         error_messages = {
@@ -23,6 +23,6 @@ class Profile(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for field in ['username', 'email', 'role', 'site']:
+        for field in ['username', 'email', 'role']:
             self.fields[field].disabled = True
             self.fields[field].required = False

@@ -253,8 +253,8 @@ class CoreUser(models.Model):
         )
 
     # Profile Image | File (Image)
-    image = models.FileField(
-        upload_to = 'A/',
+    image = models.ImageField(
+        upload_to = './',
         name = 'image',
         null = True,
         blank = True,
