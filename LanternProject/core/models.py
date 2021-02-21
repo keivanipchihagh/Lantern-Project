@@ -1,14 +1,38 @@
 from django.db import models
+from django.core.validators import RegexValidator
 
 
 class CoreMessage(models.Model):
-    content = models.CharField(max_length = 300)                                                # Content           | Max Length: 300
-    ip = models.CharField(max_length = 15, blank = True, null = True)                           # IP Address        | Max Length: 15
-    sender = models.CharField(max_length = 6, blank = True, null = True)                        # Sender            | Max Length: 6                 | client, agent
-    datetime = models.DateTimeField()                                                           # DateTime          | DateTime
-    session = models.ForeignKey('CoreSession', models.DO_NOTHING)                               # Session Id        | Foreign Key (CoreSession.id)
+    ''' Core Message model '''
 
-    # Formatter
+    # Content | Max Length: 300
+    content = models.CharField(
+        max_length = 300,
+        name = 'content',
+        )
+
+    # IP Address | Max Length: 15
+    ip = models.CharField(
+        max_length = 15,
+        name = 'ip',
+        blank = True,
+        null = True,
+        )
+    
+    # Sender | Max Length: 6 | client, agent
+    sender = models.CharField(
+        max_length = 6,
+        name = 'sender',
+        )
+
+    # DateTime | DateTime
+    datetime = models.DateTimeField(
+        name = 'datetime',
+    )
+
+    # Session Id | Foreign Key (CoreSession.id)
+    session = models.ForeignKey('CoreSession', models.DO_NOTHING)
+
     def as_dict(self):
         return {
             'content': self.content,
@@ -19,56 +43,229 @@ class CoreMessage(models.Model):
         }
 
     class Meta:
-        managed = True
+        managed = True          # Allow Create, Delete
         db_table = 'core_message'
 
 
 class CoreSession(models.Model):
-    session_key = models.CharField(unique = True, max_length = 64)                              # Session Key       | Max Length: 64
-    status = models.CharField(max_length = 6)                                                   # Status            | Max Length: 6                 | open, closed
-    starred = models.BooleanField()                                                             # Starred           | Boolean
-    date_opened = models.DateTimeField()                                                        # Date Opened       | DateTime
-    date_closed = models.DateTimeField(blank = True, null = True)                               # Date Closed       | DateTime
-    user = models.ForeignKey('CoreUser', models.DO_NOTHING, blank = True, null = True)          # User Id           | Foreign Key (CoreUser.id)
-    site = models.ForeignKey('CoreSite', models.DO_NOTHING)                                     # Site Id           | Foreign Key (CoreSite.id)
+    ''' Core Session model '''
+
+    # Session Key | Max Length: 64
+    session_key = models.CharField(
+        unique = True,
+        name = 'session_key',
+        max_length = 64,
+        )
+
+    # Status | Max Length: 6 | open, closed
+    status = models.CharField(
+        max_length = 6,
+        name = 'status',
+        validators = [RegexValidator('^{open|closed}$', message = "Status Unknonw")],
+        default = 'open',
+        )
+
+    # Starred | Boolean
+    starred = models.BooleanField(
+        default = False,
+        name = 'starred',        
+    )
+
+    # Date Opened | DateTime
+    date_opened = models.DateTimeField(
+        name = 'date_opened'
+    )
+
+    # Date Closed | DateTime
+    date_closed = models.DateTimeField(
+        blank = True,
+        name = 'date_closed',
+        null = True,
+        default = None,
+        )
+
+    # User Id  | Foreign Key (CoreUser.id)
+    user = models.ForeignKey('CoreUser', models.DO_NOTHING)
+
+    # Site Id | Foreign Key (CoreSite.id)
+    site = models.ForeignKey('CoreSite', models.DO_NOTHING)
 
     class Meta:
-        managed = True
+        managed = True          # Allow Create, Delete
         db_table = 'core_session'
 
 
 class CoreSite(models.Model):
-    name = models.CharField(max_length = 50, blank = True, null = True)                         # Name              | Max Length: 50
-    url = models.CharField(unique = True, max_length = 50)                                      # URL               | Max Length: 50
-    private_key = models.CharField(unique = True, max_length = 128)                             # Private Key       | Max Length: 128
-    public_key = models.CharField(unique = True, max_length = 128)                              # Public Key        | Max Length: 128
-    date_joined = models.DateTimeField()                                                        # Date Joined       | DateTime
-    date_expires = models.DateTimeField()                                                       # Expire Date       | DateTime
-    service = models.BooleanField(blank = True, null = True)                                    # Service           | Boolean
+    ''' Core Site model '''
+
+    # Name | Max Length: 50
+    name = models.CharField(
+        max_length = 50,
+        name = 'name',
+        unique = True,
+        )
+
+    # URL | Max Length: 50
+    url = models.CharField(
+        unique = True,
+        name = 'url',
+        max_length = 50,        
+        )
+
+    # Private Key | Max Length: 128
+    private_key = models.CharField(
+        unique = True,
+        name = 'private_key',
+        max_length = 128,
+        )
+
+    # Public Key | Max Length: 128
+    public_key = models.CharField(
+        unique = True,
+        name = 'public_key',
+        max_length = 128
+        )
+
+    # Date Joined | DateTime
+    date_joined = models.DateTimeField(
+        name = 'date_joined',
+    )
+
+    # Expire Date | DateTime
+    date_expires = models.DateTimeField(
+        blank = True,
+        name = 'date_expires',
+        null = True,
+    )
+
+    # Service | Boolean
+    service = models.BooleanField(
+        name = 'service',
+        default = True,
+        )
 
     class Meta:
-        managed = True
+        managed = True          # Allow Create, Delete
         db_table = 'core_site'
 
 
 class CoreUser(models.Model):
-    firstname = models.CharField(max_length = 30)                                               # Firstname         | Max Length: 30
-    lastname = models.CharField(max_length = 30)                                                # Lastname          | Max Length: 30
-    email = models.EmailField(unique = True, max_length = 50)                                   # Email Address     | Max Length: 50
-    username = models.CharField(unique = True, max_length = 30)                                 # Username          | Max Length: 30
-    password = models.CharField(max_length = 30)                                                # Password          | Max Length: 30
-    phonenumber = models.CharField(max_length = 12)                                             # Phone Number      | Max Length: 12
-    role = models.CharField(max_length = 5)                                                     # Role              | Max Length: 5
-    country = models.CharField(max_length = 30, blank = True, null = True)                      # Country           | Max Length: 30
-    city = models.CharField(max_length = 30, blank = True, null = True)                         # City              | Max Length: 30
-    bio = models.CharField(max_length = 75, blank = True, null = True)                          # Bio               | Max Length: 75
-    rating = models.FloatField(blank = True, null = True)                                       # Rating            | Float
-    user_key = models.CharField(unique = True, max_length = 128)                                # User Key          | Max Length: 128
-    last_login = models.DateTimeField(blank = True, null = True)                                # Last Login        | DateTime
-    date_joined = models.DateTimeField(blank = True, null = True)                               # Date Joined       | DateTime
-    image = models.FileField(upload_to = 'A/', null = True)                                     # Profile Image     | File (Image)
-    site = models.ForeignKey(CoreSite, models.DO_NOTHING)                                       # Site Id           | Foreign Key (CoreSite.id)
+    ''' Core User model '''
+
+    # Firstname | Max Length: 30
+    firstname = models.CharField(
+        max_length = 30,
+        name = 'firstname',
+        help_text = 'Max Length: 30',
+        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
+        )
+
+    # Lastname | Max Length: 30
+    lastname = models.CharField(
+        max_length = 30,
+        name = 'lastname',
+        help_text = 'Max Length: 30',
+        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
+        )
+
+    # Email Address | Max Length: 50
+    email = models.EmailField(
+        unique = True,
+        max_length = 50,
+        name = 'email',
+        help_text = 'Max length: 30',
+        verbose_name = 'Email Address'
+        )
+
+    # Username | Max Length: 30
+    username = models.CharField(
+        unique = True,
+        max_length = 30,
+        name = 'username',
+        help_text = 'Max length: 30',
+        )
+
+    # Password | Max Length: 30
+    password = models.CharField(
+        max_length = 30,
+        name = 'password',
+        unique = True,
+        )
+
+    # Phone Number | Max Length: 12
+    phonenumber = models.CharField(
+        max_length = 12,
+        name = 'phonenumber',        
+        validators = [RegexValidator('^[0-9]+$', message = "Numbers allowed only!")],
+        help_text = 'Format: XXXX XXX XXX',
+        verbose_name = 'Phone Number'
+        )
+
+    # Role | Max Length: 5
+    role = models.CharField(
+        max_length = 5,
+        name = 'role',
+        validators = [RegexValidator('{staff|admin|agent}', message = 'Role Unknown')],
+        )
+
+    # Country | Max Length: 30
+    country = models.CharField(
+        max_length = 30,
+        name = 'country',
+        blank = True,
+        null = True,
+        help_text = 'Max length: 30',
+        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")],
+        )
+
+    # City | Max Length: 30
+    city = models.CharField(
+        max_length = 30,
+        name = 'city',
+        blank = True,
+        null = True,
+        help_text = 'Max length: 30',
+        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")],
+        )
+
+    # Bio | Max Length: 75
+    bio = models.CharField(
+        max_length = 75,
+        name = 'bio',
+        blank = True,
+        null = True,
+        default = 'Howdy!',
+        help_text = 'Max length: 30',
+        )
+
+    # Rating | Float
+    rating = models.FloatField(
+        blank = True,
+        name = 'rating',
+        null = True,        
+        )
+
+    # User Key | Max Length: 128
+    user_key = models.CharField(
+        unique = True,
+        name = 'user_key',
+        max_length = 128,
+        )
+
+    # Profile Image | File (Image)
+    image = models.FileField(
+        upload_to = 'A/',
+        name = 'image',
+        null = True,
+        blank = True,
+        default = None,
+        help_text = 'Size < 1Mb',
+        verbose_name = 'Profile Picture'
+        )
+
+    # Site Id | Foreign Key (CoreSite.id)
+    site = models.ForeignKey(CoreSite, models.DO_NOTHING, verbose_name = 'Assigned Site')
 
     class Meta:
-        managed = True
+        managed = True          # Allow Create, Delete
         db_table = 'core_user'

@@ -571,14 +571,14 @@
                                             <div class="box-divider m-a-0"></div>
                                             <div class="box-body">
                                                 <!-- Profile Form - start -->
-                                                <form id="form_pi" role="form" method="post" onsubmit="return false" enctype="multipart/form-data">
+                                                <form id="form_pi" role="form" method="post" onsubmit="return false">
                                                     {% csrf_token %}
                                                     {% for field in form %}                                                        
                                                         <div class="form-group row">
                                                         <div class="col-md-12" style="padding: 5px 10px">
                                                             <label for="form_username" class="col-lg-2 form-control-label">{{ field.label_tag }}</label>
                                                             <div class="col-lg-10">
-                                                                {% if field.field.label == 'Profile picture' %}
+                                                                {% if field.field.label == 'image' %}
                                                                     <input type="file" accept="image/png,image/jpg,image/jpeg" id="{{ field.id_for_label }}" name="{{ field.html_name }}" title="{{ field.label }}" class="form-control" style="border: none; border-bottom: 1px solid #999">
                                                                 {% else %}
                                                                     <input type="text" id="{{ field.id_for_label }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="form-control" style="border: none; border-bottom: 1px solid #999" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %} {% if field.field.disabled %}readonly disabled{% endif %} maxlength="{{ field.field.max_length }}">
@@ -640,7 +640,7 @@
                                     <ul class="list no-border p-b">
                                         <li class="list-item">
                                             <span>Last Login</span>
-                                            <span class="pull-right">{{ data.last_login|date:'Y-m-d H:i:s' }}</span>
+                                            {% comment %} <span class="pull-right">{{ data.last_login|date:'Y-m-d H:i:s' }}</span> {% endcomment %}
                                         </li>
                                     </ul>
                                 </div>

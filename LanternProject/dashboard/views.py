@@ -5,9 +5,7 @@ from core.models import CoreUser as User
 from core.models import CoreMessage as Message
 from core.models import CoreSite as Site
 import json
-from django.http import QueryDict
-from django.views.decorators.csrf import csrf_exempt
-from .forms import UserForm
+from .forms import Profile
 from django.views.decorators.http import require_http_methods   # Request restrictions
 
 
@@ -29,38 +27,36 @@ def profile(request, user_key):
         'firstname': user.firstname,
         'lastname': user.lastname,
         'username': user.username,
-        'email_address': user.email,
-        'phone_number': user.phonenumber,
+        'email': user.email,
+        'phonenumber': user.phonenumber,
         'role': user.role,
-        'site_name': sitename,
+        'site': sitename,
         'country': user.country,
         'city': user.city,        
         'bio': user.bio,
         'rating': user.rating,
         'activities': len(Session.objects.filter(user_id = user.id)),
         'other_users': other_users,
-        'last_login': user.last_login,
         'user_key': user.user_key,
     }
 
-    return render(request = request, context = {'form': UserForm(auto_id = True, initial = data), 'data': data}, template_name = 'dashboard/profile.html')
+    return render(request = request, context = {'form': Profile(auto_id = True, instance = user), 'data': data}, template_name = 'dashboard/profile.html')
 
 
 @require_http_methods(['POST'])
-@csrf_exempt
 def profile_update_pi(request, user_key):
 
-    form = UserForm(request.POST, request.FILES)
+    form = Profile(request.POST, request.FILES)
 
     if form.is_valid():
-        user = User.objects.get(user_key = user_key)
-        user.firstname = form.cleaned_data['firstname']
-        user.lastname = form.cleaned_data['lastname']
-        user.phonenumber = form.cleaned_data['phone_number'].replace(' ', '')
-        user.country = form.cleaned_data['country']
-        user.city = form.cleaned_data['city']
-        user.bio = form.cleaned_data['bio']
-        user.save()
+        User.objects.filter(user_key = user_key).update(
+            firstname = form.cleaned_data.get('firstname'),
+            lastname = form.cleaned_data.get('lastname'),
+            phonenumber = form.cleaned_data.get('phonenumber'),
+            country = form.cleaned_data.get('country'),
+            city = form.cleaned_data.get('city'),
+            bio = form.cleaned_data.get('bio'),
+        )
 
         return HttpResponse('Updated!')
     else:
