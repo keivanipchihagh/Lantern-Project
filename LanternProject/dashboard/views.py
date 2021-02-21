@@ -62,12 +62,6 @@ def profile_update_pi(request, user_key):
         user.bio = form.cleaned_data['bio']
         user.save()
 
-        # image = form.cleaned_data.get('profile_image', False)        
-        # with open('some/file/name.txt', 'wb+') as destination:
-        #     for chunk in request.FILES['file'].chunks():
-        #         destination.write(chunk)
-        form.save()
-
         return HttpResponse('Updated!')
     else:
         return HttpResponse(form.errors.as_text())  # Validation failed
