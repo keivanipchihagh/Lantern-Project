@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+LanternProject/LanternProject/settings.py
+LanternProject/LanternProject/asgi.py
