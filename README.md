@@ -24,7 +24,7 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 	- [x] Profile Section (Admin | Agent | Staff)
 		- [x] Basic information update <span style="color:green"> (70%)</span>
 		- [ ] Image upload
-		- [ ] Password change - (Confirmation Email)
+		- [ ] Password change
 	- [x] Chatroom Section (Agent | Admin)
 		- [x] Basics <span style="color:yellow"> (Issue!)</span>
 		- [ ] WebSocket
@@ -32,6 +32,10 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 	- [ ] Charts Section (Admin | Staff)
 	- [ ] Newsletter (Admin | Staff)
 	- [ ] Security (Handshake, Session token)
+- [ ] Email Service
+	- [ ] signup confirmation
+	- [ ] Password Reset link
+	- [ ] Newsletter
 
 
 ## Installation
