@@ -8,25 +8,25 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 
 ## RoadMap
 - [x] API Front-End design (Vue.js, UIkit)
-	- [x] Basic Template
+	- [x] Basic Template <span style="color:green"> (100%)</span>
 	- [ ] Responsive Frame	
 - [x] API WebSocket (Django, channels)
-	- [x] Single-layer costumer
+	- [x] Single-layer costumer <span style="color:green"> (100%)</span>
 	- [ ] Multi-layer costumers
-	- [x] Security (Handshake, Session token)
+	- [x] Security (Handshake, Session token) <span style="color:green"> (60%)</span>
 - [x] Database (MySql)
-	- [x] Core Message
-	- [x] Core User
-	- [x] Core Site
+	- [x] Core Message <span style="color:green"> (100%)</span>
+	- [x] Core User <span style="color:green"> (80%)</span>
+	- [x] Core Site <span style="color:green"> (50%)</span>
 	- [ ] Core Log
 - [ ] Dashboard Front-End desgin (Vue.js, FlatFull)
-	- [ ] Layout
+	- [ ] Layout <span style="color:yellow"> (Issue!)</span>
 	- [x] Profile Section (Admin | Agent | Staff)
-		- [x] Basic information update
+		- [x] Basic information update <span style="color:green"> (70%)</span>
 		- [ ] Image upload
 		- [ ] Password change - (Confirmation Email)
 	- [x] Chatroom Section (Agent | Admin)
-		- [x] Basics
+		- [x] Basics <span style="color:yellow"> (Issue!)</span>
 		- [ ] WebSocket
 	- [ ] Home Section (Admin | Agent | Staff)
 	- [ ] Charts Section (Admin | Staff)
