@@ -28,7 +28,7 @@ def signin(request):
                 user = User.objects.get(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
 
                 # Log
-                Log(title = 'Sign In', user_id = user.id).save()
+                Log(title = 'Sign In', user_id = user.id, site_id = user.site_id).save()
 
                 return HttpResponseRedirect('v1/user/' + user.user_key)
             except:

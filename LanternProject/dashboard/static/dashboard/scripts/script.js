@@ -11,7 +11,7 @@ const Profile = new Vue({
         self = this
         $('form#form_pi').submit(function(e) {
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/profile/' + self.user_key + '/update/pi',
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/profile/pi',
                 type: $(this).attr('method'),
                 data: $(this).serialize(),
                 error: function(){$("#submit_btn").val('Oops! Somthing went wrong').attr('class', 'btn white m-b danger').prop('disabled', true) },

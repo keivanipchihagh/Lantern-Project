@@ -75,15 +75,7 @@
                             <!-- Agent - start -->
                             <li class="nav-header hidden-folded">
                                 <small class="text-muted">Agent</small>
-                            </li>
-                            <li>
-                                <a href="{% url 'index' %}">
-                                    <span class="nav-icon">
-                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Dashboard</span>
-                                </a>
-                            </li>
+                            </li>                            
                             <!-- Agent - end -->
                             <!-- Admin - start -->
                             <li class="nav-header hidden-folded">
@@ -104,7 +96,7 @@
                                         <span class="avatar w-24">
                                             <img src="{% static 'dashboard/images/a0.jpg' %}" alt="Alex">
                                         </span>
-                                        <a href="{% url 'index' %}" style="display:inline-block; padding-left: 18px">
+                                        <a href="" style="display:inline-block; padding-left: 18px">
                                             <span class="nav-text">Alex</span>
                                         </a>
                                     </li>
@@ -112,7 +104,7 @@
                                         <span class="avatar w-24">
                                             <img src="{% static 'dashboard/images/a3.jpg' %}" alt="Alex">
                                         </span>
-                                        <a href="{% url 'index' %}" style="display:inline-block; padding-left: 18px">
+                                        <a href="" style="display:inline-block; padding-left: 18px">
                                             <span class="nav-text">Janet</span>
                                         </a>
                                     </li>
@@ -130,7 +122,7 @@
                                 </a>
                                 <ul class="nav-sub">
                                     <li>
-                                        <a href="{% url 'index' %}">
+                                        <a href="">
                                             <span class="nav-text">System</span>
                                         </a>
                                     </li>
@@ -153,12 +145,12 @@
                                 </a>
                                 <ul class="nav-sub">
                                     <li>
-                                        <a href="{% url 'index' %}">
+                                        <a href="">
                                             <span class="nav-text">Google.com</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'index' %}">
+                                        <a href="">
                                             <span class="nav-text">Amazon.com</span>
                                         </a>
                                     </li>
@@ -170,7 +162,23 @@
                                 <small class="text-muted">Shared</small>
                             </li>
                             <li>
-                                <a href="{% url 'index' %}">
+                                <a href="{% url 'index' data.user_key %}">
+                                    <span class="nav-icon">
+                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="{% url 'profile' data.user_key %}">
+                                    <span class="nav-icon">
+                                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="nav-text">Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
                                     <span class="nav-icon">
                                         <i class="fa fa-child" aria-hidden="true"></i>
                                     </span>
@@ -178,7 +186,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'index' %}">
+                                <a href="">
                                     <span class="nav-label">
                                         <b class="label rounded label-sm primary">5</b>
                                     </span>
@@ -187,17 +195,9 @@
                                     </span>
                                     <span class="nav-text">Newsletter</span>
                                 </a>
-                            </li>
-                            <li class="active">
-                                <a href="{% url 'index' %}">
-                                    <span class="nav-icon">
-                                        <i class="fa fa-user-o" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Profile</span>
-                                </a>
-                            </li>
+                            </li>                            
                             <li>
-                                <a href="{% url 'index' %}">
+                                <a href="">
                                     <span class="nav-icon">
                                         <i class="fa fa-cogs" aria-hidden="true"></i>
                                     </span>
@@ -399,10 +399,10 @@
                             <div class="p-y-md clearfix nav-active-primary">
                                 <ul class="nav nav-pills nav-sm">
                                     <li class="nav-item active">
-                                        <a class="nav-link" href data-toggle="tab" data-target="#tab_1">Activities</a>
+                                        <a class="nav-link" href data-toggle="tab" data-target="#tab_1">Overview</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href data-toggle="tab" data-target="#tab_2">Profile</a>
+                                        <a class="nav-link" href data-toggle="tab" data-target="#tab_2">Information</a>
                                     </li>
                                 </ul>
                             </div>
@@ -417,149 +417,58 @@
                             <div class="tab-content">
                                 <!-- Activities - start -->
                                 <div class="tab-pane p-v-sm active" id="tab_1">
-                                    <div class="streamline b-l m-b m-l">
-                                        <div class="sl-item">
-                                            <div class="sl-left">
-                                                <img src="{% static 'dashboard/images/a0.jpg'%}" class="img-circle">
-                                            </div>
-                                            <div class="sl-content">
-                                                <div class="sl-date text-muted">2 minutes ago</div>
-                                                <div class="sl-author">
-                                                    <a href>Peter Joo</a>
-                                                </div>
-                                                <div>
-                                                    <p>Check your Internet connection</p>
-                                                </div>
-                                                <div class="sl-footer">
-                                                    <a href ui-toggle-class class="btn white btn-xs">
-                                                        <i class="fa fa-fw fa-star-o text-muted inline"></i>
-                                                        <i class="fa fa-fw fa-star text-danger none"></i>
-                                                    </a>
-                                                    <a href class="btn white btn-xs" data-toggle="collapse" data-target="#reply-1">
-                                                        <i class="fa fa-fw fa-mail-reply text-muted"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="box collapse m-a-0" id="reply-1">
-                                                    <form>
-                                                        <textarea class="form-control no-border" rows="3" placeholder="Type something..."></textarea>
-                                                    </form>
-                                                    <div class="box-footer clearfix">
-                                                        <button class="btn btn-info pull-right btn-sm">Post</button>
-                                                        <ul class="nav nav-pills nav-sm">
-                                                            <li class="nav-item"><a class="nav-link" href><i class="fa fa-camera text-muted"></i></a></li>
-                                                            <li class="nav-item"><a class="nav-link" href><i class="fa fa-video-camera text-muted"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="sl-item">
-                                            <div class="sl-left">
-                                                <img src="{% static 'dashboard/images/a1.jpg'%}" class="img-circle">
-                                            </div>
-                                            <div class="sl-content">
-                                                <div class="sl-date text-muted">9:30</div>
-                                                <div class="sl-author">
-                                                    <a href>Mike</a>
-                                                </div>
-                                                <div>
-                                                    <p>Meeting with tech leader</p>
-                                                </div>
-                                                <div class="sl-footer">
-                                                    <a href ui-toggle-class class="btn white btn-xs">
-                                                        <i class="fa fa-fw fa-star-o text-muted inline"></i>
-                                                        <i class="fa fa-fw fa-star text-danger none"></i>
-                                                    </a>
-                                                    <a href class="btn white btn-xs" data-toggle="collapse" data-target="#reply-2">
-                                                        <i class="fa fa-fw fa-mail-reply text-muted"></i>
-                                                    </a>
-                                                </div>
-                                                <div class="box collapse in m-a-0" id="reply-2">
-                                                    <form>
-                                                        <textarea class="form-control no-border" rows="3" placeholder="Type something..."></textarea>
-                                                    </form>
-                                                    <div class="box-footer clearfix">
-                                                        <button class="btn btn-info pull-right btn-sm">Post</button>
-                                                        <ul class="nav nav-pills nav-sm">
-                                                            <li class="nav-item"><a class="nav-link" href><i class="fa fa-camera text-muted"></i></a></li>
-                                                            <li class="nav-item"><a class="nav-link" href><i class="fa fa-video-camera text-muted"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="sl-item">
-                                            <div class="sl-left">
-                                                <img src="{% static 'dashboard/images/a2.jpg'%}" class="img-circle">
-                                            </div>
-                                            <div class="sl-content">
-                                                <div class="sl-date text-muted">8:30</div>
-                                                <div class="sl-author">
-                                                    <a href>Moke</a>
-                                                </div>
-                                                <div>
-                                                    <p>Call to customer <a href class="text-info">Jacob</a> and discuss the detail.</p>
-                                                    <p>
-                                                        <span class="inline w-lg w-auto-xs p-a-xs b dark-white">
-                                                            <img src="{% static 'dashboard/images/c1.jpg'%}" class="w-full">
-                                                        </span>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="sl-item">
-                                            <div class="sl-left">
-                                                <img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle">
-                                            </div>
-                                            <div class="sl-content">
-                                                <div class="sl-date text-muted">Wed, 25 Mar</div>
-                                                <p>Finished task <a href class="text-info">Testing</a>.</p>
-                                            </div>
-                                        </div>
-                                        <div class="sl-item">
-                                            <div class="sl-left">
-                                                <img src="{% static 'dashboard/images/a4.jpg'%}" class="img-circle">
-                                            </div>
-                                            <div class="sl-content">
-                                                <div class="sl-date text-muted">Thu, 10 Mar</div>
-                                                <p>Trip to the moon</p>
-                                            </div>
-                                        </div>
-                                        <div class="sl-item">
-                                            <div class="sl-left">
-                                                <img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle">
-                                            </div>
-                                            <div class="sl-content">
-                                                <div class="sl-date text-muted">Sat, 5 Mar</div>
-                                                <p>Prepare for presentation</p>
-                                                <blockquote>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante soe aiea ose dos soois.</p>
-                                                    <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-                                                </blockquote>
-                                            </div>
-                                        </div>
-                                        <div class="sl-item">
-                                            <div class="sl-left">
-                                                <img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle">
-                                            </div>
-                                            <div class="sl-content">
-                                                <div class="sl-date text-muted">Sun, 11 Feb</div>
-                                                <p><a href class="text-info">Jessi</a> assign you a task <a href class="text-info">Mockup Design</a>.</p>
-                                            </div>
-                                        </div>
-                                        <div class="sl-item">
-                                            <div class="sl-left">
-                                                <img src="{% static 'dashboard/images/a5.jpg'%}" class="img-circle">
-                                            </div>
-                                            <div class="sl-content">
-                                                <div class="sl-date text-muted">Thu, 17 Jan</div>
-                                                <p>Follow up to close deal</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <div class="box">
+						<div class="box-header">
+							<h3>Tasks</h3>
+						</div>
+						<div class="box-tool">
+					        <ul class="nav">
+					          <li class="nav-item inline dropdown">
+					            <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
+					              <i class="fa fa-ellipsis-v"></i>
+					            </a>
+					            <div class="dropdown-menu dropdown-menu-scale pull-right">
+					              <a class="dropdown-item" href="">New task</a>
+					              <a class="dropdown-item" href="">Make all finished</a>
+					              <a class="dropdown-item" href="">Make all unfinished</a>
+					              <div class="dropdown-divider"></div>
+					              <a class="dropdown-item">Settings</a>
+					            </div>
+					          </li>
+					        </ul>
+					    </div>
+						<div class="box-body">
+						  	<div class="streamline b-l m-l">
+						        <div class="sl-item b-success">
+						          <div class="sl-icon">
+						            <i class="fa fa-check"></i>
+						          </div>
+						          <div class="sl-content">
+						            <div class="sl-date text-muted">8:30</div>
+						            <div>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</div>
+						          </div>
+						        </div>
+						        <div class="sl-item b-info">
+						          <div class="sl-content">
+						            <div class="sl-date text-muted">Sat, 5 Mar</div>
+						            <div>Prepare for presentation</div>
+						          </div>
+						        </div>
+						        <div class="sl-item b-warning">
+						          <div class="sl-content">
+						            <div class="sl-date text-muted">Sun, 11 Feb</div>
+						            <div><a href="" class="text-info">Jessi</a> assign you a task <a href="" class="text-info">Mockup Design</a>.</div>
+						          </div>
+						        </div>
+						    </div>
+				  		</div>
+					  	<div class="box-footer">
+					  		<a href="" class="btn btn-sm btn-block info text-u-c">Load More</a>
+					  	</div>
+					</div>
                                 </div>
                                 <!-- Activities - end -->
-                                <!-- Profile - start -->
+                                <!-- Information - start -->
                                 <div class="tab-pane p-v-sm" id="tab_2">
                                     <!-- Personal Information - start -->
                                     <div class="col-md-12">
@@ -626,7 +535,7 @@
                                     </div>
                                     <!-- Security Information - end -->                                    
                                 </div>
-                                <!-- Profile - end -->
+                                <!-- Information - end -->
                             </div>
                         </div>
                         <div class="col-sm-4 col-lg-3">
@@ -646,11 +555,11 @@
                                 </div>
                             </div>
                             <!-- Activity Status - end -->
-                            <!-- Online Agents - start -->
+                            <!-- Agents - start -->
                             <div>
                                 <div class="box">
                                     <div class="box-header">
-                                        <h3>Online Agents</h3>
+                                        <h3>Other Agents</h3>
                                     </div>
                                     <div class="box-divider m-a-0"></div>
                                     <ul class="list no-border p-b">
@@ -677,7 +586,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <!-- Online Agents - end -->
+                            <!-- Agents - end -->
                         </div>
                     </div>
                 </div>
