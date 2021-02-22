@@ -189,7 +189,6 @@ class CoreUser(models.Model):
     password = models.CharField(
         max_length = 30,
         name = 'password',
-        unique = True,
         )
 
     # Phone Number | Max Length: 12

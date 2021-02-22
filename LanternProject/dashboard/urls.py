@@ -4,11 +4,11 @@ from . import views
 
 urlpatterns = [
 
-    # Index
-    path(route = 'v1/user/<int:user_key>', view = views.index, name = 'index'),
-
     # Login
     path(route = 'login', view = views.login, name = 'login'),
+
+    # Index
+    path(route = 'v1/user/<int:user_key>', view = views.index, name = 'index'),    
 
     path(route = 'v1/chatroom/<int:user_key>', view = views.onload_chatroom, name = 'chatroom'),
     path(route = 'v1/fetch/session', view = views.fetch_session, name = 'fetch session'),

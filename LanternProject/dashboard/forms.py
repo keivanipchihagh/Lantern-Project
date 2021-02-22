@@ -27,26 +27,33 @@ class ProfileForm(forms.ModelForm):
             self.fields[field].required = False
 
 
-class LoginForm(forms.ModelForm):
+class LoginForm(forms.Form):
     ''' Login Form '''
 
-    # Custome fields
-    remember_me = forms.BooleanField(
-        label = 'Remember me' 
-    )
-
-    class Meta:
-        model = CoreUser        
-
-        # Used fields
-        fields = ['email', 'password']        
-
-        # Error messages
+    email = forms.EmailField(
+        max_length = 50,
+        label = 'email',
+        help_text = 'Max length: 50',
         error_messages = {
-            'max_length': 'Field is too long!',
-            'required': 'This field is required',
-        }
+            'max_length': 'Maximum length is 50 characters',
+            }
+        )
 
+    password = forms.CharField(
+        max_length = 30,
+        min_length = 8,
+        label = 'password',
+        help_text = 'Min length: 8',
+        error_messages = {
+            'min_length': 'Minimum length is 8 characters',
+            'max_length': 'Maximum length is 30 characters',
+            }
+        )
+
+    remember_me = forms.BooleanField(
+        label = 'Remember me',
+        required = False,
+    )
 
     # Override HTML attributes
     def __init__(self, *args, **kwargs):

@@ -31,18 +31,7 @@
     <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
     <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />
 
-    <script>
-        $('form#login').submit(function(e) {
-            $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/login',
-                type: $(this).attr('method'),
-                data: $(this).serialize(),
-                error: function(){$("#submit_btn").val('Oops! Somthing went wrong').attr('class', 'btn white m-b danger').prop('disabled', true) },
-                success: function (response) { $("#submit_btn").val(response).attr('class', (response == 'Updated!' ? 'btn white m-b success' : 'btn white m-b warn')) },
-            });
-        })
-    </script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body class="dark">
     <div class="app">
@@ -53,24 +42,24 @@
                 </div>
             </div>
             <div class="p-a-md box-color r box-shadow-z1 text-color m-a">
-                <form name="form" role="form" method="post" action="{% url 'login' %}" onsubmit="return false">
-                    {% for field in form %}
-                    
-                    {% if field.field.type != 'checkbox' %}
-                    <div class="md-form-group float-label">
-                        <input type="{{ field.field.type}}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required{% endif %}>
-                        <label>{{ field.label }}</label>
-                    </div>
-                    {% else %}
-                        <div class="m-b-md">
-                        <label class="md-check">
-                            <input type="checkbox" name="{{ field.name }}"><i class="primary"></i><label for="{{ field.name }}">{{ field.label }}</label>
-                        </label>
-                    </div>
-                    {% endif %}
+                <form name="login" id="login" role="form" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {% for field in form %}                    
+                        {% if field.field.type != 'checkbox' %}
+                        <div class="md-form-group float-label">
+                            <input type="{{ field.field.type}}" ng-model="{{ field.html_name }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}"{% endif %} maxlength="50" />
+                            <label>{{ field.label }}</label>
+                        </div>
+                        {% else %}
+                            <div class="m-b-md">
+                            <label class="md-check">
+                                <input type="checkbox" name="{{ field.name }}"><i class="primary"></i><label for="{{ field.name }}">{{ field.label }}</label>
+                            </label>
+                        </div>
+                        {% endif %}
                     {% endfor %}
-                    <button type="submit" class="btn primary btn-block p-x-md">Sign in</button>
-                </form>
+                    <input type="submit" class="btn primary btn-block p-x-md" value="Login" />
+                </form>                
             </div>
 
             <div class="p-v-lg text-center">
@@ -79,6 +68,8 @@
             </div>
         </div>
     </div>
-    <script src="scripts/app.html.js"></script>
+
+    <!-- Scripts -->    
+    <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
 </body>
 </html>
