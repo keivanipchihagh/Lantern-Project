@@ -8,34 +8,46 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 
 ## RoadMap
 - [x] API Front-End design (Vue.js, UIkit)
-	- [x] Basic Template <span style="color:green"> (100%)</span>
-	- [ ] Responsive Frame	
+	- [x] Basic functionality
+	- [x] WebSocket
+	- [ ] Security & Authentication token (Public API key)
+	- [ ] Responsive Frame & Finish up
 - [x] API WebSocket (Django, channels)
-	- [x] Single-layer costumer <span style="color:green"> (100%)</span>
+	- [x] Single-layer costumer
 	- [ ] Multi-layer costumers
-	- [x] Security (Handshake, Session token) <span style="color:green"> (60%)</span>
+	- [x] Security (Handshake, Session token)
 - [x] Database (MySql)
-	- [x] Core Message <span style="color:green"> (100%)</span>
-	- [x] Core User <span style="color:green"> (80%)</span>
-	- [x] Core Site <span style="color:green"> (50%)</span>
+	- [x] Core Message
+	- [x] Core User
+	- [x] Core Site
 	- [ ] Core Log
 - [ ] Dashboard Front-End desgin (Vue.js, FlatFull)
-	- [ ] Layout <span style="color:yellow"> (Issue!)</span>
-	- [x] Profile Section (Admin | Agent | Staff)
-		- [x] Basic information update <span style="color:green"> (70%)</span>
+	- [ ] Login
+		- [x] Basic functionality
+		- [ ] Cookies
+		- [ ] Security & Finish up
+	- [ ] Signup
+		- [ ] Basic functionality
+		- [ ] Cookies
+		- [ ] Email Service (WebMail API)
+		- [ ] Security & Finish up
+	- [ ] Index
+		- [ ] Global layout
+	- [x] Profile
+		- [x] Basic information update
 		- [ ] Image upload
-		- [ ] Password change
-	- [x] Chatroom Section (Agent | Admin)
-		- [x] Basics <span style="color:yellow"> (Issue!)</span>
+		- [ ] Password change (WebMail API)
+		- [ ] Last login, Active agents, ... (Widgets)
+	- [x] Chatroom
+		- [x] Basics functionality
 		- [ ] WebSocket
+		- [ ] Ajax
+		- [ ] Session -> Room
 	- [ ] Home Section (Admin | Agent | Staff)
 	- [ ] Charts Section (Admin | Staff)
 	- [ ] Newsletter (Admin | Staff)
+		- [ ] Email Service (WebMail API)
 	- [ ] Security (Handshake, Session token)
-- [ ] Email Service
-	- [ ] signup confirmation
-	- [ ] Password Reset link
-	- [ ] Newsletter
 
 
 ## Installation
