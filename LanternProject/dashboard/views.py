@@ -9,6 +9,7 @@ import json
 from .forms import ProfileForm, LoginForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from django.urls import reverse
+from datetime import datetime, timedelta
 
 
 ##################################################################### Login ##############################################################################
@@ -27,7 +28,7 @@ def signin(request):
                 user = User.objects.get(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
 
                 # Log
-                Log(title = 'Sign in', user_id = user.id).save()
+                Log(title = 'Sign In', user_id = user.id).save()
 
                 return HttpResponseRedirect('v1/user/' + user.user_key)
             except:
@@ -49,6 +50,7 @@ def profile(request, user_key):
     user = User.objects.get(user_key = user_key)
     sitename = Site.objects.get(id = user.site_id).name
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
+    log = Log.objects.filter(user_id = user.id).latest('datetime')
 
     # Data for initial form fields and other attributes
     data = {
@@ -63,6 +65,7 @@ def profile(request, user_key):
         'city': user.city,        
         'bio': user.bio,
         'rating': user.rating,
+        'last_login': log.datetime,
         'activities': len(Session.objects.filter(user_id = user.id)),
         'other_users': other_users,
         'user_key': user.user_key,
