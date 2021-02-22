@@ -4,36 +4,42 @@ from core.models import CoreSession as Session
 from core.models import CoreUser as User
 from core.models import CoreMessage as Message
 from core.models import CoreSite as Site
+from core.models import CoreLog as Log
 import json
 from .forms import ProfileForm, LoginForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from django.urls import reverse
 
 
-##################################################################### Index ##############################################################################
-
-@require_http_methods(['GET'])
-def index(request, user_key):
-    return render(request = request, context = {}, template_name = 'dashboard/index.html')
-
 ##################################################################### Login ##############################################################################
 
 @require_http_methods(['GET', 'POST'])
-def login(request):
+def signin(request):
 
     if request.method == 'GET':
-        return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': '', 'password': ''})}, template_name = 'dashboard/login.html')
+        return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': '', 'password': ''})}, template_name = 'dashboard/signin.html')
     else:
         form = LoginForm(request.POST)
 
         if form.is_valid():
             try:
+                # Get user if exists
                 user = User.objects.get(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
+
+                # Log
+                Log(title = 'Sign in', user_id = user.id).save()
+
                 return HttpResponseRedirect('v1/user/' + user.user_key)
             except:
                 return HttpResponse('Access Denied')
         else:
             return HttpResponseForbidden(form.errors.values())
+            
+##################################################################### Index ##############################################################################
+
+@require_http_methods(['GET'])
+def index(request, user_key):
+    return render(request = request, context = {}, template_name = 'dashboard/index.html')
 
 ##################################################################### Profile ##############################################################################
 

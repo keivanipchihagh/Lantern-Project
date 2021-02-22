@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="p-a-md box-color r box-shadow-z1 text-color m-a">
-                <form name="login" id="login" role="form" method="post" action="{% url 'login' %}">
+                <form name="login" id="login" role="form" method="post" action="{% url 'signin' %}">
                     {% csrf_token %}
                     {% for field in form %}                    
                         {% if field.field.type != 'checkbox' %}

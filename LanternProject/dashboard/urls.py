@@ -4,8 +4,8 @@ from . import views
 
 urlpatterns = [
 
-    # Login
-    path(route = 'login', view = views.login, name = 'login'),
+    # Sign In
+    path(route = 'signin', view = views.signin, name = 'signin'),
 
     # Index
     path(route = 'v1/user/<int:user_key>', view = views.index, name = 'index'),    

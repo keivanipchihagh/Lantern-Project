@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from datetime import datetime
 
 
 class CoreMessage(models.Model):
@@ -73,7 +74,8 @@ class CoreSession(models.Model):
 
     # Date Opened | DateTime
     date_opened = models.DateTimeField(
-        name = 'date_opened'
+        name = 'date_opened',
+        default = datetime.now(),
     )
 
     # Date Closed | DateTime
@@ -129,6 +131,7 @@ class CoreSite(models.Model):
     # Date Joined | DateTime
     date_joined = models.DateTimeField(
         name = 'date_joined',
+        default = datetime.now(),
     )
 
     # Expire Date | DateTime
@@ -268,3 +271,26 @@ class CoreUser(models.Model):
     class Meta:
         managed = True          # Allow Create, Delete
         db_table = 'core_user'
+
+
+class CoreLog(models.Model):
+    ''' Core Log model '''
+
+    # Title | Max Length: 30
+    title = models.CharField(
+        name = 'title',
+        max_length = 30,
+    )    
+
+    # Datetime | Datetime
+    datetime = models.DateTimeField(
+        name = 'datetime',
+        default = datetime.now(),
+    )
+
+    # User Id  | Foreign Key (CoreUser.id)
+    user = models.ForeignKey('CoreUser', models.DO_NOTHING)
+
+    class Meta:
+        managed = True          # Allow Create, Delete
+        db_table = 'core_log'
