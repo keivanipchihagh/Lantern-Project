@@ -294,3 +294,4 @@ class CoreLog(models.Model):
     class Meta:
         managed = True          # Allow Create, Delete
         db_table = 'core_log'
+        
