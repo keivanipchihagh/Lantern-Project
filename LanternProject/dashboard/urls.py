@@ -7,6 +7,9 @@ urlpatterns = [
     # Index
     path(route = 'v1/user/<int:user_key>', view = views.index, name = 'index'),
 
+    # Login
+    path(route = 'login', view = views.login, name = 'login'),
+
     path(route = 'v1/chatroom/<int:user_key>', view = views.onload_chatroom, name = 'chatroom'),
     path(route = 'v1/fetch/session', view = views.fetch_session, name = 'fetch session'),
     path(route = 'v1/close/session', view = views.close_session, name = 'close session'),

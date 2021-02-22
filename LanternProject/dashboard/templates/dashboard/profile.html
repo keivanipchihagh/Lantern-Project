@@ -52,7 +52,7 @@
 </head>
 <body>
     <!-- app - start -->
-    <div class="app" id="app">
+    <div class="app">
 
         <!-- navbar - start -->
         <div id="aside" class="app-aside modal fade md nav-expand dark">
@@ -319,7 +319,7 @@
             <div class="app-footer"><div class="p-a text-xs"><div class="text-muted" style="width:100%; text-align:center"><span>&copy; Copyright <strong><a href="#">Lantern-Project</a></strong> <span class="hidden-xs-down">- Built with ❤</span></span></div></div></div>
             <!-- footer - end -->
 
-            <div ui-view class="app-body" id="view">
+            <div id="profile" ui-view class="app-body" id="view">
 
                 <!-- Header - start -->
                 <div class="item">
@@ -411,7 +411,7 @@
                 </div>
                 <!-- Tab page - end -->
                 <!-- body - start -->
-                <div id="profile" class="padding">
+                <div class="padding">
                     <div class="row">
                         <div class="col-sm-8 col-lg-9">
                             <div class="tab-content">
@@ -579,9 +579,9 @@
                                                             <label for="form_username" class="col-lg-2 form-control-label">{{ field.label_tag }}</label>
                                                             <div class="col-lg-10">
                                                                 {% if field.field.label == 'image' %}
-                                                                    <input type="file" accept="image/png,image/jpg,image/jpeg" id="{{ field.id_for_label }}" name="{{ field.html_name }}" title="{{ field.label }}" class="form-control" style="border: none; border-bottom: 1px solid #999">
+                                                                    <input type="file" accept="image/png,image/jpg,image/jpeg" name="{{ field.html_name }}" title="{{ field.label }}" class="form-control" style="border: none; border-bottom: 1px solid #999">
                                                                 {% else %}
-                                                                    <input type="text" id="{{ field.id_for_label }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="form-control" style="border: none; border-bottom: 1px solid #999" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %} {% if field.field.disabled %}readonly disabled{% endif %} maxlength="{{ field.field.max_length }}">
+                                                                    <input type="text" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="form-control" style="border: none; border-bottom: 1px solid #999" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %} {% if field.field.disabled %}readonly disabled{% endif %} maxlength="{{ field.field.max_length }}">
                                                                 {% endif %}                                                                
                                                                 {% if field.help_text %} <p style="color: #999">{{ field.help_text|safe }}</p> {% endif %}
                                                                 {{ field.errors }}

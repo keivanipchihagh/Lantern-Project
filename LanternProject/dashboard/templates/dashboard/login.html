@@ -1,0 +1,84 @@
+﻿{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Login | Lantern Project</title>
+
+    <!-- Metta - Start -->
+    <meta name="description" content="Admin, Dashboard, Lantern-Project" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Metta - End -->
+    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+    <link rel="apple-touch-icon" href="{% static 'dashboard/images/logo.png' %}">
+    <meta name="apple-mobile-web-app-title" content="Flatkit">
+
+    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="shortcut icon" sizes="196x196" href="{% static 'dashboard/images/logo.png' %}">
+
+    <!-- style -->
+    <link rel="stylesheet" href="{% static 'dashboard/animate-css/animate.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'dashboard/glyphicons/glyphicons.css' %}" type="text/css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'dashboard/material-design-icons/material-design-icons.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />
+
+    <script>
+        $('form#login').submit(function(e) {
+            $.ajax({
+                url: 'http://127.0.0.1:8000/dashboard/login',
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                error: function(){$("#submit_btn").val('Oops! Somthing went wrong').attr('class', 'btn white m-b danger').prop('disabled', true) },
+                success: function (response) { $("#submit_btn").val(response).attr('class', (response == 'Updated!' ? 'btn white m-b success' : 'btn white m-b warn')) },
+            });
+        })
+    </script>
+
+</head>
+<body class="dark">
+    <div class="app">
+        <div class="center-block w-xxl w-auto-xs p-y-md">
+            <div class="navbar">
+                <div style="width: fit-content; margin: auto">
+                    Lantern Project
+                </div>
+            </div>
+            <div class="p-a-md box-color r box-shadow-z1 text-color m-a">
+                <form name="form" role="form" method="post" action="{% url 'login' %}" onsubmit="return false">
+                    {% for field in form %}
+                    
+                    {% if field.field.type != 'checkbox' %}
+                    <div class="md-form-group float-label">
+                        <input type="{{ field.field.type}}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required{% endif %}>
+                        <label>{{ field.label }}</label>
+                    </div>
+                    {% else %}
+                        <div class="m-b-md">
+                        <label class="md-check">
+                            <input type="checkbox" name="{{ field.name }}"><i class="primary"></i><label for="{{ field.name }}">{{ field.label }}</label>
+                        </label>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <button type="submit" class="btn primary btn-block p-x-md">Sign in</button>
+                </form>
+            </div>
+
+            <div class="p-v-lg text-center">
+                <div class="m-b"><a ui-sref="access.forgot-password" href="forgot-password.html" class="text-primary _600">Forgot password?</a></div>
+                <div>Do not have an account? <a ui-sref="access.signup" href="signup.html" class="text-primary _600">Sign up</a></div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/app.html.js"></script>
+</body>
+</html>

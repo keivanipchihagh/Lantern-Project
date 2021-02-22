@@ -5,16 +5,19 @@ from core.models import CoreUser as User
 from core.models import CoreMessage as Message
 from core.models import CoreSite as Site
 import json
-from .forms import Profile
+from .forms import ProfileForm, LoginForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 
 
 ##################################################################### Index ##############################################################################
 
-
 def index(request, user_key):
     return render(request = request, context = {}, template_name = 'dashboard/index.html')
 
+##################################################################### Login ##############################################################################
+
+def login(request):    
+    return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': '', 'password': ''})}, template_name = 'dashboard/login.html')
 
 ##################################################################### Profile ##############################################################################
 
@@ -43,13 +46,13 @@ def profile(request, user_key):
         'user_key': user.user_key,
     }
 
-    return render(request = request, context = {'form': Profile(auto_id = True, instance = user), 'data': data}, template_name = 'dashboard/profile.html')
+    return render(request = request, context = {'form': ProfileForm(auto_id = True, instance = user), 'data': data}, template_name = 'dashboard/profile.html')
 
 
 @require_http_methods(['POST'])
 def profile_update_pi(request, user_key):
 
-    form = Profile(request.POST, request.FILES)
+    form = ProfileForm(request.POST, request.FILES)
 
     if form.is_valid():
         User.objects.filter(user_key = user_key).update(
