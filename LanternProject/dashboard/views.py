@@ -144,3 +144,4 @@ def get_sessions(user_key):
     starred_sessions = open_sessions.filter(starred = True)                     # Query starred sessions
 
     return open_sessions, assigned_sessions, starred_sessions                   # Return QuerySets
+    

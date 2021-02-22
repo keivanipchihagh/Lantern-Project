@@ -129,5 +129,5 @@ dmypy.json
 .pyre/
 LanternProject/LanternProject/asgi.py
 LanternProject/LanternProject/settings.py
-LanternProject/api/views.py
 LanternProject/dashboard/views.py
+LanternProject/api/views.py
