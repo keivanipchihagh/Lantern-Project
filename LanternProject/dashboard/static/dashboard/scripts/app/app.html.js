@@ -7042,23 +7042,23 @@ function() {
     }) : "object" == typeof exports ? module.exports = j : D.startOnPageLoad && j.start()
 }.call(this);
 var MODULE_CONFIG = {
-    easyPieChart: ["../../static/dashboard/scripts/jquery.easy-pie-chart/dist/jquery.easypiechart.fill.js"],
-    sparkline: ["../../static/dashboard/scripts/jquery.sparkline/dist/jquery.sparkline.retina.js"],
-    plot: ["../../static/dashboard/scripts/flot/jquery.flot.js", "../../static/dashboard/scripts/flot/jquery.flot.resize.js", "../../static/dashboard/scripts/flot/jquery.flot.pie.js", "../../static/dashboard/scripts/flot.tooltip/js/jquery.flot.tooltip.min.js", "../../static/dashboard/scripts/flot-spline/js/jquery.flot.spline.min.js", "../../static/dashboard/scripts/flot.orderbars/js/jquery.flot.orderBars.js"],
-    vectorMap: ["../../static/dashboard/scripts/bower-jvectormap/jquery-jvectormap-1.2.2.min.js", "../../static/dashboard/scripts/bower-jvectormap/jquery-jvectormap.css", "../../static/dashboard/scripts/bower-jvectormap/jquery-jvectormap-world-mill-en.js", "../../static/dashboard/scripts/bower-jvectormap/jquery-jvectormap-us-aea-en.js"],
-    dataTable: ["../../static/dashboard/scripts/datatables/media/js/jquery.dataTables.min.js", "../../static/dashboard/scripts/plugins/integration/bootstrap/3/dataTables.bootstrap.js", "../../static/dashboard/scripts/plugins/integration/bootstrap/3/datatables.bootstrap.css"],
-    footable: ["../../static/dashboard/scripts/footable/dist/footable.all.min.js", "../../static/dashboard/scripts/footable/css/footable.core.css"],
-    screenfull: ["../../static/dashboard/scripts/screenfull/dist/screenfull.min.js"],
-    sortable: ["../../static/dashboard/scripts/html.sortable/dist/html.sortable.min.js"],
-    nestable: ["../../static/dashboard/scripts/nestable/jquery.nestable.css", "../../static/dashboard/scripts/nestable/jquery.nestable.js"],
-    summernote: ["../../static/dashboard/scripts/summernote/dist/summernote.css", "../../static/dashboard/scripts/summernote/dist/summernote.js"],
-    parsley: ["../../static/dashboard/scripts/parsleyjs/dist/parsley.css", "../../static/dashboard/scripts/parsleyjs/dist/parsley.min.js"],
-    select2: ["../../static/dashboard/scripts/select2/dist/css/select2.min.css", "../../static/dashboard/scripts/select2-bootstrap-theme/dist/select2-bootstrap.min.css", "../../static/dashboard/scripts/select2-bootstrap-theme/dist/select2-bootstrap.4.css", "../../static/dashboard/scripts/select2/dist/js/select2.min.js"],
-    datetimepicker: ["../../static/dashboard/scripts/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css", "../../static/dashboard/scripts/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.dark.css", "../libs/js/moment/moment.js", "../../static/dashboard/scripts/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"],
+    easyPieChart: ["../../../../static/dashboard/scripts/jquery.easy-pie-chart/dist/jquery.easypiechart.fill.js"],
+    sparkline: ["../../../../static/dashboard/scripts/jquery.sparkline/dist/jquery.sparkline.retina.js"],
+    plot: ["../../../../static/dashboard/scripts/flot/jquery.flot.js", "../../../../static/dashboard/scripts/flot/jquery.flot.resize.js", "../../../../static/dashboard/scripts/flot/jquery.flot.pie.js", "../../../../static/dashboard/scripts/flot.tooltip/js/jquery.flot.tooltip.min.js", "../../../../static/dashboard/scripts/flot-spline/js/jquery.flot.spline.min.js", "../../../../static/dashboard/scripts/flot.orderbars/js/jquery.flot.orderBars.js"],
+    vectorMap: ["../../../../static/dashboard/scripts/bower-jvectormap/jquery-jvectormap-1.2.2.min.js", "../../../../static/dashboard/scripts/bower-jvectormap/jquery-jvectormap.css", "../../../../static/dashboard/scripts/bower-jvectormap/jquery-jvectormap-world-mill-en.js", "../../../../static/dashboard/scripts/bower-jvectormap/jquery-jvectormap-us-aea-en.js"],
+    dataTable: ["../../../../static/dashboard/scripts/datatables/media/js/jquery.dataTables.min.js", "../../../../static/dashboard/scripts/plugins/integration/bootstrap/3/dataTables.bootstrap.js", "../../../../static/dashboard/scripts/plugins/integration/bootstrap/3/datatables.bootstrap.css"],
+    footable: ["../../../../static/dashboard/scripts/footable/dist/footable.all.min.js", "../../../../static/dashboard/scripts/footable/css/footable.core.css"],
+    screenfull: ["../../../../static/dashboard/scripts/screenfull/dist/screenfull.min.js"],
+    sortable: ["../../../../static/dashboard/scripts/html.sortable/dist/html.sortable.min.js"],
+    nestable: ["../../../../static/dashboard/scripts/nestable/jquery.nestable.css", "../../../../static/dashboard/scripts/nestable/jquery.nestable.js"],
+    summernote: ["../../../../static/dashboard/scripts/summernote/dist/summernote.css", "../../../../static/dashboard/scripts/summernote/dist/summernote.js"],
+    parsley: ["../../../../static/dashboard/scripts/parsleyjs/dist/parsley.css", "../../../../static/dashboard/scripts/parsleyjs/dist/parsley.min.js"],
+    select2: ["../../../../static/dashboard/scripts/select2/dist/css/select2.min.css", "../../../../static/dashboard/scripts/select2-bootstrap-theme/dist/select2-bootstrap.min.css", "../../../../static/dashboard/scripts/select2-bootstrap-theme/dist/select2-bootstrap.4.css", "../../../../static/dashboard/scripts/select2/dist/js/select2.min.js"],
+    datetimepicker: ["../../../../static/dashboard/scripts/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css", "../../../../static/dashboard/scripts/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.dark.css", "../libs/js/moment/moment.js", "../../../../static/dashboard/scripts/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"],
     chart: ["../libs/js/echarts/build/dist/echarts-all.js", "../libs/js/echarts/build/dist/theme.js", "../libs/js/echarts/build/dist/jquery.echarts.js"],
-    bootstrapWizard: ["../../static/dashboard/scripts/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"],
-    fullCalendar: ["../../static/dashboard/scripts/moment/moment.js", "../../static/dashboard/scripts/fullcalendar/dist/fullcalendar.min.js", "../../static/dashboard/scripts/fullcalendar/dist/fullcalendar.css", "../../static/dashboard/scripts/fullcalendar/dist/fullcalendar.theme.css", "scripts/plugins/calendar.js"],
-    dropzone: ["../../static/dropzone/dist/min/dropzone.min.js", "../../static/dropzone/dist/min/dropzone.min.css"]
+    bootstrapWizard: ["../../../../static/dashboard/scripts/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"],
+    fullCalendar: ["../../../../static/dashboard/scripts/moment/moment.js", "../../../../static/dashboard/scripts/fullcalendar/dist/fullcalendar.min.js", "../../../../static/dashboard/scripts/fullcalendar/dist/fullcalendar.css", "../../../../static/dashboard/scripts/fullcalendar/dist/fullcalendar.theme.css", "scripts/plugins/calendar.js"],
+    dropzone: ["../../../../static/dropzone/dist/min/dropzone.min.js", "../../../../static/dropzone/dist/min/dropzone.min.css"]
 };
 ! function(a, b) {
 "function" == typeof define && define.amd ? define([], b) : "object" == typeof exports ? module.exports = b() : a.palette = b()
@@ -7503,7 +7503,7 @@ a(document).on("click", "[ui-nav] a", function(b) {
 }(jQuery),
 function(a) {
 "use strict";
-uiLoad.load("../../static/dashboard/scripts/screenfull/dist/screenfull.min.js"), a(document).on("click", "[ui-fullscreen]", function(a) {
+uiLoad.load("../../../../static/dashboard/scripts/screenfull/dist/screenfull.min.js"), a(document).on("click", "[ui-fullscreen]", function(a) {
     a.preventDefault(), screenfull.enabled && screenfull.toggle()
 })
 }(jQuery),

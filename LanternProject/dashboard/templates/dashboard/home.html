@@ -3,25 +3,119 @@
 <!DOCTYPE html>
 
 <div class="padding">
-    <div clas="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="box">
-                <div class="item">
-                    <div class="item-bg">
-                        <img src="{% static 'dashboard/images/a3.jpg'%}" class="blur">
-                    </div>
-                    <div class="p-a-lg pos-rlt text-center">
-                        <img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle w-56" style="margin-bottom: -7rem">
+    <!-- Profile widget - start -->
+    <div class="col-sm-4 col-md-5 col-lg-4">
+        <div class="box">
+            <div class="item">
+                <div class="item-bg">
+                    <img src="{% static 'dashboard/images/a3.jpg'%}" class="blur">
+                </div>
+                <div class="p-a-lg pos-rlt text-center">
+                    <img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle w-56" style="margin-bottom: -7rem">
+                </div>
+            </div>
+            <div class="p-a text-center">
+                <span class="text-md m-t block">{{ home.firstname }} {{ home.lastname }}</span>
+                <p><small class="label indigo m-a-sm">{{ home.role|title }}</small><small class="label m-a-sm light-blue-700 m-r p-">{{ profile.sitename|title }}</small></p>
+                <p style="margin:0px"><a href="{% url 'index' user_key %}?page=profile" class="btn btn-sm primary">Go to Profile</a></p>
+            </div>
+        </div>
+    </div>
+    <!-- Profile widget - end -->
+    <div class="col-sm-8 col-md-7 col-lg-8">
+        <div class="row-col box dark bg">
+            <div class="col-sm-8">
+                <div class="box-header">
+                    <h3>Activities</h3>
+                    <small>Your last activity is posted 4 hours ago</small>
+                </div>
+                <div class="box-body">
+                    <div ui-jp="plot" ui-refresh="app.setting.color" ui-options="
+			              [
+			                {
+			                  data: [[1, 6.1], [2, 6.3], [3, 6.4], [4, 6.6], [5, 7.0], [6, 7.7], [7, 8.3]],
+			                  points: { show: true, radius: 0},
+			                  splines: { show: true, tension: 0.45, lineWidth: 2, fill: 0 }
+			                },
+			                {
+			                  data: [[1, 5.5], [2, 5.7], [3, 6.4], [4, 7.0], [5, 7.2], [6, 7.3], [7, 7.5]],
+			                  points: { show: true, radius: 0},
+			                  splines: { show: true, tension: 0.45, lineWidth: 2, fill: 0 }
+			                }
+			              ],
+			              {
+			                colors: ['#0cc2aa','#fcc100'],
+			                series: { shadowSize: 3 },
+			                xaxis: { show: true, font: { color: '#ccc' }, position: 'bottom' },
+			                yaxis:{ show: true, font: { color: '#ccc' }},
+			                grid: { hoverable: true, clickable: true, borderWidth: 0, color: 'rgba(120,120,120,0.5)' },
+			                tooltip: true,
+			                tooltipOpts: { content: '%x.0 is %y.4',  defaultTheme: false, shifts: { x: 0, y: -40 } }
+			              }
+			            " style="height: 162px; padding: 0px; position: relative;">
+                        <canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 299px; height: 162px;" width="373" height="202"></canvas><div class="flot-text" style="position: absolute; inset: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; inset: 0px; display: block;"><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 17px; text-align: center;">1</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 63px; text-align: center;">2</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 109px; text-align: center;">3</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 155px; text-align: center;">4</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 201px; text-align: center;">5</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 247px; text-align: center;">6</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 293px; text-align: center;">7</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; inset: 0px; display: block;"><div style="position: absolute; top: 138px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">5.0</div><div style="position: absolute; top: 103px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">6.0</div><div style="position: absolute; top: 69px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">7.0</div><div style="position: absolute; top: 35px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">8.0</div><div style="position: absolute; top: 1px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">9.0</div></div></div><canvas class="flot-overlay" width="373" height="202" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 299px; height: 162px;"></canvas>
                     </div>
                 </div>
-                <div class="p-a text-center">
-                    <a href="" class="text-md m-t block">{{ home.firstname }} {{ home.lastname }}</a>
-                    <p><small class="label indigo">{{ home.role|title }}</small></p>
-                    <p><a href="{% url 'index' user_key %}?page=profile" class="btn btn-sm primary">Go to Profile</a></p>
-                    <div class="text-xs">
-                        <em>Photos: <strong>32</strong>, Videos: <strong>50</strong></em>
+            </div>
+            <div class="col-sm-4 dker">
+                <div class="box-header">
+                    <h3>Reports</h3>
+                </div>
+                <div class="box-body">
+                    <p class="text-muted">Dales nisi nec adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis</p>
+                    <a href="" class="btn btn-sm btn-outline rounded b-success">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box">
+            <div class="box-header">
+                <h3>Tasks</h3>
+            </div>
+            <div class="box-tool">
+                <ul class="nav">
+                    <li class="nav-item inline dropdown">
+                        <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-scale pull-right">
+                            <a class="dropdown-item" href="">New task</a>
+                            <a class="dropdown-item" href="">Make all finished</a>
+                            <a class="dropdown-item" href="">Make all unfinished</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item">Settings</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="box-body">
+                <div class="streamline b-l m-l">
+                    <div class="sl-item b-success">
+                        <div class="sl-icon">
+                            <i class="fa fa-check"></i>
+                        </div>
+                        <div class="sl-content">
+                            <div class="sl-date text-muted">8:30</div>
+                            <div>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</div>
+                        </div>
+                    </div>
+                    <div class="sl-item b-info">
+                        <div class="sl-content">
+                            <div class="sl-date text-muted">Sat, 5 Mar</div>
+                            <div>Prepare for presentation</div>
+                        </div>
+                    </div>
+                    <div class="sl-item b-warning">
+                        <div class="sl-content">
+                            <div class="sl-date text-muted">Sun, 11 Feb</div>
+                            <div><a href="" class="text-info">Jessi</a> assign you a task <a href="" class="text-info">Mockup Design</a>.</div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="box-footer">
+                <a href="" class="btn btn-sm btn-block info text-u-c">Load More</a>
             </div>
         </div>
     </div>

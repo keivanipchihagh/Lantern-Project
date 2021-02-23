@@ -1,6 +1,4 @@
-﻿{% load static %}
-
-<!DOCTYPE html>
+{% load static %}
 
 <!-- Header - start -->
 <div id="profile" class="item">
@@ -10,21 +8,20 @@
     <div class="p-a-md">
         <div class="row m-t">
             <div class="col-sm-12">
-                <a href class="pull-left m-r-md">
-                    <span class="avatar w-96">
-                        <img src="{% static 'dashboard/images/a3.jpg'%}">
-                    </span>
-                </a>
+                <span class="avatar w-96 pull-left m-r-md">
+                    <img src="{% static 'dashboard/images/a3.jpg'%}">
+                </span>
                 <div class="clear m-b">
                     <h3 class="m-a-0 m-b-xs">{{ profile.firstname }} {{ profile.lastname }}</h3>
                     <p class="text-muted">
-                        {% if profile.role == 'staff' %}
-                        <small class="label indigo m-r">{{ profile.role|title }}</small>
-                        {% elif profile.role == 'admin' %}
-                        <small class="label light-blue m-r">{{ profile.role|title }}</small>
+                        {% if profile.role == 'Staff' %}
+                        <small class="label deep-purple-A700 m-r">{{ profile.role|title }}</small>
+                        {% elif profile.role == 'Admin' %}
+                        <small class="label red-A700 m-r">{{ profile.role|title }}</small>
                         {% else %}
-                        <small class="label teal m-r">{{ profile.role|title }}</small>
+                        <small class="label green-600 m-r">{{ profile.role|title }}</small>
                         {% endif %}
+                        <small class="label light-blue-700 m-r">{{ profile.sitename|title }}</small>
                         <small><i class="fa fa-map-marker m-r-xs"></i>{{ profile.city|title }}, {{ profile.country|title }}</small>
                     </p>
                     <div class="block clearfix m-b">
@@ -57,23 +54,23 @@
     <div class="row">
         <div class="col-sm-6 push-sm-6">
             <div class="p-y text-center text-sm-right">
-                <a class="inline p-x text-center">
+                <span class="inline p-x text-center">
 
                     {% if profile.rating < 3 %}
-                    <span class="h4 block m-a-0 btn danger" style="padding: 3px">{{ profile.rating }}</span>
+                    <span class="h4 block m-a-0 btn danger" style="padding: 3px; cursor: default">{{ profile.rating }}</span>
                     {% elif profile.rating < 5 %}
-                    <span class="h4 block m-a-0 btn warn" style="padding: 3px">{{ profile.rating }}</span>
+                    <span class="h4 block m-a-0 btn warn" style="padding: 3px; cursor: default">{{ profile.rating }}</span>
                     {% elif profile.rating < 7 %}
-                    <span class="h4 block m-a-0 btn accent" style="padding: 3px">{{ profile.rating }}</span>
+                    <span class="h4 block m-a-0 btn accent" style="padding: 3px; cursor: default">{{ profile.rating }}</span>
                     {% else %}
-                    <span class="h4 block m-a-0 btn success" style="padding: 3px">{{ profile.rating }}</span>
+                    <span class="h4 block m-a-0 btn success" style="padding: 3px; cursor: default">{{ profile.rating }}</span>
                     {% endif %}
                     <small class="text-xs text-muted">Rating</small>
-                </a>
-                <a href class="inline p-x b-l text-center">
+                </span>
+                <span class="inline p-x b-l text-center">
                     <span class="h4 block m-a-0">{{ profile.activities }}</span>
                     <small class="text-xs text-muted">Activities</small>
-                </a>
+                </span>
             </div>
         </div>
         <div class="col-sm-6 pull-sm-6">
@@ -164,18 +161,15 @@
                                 <form id="form_pi" role="form" method="post" onsubmit="return false">
                                     {% csrf_token %}
                                     {% for field in profile.form %}
-                                    <div class="form-group row">
-                                        <div class="col-md-12" style="padding: 5px 10px">
-                                            <label for="form_username" class="col-lg-2 form-control-label">{{ field.label_tag }}</label>
-                                            <div class="col-lg-10">
-                                                {% if field.field.label == 'image' %}
-                                                <input type="file" accept="image/png,image/jpg,image/jpeg" name="{{ field.html_name }}" title="{{ field.label }}" class="form-control" style="border: none; border-bottom: 1px solid #999">
-                                                {% else %}
-                                                <input type="text" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="form-control" style="border: none; border-bottom: 1px solid #999" placeholder="{{ field.label }}" {% if field.field.required %}required{% endif %} {% if field.field.disabled %}readonly disabled{% endif %} maxlength="{{ field.field.max_length }}">
-                                                {% endif %}
-                                                {% if field.help_text %} <p style="color: #999">{{ field.help_text|safe }}</p> {% endif %}
-                                                {{ field.errors }}
-                                            </div>
+                                    <div class="col-md-6" style="padding: 5px 10px">
+                                        <div class="col-lg-12 md-form-group float-label">
+                                            {% if field.field.label == 'image' %}
+                                            <input type="file" accept="image/png,image/jpg,image/jpeg" name="{{ field.html_name }}" title="{{ field.label }}" class="form-control" style="border-bottom: 1px solid #999">
+                                            {% else %}
+                                            <input type="text" ng-model="{{ field.html_name }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="md-input" style="border-bottom: 1px solid #999" {% if field.field.required %}required{% endif %} {% if field.field.disabled %}readonly="readonly" disabled="disabled"{% endif %} maxlength="{{ field.field.max_length }}">
+                                            <label style="left: 15px">{{ field.label }} {% if field.help_text %}({{ field.help_text|lower }}){% endif %}</label>
+                                            {% endif %}
+                                            {{ field.errors }}
                                         </div>
                                     </div>
                                     {% endfor %}
@@ -185,36 +179,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Personal Information - end -->
-                    <!-- Security Information - start -->
-                    <div class="col-md-12">
-                        <div class="box">
-                            <div class="box-header">
-                                <h2>Security Information</h2>
-                                <small>A confirmation email will be sent to your email address to complete the process</small>
-                            </div>
-                            <div class="box-divider m-a-0"></div>
-                            <div class="box-body">
-                                <form role="form">
-                                    <div class="form-group row">
-                                        <!-- Password - start -->
-                                        <div class="col-md-6" style="padding: 5px 10px">
-                                            <label for="form_bio" class="col-sm-7 form-control-label">You will Recieve an email with the instructions to reset your password.</label>
-                                            <button type="submit" class="col-sm-5 btn white m-b" style="margin-top: 15px">Reset Password</button>
-                                        </div>
-                                        <!-- Password - end -->
-                                        <!-- Token - start -->
-                                        <div class="col-md-6" style="padding: 5px 10px">
-                                            <label for="form_bio" class="col-sm-7 form-control-label">If you notice suspicious activity on your account, revoke your token.</label>
-                                            <button type="submit" class="btn white m-b" style="margin-top: 15px">Revoke Token</button>
-                                        </div>
-                                        <!-- Token - end -->
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Security Information - end -->
+                    <!-- Personal Information - end -->                    
                 </div>
                 <!-- Information - end -->
             </div>
@@ -246,14 +211,14 @@
                     <ul class="list no-border p-b">
                         {% for user in profile.other_users %}
                         <li class="list-item">
-                            <a herf class="list-left">
+                            <span herf class="list-left">
                                 <span class="w-40 avatar">
                                     <img src="{% static 'dashboard/images/a3.jpg'%}" alt="...">
                                     <i class="on b-white bottom"></i>
                                 </span>
-                            </a>
+                            </span>
                             <div class="list-body">
-                                <div><a href>{{ user.firstname }} {{ user.lastname }}</a></div>
+                                <div><span>{{ user.firstname }} {{ user.lastname }}</span></div>
                                 {% if user.role == 'staff' %}
                                 <small class="label indigo m-r">{{ user.role|title }}</small>
                                 {% elif user.role == 'admin' %}

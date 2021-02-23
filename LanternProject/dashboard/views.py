@@ -54,11 +54,18 @@ def index(request, user_key):
         'lastname': user.lastname,
         'sitename': sitename,
         'role': user.role,
+        'sitename': sitename,
     }
 
     # Data for aside.html
     aside = {
         'menu': menu,
+    }
+
+    # Data for header.html
+    header = {
+        'username': user.username,                
+        'role': user.role,
     }
 
     # Data for profile.html
@@ -68,6 +75,7 @@ def index(request, user_key):
         'username': user.username,
         'email': user.email,
         'role': user.role,
+        'sitename': sitename,
         'country': user.country,
         'city': user.city,        
         'bio': user.bio,
@@ -83,43 +91,15 @@ def index(request, user_key):
         'profile': profile,                 # Data for profile.html
         'aside': aside,                     # Data for aside.html
         'home': home,                       # Data for home.html
+        'header': header,                   # Data for header.html
         'page': request.GET.get('page'),
         'user_key': user.user_key,
+        'title': request.GET.get('page'),
     }
 
     return render(request = request, context = data, template_name = 'dashboard/index.html')
 
 ##################################################################### Profile ##############################################################################
-
-@require_http_methods(['GET'])
-def profile(request, user_key):
-
-    user = User.objects.get(user_key = user_key)
-    sitename = Site.objects.get(id = user.site_id).name
-    other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
-    log = Log.objects.filter(user_id = user.id).latest('datetime')
-
-    # Data for initial form fields and other attributes
-    data = {
-        'firstname': user.firstname,
-        'lastname': user.lastname,
-        'username': user.username,
-        'email': user.email,
-        'phonenumber': user.phonenumber,
-        'role': user.role,
-        'site': sitename,
-        'country': user.country,
-        'city': user.city,        
-        'bio': user.bio,
-        'rating': user.rating,
-        'last_login': log.datetime,
-        'activities': len(Session.objects.filter(user_id = user.id)),
-        'other_users': other_users,
-        'user_key': user.user_key,
-    }
-
-    return render(request = request, context = {'form': ProfileForm(auto_id = True, instance = user), 'data': data}, template_name = 'dashboard/profile.html')
-
 
 @require_http_methods(['POST'])
 def profile_update_pi(request, user_key):

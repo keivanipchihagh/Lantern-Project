@@ -6995,3 +6995,17 @@ textarea.md-input {
     -webkit-animation: fadeOutDown .5s;
     animation: fadeOutDown .5s
 }
+
+label, small, h1, h2, h3, h4, h5, h6, span {
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+img {
+    -webkit-user-drag: none;
+    -ms-user-drag: none;
+    -moz-user-drag: none;
+}

@@ -11,7 +11,6 @@ urlpatterns = [
     path(route = 'v1/user/<int:user_key>', view = views.index, name = 'index'),
 
     # Profile section
-    path(route = 'v1/user/<int:user_key>/profile', view = views.profile, name = 'profile'),
     path(route = 'v1/user/<int:user_key>/profile/pi', view = views.profile_update_pi, name = 'update personal information'),
 
     path(route = 'v1/chatroom/<int:user_key>', view = views.onload_chatroom, name = 'chatroom'),
