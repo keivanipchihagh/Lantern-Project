@@ -1,4 +1,4 @@
-{% load static %}
+﻿{% load static %}
 
 <!DOCTYPE html>
 
@@ -12,54 +12,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Metta - End -->
-    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
-    <link rel="apple-touch-icon" href="{% static 'dashboard/images/logo.png' %}">
-    <meta name="apple-mobile-web-app-title" content="Flatkit">
-
-    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="shortcut icon" sizes="196x196" href="{% static 'dashboard/images/logo.png' %}">
-
     <!-- style -->
-    <link rel="stylesheet" href="{% static 'dashboard/animate-css/animate.min.css' %}" type="text/css" />
-    <link rel="stylesheet" href="{% static 'dashboard/glyphicons/glyphicons.css' %}" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'dashboard/material-design-icons/material-design-icons.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
     <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body class="dark">
     <div class="app">
         <div class="center-block w-xxl w-auto-xs p-y-md">
             <div class="navbar">
-                <div style="width: fit-content; margin: auto">
-                    Lantern Project
-                </div>
+                <div style="width: fit-content; margin: auto">Lantern Project</div>
             </div>
             <div class="p-a-md box-color r box-shadow-z1 text-color m-a">
-                <form name="login" id="login" role="form" method="post" action="{% url 'signin' %}">
+                {% if message %}
+                <p id="err" class="text-danger" style="text-align: center">
+                    {{ message|title }}
+                </p>
+                {% endif %}
+                <form name="signin" id="signin" role="form" method="post" action="{% url 'signin' %}">
                     {% csrf_token %}
-                    {% for field in form %}                    
-                        {% if field.field.type != 'checkbox' %}
-                        <div class="md-form-group float-label">
-                            <input type="{{ field.field.type}}" ng-model="{{ field.html_name }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}"{% endif %} maxlength="50" />
-                            <label>{{ field.label }}</label>
-                        </div>
-                        {% else %}
-                            <div class="m-b-md">
-                            <label class="md-check">
-                                <input type="checkbox" name="{{ field.name }}"><i class="primary"></i><label for="{{ field.name }}">{{ field.label }}</label>
-                            </label>
-                        </div>
-                        {% endif %}
+                    {% for field in form %}
+                    {% if field.field.type != 'checkbox' %}
+                    <div class="md-form-group float-label">
+                        <input type="{{ field.field.type }}" ng-model="{{ field.html_name }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} maxlength="50" />
+                        <label>{{ field.label|title }}</label>
+                    </div>
+                    {% else %}
+                    <div class="m-b-md">
+                        <label class="md-check">
+                            <input type="checkbox" name="{{ field.name }}"><i class="primary"></i><label for="{{ field.name }}">{{ field.label }}</label>
+                        </label>
+                    </div>
+                    {% endif %}
                     {% endfor %}
-                    <input type="submit" class="btn primary btn-block p-x-md" value="Login" />
-                </form>                
+                    <input type="submit" class="btn primary btn-block p-x-md" value="Sign In" />
+                </form>
             </div>
 
             <div class="p-v-lg text-center">
@@ -69,7 +57,9 @@
         </div>
     </div>
 
-    <!-- Scripts -->    
+    <!-- Scripts -->
     <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>setTimeout(function() {$('#err').fadeOut('slow')}, 2000)</script>
 </body>
 </html>

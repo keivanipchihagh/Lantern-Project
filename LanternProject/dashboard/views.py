@@ -33,7 +33,7 @@ def signin(request):
 
                 return HttpResponseRedirect('v1/user/' + user.user_key)
             except:
-                return HttpResponse('Access Denied')
+                return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': form.cleaned_data['email'], 'password': ''}), 'message': 'Invalid Email/Password'}, template_name = 'dashboard/signin.html')
         else:
             return HttpResponseForbidden(form.errors.values())
             
@@ -117,7 +117,7 @@ def profile_update_pi(request, user_key):
         )
         # form.save()
 
-        return HttpResponse('Updated!')
+        return HttpResponse('Updated, Reloading...')
     else:
         return HttpResponse(form.errors.as_text())  # Validation failed
 

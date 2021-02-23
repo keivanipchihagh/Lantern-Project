@@ -15,7 +15,10 @@ const Profile = new Vue({
                 type: $(this).attr('method'),
                 data: $(this).serialize(),
                 error: function(){$("#submit_btn").val('Oops! Somthing went wrong').attr('class', 'btn white m-b danger').prop('disabled', true) },
-                success: function (response) { $("#submit_btn").val(response).attr('class', (response == 'Updated!' ? 'btn white m-b success' : 'btn white m-b warn')) },
+                success: function (response) {
+                    $("#submit_btn").val(response).attr('class', (response == 'Updated, Reloading...' ? 'btn white m-b success' : 'btn white m-b warn'))
+                    setTimeout(function() { location.reload() }, 500)
+                },
             });
         })
     },

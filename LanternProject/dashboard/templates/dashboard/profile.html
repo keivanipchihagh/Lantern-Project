@@ -166,7 +166,7 @@
                                             {% if field.field.label == 'image' %}
                                             <input type="file" accept="image/png,image/jpg,image/jpeg" name="{{ field.html_name }}" title="{{ field.label }}" class="form-control" style="border-bottom: 1px solid #999">
                                             {% else %}
-                                            <input type="text" ng-model="{{ field.html_name }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="md-input" style="border-bottom: 1px solid #999" {% if field.field.required %}required{% endif %} {% if field.field.disabled %}readonly="readonly" disabled="disabled"{% endif %} maxlength="{{ field.field.max_length }}">
+                                            <input type="text" ng-model="{{ field.html_name }}" name="{{ field.html_name }}" title="{{ field.label }}" value="{{ field.initial }}" class="md-input" style="border-bottom: 1px solid #999" {% if field.field.required %}required{% endif %} {% if field.field.disabled %}readonly="readonly" disabled="disabled" {% endif %} maxlength="{{ field.field.max_length }}">
                                             <label style="left: 15px">{{ field.label }} {% if field.help_text %}({{ field.help_text|lower }}){% endif %}</label>
                                             {% endif %}
                                             {{ field.errors }}
@@ -179,7 +179,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Personal Information - end -->                    
+                    <!-- Personal Information - end -->
                 </div>
                 <!-- Information - end -->
             </div>
