@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<div class="padding">
+    <div clas="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="box">
+                <div class="item">
+                    <div class="item-bg">
+                        <img src="{% static 'dashboard/images/a3.jpg'%}" class="blur">
+                    </div>
+                    <div class="p-a-lg pos-rlt text-center">
+                        <img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle w-56" style="margin-bottom: -7rem">
+                    </div>
+                </div>
+                <div class="p-a text-center">
+                    <a href="" class="text-md m-t block">{{ home.firstname }} {{ home.lastname }}</a>
+                    <p><small class="label indigo">{{ home.role|title }}</small></p>
+                    <p><a href="{% url 'index' user_key %}?page=profile" class="btn btn-sm primary">Go to Profile</a></p>
+                    <div class="text-xs">
+                        <em>Photos: <strong>32</strong>, Videos: <strong>50</strong></em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

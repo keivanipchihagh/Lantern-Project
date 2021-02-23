@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Metta - End -->
-
     <!-- for ios 7 style, multi-resolution icon of 152x152 -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
@@ -118,7 +117,7 @@
                                     <span class="_500">Rose Martin</span>
                                     <small class="text-muted">Administrator</small>
                                 </span>
-                            </a>                            
+                            </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link p-l b-l" href="" data-toggle="dropdown" aria-expanded="false"><i class="material-icons"></i></a>
@@ -143,14 +142,15 @@
             <!-- footer - start -->
             <div class="app-footer">{% include 'dashboard/footer.html' %}</div>
             <!-- footer - end -->
-
+            <!-- Body - start -->
             <div ui-view class="app-body">
-            {% if data.page == 'profile' %}
-                {% include 'dashboard/profile.html' with data=data %}
-            {% else %}
-                {% include 'dashboard/home.html' with data=data %}
-            {% endif %}
+                {% if page == 'profile' %}
+                {% include 'dashboard/profile.html' with aside=aside %}
+                {% else %}
+                {% include 'dashboard/home.html' with home=home %}
+                {% endif %}
             </div>
+            <!-- Body - end -->
         </div>
         <!-- content - end -->
     </div>

@@ -5,27 +5,27 @@
 <!-- Header - start -->
 <div id="profile" class="item">
     <div class="item-bg">
-        <img src="{% static 'dashboard/images/a1.jpg'%}" class="blur opacity-3">
+        <img src="{% static 'dashboard/images/a3.jpg'%}" class="blur opacity-3">
     </div>
     <div class="p-a-md">
         <div class="row m-t">
             <div class="col-sm-12">
                 <a href class="pull-left m-r-md">
                     <span class="avatar w-96">
-                        <img src="{% static 'dashboard/images/a1.jpg'%}">
+                        <img src="{% static 'dashboard/images/a3.jpg'%}">
                     </span>
                 </a>
                 <div class="clear m-b">
-                    <h3 class="m-a-0 m-b-xs">{{ data.firstname }} {{ data.lastname }}</h3>
+                    <h3 class="m-a-0 m-b-xs">{{ profile.firstname }} {{ profile.lastname }}</h3>
                     <p class="text-muted">
-                        {% if data.role == 'staff' %}
-                        <small class="label indigo m-r">{{ data.role|title }}</small>
-                        {% elif data.role == 'admin' %}
-                        <small class="label light-blue m-r">{{ data.role|title }}</small>
+                        {% if profile.role == 'staff' %}
+                        <small class="label indigo m-r">{{ profile.role|title }}</small>
+                        {% elif profile.role == 'admin' %}
+                        <small class="label light-blue m-r">{{ profile.role|title }}</small>
                         {% else %}
-                        <small class="label teal m-r">{{ data.role|title }}</small>
+                        <small class="label teal m-r">{{ profile.role|title }}</small>
                         {% endif %}
-                        <small><i class="fa fa-map-marker m-r-xs"></i>{{ data.city|title }}, {{ data.country|title }}</small>
+                        <small><i class="fa fa-map-marker m-r-xs"></i>{{ profile.city|title }}, {{ profile.country|title }}</small>
                     </p>
                     <div class="block clearfix m-b">
                         <a href="" class="btn btn-icon btn-social rounded white btn-sm">
@@ -45,7 +45,7 @@
                             <i class="fa fa-linkedin cyan-600"></i>
                         </a>
                     </div>
-                    <span class="text-muted">"{{ data.bio }}"</span>
+                    <span class="text-muted">"{{ profile.bio }}"</span>
                 </div>
             </div>
         </div>
@@ -59,19 +59,19 @@
             <div class="p-y text-center text-sm-right">
                 <a class="inline p-x text-center">
 
-                    {% if data.rating < 3 %}
-                    <span class="h4 block m-a-0 btn danger" style="padding: 3px">{{ data.rating }}</span>
-                    {% elif data.rating < 5 %}
-                    <span class="h4 block m-a-0 btn warn" style="padding: 3px">{{ data.rating }}</span>
-                    {% elif data.rating < 7 %}
-                    <span class="h4 block m-a-0 btn accent" style="padding: 3px">{{ data.rating }}</span>
+                    {% if profile.rating < 3 %}
+                    <span class="h4 block m-a-0 btn danger" style="padding: 3px">{{ profile.rating }}</span>
+                    {% elif profile.rating < 5 %}
+                    <span class="h4 block m-a-0 btn warn" style="padding: 3px">{{ profile.rating }}</span>
+                    {% elif profile.rating < 7 %}
+                    <span class="h4 block m-a-0 btn accent" style="padding: 3px">{{ profile.rating }}</span>
                     {% else %}
-                    <span class="h4 block m-a-0 btn success" style="padding: 3px">{{ data.rating }}</span>
+                    <span class="h4 block m-a-0 btn success" style="padding: 3px">{{ profile.rating }}</span>
                     {% endif %}
                     <small class="text-xs text-muted">Rating</small>
                 </a>
                 <a href class="inline p-x b-l text-center">
-                    <span class="h4 block m-a-0">{{ data.activities }}</span>
+                    <span class="h4 block m-a-0">{{ profile.activities }}</span>
                     <small class="text-xs text-muted">Activities</small>
                 </a>
             </div>
@@ -163,7 +163,7 @@
                                 <!-- Profile Form - start -->
                                 <form id="form_pi" role="form" method="post" onsubmit="return false">
                                     {% csrf_token %}
-                                    {% for field in form %}
+                                    {% for field in profile.form %}
                                     <div class="form-group row">
                                         <div class="col-md-12" style="padding: 5px 10px">
                                             <label for="form_username" class="col-lg-2 form-control-label">{{ field.label_tag }}</label>
@@ -230,7 +230,7 @@
                     <ul class="list no-border p-b">
                         <li class="list-item">
                             <span>Last Login</span>
-                            <span class="pull-right">{{ data.last_login|date:'Y-m-d H:i:s' }}</span>
+                            <span class="pull-right">{{ profile.last_login|date:'Y-m-d H:i:s' }}</span>
                         </li>
                     </ul>
                 </div>
@@ -244,11 +244,11 @@
                     </div>
                     <div class="box-divider m-a-0"></div>
                     <ul class="list no-border p-b">
-                        {% for user in data.other_users %}
+                        {% for user in profile.other_users %}
                         <li class="list-item">
                             <a herf class="list-left">
                                 <span class="w-40 avatar">
-                                    <img src="{% static 'dashboard/images/a1.jpg'%}" alt="...">
+                                    <img src="{% static 'dashboard/images/a3.jpg'%}" alt="...">
                                     <i class="on b-white bottom"></i>
                                 </span>
                             </a>

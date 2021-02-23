@@ -21,7 +21,7 @@
                 <!-- Agent - start -->
                 <li class="nav-header hidden-folded">
                     <small class="text-muted">Agent</small>
-                </li>               
+                </li>
                 <!-- Agent - end -->
                 <!-- Admin - start -->
                 <li class="nav-header hidden-folded">
@@ -106,15 +106,15 @@
                 <!-- Shared - start -->
                 <li class="nav-header hidden-folded"><small class="text-muted">{{ aside.menu.0.category }}</small></li>
                 {% for item in aside.menu %}
-                    <li id="{{ item.name }}">
-                        <a href="{% url 'index' data.user_key %}?page={{ item.name }}">
-                            {% if item.label %}
-                                <span class="nav-label"><b class="label rounded label-sm primary">{{ item.label }}</b></span>
-                            {% endif %}
-                            <span class="nav-icon"><i class="{{ item.icon }}" aria-hidden="true"></i></span>
-                            <span class="nav-text">{{ item.name|title }}</span>
-                        </a>
-                    </li>
+                <li id="{{ item.name }}">
+                    <a href="{% url 'index' user_key %}?page={{ item.name }}">
+                        {% if item.label %}
+                        <span class="nav-label"><b class="label rounded label-sm primary">{{ item.label }}</b></span>
+                        {% endif %}
+                        <span class="nav-icon"><i class="{{ item.icon }}" aria-hidden="true"></i></span>
+                        <span class="nav-text">{{ item.name|title }}</span>
+                    </a>
+                </li>
                 {% endfor %}
                 <!-- Shared - end -->
             </ul>

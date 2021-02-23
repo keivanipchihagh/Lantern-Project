@@ -43,38 +43,51 @@ def signin(request):
 def index(request, user_key):
     
     user = User.objects.get(user_key = user_key)
-    sitename = Site.objects.get(id = user.site_id).name
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
+    sitename = Site.objects.get(id = user.site_id).name
     log = Log.objects.filter(user_id = user.id).latest('datetime')
     menu = Menu.objects.filter(category = 'Shared')
 
-    page = request.GET.get('page')
-
-    aside = {
-        'menu': menu
+    # Data for home.html
+    home = {
+        'firstname': user.firstname,
+        'lastname': user.lastname,
+        'sitename': sitename,
+        'role': user.role,
     }
 
-    # Data for initial form fields and other attributes
-    data = {
+    # Data for aside.html
+    aside = {
+        'menu': menu,
+    }
+
+    # Data for profile.html
+    profile = {
         'firstname': user.firstname,
         'lastname': user.lastname,
         'username': user.username,
         'email': user.email,
-        'phonenumber': user.phonenumber,
         'role': user.role,
-        'site': sitename,
         'country': user.country,
         'city': user.city,        
         'bio': user.bio,
         'rating': user.rating,
         'last_login': log.datetime,
         'activities': len(Session.objects.filter(user_id = user.id)),
-        'other_users': other_users,
-        'user_key': user.user_key,
-        'page': page,                                                       # The page to display
+        'other_users': other_users,        
+        'form': ProfileForm(auto_id = True, instance = user),
     }
 
-    return render(request = request, context = {'form': ProfileForm(auto_id = True, instance = user), 'data': data, 'aside': aside}, template_name = 'dashboard/index.html')
+    # Data for index.html
+    data = {        
+        'profile': profile,                 # Data for profile.html
+        'aside': aside,                     # Data for aside.html
+        'home': home,                       # Data for home.html
+        'page': request.GET.get('page'),
+        'user_key': user.user_key,
+    }
+
+    return render(request = request, context = data, template_name = 'dashboard/index.html')
 
 ##################################################################### Profile ##############################################################################
 
