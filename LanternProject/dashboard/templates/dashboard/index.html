@@ -53,182 +53,10 @@
 </head>
 <body>
     <!-- app - start -->
-    <div class="app" id="app">
+    <div class="app">
 
         <!-- navbar - start -->
-        <div id="aside" class="app-aside modal fade md nav-expand dark">
-            <div class="left navside indigo-900 dk" layout="column">
-                <div class="navbar navbar-md no-radius">
-
-                    <!-- brand - start -->
-                    <a class="navbar-brand">
-                        <div ui-include="{% static 'dashboard/images/logo.png' %}"></div>
-                        <img src="{% static 'dashboard/images/logo.png' %}" alt="." class="hide">
-                        <span class="hidden-folded inline">Lantern Project</span>
-                    </a>
-                    <!-- brand - end -->
-
-                </div>
-                <div flex class="hide-scroll">
-                    <nav class="scroll nav-active-primary">
-                        <ul class="nav" ui-nav>
-
-                            <!-- Agent - start -->
-                            <li class="nav-header hidden-folded">
-                                <small class="text-muted">Agent</small>
-                            </li>
-                            <li class="active">
-                                <a href="">
-                                    <span class="nav-icon">
-                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Dashboard</span>
-                                </a>
-                            </li>
-                            <!-- Agent - end -->
-                            <!-- Admin - start -->
-                            <li class="nav-header hidden-folded">
-                                <small class="text-muted">Admin</small>
-                            </li>
-                            <li>
-                                <a>
-                                    <span class="nav-caret">
-                                        <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-icon">
-                                        <i class="fa fa-users" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Agents</span>
-                                </a>
-                                <ul class="nav-sub" style="padding-left:10px">
-                                    <li>
-                                        <span class="avatar w-24">
-                                            <img src="{% static 'dashboard/images/a0.jpg' %}" alt="Alex">
-                                        </span>
-                                        <a href="" style="display:inline-block; padding-left: 18px">
-                                            <span class="nav-text">Alex</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <span class="avatar w-24">
-                                            <img src="{% static 'dashboard/images/a3.jpg' %}" alt="Alex">
-                                        </span>
-                                        <a href="" style="display:inline-block; padding-left: 18px">
-                                            <span class="nav-text">Janet</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>
-                                    <span class="nav-caret">
-                                        <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-icon">
-                                        <i class="fa fa-pie-chart" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Charts</span>
-                                </a>
-                                <ul class="nav-sub">
-                                    <li>
-                                        <a href="">
-                                            <span class="nav-text">System</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- Admin - end -->
-                            <!-- Staff - start -->
-                            <li class="nav-header hidden-folded">
-                                <small class="text-muted">Staff</small>
-                            </li>
-                            <li>
-                                <a>
-                                    <span class="nav-caret">
-                                        <i class="fa fa-caret-down"></i>
-                                    </span>
-                                    <span class="nav-icon">
-                                        <i class="fa fa-users" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Sites</span>
-                                </a>
-                                <ul class="nav-sub">
-                                    <li>
-                                        <a href="">
-                                            <span class="nav-text">Google.com</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="">
-                                            <span class="nav-text">Amazon.com</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- Staff - end -->
-                            <!-- Shared - start -->
-                            <li class="nav-header hidden-folded">
-                                <small class="text-muted">Shared</small>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="nav-icon">
-                                        <i class="fa fa-child" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Chatroom</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="nav-label">
-                                        <b class="label rounded label-sm primary">5</b>
-                                    </span>
-                                    <span class="nav-icon">
-                                        <i class="fa fa-newspaper-o" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Newsletter</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="nav-icon">
-                                        <i class="fa fa-user-o" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Profile</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <span class="nav-icon">
-                                        <i class="fa fa-cogs" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Settings</span>
-                                </a>
-                            </li>
-                            <!-- Shared - end -->
-
-                        </ul>
-                    </nav>
-                </div>
-                <div flex-no-shrink="">
-                    <nav ui-nav="">
-                        <ul class="nav">
-                            <li>
-                                <div class="b-b b m-t-sm"></div>
-                            </li>
-                            <li class="no-bg">
-                                <a>
-                                    <span class="nav-icon">
-                                        <i class="fa fa-power-off" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="nav-text">Logout</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
+        <div id="aside" class="app-aside modal fade md nav-expand dark">{% include 'dashboard/aside.html' with aside=aside %}</div>
         <!-- navbar - end -->
         <!-- content - start -->
         <div id="content" class="app-content box-shadow-z0" role="main">
@@ -313,17 +141,15 @@
             </div>
 
             <!-- footer - start -->
-            <div class="app-footer">
-                <div class="p-a text-xs">
-                    <div class="text-muted" style="width:100%; text-align:center">
-                        <span>&copy; Copyright <strong><a href="#">Lantern-Project</a></strong> <span class="hidden-xs-down">- Built with ❤</span></span>
-                    </div>
-                </div>
-            </div>
+            <div class="app-footer">{% include 'dashboard/footer.html' %}</div>
             <!-- footer - end -->
 
-            <div ui-view class="app-body" id="view">
-                
+            <div ui-view class="app-body">
+            {% if data.page == 'profile' %}
+                {% include 'dashboard/profile.html' with data=data %}
+            {% else %}
+                {% include 'dashboard/home.html' with data=data %}
+            {% endif %}
             </div>
         </div>
         <!-- content - end -->

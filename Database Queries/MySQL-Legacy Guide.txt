@@ -1,2 +1,7 @@
+- Load Tables from existing Database:
 python manage.py inspectdb
 python manage.py inspectdb > core/models.py
+
+- Create tables from models.py (force):
+python manage.py migrate --fake core zero
+python manage.py migrate core

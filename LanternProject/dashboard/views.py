@@ -5,6 +5,7 @@ from core.models import CoreUser as User
 from core.models import CoreMessage as Message
 from core.models import CoreSite as Site
 from core.models import CoreLog as Log
+from .models import DashboardMenu as Menu
 import json
 from .forms import ProfileForm, LoginForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
@@ -40,7 +41,40 @@ def signin(request):
 
 @require_http_methods(['GET'])
 def index(request, user_key):
-    return render(request = request, context = {}, template_name = 'dashboard/index.html')
+    
+    user = User.objects.get(user_key = user_key)
+    sitename = Site.objects.get(id = user.site_id).name
+    other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
+    log = Log.objects.filter(user_id = user.id).latest('datetime')
+    menu = Menu.objects.filter(category = 'Shared')
+
+    page = request.GET.get('page')
+
+    aside = {
+        'menu': menu
+    }
+
+    # Data for initial form fields and other attributes
+    data = {
+        'firstname': user.firstname,
+        'lastname': user.lastname,
+        'username': user.username,
+        'email': user.email,
+        'phonenumber': user.phonenumber,
+        'role': user.role,
+        'site': sitename,
+        'country': user.country,
+        'city': user.city,        
+        'bio': user.bio,
+        'rating': user.rating,
+        'last_login': log.datetime,
+        'activities': len(Session.objects.filter(user_id = user.id)),
+        'other_users': other_users,
+        'user_key': user.user_key,
+        'page': page,                                                       # The page to display
+    }
+
+    return render(request = request, context = {'form': ProfileForm(auto_id = True, instance = user), 'data': data, 'aside': aside}, template_name = 'dashboard/index.html')
 
 ##################################################################### Profile ##############################################################################
 
