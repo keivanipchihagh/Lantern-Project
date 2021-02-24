@@ -3,7 +3,7 @@ from datetime import datetime as dt
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from core.models import CoreMessage as Message
-from core.models import CoreSession as Session
+from core.models import CoreRoom as Room
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -33,12 +33,12 @@ class ChatConsumer(WebsocketConsumer):
         id = text_data_json['id']
         message = text_data_json['message']
         datetime = text_data_json['datetime']
-        session_key = text_data_json['session_key']
+        room_key = text_data_json['room_key']
         sender = text_data_json['sender']
 
         # Save the message
-        session_id = Session.objects.get(session_key = session_key).id
-        Message(content = message, ip = None, datetime = dt.now(), sender = sender, session_id = session_id).save()
+        room_id = Room.objects.get(room_key = room_key).id
+        Message(content = message, ip = None, datetime = dt.now(), sender = sender, room_id = room_id).save()
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
@@ -48,7 +48,7 @@ class ChatConsumer(WebsocketConsumer):
                 'id': id,
                 'message': message,
                 'datetime': datetime,
-                'session_key': session_key,
+                'room_key': room_key,
                 'sender': sender,
             }
         )        
@@ -59,7 +59,7 @@ class ChatConsumer(WebsocketConsumer):
         id = event['id']
         message = event['message']
         datetime = event['datetime']
-        session_key = event['session_key']
+        room_key = event['room_key']
         sender = event['sender']
 
         # Send message to WebSocket
@@ -67,6 +67,6 @@ class ChatConsumer(WebsocketConsumer):
             'id': id,
             'message': message,
             'datetime': datetime,
-            'session_key': session_key,
+            'room_key': room_key,
             'sender': sender,
         }))

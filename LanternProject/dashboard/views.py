@@ -1,6 +1,6 @@
 from django.http.response import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
-from core.models import CoreSession as Session
+from core.models import CoreRoom as Room
 from core.models import CoreUser as User
 from core.models import CoreMessage as Message
 from core.models import CoreSite as Site
@@ -68,11 +68,11 @@ def index(request, user_key):
     }
     
     # Data for chatroom
-    open_sessions, assigned_sessions, starred_sessions = get_sessions(user_key = user_key)
+    open_rooms, assigned_rooms, starred_rooms = get_rooms(user_key = user_key)
     chatroom = {
-        'open_sessions': open_sessions,
-        'assigned_sessions': assigned_sessions,
-        'starred_sessions': starred_sessions,
+        'open_rooms': open_rooms,
+        'assigned_rooms': assigned_rooms,
+        'starred_rooms': starred_rooms,
     }
 
     # Data for profile.html
@@ -88,7 +88,7 @@ def index(request, user_key):
         'bio': user.bio,
         'rating': user.rating,
         'last_login': log.datetime,
-        'activities': len(Session.objects.filter(user_id = user.id)),
+        'activities': len(Room.objects.filter(user_id = user.id)),
         'other_users': other_users,        
         'form': ProfileForm(auto_id = True, instance = user),
     }
@@ -131,23 +131,15 @@ def profile_update_pi(request, user_key):
 
 # ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
 
-def onload_chatroom(request, user_key):
-    
-    # Sessions
-    open_sessions, assigned_sessions, starred_sessions = get_sessions(user_key = user_key)
-    
-    return render(request = request, context = {'open_sessions': open_sessions, 'assigned_sessions': assigned_sessions, 'starred_sessions': starred_sessions}, template_name = 'dashboard/chatroom.html')
-
-
-def fetch_session(request):
+def fetch_room(request):
 
     # Get request data
-    session_key, user_key = request.GET['session_key'], request.GET['user_key']    
+    room_key, user_key = request.GET['room_key'], request.GET['user_key']    
 
     # Verification
     user_id = User.objects.get(user_key = user_key).id
-    session_id = Session.objects.get(session_key = session_key, user_id = user_id).id
-    messages = Message.objects.filter(session_id = session_id)
+    room_id = Room.objects.get(room_key = room_key, user_id = user_id).id
+    messages = Message.objects.filter(room_id = room_id)
     
     # Format messages
     dictionaries = [str(obj.as_dict()) for obj in messages]
@@ -156,40 +148,40 @@ def fetch_session(request):
     return HttpResponse(json.dumps(dictionaries), content_type='application/json')
 
 
-def close_session(request):
+def close_room(request):
 
     # Get request data
-    session_key, user_key = request.GET['session_key'], request.GET['user_key']
+    room_key, user_key = request.GET['room_key'], request.GET['user_key']
 
     # Verification
     user_id = User.objects.get(user_key = user_key).id
-    session_id = Session.objects.get(session_key = session_key, user_id = user_id).id
+    room_id = Room.objects.get(room_key = room_key, user_id = user_id).id
 
-    # Update session - Close
-    session = Session.objects.get(id = session_id)
-    session.status = 'closed'
-    session.save()
+    # Update room - Close
+    room = Room.objects.get(id = room_id)
+    room.status = 'closed'
+    room.save()
 
-    # Remove messages for the session
-    Message.objects.filter(session_id = session_id).delete()
+    # Remove messages for the room
+    Message.objects.filter(room_id = room_id).delete()
 
     # Return empty response
     return HttpResponse('')
 
 
-def star_session(request):
+def star_room(request):
 
     # Get request data
-    session_key, user_key = request.GET['session_key'], request.GET['user_key']
+    room_key, user_key = request.GET['room_key'], request.GET['user_key']
 
     # Verification
     user_id = User.objects.get(user_key = user_key).id
-    session_id = Session.objects.get(session_key = session_key, user_id = user_id).id
+    room_id = Room.objects.get(room_key = room_key, user_id = user_id).id
 
-    # Update session - Star
-    session = Session.objects.get(id = session_id)
-    session.starred = 0 if (session.starred) else 1
-    session.save()
+    # Update room - Star
+    room = Room.objects.get(id = room_id)
+    room.starred = 0 if (room.starred) else 1
+    room.save()
 
     # Return empty response
     return HttpResponse('')
@@ -197,10 +189,10 @@ def star_session(request):
 
 # ------------------------------------------------------------------------ Methods ------------------------------------------------------------------------
 
-def get_sessions(user_key):
+def get_rooms(user_key):
 
-    open_sessions = Session.objects.filter(status = 'open')                     # Fetch open sessions
-    assigned_sessions = open_sessions.filter(user_id__user_key = user_key)      # Query assigned sessions
-    starred_sessions = open_sessions.filter(starred = True)                     # Query starred sessions
+    open_rooms = Room.objects.filter(status = 'open')                     # Fetch open rooms
+    assigned_rooms = open_rooms.filter(user_id__user_key = user_key)      # Query assigned rooms
+    starred_rooms = open_rooms.filter(starred = True)                     # Query starred rooms
 
-    return open_sessions, assigned_sessions, starred_sessions                   # Return QuerySets
+    return open_rooms, assigned_rooms, starred_rooms                   # Return QuerySets

@@ -6,7 +6,7 @@ const App = new Vue({
     data: {
         packages: [],
         api_key: '123456789',
-        session_token: '',
+        room_token: '',
         
         // Ready server
         ready: false,
@@ -41,7 +41,7 @@ const App = new Vue({
         toggleApp: function () {
 
             if (!this.ready)
-                this.startSession()
+                this.openRoom()
             else {
                 this.expandApp = !this.expandApp
                 $("#toggler").attr({ "uk-icon": function (index, currentvalue) { return (currentvalue == "icon: chevron-down") ? "icon: chevron-up" : "icon: chevron-down" }})            
@@ -53,27 +53,27 @@ const App = new Vue({
         changeTheme: function () {
             this.isDark = !this.isDark
         },
-        startSession: function () {
+        openRoom: function () {
 
             var self = this
             var dots = [$("#dot_1"), $("#dot_2"), $("#dot_3")]
             var await = setInterval(function() {dots[self.dotToToggle++].toggleClass('uk-etc-dot-show uk-etc-dot-hide'); if (self.dotToToggle == 3) self.dotToToggle = 0; }, 500)
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/v1/services/sessions/start',
+                url: 'http://127.0.0.1:8000/api/v1/services/rooms/start',
                 type: 'GET',
                 context: this,      // Essential for VueJS
                 data: {
                     'key': this.api_key
                 },
                 error: function () {
-                    console.log('There was a problem creating a session.');
+                    console.log('There was a problem creating a room.');
                 },
                 success: function (data) {
                     this.ready = true                       // Ready status
-                    this.session_token = data               // Set session token                    
+                    this.room_token = data               // Set room token                    
                     this.startSocket()                      // Start socket
-                    console.log('Session started.');
+                    console.log('Room started.');
 
                     // Open chat when ready
                     this.expandApp = !this.expandApp
@@ -88,7 +88,7 @@ const App = new Vue({
         },
         startSocket: function () {
 
-            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/session/' + this.session_token + '/');
+            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/room/' + this.room_token + '/');
             self = this
 
             chatSocket.onmessage = function (e) {
@@ -109,7 +109,7 @@ const App = new Vue({
                     'id': package['id'],
                     'message': package['message'],
                     'datetime': package['datetime'],
-                    'session_key': self.session_token,
+                    'room_key': self.room_token,
                     'sender': package['sender'],
                 }));
 
