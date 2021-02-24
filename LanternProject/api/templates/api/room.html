@@ -57,7 +57,7 @@
             <!-- Body - start -->
             <div id="app-body" class="uk-card-body uk-padding-small app-body">
 
-                <div id="chat-log" is="Package" v-for="package in packages" v-bind:key="package.id" v-bind:_sender="package.sender" v-bind:message="package.message" v-bind:datetime="package.datetime" v-bind:id="package.id" v-if="ready & expandApp"></div>
+                <div id="chat-log" is="Message" v-for="message in messages" v-bind:key="message.id" v-bind:_sender="message.sender" v-bind:message="message.message" v-bind:datetime="message.datetime" v-bind:id="message.id" v-if="ready & expandApp"></div>
 
             </div>
             <!-- Body - end -->

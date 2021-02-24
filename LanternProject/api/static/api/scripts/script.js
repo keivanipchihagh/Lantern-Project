@@ -4,7 +4,7 @@ const App = new Vue({
     el: "#app",
 
     data: {
-        packages: [],
+        messages: [],
         api_key: '123456789',
         room_token: '',
         
@@ -94,33 +94,33 @@ const App = new Vue({
             chatSocket.onmessage = function (e) {
                 const data = JSON.parse(e.data)
 
-                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'agent' }
+                var message = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'agent' }
 
-                // Push agent packages only
-                if (!App.messageExists(package['id'])) App.packages.push(package)
+                // Push agent messages only
+                if (!App.messageExists(message['id'])) App.messages.push(message)
             }
             
             document.querySelector('#chat-message-submit').onclick = function (e) {
-                const message = self.message                
+                // const message = self.message
 
-                var package = { id: App.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'client' }
+                var message = { id: App.messages.length, message: App.message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'client' }
 
                 chatSocket.send(JSON.stringify({
-                    'id': package['id'],
-                    'message': package['message'],
-                    'datetime': package['datetime'],
+                    'id': message['id'],
+                    'message': message['message'],
+                    'datetime': message['datetime'],
                     'room_key': self.room_token,
-                    'sender': package['sender'],
+                    'sender': message['sender'],
                 }));
 
                 self.message = ''
-                App.packages.push(package)
+                App.messages.push(message)
             }
 
             chatSocket.onclose = function (e) { console.error('Server connection was terminated.') }
         },
         messageExists: function (id) {
-            for (var i = 0; i < this.packages.length; i++) if (this.packages[i]['id'] == id) return true
+            for (var i = 0; i < this.messages.length; i++) if (this.messages[i]['id'] == id) return true
             return false
         },
     },
@@ -134,7 +134,7 @@ const App = new Vue({
     },
 
     components: {
-        'Package': {
+        'Message': {
             props: ['message', '_sender', 'datetime', '_id'],
 
             template: `

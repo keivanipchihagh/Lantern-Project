@@ -67,7 +67,7 @@
                 <div class="row-body">
                     <div class="row-inner">
                         <div class="p-a-md">
-                            <div id="chat-log" is="Package" v-for="package in packages" v-bind:key="package.id" v-bind:_sender="package.sender" v-bind:message="package.message" v-bind:datetime="package.datetime" v-bind:id="package.id"></div>
+                            <div id="chat-log" is="Message" v-for="message in messages" v-bind:key="message.id" v-bind:_sender="message.sender" v-bind:message="message.message" v-bind:datetime="message.datetime" v-bind:id="message.id"></div>
                         </div>
                     </div>
                 </div>

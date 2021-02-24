@@ -30,7 +30,7 @@ const Chatroom = new Vue({
     el: "#chatroom",
 
     data: {
-        packages: [],
+        messages: [],
         message: '',
         user_key: '123456789',
     },
@@ -51,14 +51,14 @@ const Chatroom = new Vue({
 
                 var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'client' }
 
-                // Push agent packages only
-                if (!self.messageExists(package['id'])) self.packages.push(package)
+                // Push agent messages only
+                if (!self.messageExists(package['id'])) self.messages.push(package)
             }
             
             document.querySelector('#chat-message-submit').onclick = function (e) {
                 const message = self.message                
 
-                var package = { id: self.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
+                var package = { id: self.messages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
                 
                 chatSocket.send(JSON.stringify({
                     'id': package['id'],
@@ -69,7 +69,7 @@ const Chatroom = new Vue({
                 }));
 
                 self.message = ''
-                self.packages.push(package)
+                self.messages.push(package)
             }
 
             chatSocket.onclose = function (e) { console.error('Server connection was terminated.') }
@@ -93,10 +93,10 @@ const Chatroom = new Vue({
                 },
                 success: function (data) {
                     var i = 0
-                    self.packages = []
+                    self.messages = []
                     for (i; i < data.length; i++) {
                         var entry = JSON.parse(data[i].replace(/'/g, '"'))
-                        self.packages.push({id: entry['id'], message: entry['content'], datetime: entry['datetime'], sender: entry['sender']})
+                        self.messages.push({id: entry['id'], message: entry['content'], datetime: entry['datetime'], sender: entry['sender']})
                     }                    
                 },
             });
@@ -122,13 +122,13 @@ const Chatroom = new Vue({
         },
 
         messageExists: function (id) {
-            for (var i = 0; i < this.packages.length; i++) if (this.packages[i]['id'] == id) return true
+            for (var i = 0; i < this.messages.length; i++) if (this.messages[i]['id'] == id) return true
             return false
         },        
     },
 
     mounted: function () {
-
+        
     },
 
     watch: {
@@ -136,7 +136,7 @@ const Chatroom = new Vue({
     },
 
     components: {
-        'Package': {
+        'Message': {
             props: ['message', '_sender', 'datetime', '_id'],
 
             template: `
