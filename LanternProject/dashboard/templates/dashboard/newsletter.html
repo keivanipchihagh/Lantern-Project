@@ -1,0 +1,86 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<div class="padding">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <h4 class="m-a-0 m-b-sm text-md">{{ title|title }}</h4>
+            <div class="m-b" id="accordion">
+
+                {% for letter in newsletter.letters %}
+                <div class="panel box no-border m-b-xs">
+                    <div class="box-header p-y-sm">
+                        {% if letter.date_published_display %}
+                        <span class="pull-right label red text-sm">NEW</span>
+                        {% endif %}
+                        <a data-toggle="collapse" data-parent="#accordion" data-target="#c_1" aria-expanded="false" class="collapsed">
+                            <i class="fa fa-bullhorn" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ letter.title|title }}</b>
+                        </a>
+                    </div>
+                    <div id="c_1" class="collapse" aria-expanded="false" style="height: 0px;">
+                        <div class="box-body">
+                            <p class="text-sm">
+                                <span class="avatar w-48 pull-left m-r rounded">
+                                    <img src="{% static 'dashboard/images/a3.jpg'%}" alt="...">
+                                </span>
+                                {% autoescape off %}
+                                {{ letter.content }}
+                                {% endautoescape %}
+                                <br /><br />
+                            </p>
+                            {% if letter.user.role == 'staff' %}
+                            <p class="pull-right label-sm indigo ">- {{ letter.user.username }}</p>
+                            {% elif letter.user.role == 'admin' %}
+                            <p class="pull-right label light-blue">- {{ letter.user.username }}</p>
+                            {% else %}
+                            <p class="pull-right label teal">- {{ letter.user.username }}</p>
+                            {% endif %}
+                            <p>
+                                <span class="m-r">Tags:</span>
+                                {% for tag in letter.tags_as_list %}
+                                    {% if tag|lower == 'staff' %}
+                                    <span class="label indigo">{{ tag|lower }}</span>
+                                    {% elif tag|lower == 'admin' %}
+                                    <span class="label light-blue">{{ tag|lower }}</span>
+                                    {% elif tag|lower == 'announcement' %}                                    
+                                    <span class="label purple-300">{{ tag|lower }}</span>
+                                    {% elif tag|lower == 'update' %}
+                                    <span class="label red">{{ tag|lower }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <h4 class="m-t-md text-md">Submit ticket</h4>
+            <form name="form-contact" class="form-validation m-b-lg">
+                <div class="row">
+                    <div class="col-sm-6 m-b">
+                        <label>Your name</label>
+                        <input type="text" class="form-control" placeholder="Name" required="">
+                    </div>
+                    <div class="col-sm-6 m-b">
+                        <label>Email</label>
+                        <input type="email" class="form-control" placeholder="Enter email" required="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Question Subject</label>
+                    <select class="form-control c-select">
+                        <option>Website Errors</option>
+                        <option>Product Services</option>
+                        <option>Login/Signup Problem</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Your Question</label>
+                    <textarea class="form-control" rows="6" placeholder="hmm.."></textarea>
+                </div>
+                <button type="submit" class="btn btn-info">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

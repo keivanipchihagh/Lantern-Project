@@ -76,11 +76,17 @@
         <div class="col-sm-6 pull-sm-6">
             <div class="p-y-md clearfix nav-active-primary">
                 <ul class="nav nav-pills nav-sm">
-                    <li class="nav-item active">
+                    <li class="nav-item active">                        
                         <a class="nav-link" href data-toggle="tab" data-target="#tab_1">Overview</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href data-toggle="tab" data-target="#tab_2">Information</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href data-toggle="tab" data-target="#tab_3">Security</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href data-toggle="tab" data-target="#tab_3">Settings</a>
                     </li>
                 </ul>
             </div>
@@ -156,7 +162,7 @@
                                 <small>Some changes may take time to apply across the site, like your profile image.</small>
                             </div>
                             <div class="box-divider m-a-0"></div>
-                            <div class="box-body">
+                            <div class="box-body p-b-lg">
                                 <!-- Profile Form - start -->
                                 <form id="form_pi" role="form" method="post" onsubmit="return false">
                                     {% csrf_token %}

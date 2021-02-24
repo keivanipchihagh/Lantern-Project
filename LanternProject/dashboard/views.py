@@ -6,6 +6,7 @@ from core.models import CoreMessage as Message
 from core.models import CoreSite as Site
 from core.models import CoreLog as Log
 from .models import DashboardMenu as Menu
+from .models import DashboardNewsLetter as NewsLetter
 import json
 from .forms import ProfileForm, LoginForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
@@ -63,6 +64,12 @@ def index(request, user_key):
         'menu': menu,
     }
 
+    # Data for newsletter.html
+    letters = NewsLetter.objects.all()
+    newsletter = {
+        'letters': letters,
+    }
+
     # Data for header.html
     header = {
         'username': user.username,                
@@ -102,6 +109,7 @@ def index(request, user_key):
         'home': home,                       # Data for home.html
         'header': header,                   # Data for header.html
         'chatroom': chatroom,               # Data for chatroom.html
+        'newsletter': newsletter,           # Data for newsletter.html
         'page': request.GET.get('page'),
         'user_key': user.user_key,
         'title': request.GET.get('page'),

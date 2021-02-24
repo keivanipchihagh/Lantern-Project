@@ -27,3 +27,6 @@ INSERT INTO dashboard_menu (name, icon, label, category)
     
 INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("settings", "fa fa-cogs", null, "Shared");
+    
+INSERT INTO dashboard_newsletter (title, type, date_published, content, tags, user_id)
+	VALUES ('Welcome to Lantern-Project', 'Announcement', NOW(), 'Bonjour! Ciao! Willkommen! Hello!<br/>We are so thrilled you decided to join our community! Hats off on making this excellent desicion! You are now officially in the loop to hear all about our awesome features, new released and many many more.', 'Staff Accouncement', 1);
