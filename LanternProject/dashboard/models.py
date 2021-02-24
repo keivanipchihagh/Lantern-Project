@@ -46,7 +46,7 @@ class DashboardNewsLetter(models.Model):
         max_length = 50,
     )
 
-    # Type | Max Length: 30
+    # Type | Max Length: 30 | announcement, update, maintenance
     type = models.CharField(
         name = 'type',
         max_length = 30,
@@ -65,7 +65,7 @@ class DashboardNewsLetter(models.Model):
         max_length = 500,
     )
 
-    # Tags | Max Length: 30
+    # Tags | Max Length: 30 | announcement, user.role, update, maintenance
     tags = models.CharField(
         name = 'tags',
         max_length = 30,

@@ -16,36 +16,28 @@
         <li class="nav-item dropdown pos-stc-xs">
             <a class="nav-link" href data-toggle="dropdown">
                 <i class="material-icons">&#xe7f5;</i>
-                <span class="label label-sm up warn">3</span>
+                <span class="label label-sm up info">{{ newsletter.letters|length }}</span>
             </a>
             <div class="dropdown-menu pull-right w-xl animated fadeInUp no-bg no-border no-shadow">
                 <div class="scrollable" style="max-height: 220px">
                     <ul class="list-group list-group-gap m-a-0">
-                        <li class="list-group-item dark-white lt box-shadow-z0 b">
-                            <span class="pull-left m-r"><img src="{% static 'dashboard/images/a0.jpg'%}" alt="..." class="w-40 img-circle"></span>
-                            <span class="clear block">
-                                Use awesome <a href="" class="text-primary">animate.css</a>
-                                <br><small class="text-muted">10 minutes ago</small>
-                            </span>
-                        </li>
-                        <li class="list-group-item dark-white lt box-shadow-z0 b">
-                            <span class="pull-left m-r">
-                                <img src="{% static 'dashboard/images/a1.jpg'%}" alt="..." class="w-40 img-circle">
-                            </span>
-                            <span class="clear block">
-                                <a href="" class="text-primary">Joe</a> Added you as friend<br>
-                                <small class="text-muted">2 hours ago</small>
-                            </span>
-                        </li>
-                        <li class="list-group-item dark-white text-color box-shadow-z0 b">
-                            <span class="pull-left m-r">
-                                <img src="{% static 'dashboard/images/a2.jpg'%}" alt="..." class="w-40 img-circle">
-                            </span>
-                            <span class="clear block">
-                                <a href="" class="text-primary">Danie</a> sent you a message<br>
-                                <small class="text-muted">1 day ago</small>
-                            </span>
-                        </li>
+                        {% for letter in newsletter.letters %}
+                            {% if letter.date_published_display %}
+                            <li class="list-group-item dark-white lt box-shadow-z0 b">
+                                {% if letter.type == 'announcement'%}
+                                <i class="fa fa-bullhorn text-md pull-left w-40 m-r rounded info" aria-hidden="true"></i>
+                                {% elif letter.type == 'maintenance' %}
+                                <i class="fa fa-wrench text-md pull-left w-40 m-r rounded warn" aria-hidden="true"></i>
+                                {% elif letter.type == 'update' %}
+                                <i class="fa fa-certificate text-md pull-left w-40 m-r rounded success" aria-hidden="true"></i>
+                                {% endif %}
+                                <a href="{% url 'index' user_key %}?page=newsletter" class="clear block">
+                                    <b>{{ letter.title }}</b>
+                                    <br><small class="text-muted">{{ letter.date_published|date:'Y-m-d H:i' }}</small>
+                                </a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}                        
                     </ul>
                 </div>
             </div>
