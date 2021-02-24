@@ -1,5 +1,5 @@
 from django.http.response import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from core.models import CoreRoom as Room
 from core.models import CoreUser as User
 from core.models import CoreMessage as Message
@@ -123,7 +123,6 @@ def profile_update_pi(request, user_key):
             city = form.cleaned_data.get('city'),
             bio = form.cleaned_data.get('bio'),
         )
-        # form.save()
 
         return HttpResponse('Updated, Reloading...')
     else:

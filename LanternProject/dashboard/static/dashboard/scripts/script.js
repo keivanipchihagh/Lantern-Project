@@ -25,9 +25,9 @@ const Profile = new Vue({
 })
 
 // Chatroom Section
-const ChatApp = new Vue({
+const Chatroom = new Vue({
 
-    el: "#app",
+    el: "#chatroom",
 
     data: {
         packages: [],
@@ -40,10 +40,10 @@ const ChatApp = new Vue({
         sendMessage: function () {            
             document.querySelector('#chat-message-submit').click()
         },        
-        openChat: function (session_key) {
-
-            document.querySelector('#chatTitle').innerText = 'Chat - ' + session_key
-            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/session/' + session_key + '/');
+        openChat: function (room_key) {
+            self = this
+            document.querySelector('#chatTitle').innerText = 'Chat - ' + room_key
+            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/room/' + room_key + '/');
             self = this
             
             chatSocket.onmessage = function (e) {
@@ -52,40 +52,40 @@ const ChatApp = new Vue({
                 var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'client' }
 
                 // Push agent packages only
-                if (!ChatApp.messageExists(package['id'])) ChatApp.packages.push(package)
+                if (!self.messageExists(package['id'])) self.packages.push(package)
             }
             
             document.querySelector('#chat-message-submit').onclick = function (e) {
                 const message = self.message                
 
-                var package = { id: ChatApp.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
+                var package = { id: self.packages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
                 
                 chatSocket.send(JSON.stringify({
                     'id': package['id'],
                     'message': package['message'],
                     'datetime': package['datetime'],
-                    'session_key': session_key,
+                    'room_key': room_key,
                     'sender': package['sender'],
                 }));
 
                 self.message = ''
-                ChatApp.packages.push(package)
+                self.packages.push(package)
             }
 
             chatSocket.onclose = function (e) { console.error('Server connection was terminated.') }
 
-            this.getChat(session_key, this.user_key)
+            this.getChat(room_key, this.user_key)
         },
 
-        getChat: function(session_key, user_key) {
+        getChat: function(room_key, user_key) {
             var self = this            
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/fetch/session',
+                url: 'http://127.0.0.1:8000/dashboard/v1/fetch/room',
                 type: 'GET',
                 context: this,      // Essential for VueJS
                 data: {
-                    'session_key': session_key,
+                    'room_key': room_key,
                     'user_key': user_key
                 },
                 error: function () {
@@ -103,45 +103,45 @@ const ChatApp = new Vue({
             });
         },
 
-        closeChat: function(session_key) {
-            // Close the session, delete the chats and remove the session from dashboard
+        closeChat: function(room_key) {
+            // Close the room, delete the chats and remove the room from dashboard
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/close/session',
+                url: 'http://127.0.0.1:8000/dashboard/v1/close/room',
                 type: 'GET',
-                data: { 'session_key': session_key, 'user_key': this.user_key },
+                data: { 'room_key': room_key, 'user_key': this.user_key },
                 error: function () { console.error('Session could not be closed') },
                 success: function () {
                     console.log('Session Closed.')
 
-                    $("#assigned_" + session_key).remove()
-                    $("#open_" + session_key).remove()
+                    $("#assigned_" + room_key).remove()
+                    $("#open_" + room_key).remove()
                     $('#chatTitle').text('Chat')
-                    $("#assigned_sessions_count").text(parseInt($("#assigned_sessions_count").text()) - 1)
-                    $("#open_sessions_count").text(parseInt($("#open_sessions_count").text()) - 1)
+                    $("#assigned_rooms_count").text(parseInt($("#assigned_rooms_count").text()) - 1)
+                    $("#open_rooms_count").text(parseInt($("#open_rooms_count").text()) - 1)
                 },
             });
         },
 
-        starChat: function(session_key) {
-            // Star the session
+        starChat: function(room_key) {
+            // Star the room
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/star/session',
+                url: 'http://127.0.0.1:8000/dashboard/v1/star/room',
                 type: 'GET',
-                data: { 'session_key': session_key, 'user_key': this.user_key },
+                data: { 'room_key': room_key, 'user_key': this.user_key },
                 error: function () { console.error('Session could not be starred') },
                 success: function () {
                     console.log('Session Starred.')
                     $("#star").toggleClass('fa-star-o fa-star')
                     
                     if ($("#star").attr("class").includes('fa-star-o')) {
-                        $("#starred_" + session_key).remove()
-                        $("#starred_sessions_count").text(parseInt($("#starred_sessions_count").text()) - 1)
+                        $("#starred_" + room_key).remove()
+                        $("#starred_rooms_count").text(parseInt($("#starred_rooms_count").text()) - 1)
                     } else {
-                        var starred = $("#assigned_" + session_key).clone(true)
-                        starred.attr({"id": "starred_" + session_key, "class": ""})
+                        var starred = $("#assigned_" + room_key).clone(true)
+                        starred.attr({"id": "starred_" + room_key, "class": ""})
                         
-                        $("#starred_sessions").html($("#starred_sessions").html() + $("<div />").append(starred.clone()).html())                        
-                        $("#starred_sessions_count").text(parseInt($("#starred_sessions_count").text()) + 1)
+                        $("#starred_rooms").html($("#starred_rooms").html() + $("<div />").append(starred.clone()).html())                        
+                        $("#starred_rooms_count").text(parseInt($("#starred_rooms_count").text()) + 1)
                     }
                 },
             });
@@ -154,7 +154,7 @@ const ChatApp = new Vue({
     },
 
     mounted: function () {
-        
+
     },
 
     watch: {

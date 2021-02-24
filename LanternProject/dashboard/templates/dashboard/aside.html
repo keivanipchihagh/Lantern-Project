@@ -106,7 +106,7 @@
                 <!-- Shared - start -->
                 <li class="nav-header hidden-folded"><small class="text-muted">{{ aside.menu.0.category }}</small></li>
                 {% for item in aside.menu %}
-                <li id="{{ item.name }}">
+                <li>
                     <a href="{% url 'index' user_key %}?page={{ item.name }}">
                         {% if item.label %}
                         <span class="nav-label"><b class="label rounded label-sm primary">{{ item.label }}</b></span>
