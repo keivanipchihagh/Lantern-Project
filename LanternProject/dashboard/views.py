@@ -173,7 +173,7 @@ def close_room(request):
 
 def get_rooms(user_key):
 
-    open_rooms = Room.objects.order_by('-date_opened')                    # Fetch open rooms
-    assigned_rooms = open_rooms.filter(user_id__user_key = user_key)      # Query assigned rooms
+    open_rooms = Room.objects.exclude(status = 'closed').order_by('-date_opened')       # Fetch open rooms
+    assigned_rooms = open_rooms.filter(user_id__user_key = user_key)                    # Query assigned rooms
 
-    return open_rooms, assigned_rooms                                     # Return QuerySets
+    return open_rooms, assigned_rooms                                                   # Return QuerySets

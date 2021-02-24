@@ -6,50 +6,48 @@
             <div class="nav-stacked nav-active-primary" flex="">
                 <input id="hall_key" type="hidden" value="{{ chatroom.hall_key }}" />
                 <div class="box">
-						<div class="box-header">
-							<h3>Rooms</h3>
-						</div>
-						<div class="box-tool">
-					        <ul class="nav">
-					          <li class="nav-item inline dropdown">
-					            <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
-					              <i class="fa fa-ellipsis-v"></i>
-					            </a>
-					            <div class="dropdown-menu dropdown-menu-scale pull-right">
-					              <a class="dropdown-item" href="">New task</a>
-					              <a class="dropdown-item" href="">Make all finished</a>
-					              <a class="dropdown-item" href="">Make all unfinished</a>
-					              <div class="dropdown-divider"></div>
-					              <a class="dropdown-item">Settings</a>
-					            </div>
-					          </li>
-					        </ul>
-					    </div>
-						<div class="box-body">
-						  	<div class="streamline b-l m-l">
-                                {% for room in chatroom.open_rooms %}
-                                    <div class="sl-item {% if room.status == 'open' %}b-success{% elif room.status == 'closed' %}b-warning{% else %}b-warn{% endif %}">
-		    				            <div class="sl-content">
-	    					                <div class="row p-r-sm p-l-sm">
-                                                <span class="sl-date text-muted pull-left">{{ room.date_opened }}</span>
-                                                {% if room.status == 'open' %}
-                                                    <span class="label green-200 pull-right" style="text-align: end">{{ room.status }}</span>
-                                                {% elif room.status == 'closed' %}
-                                                    <span class="label red-200 pull-right" style="text-align: end">{{ room.status }}</span>
-                                                {% else %}
-                                                    <span class="label yellow-200 pull-right" style="text-align: end">{{ room.status }}</span>
-                                                {% endif %}
-                                            </div>
-    						                <span>Room - {{ room.id }}</span>
-						                </div>
-						            </div>
-                                {% endfor %}                                
-						    </div>
-				  		</div>
-					  	<div class="box-footer">
-					  		<a href="" class="btn btn-sm btn-block info text-u-c">Load More</a>
-					  	</div>
-					</div>                
+                    <div class="box-header">
+                        <h3>Rooms</h3>
+                    </div>
+                    <div class="box-tool">
+                        <ul class="nav">
+                            <li class="nav-item inline dropdown">
+                                <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-scale pull-right">
+                                    <a class="dropdown-item" href="">New task</a>
+                                    <a class="dropdown-item" href="">Make all finished</a>
+                                    <a class="dropdown-item" href="">Make all unfinished</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item">Settings</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-a"><a href="" class="btn btn-sm btn-block info text-u-c">Assign me a room</a></div>
+                    <div class="p-a">
+                        <div class="streamline b-l m-l">
+                            {% for room in chatroom.open_rooms %}
+                            <div class="sl-item {% if room.status == 'open' %}b-success{% elif room.status == 'closed' %}b-warning{% else %}b-warn{% endif %}">
+                                <div class="sl-content" style="padding-bottom: 5px">
+                                    <div class="row p-r-sm p-l-sm">
+                                        <span class="sl-date text-muted pull-left">{{ room.date_opened }}</span>
+                                        {% if room.status == 'open' %}
+                                        <span class="label green-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                        {% elif room.status == 'closed' %}
+                                        <span class="label red-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                        {% else %}
+                                        <span class="label yellow-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <span style="font-size: small">Room - {{ room.id }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
