@@ -44,7 +44,7 @@ class ChatConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
-                'type': 'chat_message',
+                'type': 'room_gate',
                 'id': id,
                 'message': message,
                 'datetime': datetime,
@@ -54,7 +54,7 @@ class ChatConsumer(WebsocketConsumer):
         )        
 
     # Receive message from room group
-    def chat_message(self, event):
+    def room_gate(self, event):
 
         id = event['id']
         message = event['message']

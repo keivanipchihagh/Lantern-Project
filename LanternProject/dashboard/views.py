@@ -43,7 +43,9 @@ def index(request, user_key):
     
     user = User.objects.get(user_key = user_key)
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
-    sitename = Site.objects.get(id = user.site_id).name
+    site = Site.objects.get(id = user.site_id)
+    sitename = site.id
+    hall_key = site.public_key
     log = Log.objects.filter(user_id = user.id).latest('datetime')
     menu = Menu.objects.filter(category = 'Shared')
 
@@ -72,6 +74,7 @@ def index(request, user_key):
     chatroom = {
         'open_rooms': open_rooms,
         'assigned_rooms': assigned_rooms,
+        'hall_key': hall_key,
     }
 
     # Data for profile.html
@@ -170,7 +173,7 @@ def close_room(request):
 
 def get_rooms(user_key):
 
-    open_rooms = Room.objects.filter(status = 'open')                     # Fetch open rooms
+    open_rooms = Room.objects.order_by('-date_opened')                    # Fetch open rooms
     assigned_rooms = open_rooms.filter(user_id__user_key = user_key)      # Query assigned rooms
 
     return open_rooms, assigned_rooms                                     # Return QuerySets

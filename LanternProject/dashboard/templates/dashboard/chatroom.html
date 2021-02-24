@@ -4,55 +4,52 @@
     <div class="col-md-4">
         <div class="navside white r box-shadow-z0 m-b">
             <div class="nav-stacked nav-active-primary" flex="">
-                <ul class="nav" ui-nav="" style="padding-bottom:10px">
-                    <li class="nav-header hidden-folded"><strong>Ongoing Rooms</strong></li>
-                    <!-- Assigned rooms - start -->
-                    <li class="active">
-                        <a>
-                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
-                            <i class="nav-label"><b id="assigned_rooms_count" class="label label-sm no-bg">{{ chatroom.assigned_rooms|length }}</b></i> <span class="nav-icon">
-                                <i class="fa fa-bullseye" aria-hidden="true"></i>
-                            </span> <span class="nav-text">Assigned</span>
-                        </a><ul id="assigned_rooms" class="nav-sub">
-                            {% for room in chatroom.assigned_rooms %}
-                            <li id="assigned_{{ room.room_key }}" @click="openChat('{{ room.room_key }}')">
-                                <a style="padding-left: 1rem;">
-                                    <span class="nav-icon"><svg data-jdenticon-value="icon" style="vertical-align: middle"></svg></span>
-                                    <span class="nav-text">{{ room.room_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></span>
-                                </a>
-                                <ul class="nav-sub">
-                                    <li>
-                                        <a class="md-btn md-flat m-b-sm text-danger col-md-4" style="text-align: center; padding: 0.1rem">Block</a>
-                                        <a class="md-btn md-flat m-b-sm text-accent col-md-4" style="text-align: center; padding: 0.1rem" v-on:click="starChat('{{ room.room_key }}')">Star</a>
-                                        <a class="md-btn md-flat m-b-sm text-success col-md-4" style="text-align: center; padding: 0.1rem" v-on:click="closeChat('{{ room.room_key }}')">Close</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <!-- Assigned rooms - end -->                    
-                    <!-- All rooms - start -->
-                    <li>
-                        <a>
-                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
-                            <i class="nav-label"><b id="open_rooms_count" class="label label-sm no-bg">{{ chatroom.open_rooms|length }}</b></i> <span class="nav-icon">
-                                <i class="fa fa-podcast" aria-hidden="true"></i>
-                            </span> <span class="nav-text">All</span>
-                        </a><ul id="open_rooms" class="nav-sub">
-                            {% for room in chatroom.open_rooms %}
-                            <li id="open_{{ room.room_key }}">
-                                <span class="nav-icon" style="margin-left: 10px"><svg data-jdenticon-value="icon" style="vertical-align: -webkit-baseline-middle"></svg></span>
-                                <a class="nav-text" style="padding-left: 2rem">{{ room.room_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></a>
-                                <ul class="nav-sub">
-                                    <li><a class="md-btn md-flat text-black" style="text-align: center; padding: 0px">Assign</a></li>
-                                </ul>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <!-- All rooms - end -->
-                </ul>
+                <input id="hall_key" type="hidden" value="{{ chatroom.hall_key }}" />
+                <div class="box">
+						<div class="box-header">
+							<h3>Rooms</h3>
+						</div>
+						<div class="box-tool">
+					        <ul class="nav">
+					          <li class="nav-item inline dropdown">
+					            <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
+					              <i class="fa fa-ellipsis-v"></i>
+					            </a>
+					            <div class="dropdown-menu dropdown-menu-scale pull-right">
+					              <a class="dropdown-item" href="">New task</a>
+					              <a class="dropdown-item" href="">Make all finished</a>
+					              <a class="dropdown-item" href="">Make all unfinished</a>
+					              <div class="dropdown-divider"></div>
+					              <a class="dropdown-item">Settings</a>
+					            </div>
+					          </li>
+					        </ul>
+					    </div>
+						<div class="box-body">
+						  	<div class="streamline b-l m-l">
+                                {% for room in chatroom.open_rooms %}
+                                    <div class="sl-item {% if room.status == 'open' %}b-success{% elif room.status == 'closed' %}b-warning{% else %}b-warn{% endif %}">
+		    				            <div class="sl-content">
+	    					                <div class="row p-r-sm p-l-sm">
+                                                <span class="sl-date text-muted pull-left">{{ room.date_opened }}</span>
+                                                {% if room.status == 'open' %}
+                                                    <span class="label green-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                                {% elif room.status == 'closed' %}
+                                                    <span class="label red-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                                {% else %}
+                                                    <span class="label yellow-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                                {% endif %}
+                                            </div>
+    						                <span>Room - {{ room.id }}</span>
+						                </div>
+						            </div>
+                                {% endfor %}                                
+						    </div>
+				  		</div>
+					  	<div class="box-footer">
+					  		<a href="" class="btn btn-sm btn-block info text-u-c">Load More</a>
+					  	</div>
+					</div>                
             </div>
         </div>
     </div>

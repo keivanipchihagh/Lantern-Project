@@ -31,6 +31,7 @@ const Chatroom = new Vue({
 
     data: {
         messages: [],
+        rooms: [],
         message: '',
         user_key: '123456789',
     },
@@ -49,30 +50,30 @@ const Chatroom = new Vue({
             chatSocket.onmessage = function (e) {
                 const data = JSON.parse(e.data)
 
-                var package = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'client' }
+                var room = { id: data['id'], message: data['message'], datetime: data['datetime'], sender: 'client' }
 
                 // Push agent messages only
-                if (!self.messageExists(package['id'])) self.messages.push(package)
+                if (!self.messageExists(room['id'])) self.messages.push(room)
             }
             
             document.querySelector('#chat-message-submit').onclick = function (e) {
                 const message = self.message                
 
-                var package = { id: self.messages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
+                var room = { id: self.messages.length, message: message.replace(/\n/g, ''), datetime: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), sender: 'agent' }
                 
                 chatSocket.send(JSON.stringify({
-                    'id': package['id'],
-                    'message': package['message'],
-                    'datetime': package['datetime'],
+                    'id': room['id'],
+                    'message': room['message'],
+                    'datetime': room['datetime'],
                     'room_key': room_key,
-                    'sender': package['sender'],
+                    'sender': room['sender'],
                 }));
 
                 self.message = ''
-                self.messages.push(package)
+                self.messages.push(room)
             }
 
-            chatSocket.onclose = function (e) { console.error('Server connection was terminated.') }
+            chatSocket.onclose = function (e) { console.error('RoomSocket closed the connection.') }
 
             this.getChat(room_key, this.user_key)
         },
@@ -102,37 +103,51 @@ const Chatroom = new Vue({
             });
         },
 
-        closeChat: function(room_key) {
-            // Close the room, delete the chats and remove the room from dashboard
-            $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/close/room',
-                type: 'GET',
-                data: { 'room_key': room_key, 'user_key': this.user_key },
-                error: function () { console.error('Session could not be closed') },
-                success: function () {
-                    console.log('Session Closed.')
+        // closeChat: function(room_key) {
+        //     // Close the room, delete the chats and remove the room from dashboard
+        //     $.ajax({
+        //         url: 'http://127.0.0.1:8000/dashboard/v1/close/room',
+        //         type: 'GET',
+        //         data: { 'room_key': room_key, 'user_key': this.user_key },
+        //         error: function () { console.error('Session could not be closed') },
+        //         success: function () {
+        //             console.log('Session Closed.')
 
-                    $("#assigned_" + room_key).remove()
-                    $("#open_" + room_key).remove()
-                    $('#chatTitle').text('Chat')
-                    $("#assigned_rooms_count").text(parseInt($("#assigned_rooms_count").text()) - 1)
-                    $("#open_rooms_count").text(parseInt($("#open_rooms_count").text()) - 1)
-                },
-            });
-        },
-
-        messageExists: function (id) {
-            for (var i = 0; i < this.messages.length; i++) if (this.messages[i]['id'] == id) return true
-            return false
-        },        
+        //             $("#assigned_" + room_key).remove()
+        //             $("#open_" + room_key).remove()
+        //             $('#chatTitle').text('Chat')
+        //             $("#assigned_rooms_count").text(parseInt($("#assigned_rooms_count").text()) - 1)
+        //             $("#open_rooms_count").text(parseInt($("#open_rooms_count").text()) - 1)
+        //         },
+        //     });
+        // },
     },
 
     mounted: function () {
-        
-    },
+        self = this
+        hall_key = $("#hall_key").val()
+        const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/halls/' + hall_key + '/');
 
-    watch: {
-        
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data)
+            var room = { id: data['id'], room_key: data['room_key'], status: data['status'], date_opened: 'date_opened', user_id: data['user_id'] }
+        }
+
+        document.querySelector('#chatroom').onclick = function (e) {            
+            var room = { id: self.rooms.length, room_key: '123', status: 'open', date_opened: '', user_id: 1 }
+
+            chatSocket.send(JSON.stringify({
+               'id': room['id'],
+                'room_key': room['room_key'],
+                'status': room['status'],
+                'date_opened': room['date_opened'],
+                'user_id': room['user_id'],
+            }));
+
+            self.rooms.push(room)
+        }
+
+        chatSocket.onclose = function (e) { console.error('HallSocket closed the conection.') }
     },
 
     components: {
