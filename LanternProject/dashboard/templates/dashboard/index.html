@@ -65,7 +65,7 @@
             <!-- Body - start -->
             <div ui-view class="app-body">
                 {% if page == 'profile' %}
-                {% include 'dashboard/profile.html' with aside=aside %}
+                {% include 'dashboard/profile.html' with profile=profile %}                
                 {% elif page == 'home' %}
                 {% include 'dashboard/home.html' with home=home %}
                 {% elif page == 'chatroom' %}

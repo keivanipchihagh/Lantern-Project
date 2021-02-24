@@ -1,109 +1,81 @@
- <div class="padding">
-
-                    <!-- Left column - start -->
-                    <div class="col-md-4">
-                        <div class="navside white r box-shadow-z0 m-b">
-                            <div class="nav-stacked nav-active-primary" flex="">
-                                <ul class="nav" ui-nav="" style="padding-bottom:10px">
-                                    <li class="nav-header hidden-folded"><strong>Ongoing Sessions</strong></li>
-                                    <!-- Assigned sessions - start -->
-                                    <li class="active">
-                                        <a>
-                                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
-                                            <i class="nav-label"><b id="assigned_sessions_count" class="label label-sm no-bg">{{ assigned_sessions|length }}</b></i> <span class="nav-icon">
-                                                <i class="fa fa-bullseye" aria-hidden="true"></i>
-                                            </span> <span class="nav-text">Assigned</span>
-                                        </a><ul id="assigned_sessions" class="nav-sub">
-                                            {% for session in chatroom.assigned_sessions %}
-                                            <li id="assigned_{{ session.session_key }}" @click="openChat('{{ session.session_key }}')">
-                                                <a style="padding-left: 1rem;">
-                                                    <span class="nav-icon"><svg data-jdenticon-value="icon" style="vertical-align: middle"></svg></span>
-                                                    <span class="nav-text">{{ session.session_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></span>
-                                                </a>
-                                                <ul class="nav-sub">
-                                                    <li>
-                                                        <a class="md-btn md-flat m-b-sm text-danger col-md-4" style="text-align: center; padding: 0.1rem">Block</a>
-                                                        <a class="md-btn md-flat m-b-sm text-accent col-md-4" style="text-align: center; padding: 0.1rem" v-on:click="starChat('{{ session.session_key }}')">Star</a>
-                                                        <a class="md-btn md-flat m-b-sm text-success col-md-4" style="text-align: center; padding: 0.1rem" v-on:click="closeChat('{{ session.session_key }}')">Close</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                    <!-- Assigned sessions - end -->
-                                    <!-- Starred sessions - start -->
-                                    <li>
-                                        <a>
-                                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
-                                            <i class="nav-label"><b id="starred_sessions_count" class="label label-sm no-bg">{{ starred_sessions|length }}</b></i> <span class="nav-icon">
-                                                <i class="fa fa-bullseye" aria-hidden="true"></i>
-                                            </span> <span class="nav-text">Starred</span>
-                                        </a><ul id="starred_sessions" class="nav-sub">
-                                            {% for session in chatroom.starred_sessions %}
-                                            <li id="starred_{{ session.session_key }}" @click="openChat('{{ session.session_key }}')">
-                                                <a style="padding-left: 1rem;">
-                                                    <span class="nav-icon"><svg data-jdenticon-value="icon" style="vertical-align: middle"></svg></span>
-                                                    <span class="nav-text">{{ session.session_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></span>
-                                                </a>
-                                                <ul class="nav-sub">
-                                                    <li><a class="md-btn md-flat text-black" style="text-align: center; padding: 0px">Assign</a></li>
-                                                </ul>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                    <!-- Starred sessions - end -->
-                                    <!-- All sessions - start -->
-                                    <li>
-                                        <a>
-                                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
-                                            <i class="nav-label"><b id="open_sessions_count" class="label label-sm no-bg">{{ open_sessions|length }}</b></i> <span class="nav-icon">
-                                                <i class="fa fa-podcast" aria-hidden="true"></i>
-                                            </span> <span class="nav-text">All</span>
-                                        </a><ul id="open_sessions" class="nav-sub">
-                                            {% for session in chatroom.open_sessions %}
-                                            <li id="open_{{ session.session_key }}">
-                                                <span class="nav-icon" style="margin-left: 10px"><svg data-jdenticon-value="icon" style="vertical-align: -webkit-baseline-middle"></svg></span>
-                                                <a class="nav-text" style="padding-left: 2rem">{{ session.session_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></a>
-                                                <ul class="nav-sub">
-                                                    <li><a class="md-btn md-flat text-black" style="text-align: center; padding: 0px">Assign</a></li>
-                                                </ul>
-                                            </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                    <!-- All sessions - end -->
-                                </ul>
-                            </div>
-                        </div>
+{% load static %}
+<div id="chatroom" class="padding">
+    <!-- Left column - start -->
+    <div class="col-md-4">
+        <div class="navside white r box-shadow-z0 m-b">
+            <div class="nav-stacked nav-active-primary" flex="">
+                <input id="hall_key" type="hidden" value="{{ chatroom.hall_key }}" />
+                <div class="box">
+                    <div class="box-header">
+                        <h3>Rooms</h3>
                     </div>
-                    <!-- Left column - end -->
-                    <!-- Right column - start -->
-                    <div class="col-md-8">
-                        <div class="box row-col" style="min-height:600px">
-                            <div class="box-header b-b">
-                                <i id="star" class="" aria-hidden="true" style="padding: 3px"></i>
-                                <strong id="chatTitle">Chat</strong>
-                            </div>
-                            <div class="row-row dker">
-                                <div class="row-body">
-                                    <div class="row-inner">
-                                        <div class="p-a-md">
-                                            <div id="chat-log" is="Package" v-for="package in packages" v-bind:key="package.id" v-bind:_sender="package.sender" v-bind:message="package.message" v-bind:datetime="package.datetime" v-bind:id="package.id"></div>
-                                        </div>
+                    <div class="box-tool">
+                        <ul class="nav">
+                            <li class="nav-item inline dropdown">
+                                <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-scale pull-right">
+                                    <a class="dropdown-item" href="">New task</a>
+                                    <a class="dropdown-item" href="">Make all finished</a>
+                                    <a class="dropdown-item" href="">Make all unfinished</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item">Settings</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="p-a"><a href="" class="btn btn-sm btn-block info text-u-c">Assign me a room</a></div>
+                    <div class="p-a">
+                        <div class="streamline b-l m-l">
+                            {% for room in chatroom.open_rooms %}
+                            <div class="sl-item {% if room.status == 'open' %}b-success{% elif room.status == 'closed' %}b-warning{% else %}b-warn{% endif %}">
+                                <div class="sl-content" style="padding-bottom: 5px">
+                                    <div class="row p-r-sm p-l-sm">
+                                        <span class="sl-date text-muted pull-left">{{ room.date_opened }}</span>
+                                        {% if room.status == 'open' %}
+                                        <span class="label green-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                        {% elif room.status == 'closed' %}
+                                        <span class="label red-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                        {% else %}
+                                        <span class="label yellow-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                        {% endif %}
                                     </div>
+                                    <span style="font-size: small">Room - {{ room.id }}</span>
                                 </div>
                             </div>
-                            <div class="box-footer b-t">
-                                <div class="input-group">
-                                    <input id="chat-message-input" type="text" class="form-control" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message">
-                                    <span id="chat-app" class="input-group-btn">
-                                        <button id="chat-message-submit" class="btn white b-a no-shadow">SEND</button>
-                                    </span>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
-                    <!-- Right column - end -->
                 </div>
+            </div>
+        </div>
+    </div>
+    <!-- Left column - end -->
+    <!-- Right column - start -->
+    <div class="col-md-8">
+        <div class="box row-col" style="min-height:600px">
+            <div class="box-header b-b">
+                <strong id="chatTitle">Chat</strong>
+            </div>
+            <div class="row-row dker">
+                <div class="row-body">
+                    <div class="row-inner">
+                        <div class="p-a-md">
+                            <div id="chat-log" is="Message" v-for="message in messages" v-bind:key="message.id" v-bind:_sender="message.sender" v-bind:message="message.message" v-bind:datetime="message.datetime" v-bind:id="message.id"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer b-t">
+                <div class="input-group">
+                    <input id="chat-message-input" type="text" class="form-control" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message">
+                    <span id="chat-app" class="input-group-btn">
+                        <button id="chat-message-submit" class="btn white b-a no-shadow">SEND</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Right column - end -->
+</div>

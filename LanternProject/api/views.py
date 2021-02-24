@@ -6,14 +6,14 @@ from datetime import datetime
 
 # Core Models
 from core.models import CoreSite as Site
-from core.models import CoreSession as Session
+from core.models import CoreRoom as Room
 
 
 def room(request):
     return render(request = request, context = {}, template_name = 'api/room.html')
 
 
-def create_session(request):
+def create_room(request):
 
     try:
         # Get site entry
@@ -22,17 +22,17 @@ def create_session(request):
         # Check key authenticity
         if site.public_key == request.GET['key']:        
 
-            # Session properties
-            session_key = secrets.token_hex(16)
+            # Room properties
+            room_key = secrets.token_hex(16)
             status = 'open'
             date_opened = datetime.now()
             user_id = 1
             site_id = site.id
             
-            # Save session
-            Session(session_key = session_key, status = status, date_opened = date_opened, user_id = user_id, site_id = site_id, starred = 0).save()
+            # Save Room
+            Room(room_key = room_key, status = status, date_opened = date_opened, user_id = user_id, site_id = site_id).save()
 
-            return HttpResponse(session_key)            # Return session key
+            return HttpResponse(room_key)            # Return room key
         else:
             return HttpResponseForbidden()              # Invalid API key
 
