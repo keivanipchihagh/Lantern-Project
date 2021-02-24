@@ -66,8 +66,10 @@
             <div ui-view class="app-body">
                 {% if page == 'profile' %}
                 {% include 'dashboard/profile.html' with aside=aside %}
-                {% else %}
+                {% elif page == 'home' %}
                 {% include 'dashboard/home.html' with home=home %}
+                {% elif page == 'chatroom' %}
+                {% include 'dashboard/chatroom.html' with chatroom=chatroom %}
                 {% endif %}
             </div>
             <!-- Body - end -->

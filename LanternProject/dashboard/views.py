@@ -10,10 +10,9 @@ import json
 from .forms import ProfileForm, LoginForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from django.urls import reverse
-from datetime import datetime, timedelta
 
 
-##################################################################### Login ##############################################################################
+# ------------------------------------------------------------------------ Signin ------------------------------------------------------------------------
 
 @require_http_methods(['GET', 'POST'])
 def signin(request):
@@ -37,7 +36,7 @@ def signin(request):
         else:
             return HttpResponseForbidden(form.errors.values())
             
-##################################################################### Index ##############################################################################
+# ------------------------------------------------------------------------ Index ------------------------------------------------------------------------
 
 @require_http_methods(['GET'])
 def index(request, user_key):
@@ -67,6 +66,14 @@ def index(request, user_key):
         'username': user.username,                
         'role': user.role,
     }
+    
+    # Data for chatroom
+    open_sessions, assigned_sessions, starred_sessions = get_sessions(user_key = user_key)
+    chatroom = {
+        'open_sessions': open_sessions,
+        'assigned_sessions': assigned_sessions,
+        'starred_sessions': starred_sessions,
+    }
 
     # Data for profile.html
     profile = {
@@ -92,6 +99,7 @@ def index(request, user_key):
         'aside': aside,                     # Data for aside.html
         'home': home,                       # Data for home.html
         'header': header,                   # Data for header.html
+        'chatroom': chatroom,               # Data for chatroom.html
         'page': request.GET.get('page'),
         'user_key': user.user_key,
         'title': request.GET.get('page'),
@@ -99,7 +107,7 @@ def index(request, user_key):
 
     return render(request = request, context = data, template_name = 'dashboard/index.html')
 
-##################################################################### Profile ##############################################################################
+# ------------------------------------------------------------------------ Profile ------------------------------------------------------------------------
 
 @require_http_methods(['POST'])
 def profile_update_pi(request, user_key):
@@ -121,7 +129,7 @@ def profile_update_pi(request, user_key):
     else:
         return HttpResponse(form.errors.as_text())  # Validation failed
 
-################################################################### Chatroom #############################################################################
+# ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
 
 def onload_chatroom(request, user_key):
     
@@ -187,7 +195,7 @@ def star_session(request):
     return HttpResponse('')
 
 
-# -------------------------------------------------------------- Methods --------------------------------------------------------------
+# ------------------------------------------------------------------------ Methods ------------------------------------------------------------------------
 
 def get_sessions(user_key):
 
