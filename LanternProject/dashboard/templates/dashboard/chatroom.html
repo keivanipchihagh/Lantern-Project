@@ -31,29 +31,7 @@
                             {% endfor %}
                         </ul>
                     </li>
-                    <!-- Assigned rooms - end -->
-                    <!-- Starred rooms - start -->
-                    <li>
-                        <a>
-                            <span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span>
-                            <i class="nav-label"><b id="starred_rooms_count" class="label label-sm no-bg">{{ chatroom.starred_rooms|length }}</b></i> <span class="nav-icon">
-                                <i class="fa fa-bullseye" aria-hidden="true"></i>
-                            </span> <span class="nav-text">Starred</span>
-                        </a><ul id="starred_rooms" class="nav-sub">
-                            {% for room in chatroom.starred_rooms %}
-                            <li id="starred_{{ room.room_key }}" @click="openChat('{{ room.room_key }}')">
-                                <a style="padding-left: 1rem;">
-                                    <span class="nav-icon"><svg data-jdenticon-value="icon" style="vertical-align: middle"></svg></span>
-                                    <span class="nav-text">{{ room.room_key }}<span class="nav-caret text-muted"><i class="fa fa-caret-down"></i></span></span>
-                                </a>
-                                <ul class="nav-sub">
-                                    <li><a class="md-btn md-flat text-black" style="text-align: center; padding: 0px">Assign</a></li>
-                                </ul>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                    <!-- Starred rooms - end -->
+                    <!-- Assigned rooms - end -->                    
                     <!-- All rooms - start -->
                     <li>
                         <a>
@@ -83,7 +61,6 @@
     <div class="col-md-8">
         <div class="box row-col" style="min-height:600px">
             <div class="box-header b-b">
-                <i id="star" class="" aria-hidden="true" style="padding: 3px"></i>
                 <strong id="chatTitle">Chat</strong>
             </div>
             <div class="row-row dker">

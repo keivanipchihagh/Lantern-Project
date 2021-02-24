@@ -30,7 +30,7 @@ def create_room(request):
             site_id = site.id
             
             # Save Room
-            Room(room_key = room_key, status = status, date_opened = date_opened, user_id = user_id, site_id = site_id, starred = 0).save()
+            Room(room_key = room_key, status = status, date_opened = date_opened, user_id = user_id, site_id = site_id).save()
 
             return HttpResponse(room_key)            # Return room key
         else:

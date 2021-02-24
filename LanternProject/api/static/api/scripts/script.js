@@ -88,7 +88,7 @@ const App = new Vue({
         },
         startSocket: function () {
 
-            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/room/' + this.room_token + '/');
+            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/rooms/' + this.room_token + '/');
             self = this
 
             chatSocket.onmessage = function (e) {

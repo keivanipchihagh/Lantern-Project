@@ -43,7 +43,7 @@ const Chatroom = new Vue({
         openChat: function (room_key) {
             self = this
             document.querySelector('#chatTitle').innerText = 'Chat - ' + room_key
-            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/room/' + room_key + '/');
+            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/rooms/' + room_key + '/');
             self = this
             
             chatSocket.onmessage = function (e) {
@@ -95,9 +95,8 @@ const Chatroom = new Vue({
                     var i = 0
                     self.packages = []
                     for (i; i < data.length; i++) {
-                        var entry = JSON.parse(data[i].replace(/'/g, '"'))                        
+                        var entry = JSON.parse(data[i].replace(/'/g, '"'))
                         self.packages.push({id: entry['id'], message: entry['content'], datetime: entry['datetime'], sender: entry['sender']})
-                        $("#star").attr('class', (entry['starred'] == 1)  ?'fa fa-star text-info' : ' fa fa-star-o text-info')
                     }                    
                 },
             });
@@ -118,31 +117,6 @@ const Chatroom = new Vue({
                     $('#chatTitle').text('Chat')
                     $("#assigned_rooms_count").text(parseInt($("#assigned_rooms_count").text()) - 1)
                     $("#open_rooms_count").text(parseInt($("#open_rooms_count").text()) - 1)
-                },
-            });
-        },
-
-        starChat: function(room_key) {
-            // Star the room
-            $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/star/room',
-                type: 'GET',
-                data: { 'room_key': room_key, 'user_key': this.user_key },
-                error: function () { console.error('Session could not be starred') },
-                success: function () {
-                    console.log('Session Starred.')
-                    $("#star").toggleClass('fa-star-o fa-star')
-                    
-                    if ($("#star").attr("class").includes('fa-star-o')) {
-                        $("#starred_" + room_key).remove()
-                        $("#starred_rooms_count").text(parseInt($("#starred_rooms_count").text()) - 1)
-                    } else {
-                        var starred = $("#assigned_" + room_key).clone(true)
-                        starred.attr({"id": "starred_" + room_key, "class": ""})
-                        
-                        $("#starred_rooms").html($("#starred_rooms").html() + $("<div />").append(starred.clone()).html())                        
-                        $("#starred_rooms_count").text(parseInt($("#starred_rooms_count").text()) + 1)
-                    }
                 },
             });
         },

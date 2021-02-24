@@ -16,5 +16,4 @@ urlpatterns = [
     # Chatroom Setion
     path(route = 'v1/fetch/room', view = views.fetch_room, name = 'fetch room'),
     path(route = 'v1/close/room', view = views.close_room, name = 'close room'),
-    path(route = 'v1/star/room', view = views.star_room, name = 'star room'),    
 ]

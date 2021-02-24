@@ -68,11 +68,10 @@ def index(request, user_key):
     }
     
     # Data for chatroom
-    open_rooms, assigned_rooms, starred_rooms = get_rooms(user_key = user_key)
+    open_rooms, assigned_rooms = get_rooms(user_key = user_key)
     chatroom = {
         'open_rooms': open_rooms,
         'assigned_rooms': assigned_rooms,
-        'starred_rooms': starred_rooms,
     }
 
     # Data for profile.html
@@ -167,31 +166,11 @@ def close_room(request):
     # Return empty response
     return HttpResponse('')
 
-
-def star_room(request):
-
-    # Get request data
-    room_key, user_key = request.GET['room_key'], request.GET['user_key']
-
-    # Verification
-    user_id = User.objects.get(user_key = user_key).id
-    room_id = Room.objects.get(room_key = room_key, user_id = user_id).id
-
-    # Update room - Star
-    room = Room.objects.get(id = room_id)
-    room.starred = 0 if (room.starred) else 1
-    room.save()
-
-    # Return empty response
-    return HttpResponse('')
-
-
 # ------------------------------------------------------------------------ Methods ------------------------------------------------------------------------
 
 def get_rooms(user_key):
 
     open_rooms = Room.objects.filter(status = 'open')                     # Fetch open rooms
     assigned_rooms = open_rooms.filter(user_id__user_key = user_key)      # Query assigned rooms
-    starred_rooms = open_rooms.filter(starred = True)                     # Query starred rooms
 
-    return open_rooms, assigned_rooms, starred_rooms                   # Return QuerySets
+    return open_rooms, assigned_rooms                                     # Return QuerySets
