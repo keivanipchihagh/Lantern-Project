@@ -1,7 +1,7 @@
 from django.db import models
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from core.models import CoreUser
-
+import django
 
 class DashboardMenu(models.Model):
     ''' Dashboard Menu model '''    
@@ -56,7 +56,7 @@ class DashboardNewsLetter(models.Model):
     date_published = models.DateTimeField(
         name = 'date_published',
         verbose_name = 'Published Date',
-        default = datetime.now(timezone.utc),        
+        default = django.utils.timezone.now,
     )
 
     # Content | Max Length: 300

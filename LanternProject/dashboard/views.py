@@ -65,7 +65,7 @@ def index(request, user_key):
     }
 
     # Data for newsletter.html
-    letters = NewsLetter.objects.all()
+    letters = NewsLetter.objects.order_by('date_published')
     newsletter = {
         'letters': letters,
     }
