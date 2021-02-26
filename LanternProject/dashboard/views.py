@@ -13,6 +13,18 @@ from django.views.decorators.http import require_http_methods   # Request restri
 from datetime import datetime, timedelta
 
 
+# ------------------------------------------------------------------------ Errors -------------------------------------------------------------------------
+
+def handler404(request, exception = None):
+    response = render(request = request, template_name = '404.html')
+    response.status_code = 404
+    return response
+    
+def handler500(request, exception = None):
+    response = render(request = request, template_name = '500.html')
+    response.status_code = 500
+    return response
+
 # ------------------------------------------------------------------------ Signin ------------------------------------------------------------------------
 
 @require_http_methods(['GET', 'POST'])
