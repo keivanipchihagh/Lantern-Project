@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>{{ title|title }} | Lantern Project</title>
+    <title>{{ name|title }} | Lantern Project</title>
 
     <!-- Metta - Start -->
     <meta name="description" content="Admin, Dashboard, Lantern-Project" />
@@ -70,6 +70,8 @@
                 {% include 'dashboard/home.html' with home=home %}
                 {% elif page == 'chatroom' %}
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom %}
+                {% elif page == 'newsletter' %}
+                {% include 'dashboard/newsletter.html' with newsletter=newsletter %}
                 {% endif %}
             </div>
             <!-- Body - end -->

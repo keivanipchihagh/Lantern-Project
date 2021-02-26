@@ -1,5 +1,7 @@
 from django.db import models
-
+from datetime import datetime, timezone
+from core.models import CoreUser
+import django
 
 class DashboardMenu(models.Model):
     ''' Dashboard Menu model '''    
@@ -33,3 +35,47 @@ class DashboardMenu(models.Model):
     class Meta:
         managed = True          # Allow Create, Delete
         db_table = 'dashboard_menu'
+
+
+class DashboardNewsLetter(models.Model):
+    ''' Dashboard News Letter Model '''
+
+    # Title | Max Length: 50
+    title = models.CharField(
+        name = 'title',
+        max_length = 50,
+    )
+
+    # Type | Max Length: 30 | announcement, update, maintenance
+    type = models.CharField(
+        name = 'type',
+        max_length = 30,
+    )
+
+    # DateTime
+    date_published = models.DateTimeField(
+        name = 'date_published',
+        verbose_name = 'Published Date',
+    )
+
+    # Content | Max Length: 300
+    content = models.TextField(
+        name = 'content',
+        max_length = 500,
+    )
+
+    # Tags | Max Length: 30 | announcement, user.role, update, maintenance
+    tags = models.CharField(
+        name = 'tags',
+        max_length = 30,
+    )
+
+    # User Id  | Foreign Key (CoreUser.id)
+    user = models.ForeignKey(CoreUser, models.DO_NOTHING)
+
+    def tags_as_list(self):
+        return self.tags.split(',')
+
+    class Meta:
+        managed = True          # Allow Create, Delete
+        db_table = 'dashboard_newsletter'
