@@ -158,8 +158,7 @@ def get_site(user):
 
 def get_newsletter_data():
 
-    last_week = datetime.now() - timedelta(days = 3)
-    letters = NewsLetter.objects.order_by('date_published').filter(date_published__gte = last_week)
+    letters = NewsLetter.objects.order_by('-date_published')
     newsletter = {
         'letters': letters,
     }

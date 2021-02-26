@@ -21,6 +21,8 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 	- [x] Core User
 	- [x] Core Site
 	- [x] Core Log
+	- [x] Dashboard Menu
+	- [x] Dashboard NewsLetter
 - [x] Dashboard Front-End desgin (Vue.js, FlatFull)
 	- [x] Login
 		- [x] Basic functionality
@@ -41,12 +43,12 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 	- [x] Chatroom
 		- [x] Basics functionality
 		- [ ] WebSocket
-		- [ ] Ajax
+		- [x] Ajax
 		- [ ] Session -> Room
 	- [x] Home Section (Admin | Agent | Staff)
 	- [ ] Charts Section (Admin | Staff)
-	- [ ] Newsletter (Admin | Staff)
-		- [ ] Email Service (WebMail API)
+	- [x] Newsletter (Admin | Staff)
+		- [x] Email Service (WebMail API)
 	- [ ] Security (Handshake, Session token)
 
 

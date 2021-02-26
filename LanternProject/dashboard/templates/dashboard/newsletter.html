@@ -12,77 +12,48 @@
                 <div class="panel box no-border m-b-xs">
                     <div class="box-header p-y-sm">
                         <span class="pull-right label red text-sm">NEW</span>
-                        <a data-toggle="collapse" data-parent="#accordion" data-target="#c_1" aria-expanded="false" class="collapsed">
+                        <a data-toggle="collapse" data-parent="#accordion" data-target="#c_{{ forloop.counter0 }}" aria-expanded="false" class="collapsed">
                             <i class="fa fa-bullhorn" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ letter.title|title }}</b>
                         </a>
                     </div>
-                    {% if forloop.counter0 == newsletter.letters|length %}
-                    <div id="c_1" class="collapse" aria-expanded="false" style="height: 0px;">
-                        {% else %}
-                        <div id="c_1" class="collapse in" aria-expanded="true">
+                    <div id="c_{{ forloop.counter0 }}" {% if forloop.counter0 == 0 %}class="collapse in" aria-expanded="true"{% else %}class="collapse" aria-expanded="false" style="height: 0px;"{% endif %}>
+                        <div class="box-body">
+                            <p class="text-sm">
+                                <span class="text-md pull-left w-48 m-r rounded success">{{ letter.title.0 }}</span>
+                                {% autoescape off %}
+                                {{ letter.content }}
+                                {% endautoescape %}
+                                <br /><br />
+                            </p>
+                            {% if letter.user.role == 'Staff' %}
+                            <p class="pull-right label indigo ">- {{ letter.user.username }} ({{ letter.date_published|date:'Y-m-d H:i' }})</p>
+                            {% elif letter.user.role == 'Admin' %}
+                            <p class="pull-right label light-blue">- {{ letter.user.username }} ({{ letter.date_published|date:'Y-m-d H:i' }})</p>
+                            {% else %}
+                            <p class="pull-right label teal">- {{ letter.user.username }} ({{ letter.date_published|date:'Y-m-d H:i' }})</p>
                             {% endif %}
-                            <div class="box-body">
-                                <p class="text-sm">
-                                    <span class="text-md pull-left w-48 m-r rounded success">{{ letter.title.0 }}</span>
-                                    {% autoescape off %}
-                                    {% comment %} {{ letter.content }} {% endcomment %}
-                                    Hello! Bonjour! Ciao! <br />
-                                    We are so thrilled you decided to join our community! Hats off on making this excellent decision! You are now officially in the loop to hear all about our awesome features, new released and many more. You have been subscribed to our newsletter to receive emails regarding new features, updates and important events; however, you can disable this feature anytime in the settings section of your profile.
-                                    {% endautoescape %}
-                                    <br /><br />
-                                </p>
-                                {% if letter.user.role == 'staff' %}
-                                <p class="pull-right label-sm indigo ">- {{ letter.user.username }}</p>
-                                {% elif letter.user.role == 'admin' %}
-                                <p class="pull-right label light-blue">- {{ letter.user.username }}</p>
-                                {% else %}
-                                <p class="pull-right label teal">- {{ letter.user.username }}</p>
+                            <p>
+                                <span class="m-r">Tags:</span>
+                                {% for tag in letter.tags_as_list %}
+                                {% if tag|lower == 'staff' %}
+                                <span class="label indigo">{{ tag|lower }}</span>
+                                {% elif tag|lower == 'admin' %}
+                                <span class="label light-blue">{{ tag|lower }}</span>
+                                {% elif tag|lower == 'announcement' %}
+                                <span class="label purple-300">{{ tag|lower }}</span>
+                                {% elif tag|lower == 'update' %}
+                                <span class="label red">{{ tag|lower }}</span>
+                                {% elif tag|lower == 'automated' %}
+                                <span class="label lime">{{ tag|lower }}</span>
                                 {% endif %}
-                                <p>
-                                    <span class="m-r">Tags:</span>
-                                    {% for tag in letter.tags_as_list %}
-                                    {% if tag|lower == 'staff' %}
-                                    <span class="label indigo">{{ tag|lower }}</span>
-                                    {% elif tag|lower == 'admin' %}
-                                    <span class="label light-blue">{{ tag|lower }}</span>
-                                    {% elif tag|lower == 'announcement' %}
-                                    <span class="label purple-300">{{ tag|lower }}</span>
-                                    {% elif tag|lower == 'update' %}
-                                    <span class="label red">{{ tag|lower }}</span>
-                                    {% endif %}
-                                    {% endfor %}
-                                </p>
-                            </div>
+                                {% endfor %}
+                            </p>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
-                <h4 class="m-t-md text-md">Submit ticket</h4>
-                <form name="form-contact" class="form-validation m-b-lg">
-                    <div class="row">
-                        <div class="col-sm-6 m-b">
-                            <label>Your name</label>
-                            <input type="text" class="form-control" placeholder="Name" required="">
-                        </div>
-                        <div class="col-sm-6 m-b">
-                            <label>Email</label>
-                            <input type="email" class="form-control" placeholder="Enter email" required="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Question Subject</label>
-                        <select class="form-control c-select">
-                            <option>Website Errors</option>
-                            <option>Product Services</option>
-                            <option>Login/Signup Problem</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Your Question</label>
-                        <textarea class="form-control" rows="6" placeholder="hmm.."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-info">Submit</button>
-                </form>
+                {% endfor %}
             </div>
         </div>
     </div>
+</div>
+</div>
