@@ -16,28 +16,28 @@
         <li class="nav-item dropdown pos-stc-xs">
             <a class="nav-link" href data-toggle="dropdown">
                 <i class="material-icons">&#xe7f5;</i>
-                <span class="label label-sm up info">{{ newsletter.letters|length }}</span>
+                {% if aside.notifications|length > 0 %}
+                <span class="label label-sm up info">{{ aside.notifications|length }}</span>
+                {% endif %}
             </a>
             <div class="dropdown-menu pull-right w-xl animated fadeInUp no-bg no-border no-shadow">
                 <div class="scrollable" style="max-height: 220px">
                     <ul class="list-group list-group-gap m-a-0">
-                        {% for letter in newsletter.letters %}
-                            {% if letter.date_published_display %}
+                        {% for notification in aside.notifications %}
                             <li class="list-group-item dark-white lt box-shadow-z0 b">
-                                {% if letter.type == 'announcement'%}
+                                {% if notification.type == 'announcement'%}
                                 <i class="fa fa-bullhorn text-md pull-left w-40 m-r rounded info" aria-hidden="true"></i>
-                                {% elif letter.type == 'maintenance' %}
+                                {% elif notification.type == 'maintenance' %}
                                 <i class="fa fa-wrench text-md pull-left w-40 m-r rounded warn" aria-hidden="true"></i>
-                                {% elif letter.type == 'update' %}
+                                {% elif notification.type == 'update' %}
                                 <i class="fa fa-certificate text-md pull-left w-40 m-r rounded success" aria-hidden="true"></i>
                                 {% endif %}
                                 <a href="{% url 'index' user_key %}?page=newsletter" class="clear block">
-                                    <b>{{ letter.title }}</b>
-                                    <br><small class="text-muted">{{ letter.date_published|date:'Y-m-d H:i' }}</small>
+                                    <b>{{ notification.title }}</b>
+                                    <br><small class="text-muted">{{ notification.date_published|date:'Y-m-d H:i' }}</small>
                                 </a>
                             </li>
-                            {% endif %}
-                        {% endfor %}                        
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

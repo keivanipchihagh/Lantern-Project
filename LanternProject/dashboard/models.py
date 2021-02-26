@@ -56,7 +56,6 @@ class DashboardNewsLetter(models.Model):
     date_published = models.DateTimeField(
         name = 'date_published',
         verbose_name = 'Published Date',
-        default = django.utils.timezone.now,
     )
 
     # Content | Max Length: 300
@@ -76,9 +75,6 @@ class DashboardNewsLetter(models.Model):
 
     def tags_as_list(self):
         return self.tags.split(',')
-
-    def date_published_display(self):
-        return (datetime.now(timezone.utc) - self.date_published).days
 
     class Meta:
         managed = True          # Allow Create, Delete

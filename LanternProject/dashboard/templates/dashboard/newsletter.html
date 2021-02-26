@@ -11,9 +11,7 @@
                 {% for letter in newsletter.letters %}
                 <div class="panel box no-border m-b-xs">
                     <div class="box-header p-y-sm">
-                        {% if letter.date_published_display %}
                         <span class="pull-right label red text-sm">NEW</span>
-                        {% endif %}
                         <a data-toggle="collapse" data-parent="#accordion" data-target="#c_1" aria-expanded="false" class="collapsed">
                             <i class="fa fa-bullhorn" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;<b>{{ letter.title|title }}</b>
                         </a>
@@ -25,11 +23,11 @@
                             {% endif %}
                             <div class="box-body">
                                 <p class="text-sm">
-                                    <span class="avatar w-48 pull-left m-r rounded">
-                                        <img src="{% static 'dashboard/images/a3.jpg'%}" alt="...">
-                                    </span>
+                                    <span class="text-md pull-left w-48 m-r rounded success">{{ letter.title.0 }}</span>
                                     {% autoescape off %}
-                                    {{ letter.content }}
+                                    {% comment %} {{ letter.content }} {% endcomment %}
+                                    Hello! Bonjour! Ciao! <br />
+                                    We are so thrilled you decided to join our community! Hats off on making this excellent decision! You are now officially in the loop to hear all about our awesome features, new released and many more. You have been subscribed to our newsletter to receive emails regarding new features, updates and important events; however, you can disable this feature anytime in the settings section of your profile.
                                     {% endautoescape %}
                                     <br /><br />
                                 </p>
