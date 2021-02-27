@@ -17,13 +17,13 @@
                 </div>
                 <div class="p-a text-center">
                     <span class="text-md m-t block">{{ home.firstname }} {{ home.lastname }}</span>
-                    <p><small class="label indigo m-a-sm">{{ home.role|title }}</small><small class="label m-a-sm light-blue-700">{{ profile.sitename|title }}</small></p>
+                    <p><small class="label indigo m-a-sm">{{ home.role|title }}</small>
                     <p style="margin:0px"><a href="{% url 'index' user_key %}?page=profile" class="btn btn-sm primary">Go to Profile</a></p>
                 </div>
             </div>
         </div>
         <!-- Profile widget - end -->
-        <!-- Chart - start -->
+        <!-- Chart widget - start -->
         <div class="col-sm-8 col-md-7 col-lg-8">
             <div class="row-col box dark bg">
                 <div class="col-sm-8">
@@ -73,10 +73,11 @@
         <!-- Chart - end -->
     </div>
     <div class="row">
+        <!-- Newsletter widget - start -->
         <div class="col-md-4">
             <div class="box">
                 <div class="box-header">
-                    <h3>Tasks</h3>
+                    <h3>News Letters</h3>
                 </div>
                 <div class="box-tool">
                     <ul class="nav">
@@ -95,34 +96,17 @@
                     </ul>
                 </div>
                 <div class="box-body">
-                    <div class="streamline b-l m-l">
-                        <div class="sl-item b-success">
-                            <div class="sl-icon">
-                                <i class="fa fa-check"></i>
-                            </div>
-                            <div class="sl-content">
-                                <div class="sl-date text-muted">8:30</div>
-                                <div>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</div>
-                            </div>
-                        </div>
-                        <div class="sl-item b-info">
-                            <div class="sl-content">
-                                <div class="sl-date text-muted">Sat, 5 Mar</div>
-                                <div>Prepare for presentation</div>
-                            </div>
-                        </div>
-                        <div class="sl-item b-warning">
-                            <div class="sl-content">
-                                <div class="sl-date text-muted">Sun, 11 Feb</div>
-                                <div><a href="" class="text-info">Jessi</a> assign you a task <a href="" class="text-info">Mockup Design</a>.</div>
-                            </div>
-                        </div>
+                    {% for short_news in home.news|slice:"3" %}
+                    <div class="box-header dark m-a-sm">
+                        <a href="{% url 'index' user_key %}?page=newsletter">
+                            {% autoescape off %}
+                            {{ short_news.content|slice:"80" }}...
+                            {% endautoescape %}
+                        </a>
                     </div>
-                </div>
-                <div class="box-footer">
-                    <a href="" class="btn btn-sm btn-block info text-u-c">Load More</a>
+                    {% endfor %}
                 </div>
             </div>
+            <!-- Newsletter widget - end -->
         </div>
     </div>
-</div>
