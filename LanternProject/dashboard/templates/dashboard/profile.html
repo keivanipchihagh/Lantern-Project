@@ -76,17 +76,11 @@
         <div class="col-sm-6 pull-sm-6">
             <div class="p-y-md clearfix nav-active-primary">
                 <ul class="nav nav-pills nav-sm">
-                    <li class="nav-item active">                        
-                        <a class="nav-link" href data-toggle="tab" data-target="#tab_1">Overview</a>
+                    <li class="nav-item">
+                        <a class="nav-link active" href data-toggle="tab" data-target="#tab_1">Information</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href data-toggle="tab" data-target="#tab_2">Information</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href data-toggle="tab" data-target="#tab_3">Security</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href data-toggle="tab" data-target="#tab_3">Settings</a>
+                        <a class="nav-link" href data-toggle="tab" data-target="#tab_2">Security</a>
                     </li>
                 </ul>
             </div>
@@ -99,62 +93,8 @@
     <div class="row">
         <div class="col-sm-8 col-lg-9">
             <div class="tab-content">
-                <!-- Activities - start -->
-                <div class="tab-pane p-v-sm active" id="tab_1">
-                    <div class="box">
-                        <div class="box-header">
-                            <h3>Tasks</h3>
-                        </div>
-                        <div class="box-tool">
-                            <ul class="nav">
-                                <li class="nav-item inline dropdown">
-                                    <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
-                                        <i class="fa fa-ellipsis-v"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-scale pull-right">
-                                        <a class="dropdown-item" href="">New task</a>
-                                        <a class="dropdown-item" href="">Make all finished</a>
-                                        <a class="dropdown-item" href="">Make all unfinished</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item">Settings</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="box-body">
-                            <div class="streamline b-l m-l">
-                                <div class="sl-item b-success">
-                                    <div class="sl-icon">
-                                        <i class="fa fa-check"></i>
-                                    </div>
-                                    <div class="sl-content">
-                                        <div class="sl-date text-muted">8:30</div>
-                                        <div>Call to customer <a href="" class="text-info">Jacob</a> and discuss the detail.</div>
-                                    </div>
-                                </div>
-                                <div class="sl-item b-info">
-                                    <div class="sl-content">
-                                        <div class="sl-date text-muted">Sat, 5 Mar</div>
-                                        <div>Prepare for presentation</div>
-                                    </div>
-                                </div>
-                                <div class="sl-item b-warning">
-                                    <div class="sl-content">
-                                        <div class="sl-date text-muted">Sun, 11 Feb</div>
-                                        <div><a href="" class="text-info">Jessi</a> assign you a task <a href="" class="text-info">Mockup Design</a>.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-footer">
-                            <a href="" class="btn btn-sm btn-block info text-u-c">Load More</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Activities - end -->
                 <!-- Information - start -->
-                <div class="tab-pane p-v-sm" id="tab_2">
-                    <!-- Personal Information - start -->
+                <div class="tab-pane p-v-sm active" id="tab_1">
                     <div class="col-md-12">
                         <div class="box">
                             <div class="box-header">
@@ -163,7 +103,6 @@
                             </div>
                             <div class="box-divider m-a-0"></div>
                             <div class="box-body p-b-lg">
-                                <!-- Profile Form - start -->
                                 <form id="form_pi" role="form" method="post" onsubmit="return false">
                                     {% csrf_token %}
                                     {% for field in profile.form %}
@@ -181,13 +120,42 @@
                                     {% endfor %}
                                     <input id="submit_btn" type="submit" class="btn white m-b" value="Update" style="transition: 0.5s"></button>
                                 </form>
-                                <!-- Profile Form - end -->
                             </div>
                         </div>
                     </div>
-                    <!-- Personal Information - end -->
                 </div>
                 <!-- Information - end -->
+                <!-- Security - start -->
+                <div class="tab-pane p-v-sm" id="tab_2">
+                    <div class="col-md-12">
+                        <div class="box">
+                            <div class="box-header">
+                                <h2>Security Information</h2>
+                                <small>Alwasy check your inbox for further instrcutions. Emails are valid for 24h only!</small>
+                            </div>
+                            <div class="box-divider m-a-0"></div>
+                            <div class="box-body p-b-lg">
+                                <ul class="list-group m-b">
+                                    <li class="list-group-item">
+                                        <a>
+                                            <button class="btn btn-fw white pull-right">Send Email</button>
+                                            <span class="block _500">Change Password</span>
+                                            <small class="text-muted">&nbsp;</small>
+                                        </a>                                        
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a>
+                                            <button class="btn btn-fw white pull-right">Send Email</button>
+                                            <span class="block _500">Revoke security token</span>
+                                            <small class="text-muted">If you feel unsafe, better plug the cable out! This is renew your token.</small>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Security - end -->
             </div>
         </div>
         <div class="col-sm-4 col-lg-3">
