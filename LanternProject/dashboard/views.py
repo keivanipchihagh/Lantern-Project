@@ -55,30 +55,33 @@ def signin(request):
 def index(request, user_key):
 
     page = request.GET.get('page')
+    news = NewsLetter.objects.order_by('-date_published')
     home, aside, header, chatroom, profile, newsletter = None, None, None, None, None, None
     
-    # These templates apply for all pages
+    # Shared pages
     aside = get_aside_data()
-    header = get_header_data(user_key = user_key)    
+    header = get_header_data(user_key = user_key, news = news)
 
     # Individual pages
     if page == 'home':
-        home = get_home_data(user_key = user_key)    
+        home = get_home_data(user_key = user_key, news = news)    
     elif page == 'newsletter':        
-        newsletter = get_newsletter_data()
+        newsletter = get_newsletter_data(news = news)
     elif page == 'chatroom':        
         chatroom = get_chatroom_data(user_key = user_key)
     elif page == 'profile':
-        profile = get_profile_data(user_key = user_key)
+        profile = get_profile_data(user_key = user_key)    
+
 
     # Data for index.html
-    data = {        
+    data = {
         'profile': profile,                 # Data for profile.html
         'aside': aside,                     # Data for aside.html
         'home': home,                       # Data for home.html
         'header': header,                   # Data for header.html
         'chatroom': chatroom,               # Data for chatroom.html
         'newsletter': newsletter,           # Data for newsletter.html
+
         'page': page,
         'user_key': user_key,
         'title': page,
@@ -156,38 +159,37 @@ def get_site(user):
     return Site.objects.get(id = user.site_id)
 
 
-def get_newsletter_data():
+def get_newsletter_data(news):
 
-    letters = NewsLetter.objects.order_by('-date_published')
     newsletter = {
-        'letters': letters,
+        'letters': news,
     }
     return newsletter
 
 
 def get_aside_data():
-
-    notifications = NewsLetter.objects.order_by('date_published').filter(date_published__gte = datetime.now() - timedelta(days = 7))
+    
     menu = Menu.objects.filter(category = 'Shared')
     aside = {
-        'menu': menu,
-        'notifications': notifications,
+        'menu': menu,        
     }
     return aside
 
 
-def get_header_data(user_key):
+def get_header_data(user_key, news):
 
-    user = get_user(user_key = user_key)
+    user = get_user(user_key = user_key)   
+    notifications = news.filter(date_published__gte = datetime.now() - timedelta(days = 7)) 
 
-    header = {
+    header = {        
         'username': user.username,                
         'role': user.role,
+        'notifications': notifications,
     }
     return header
 
 
-def get_home_data(user_key):
+def get_home_data(user_key, news):
 
     user = get_user(user_key = user_key)
     site = get_site(user = user)
@@ -197,6 +199,7 @@ def get_home_data(user_key):
         'lastname': user.lastname,
         'sitename': site.name,
         'role': user.role,
+        'news': news,
     }
     return home
 
