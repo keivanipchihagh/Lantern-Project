@@ -112,39 +112,41 @@ def profile_update(request, user_key):
 
 # ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
 
-def fetch_room(request):
+def chatroom_assign_room(request, user_key):
+    ''' Return the earliest created room key and it's messages assigned to the site that the agent belogns '''
 
-    # Get request data
-    room_key, user_key = request.GET['room_key'], request.GET['user_key']    
+    user = User.objects.get(user_key = user_key)
+    assigned_room = Room.objects.filter(status = 'open', user_id = user.id).order_by('date_opened')[0]
+    # assigned_room.status = 'assigned'
+    # assigned_room.save()
 
-    # Verification
-    user_id = User.objects.get(user_key = user_key).id
-    room_id = Room.objects.get(room_key = room_key, user_id = user_id).id
-    messages = Message.objects.filter(room_id = room_id)
-    
+    messages = Message.objects.filter(room_id = assigned_room.id)
+
     # Format messages
     dictionaries = [str(obj.as_dict()) for obj in messages]
 
+    response = {
+        'messages': dictionaries,
+        'room_key': assigned_room.room_key
+    }
+
     # Return serialized response
-    return HttpResponse(json.dumps(dictionaries), content_type='application/json')
+    return HttpResponse(json.dumps(response), content_type = 'application/json')
 
 
-def close_room(request):
+def chatroom_close_room(request):
 
     # Get request data
     room_key, user_key = request.GET['room_key'], request.GET['user_key']
 
-    # Verification
-    user_id = User.objects.get(user_key = user_key).id
-    room_id = Room.objects.get(room_key = room_key, user_id = user_id).id
-
-    # Update room - Close
-    room = Room.objects.get(id = room_id)
+    # Verification & update
+    user = User.objects.get(user_key = user_key)
+    room = Room.objects.get(room_key = room_key, user_id = user.id)
     room.status = 'closed'
     room.save()
 
     # Remove messages for the room
-    Message.objects.filter(room_id = room_id).delete()
+    Message.objects.filter(room_id = room.id).delete()
 
     # Return empty response
     return HttpResponse('')

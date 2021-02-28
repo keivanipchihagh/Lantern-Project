@@ -25,8 +25,9 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="p-a"><a href="" class="btn btn-sm btn-block info text-u-c">Assign me a room</a></div>
+                    <div class="p-a"><button class="btn btn-sm btn-block info text-u-c" v-on:click="assignRoom">Assign me a room</button></div>
                     <div class="p-a">
+                        <small class="text-muted m-a-sm">Hall</small>
                         <div class="streamline b-l m-l">
                             {% for room in chatroom.open_rooms %}
                             <div class="sl-item {% if room.status == 'open' %}b-success{% elif room.status == 'closed' %}b-warning{% else %}b-warn{% endif %}">
@@ -55,8 +56,10 @@
     <!-- Right column - start -->
     <div class="col-md-8">
         <div class="box row-col" style="min-height:600px">
-            <div class="box-header b-b">
+            <div class="box-header b-b">                
                 <strong id="chatTitle">Chat</strong>
+                <a class="pull-right info btn-sm btn-groups m-l-sm">Close</a>
+                <a class="pull-right warn btn-sm btn-groups">Block</a>
             </div>
             <div class="row-row dker">
                 <div class="row-body">
