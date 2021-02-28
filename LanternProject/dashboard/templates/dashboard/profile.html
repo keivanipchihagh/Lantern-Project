@@ -103,7 +103,7 @@
                             </div>
                             <div class="box-divider m-a-0"></div>
                             <div class="box-body p-b-lg">
-                                <form id="form_pi" role="form" method="post" onsubmit="return false">
+                                <form id="profile_form" role="form" method="post" onsubmit="return false">
                                     {% csrf_token %}
                                     {% for field in profile.form %}
                                     <div class="col-md-6" style="padding: 5px 10px">
@@ -134,21 +134,21 @@
                                 <small>Alwasy check your inbox for further instrcutions. Emails are valid for 24h only!</small>
                             </div>
                             <div class="box-divider m-a-0"></div>
-                            <div class="box-body p-b-lg">
+                            <div class="box-body">
                                 <ul class="list-group m-b">
                                     <li class="list-group-item">
-                                        <a>
+                                        <span>
                                             <button class="btn btn-fw white pull-right">Send Email</button>
                                             <span class="block _500">Change Password</span>
                                             <small class="text-muted">&nbsp;</small>
-                                        </a>                                        
+                                        </span>
                                     </li>
                                     <li class="list-group-item">
-                                        <a>
+                                        <span>
                                             <button class="btn btn-fw white pull-right">Send Email</button>
                                             <span class="block _500">Revoke security token</span>
                                             <small class="text-muted">If you feel unsafe, better plug the cable out! This is renew your token.</small>
-                                        </a>
+                                        </span>
                                     </li>
                                 </ul>
                             </div>

@@ -92,7 +92,7 @@ def index(request, user_key):
 # ------------------------------------------------------------------------ Profile ------------------------------------------------------------------------
 
 @require_http_methods(['POST'])
-def profile_update_pi(request, user_key):
+def profile_update(request, user_key):
 
     form = ProfileForm(request.POST, request.FILES)
 
