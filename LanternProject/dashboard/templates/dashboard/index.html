@@ -62,7 +62,7 @@
             <!-- Body - start -->
             <div ui-view class="app-body">
                 {% if page == 'profile' %}
-                {% include 'dashboard/profile.html' with profile=profile %}                
+                {% include 'dashboard/profile.html' with profile=profile %}
                 {% elif page == 'home' %}
                 {% include 'dashboard/home.html' with home=home %}
                 {% elif page == 'chatroom' %}
@@ -74,6 +74,27 @@
             <!-- Body - end -->
         </div>
     </div>
+    <!-- Error modal - start -->
+    <div id="error_model" class="modal" data-backdrop="true" style="display: none;" aria-hidden="true">
+        <div class="row-col h-v">
+            <div class="row-cell v-m">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 id="error_model_title" class="modal-title">Oops! Something went wrong</h5>
+                        </div>
+                        <div class="modal-body text-center p-lg">
+                            <p id="error_model_body"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn info p-x-md" data-dismiss="modal" onclick="location.reload()">Refresh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Error modal - end -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'dashboard/scripts/script.js' %}"></script>
     <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>

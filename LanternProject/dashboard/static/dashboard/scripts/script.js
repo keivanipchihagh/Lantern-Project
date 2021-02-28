@@ -18,7 +18,11 @@ const Profile = new Vue({
                 url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/profile/update',
                 type: $(this).attr('method'),
                 data: $(this).serialize(),
-                error: function () { $("#submit_btn").val('Oops! Somthing went wrong').attr('class', 'btn white m-b danger').prop('disabled', true) },
+                error: function () {
+                    $("#submit_btn").prop('disabled', true)
+                    $("#error_model_body").text('We couldn\'t update your information at the moment. Please report the problem if persists.')
+                    $('#error_model').modal('toggle');
+                },
                 success: function (response) {
                     $("#submit_btn").val(response).attr('class', (response == 'Updated, Reloading...' ? 'btn white m-b success' : 'btn white m-b warn'))
                     setTimeout(function () { location.reload() }, 500)
@@ -46,22 +50,21 @@ const Chatroom = new Vue({
         sendMessage: function () {
             document.querySelector('#chat-message-submit').click()
         },
-        assign: function () {
+        assignRoom: function () {
             var self = this
-
+            
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/assign_room',
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/chatroom/assign_room',
                 type: 'GET',
                 context: this,      // Essential for VueJS
                 data: {
                 },
-                error: function (xhr, status, error) {
-                    alert(xhr + '\n' + status + '\n' + error)
-                    console.log('There was a problem assigning a room to your');
+                error: function () {
+                    $("#error_model_body").text('We couldn\'t assign you a room at the moment. Please report the problem if persists.')
+                    $('#error_model').modal('toggle');
                 },
                 success: function (data) {
-                                        
-                    document.querySelector('#chatTitle').innerText = 'Chat - ' + data.room_key
+
                     const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/rooms/' + data.room_key + '/');
                     self = this
 
@@ -94,7 +97,7 @@ const Chatroom = new Vue({
                     chatSocket.onclose = function (e) { console.error('RoomSocket closed the connection.') }
 
                     // Initialize chat
-                    var i = 0
+                    var i = 0                    
                     self.messages = []
                     for (i; i < data.messages.length; i++) {
                         var entry = JSON.parse(data.messages[i].replace(/'/g, '"'))
@@ -103,56 +106,35 @@ const Chatroom = new Vue({
                 },
             });
         },
+
         messageExists: function (id) {
             for (var i = 0; i < this.messages.length; i++) if (this.messages[i]['id'] == id) return true
             return false
         },
 
-        // closeChat: function(room_key) {
-        //     // Close the room, delete the chats and remove the room from dashboard
-        //     $.ajax({
-        //         url: 'http://127.0.0.1:8000/dashboard/v1/close/room',
-        //         type: 'GET',
-        //         data: { 'room_key': room_key, 'user_key': this.user_key },
-        //         error: function () { console.error('Session could not be closed') },
-        //         success: function () {
-        //             console.log('Session Closed.')
+        closeRoom: function(room_key) {
+            // Close the room, delete the chats and remove the room from dashboard
+            $.ajax({
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/chatroom/close_room',
+                type: 'GET',
+                data: { 'room_key': room_key, 'user_key': this.user_key },
+                error: function () { console.error('Session could not be closed') },
+                success: function () {
+                    console.log('Session Closed.')
 
-        //             $("#assigned_" + room_key).remove()
-        //             $("#open_" + room_key).remove()
-        //             $('#chatTitle').text('Chat')
-        //             $("#assigned_rooms_count").text(parseInt($("#assigned_rooms_count").text()) - 1)
-        //             $("#open_rooms_count").text(parseInt($("#open_rooms_count").text()) - 1)
-        //         },
-        //     });
-        // },
+                    $("#assigned_" + room_key).remove()
+                    $("#open_" + room_key).remove()
+                    $('#chatTitle').text('Chat')
+                    $("#assigned_rooms_count").text(parseInt($("#assigned_rooms_count").text()) - 1)
+                    $("#open_rooms_count").text(parseInt($("#open_rooms_count").text()) - 1)
+                },
+            });
+        },
     },
 
     mounted: function () {
         self = this
         hall_key = $("#hall_key").val()
-        const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/halls/' + hall_key + '/');
-
-        chatSocket.onmessage = function (e) {
-            const data = JSON.parse(e.data)
-            var room = { id: data['id'], room_key: data['room_key'], status: data['status'], date_opened: 'date_opened', user_id: data['user_id'] }
-        }
-
-        document.querySelector('#chatroom').onclick = function (e) {
-            var room = { id: self.rooms.length, room_key: '123', status: 'open', date_opened: '', user_id: 1 }
-
-            chatSocket.send(JSON.stringify({
-                'id': room['id'],
-                'room_key': room['room_key'],
-                'status': room['status'],
-                'date_opened': room['date_opened'],
-                'user_id': room['user_id'],
-            }));
-
-            self.rooms.push(room)
-        }
-
-        chatSocket.onclose = function (e) { console.error('HallSocket closed the conection.') }
     },
 
     components: {
