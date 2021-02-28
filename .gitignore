@@ -127,8 +127,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-LanternProject/LanternProject/asgi.py
-LanternProject/LanternProject/settings.py
-LanternProject/dashboard/views.py
-LanternProject/api/views.py
-LanternProject/core/models.py

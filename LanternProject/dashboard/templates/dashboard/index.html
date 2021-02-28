@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>{{ title|title }} | Lantern Project</title>
+    <title>{{ page|title }} | Lantern Project</title>
 
     <!-- Metta - Start -->
     <meta name="description" content="Admin, Dashboard, Lantern-Project" />
@@ -51,14 +51,11 @@
 </head>
 <body>
     <div class="app">
-
         <!-- navbar - start -->
         <div id="aside" class="app-aside modal fade md nav-expand dark">{% include 'dashboard/aside.html' with aside=aside %}</div>
         <!-- navbar - end -->
-
         <div id="content" class="app-content box-shadow-z0" role="main">
             <div class="app-header white box-shadow">{% include 'dashboard/header.html' with header=header %}</div>
-
             <!-- footer - start -->
             <div class="app-footer">{% include 'dashboard/footer.html' %}</div>
             <!-- footer - end -->
@@ -70,6 +67,8 @@
                 {% include 'dashboard/home.html' with home=home %}
                 {% elif page == 'chatroom' %}
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom %}
+                {% elif page == 'newsletter' %}
+                {% include 'dashboard/newsletter.html' with newsletter=newsletter %}
                 {% endif %}
             </div>
             <!-- Body - end -->

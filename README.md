@@ -6,50 +6,6 @@ Lightweight web-based platform designed provide synchronous chat capability &amp
 ## Demo
 ![gif](https://github.com/keivanipchihagh/Lantern-Project/blob/main/README%20files/gif-1.gif)
 
-## RoadMap
-- [x] API Front-End design (Vue.js, UIkit)
-	- [x] Basic functionality
-	- [x] WebSocket
-	- [ ] Security & Authentication token (Public API key)
-	- [ ] Responsive Frame & Finish up
-- [x] API WebSocket (Django, channels)
-	- [x] Single-layer costumer
-	- [ ] Multi-layer costumers
-	- [x] Security (Handshake, Session token)
-- [x] Database (MySql)
-	- [x] Core Message
-	- [x] Core User
-	- [x] Core Site
-	- [x] Core Log
-- [x] Dashboard Front-End desgin (Vue.js, FlatFull)
-	- [x] Login
-		- [x] Basic functionality
-		- [ ] Cookies
-		- [ ] Security & Finish up
-	- [ ] Signup
-		- [ ] Basic functionality
-		- [ ] Cookies
-		- [ ] Email Service (WebMail API)
-		- [ ] Security & Finish up
-	- [x] Index
-		- [x] Global layout
-	- [x] Profile
-		- [x] Basic information update
-		- [ ] Image upload
-		- [ ] Password change (WebMail API)
-		- [x] Last login, Active agents, ... (Widgets)
-	- [x] Chatroom
-		- [x] Basics functionality
-		- [ ] WebSocket
-		- [ ] Ajax
-		- [ ] Session -> Room
-	- [x] Home Section (Admin | Agent | Staff)
-	- [ ] Charts Section (Admin | Staff)
-	- [ ] Newsletter (Admin | Staff)
-		- [ ] Email Service (WebMail API)
-	- [ ] Security (Handshake, Session token)
-
-
 ## Installation
 1. download & install *docker* ([get-docker](https://docs.docker.com/get-docker/))
 2. Install python packages

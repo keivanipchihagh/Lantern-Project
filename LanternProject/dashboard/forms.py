@@ -1,5 +1,6 @@
 from django import forms
 from core.models import CoreUser
+from .models import DashboardNewsLetter
 
 
 class ProfileForm(forms.ModelForm):

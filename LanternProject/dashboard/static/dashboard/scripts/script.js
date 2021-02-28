@@ -1,3 +1,7 @@
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+}
+
 // Profile Section
 const Profile = new Vue({
 
@@ -9,9 +13,9 @@ const Profile = new Vue({
 
     mounted: function () {
         self = this
-        $('form#form_pi').submit(function(e) {
+        $('form#profile_form').submit(function(e) {
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/profile/pi',
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/profile/update',
                 type: $(this).attr('method'),
                 data: $(this).serialize(),
                 error: function(){$("#submit_btn").val('Oops! Somthing went wrong').attr('class', 'btn white m-b danger').prop('disabled', true) },
@@ -23,6 +27,7 @@ const Profile = new Vue({
         })
     },
 })
+
 
 // Chatroom Section
 const Chatroom = new Vue({
