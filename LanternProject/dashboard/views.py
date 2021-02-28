@@ -64,6 +64,7 @@ def index(request, user_key):
         newsletter = get_newsletter_data(news = news)
     elif page == 'chatroom':        
         chatroom = get_chatroom_data(user_key = user_key)
+        reservedmessages = get_reservedmessages_data(user_key = user_key)
     elif page == 'profile':
         profile = get_profile_data(user_key = user_key)
     elif page == 'reserved messages':

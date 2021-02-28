@@ -46,7 +46,9 @@ const Chatroom = new Vue({
     },
 
     methods: {
-
+        copyToMessage: function(reservedMessageId) {
+            self.message = $("#" + reservedMessageId).text()
+        },
         sendMessage: function () {
             document.querySelector('#chat-message-submit').click()
         },

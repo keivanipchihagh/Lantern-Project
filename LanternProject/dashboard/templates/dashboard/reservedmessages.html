@@ -7,39 +7,17 @@
     <div class="col-sm w w-auto-xs light lt bg-auto">
         <div class="padding pos-rlt">
             <div class="hidden-xs-down m-t" id="inbox-menu">
-                {% comment %} <div class="nav-active-primary">
-                    <div class="nav nav-pills nav-sm">
-                        <a class="nav-link active">
-                            Inbox
-                        </a>
-                        <a class="nav-link">
-                            Starred
-                        </a>
-                        <a class="nav-link">
-                            Sent
-                        </a>
-                        <a class="nav-link">
-                            Important
-                        </a>
-                        <a class="nav-link">
-                            Draft
-                        </a>
-                        <a class="nav-link">
-                            Trash
-                        </a>
-                    </div>
-                </div> {% endcomment %}
                 <div class="m-b nav-sm nav-active-info">                    
                     <ul class="nav nav-pills nav-stacked" ui-nav="">
                         <li class="nav-item active">
-                            <a class="nav-link">All items</a>
+                            <a class="nav-link">All items<span class="pull-right"><span class="label success">{{ reservedmessages.messages|length }}</span></span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">Starred</a>
                         </li>
                     </ul>
                 </div>
-                <div class="m-y">Types</div>
+                <div>Tags</div>
                 <div class="nav-active-white">
                     <ul class="nav nav-pills nav-stacked nav-sm">
                         <li class="nav-item">
@@ -52,9 +30,9 @@
             </div>
         </div>
     </div>
-    <!-- Nav - start -->
+    <!-- Nav - start -->    
     <!-- Context - start -->
-    <div class="col-sm">
+    <div class="col-sm">    
         <div ui-view="" class="padding pos-rlt">
             <a href="" class="md-btn md-fab md-fab-bottom-right pos-fix red">
                 <i class="material-icons i-24 text-white"></i>
@@ -63,7 +41,7 @@
                 <!-- Header - start -->
                 <div class="m-b box">
                     <div class="box-header">
-                        <h2><span class="nav-icon m-r-xs"><i class="fa fa-quote-right" aria-hidden="true"></i></span>All your Reserved Messages</h2>
+                        <h2>All your Reserved Messages</h2>
                         <small>Save yourself some time by pre-writing some common answers! You can always access them in the <a href="{% url 'index' user_key %}?page=chatroom" class="text-dark" style="font-weight: bold; text-decoration: underline">Chatroom</a> section.</small>
                     </div>
                 </div>
@@ -79,10 +57,10 @@
                             <div class="pull-right text-muted text-xs">                                
                                 <span class="hidden-xs label purple" style="vertical-align:text-top">{{ message.type }}</span>
                                 <span class="hidden-xs m-l-sm">{{ message.date_modified|date:'d, M' }}</span>
-                                <i class="fa fa-star-o m-l-sm"></i>
+                                <i class="fa {% if message.starred %}fa-star{% else%}fa-star-o{% endif %} m-l-sm text-warn"></i>
                             </div>
                             <div>
-                                <a href="" class="_500">{{ message.title|safe }}</a>
+                                <a href="" class="_500">{{ message.title|safe|title }}</a>
                             </div>
                             <div class="text-ellipsis text-muted text-sm">{{ message.content|safe }}</div>
                         </div>
