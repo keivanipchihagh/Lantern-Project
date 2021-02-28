@@ -24,7 +24,10 @@ INSERT INTO dashboard_menu (name, icon, label, category)
     
 INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("profile", "fa fa-user-o", null, "Shared");
-    
+
+INSERT INTO dashboard_menu (name, icon, label, category)
+	VALUES ("reserved messages", "fa fa-quote-right", null, "Shared");
+
 INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("settings", "fa fa-cogs", null, "Shared");
     
