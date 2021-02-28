@@ -69,6 +69,8 @@
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom %}
                 {% elif page == 'newsletter' %}
                 {% include 'dashboard/newsletter.html' with newsletter=newsletter %}
+                {% elif page == 'reserved messages' %}
+                {% include 'dashboard/reservedmessages.html' with reservedmessages=reservedmessages %}
                 {% endif %}
             </div>
             <!-- Body - end -->

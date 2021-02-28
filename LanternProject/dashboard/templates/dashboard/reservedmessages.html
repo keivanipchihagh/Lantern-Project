@@ -1,0 +1,97 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<div class="row-col">
+    <!-- Nav - start -->
+    <div class="col-sm w w-auto-xs light lt bg-auto">
+        <div class="padding pos-rlt">
+            <div class="hidden-xs-down m-t" id="inbox-menu">
+                {% comment %} <div class="nav-active-primary">
+                    <div class="nav nav-pills nav-sm">
+                        <a class="nav-link active">
+                            Inbox
+                        </a>
+                        <a class="nav-link">
+                            Starred
+                        </a>
+                        <a class="nav-link">
+                            Sent
+                        </a>
+                        <a class="nav-link">
+                            Important
+                        </a>
+                        <a class="nav-link">
+                            Draft
+                        </a>
+                        <a class="nav-link">
+                            Trash
+                        </a>
+                    </div>
+                </div> {% endcomment %}
+                <div class="m-b nav-sm nav-active-info">                    
+                    <ul class="nav nav-pills nav-stacked" ui-nav="">
+                        <li class="nav-item active">
+                            <a class="nav-link">All items</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Starred</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="m-y">Types</div>
+                <div class="nav-active-white">
+                    <ul class="nav nav-pills nav-stacked nav-sm">
+                        <li class="nav-item">
+                        {% for type in reservedmessages.types %}
+                            <a class="nav-link"><i class="fa m-r-sm fa-circle text-primary"></i>{{ type.type }}</a>
+                        {% endfor %}
+                        </li>
+                    </ul>
+                </div>               
+            </div>
+        </div>
+    </div>
+    <!-- Nav - start -->
+    <!-- Context - start -->
+    <div class="col-sm">
+        <div ui-view="" class="padding pos-rlt">
+            <a href="" class="md-btn md-fab md-fab-bottom-right pos-fix red">
+                <i class="material-icons i-24 text-white"></i>
+            </a>
+            <div>
+                <!-- Header - start -->
+                <div class="m-b box">
+                    <div class="box-header">
+                        <h2><span class="nav-icon m-r-xs"><i class="fa fa-quote-right" aria-hidden="true"></i></span>All your Reserved Messages</h2>
+                        <small>Save yourself some time by pre-writing some common answers! You can always access them in the <a href="{% url 'index' user_key %}?page=chatroom" class="text-dark" style="font-weight: bold; text-decoration: underline">Chatroom</a> section.</small>
+                    </div>
+                </div>
+                <!-- Header - end -->
+                <!-- Body - start -->
+                <div class="list white">
+                {% for message in reservedmessages.messages %}
+                    <div class="list-item b-l b-l-2x b-info">
+                        <div class="list-left">
+                            <a href="" class="text-md w-40 rounded info"><i class="fa fa-pencil text-white"></i></a>
+                        </div>
+                        <div class="list-body">
+                            <div class="pull-right text-muted text-xs">                                
+                                <span class="hidden-xs label purple" style="vertical-align:text-top">{{ message.type }}</span>
+                                <span class="hidden-xs m-l-sm">{{ message.date_modified|date:'d, M' }}</span>
+                                <i class="fa fa-star-o m-l-sm"></i>
+                            </div>
+                            <div>
+                                <a href="" class="_500">{{ message.title|safe }}</a>
+                            </div>
+                            <div class="text-ellipsis text-muted text-sm">{{ message.content|safe }}</div>
+                        </div>
+                    </div>
+                {% endfor %}                   
+                </div>
+                <!-- Body - end -->
+            </div>
+        </div>
+    </div>
+    <!-- Context - end -->
+</div>

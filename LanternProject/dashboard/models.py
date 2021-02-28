@@ -1,7 +1,5 @@
 from django.db import models
-from datetime import datetime, timedelta
 from core.models import CoreUser
-import django
 
 class DashboardMenu(models.Model):
     ''' Dashboard Menu model '''    
@@ -65,7 +63,7 @@ class DashboardNewsLetter(models.Model):
         verbose_name = 'Published Date',
     )
 
-    # Content | Max Length: 300
+    # Content | Max Length: 500
     content = models.TextField(
         name = 'content',
         max_length = 500,
@@ -87,3 +85,51 @@ class DashboardNewsLetter(models.Model):
     class Meta:
         managed = True          # Allow Create, Delete
         db_table = 'dashboard_newsletter'
+
+
+class DashboardReservedMessages(models.Model):
+    ''' Dashboard Reserved messages model '''
+
+    # Title | Max Length: 30
+    title = models.CharField(
+        name = 'title',
+        max_length = 30,
+        help_text = 'Max Length: 30' 
+    )
+
+    # Type | Max Length: 30
+    type = models.CharField(
+        name = 'type',
+        max_length = 30,
+        help_text = 'Max Length: 30',
+        blank = True,
+        default = 'general',
+    )
+
+    # Content | Max Length: 500
+    content = models.TextField(
+        name = 'content',
+        max_length = 500,
+        help_text = 'Max Length: 500',
+    )
+
+    # Starred | Boolean
+    starred = models.BooleanField(
+        name = 'starred',
+        default = 0,
+        null = True,
+        blank = True,
+    )
+
+    # Date_Modified | Datetime
+    date_modified = models.DateTimeField(
+        name = 'date_modified',
+        verbose_name = 'Modified Date'
+    )
+
+    # User Id  | Foreign Key (CoreUser.id)
+    user = models.ForeignKey(CoreUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = True          # Allow Create, Delete
+        db_table = 'dashboard_reservedmessages'

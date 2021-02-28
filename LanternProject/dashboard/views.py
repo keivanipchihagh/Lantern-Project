@@ -1,12 +1,7 @@
-from django.http.response import Http404, HttpResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseRedirect
+from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
-from core.models import CoreRoom as Room
-from core.models import CoreUser as User
-from core.models import CoreMessage as Message
-from core.models import CoreSite as Site
-from core.models import CoreLog as Log
-from .models import DashboardMenu as Menu
-from .models import DashboardNewsLetter as NewsLetter
+from core.models import CoreRoom as Room, CoreUser as User, CoreMessage as Message, CoreSite as Site, CoreLog as Log
+from .models import DashboardMenu as Menu, DashboardNewsLetter as NewsLetter, DashboardReservedMessages as ReservedMessages
 import json
 from .forms import ProfileForm, LoginForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
@@ -56,7 +51,7 @@ def index(request, user_key):
 
     page = request.GET.get('page')
     news = NewsLetter.objects.order_by('-date_published')
-    home, aside, header, chatroom, profile, newsletter = None, None, None, None, None, None
+    home, aside, header, chatroom, profile, newsletter, reservedmessages = None, None, None, None, None, None, None
     
     # Shared pages
     aside = get_aside_data()
@@ -70,17 +65,20 @@ def index(request, user_key):
     elif page == 'chatroom':        
         chatroom = get_chatroom_data(user_key = user_key)
     elif page == 'profile':
-        profile = get_profile_data(user_key = user_key)    
+        profile = get_profile_data(user_key = user_key)
+    elif page == 'reserved messages':
+        reservedmessages = get_reservedmessages_data(user_key = user_key)
 
 
     # Data for index.html
     data = {
-        'profile': profile,                 # Data for profile.html
-        'aside': aside,                     # Data for aside.html
-        'home': home,                       # Data for home.html
-        'header': header,                   # Data for header.html
-        'chatroom': chatroom,               # Data for chatroom.html
-        'newsletter': newsletter,           # Data for newsletter.html
+        'profile': profile,                     # Data for profile.html
+        'aside': aside,                         # Data for aside.html
+        'home': home,                           # Data for home.html
+        'header': header,                       # Data for header.html
+        'chatroom': chatroom,                   # Data for chatroom.html
+        'newsletter': newsletter,               # Data for newsletter.html
+        'reservedmessages': reservedmessages,   # Data for reservedmessages.html
 
         'page': page,
         'user_key': user_key,
@@ -245,3 +243,17 @@ def get_profile_data(user_key):
         'form': ProfileForm(auto_id = True, instance = user),
     }
     return profile
+
+
+def get_reservedmessages_data(user_key):
+
+    user = get_user(user_key = user_key)
+    messages = ReservedMessages.objects.filter(user_id = user.id)
+    types = messages.values('type').distinct()
+
+    reservedmessages = {
+        'messages': messages,
+        'types': types,
+    }
+
+    return reservedmessages
