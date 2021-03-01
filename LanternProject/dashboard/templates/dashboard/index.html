@@ -64,7 +64,8 @@
                 {% if page == 'profile' %}
                 {% include 'dashboard/profile.html' with profile=profile %}
                 {% elif page == 'home' %}
-                {% include 'dashboard/home.html' with home=home %}
+                {% comment %} {% include 'dashboard/home.html' with home=home %} {% endcomment %}
+                {% include 'dashboard/WYSIWYG.html' %}
                 {% elif page == 'chatroom' %}
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages %}
                 {% elif page == 'newsletter' %}
@@ -74,6 +75,7 @@
                 {% endif %}
             </div>
             <!-- Body - end -->
+            <button class="btn white" data-toggle="modal" data-target="#m-md">Bottom</button>
         </div>
     </div>
     <!-- Error modal - start -->

@@ -7,7 +7,7 @@
     <div class="col-sm w w-auto-xs light lt bg-auto">
         <div class="padding pos-rlt">
             <div class="hidden-xs-down m-t" id="inbox-menu">
-                <div class="m-b nav-sm nav-active-info">                    
+                <div class="m-b nav-sm nav-active-info">
                     <ul class="nav nav-pills nav-stacked" ui-nav="">
                         <li class="nav-item active">
                             <a class="nav-link">All items<span class="pull-right"><span class="label success">{{ reservedmessages.messages|length }}</span></span></a>
@@ -21,18 +21,18 @@
                 <div class="nav-active-white">
                     <ul class="nav nav-pills nav-stacked nav-sm">
                         <li class="nav-item">
-                        {% for type in reservedmessages.types %}
+                            {% for type in reservedmessages.types %}
                             <a class="nav-link"><i class="fa m-r-sm fa-circle text-primary"></i>{{ type.type }}</a>
-                        {% endfor %}
+                            {% endfor %}
                         </li>
                     </ul>
-                </div>               
+                </div>
             </div>
         </div>
     </div>
-    <!-- Nav - start -->    
+    <!-- Nav - start -->
     <!-- Context - start -->
-    <div class="col-sm">    
+    <div class="col-sm">
         <div ui-view="" class="padding pos-rlt">
             <a href="" class="md-btn md-fab md-fab-bottom-right pos-fix red">
                 <i class="material-icons i-24 text-white"></i>
@@ -48,13 +48,13 @@
                 <!-- Header - end -->
                 <!-- Body - start -->
                 <div class="list white">
-                {% for message in reservedmessages.messages %}
+                    {% for message in reservedmessages.messages %}
                     <div class="list-item b-l b-l-2x b-info">
                         <div class="list-left">
                             <a href="" class="text-md w-40 rounded info"><i class="fa fa-pencil text-white"></i></a>
                         </div>
                         <div class="list-body">
-                            <div class="pull-right text-muted text-xs">                                
+                            <div class="pull-right text-muted text-xs">
                                 <span class="hidden-xs label purple" style="vertical-align:text-top">{{ message.type }}</span>
                                 <span class="hidden-xs m-l-sm">{{ message.date_modified|date:'d, M' }}</span>
                                 <i class="fa {% if message.starred %}fa-star{% else%}fa-star-o{% endif %} m-l-sm text-warn"></i>
@@ -65,11 +65,34 @@
                             <div class="text-ellipsis text-muted text-sm">{{ message.content|safe }}</div>
                         </div>
                     </div>
-                {% endfor %}                   
+                    {% endfor %}
                 </div>
                 <!-- Body - end -->
             </div>
         </div>
-    </div>
+        <button class="btn white" data-toggle="modal" data-target="#bottom">Bottom</button>
+    </div>    
     <!-- Context - end -->
+    <div class="modal fade" id="bottom" style="display: none;" aria-hidden="true">
+        <div class="bottom white b-t" style="height:90%">
+            <div class="row-col">
+                <a data-dismiss="modal" class="pull-right text-muted text-lg p-a-sm m-r-sm">×</a>
+                <div class="p-a b-b"><span class="h5">Members</span></div><div class="row-row">
+                    <div class="row-body">
+                        <div class="row-inner">
+                            <div class="list-group no-radius no-borders">
+                                <a data-toggle="modal" data-target="#chat" data-dismiss="modal" class="list-group-item p-x-md">
+                                    <img src="../assets/images/a1.jpg" class="pull-left w-40 m-r img-circle">
+                                    <div class="clear">
+                                        <span class="font-bold block">Jonathan Doe</span>
+                                        <span class="clear text-ellipsis text-xs">"Hey, What's up"</span>
+                                    </div>
+                                </a>                                
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="p-a b-t"><a href="" class="text-muted"><i class="fa fa-fw fa-twitter"></i> Twitter</a> <a href="" class="text-muted m-h"><i class="fa fa-fw fa-facebook"></i> Facebook</a></div>
+            </div>
+        </div>
+    </div>
 </div>

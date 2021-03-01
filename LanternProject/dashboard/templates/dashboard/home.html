@@ -5,7 +5,7 @@
 <div class="padding">
     <div class='row'>
         <!-- Profile widget - start -->
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-4 col-md-4 col-lg-4">
             <div class="box">
                 <div class="item">
                     <div class="item-bg">
@@ -22,9 +22,7 @@
                 </div>
             </div>
         </div>
-        <!-- Profile widget - end -->        
-    </div>
-    <div class="row">
+        <!-- Profile widget - end -->
         <!-- Newsletter widget - start -->
         <div class="col-sm-4 col-md-5 col-lg-4">
             <div class="box">
@@ -61,6 +59,44 @@
             </div>            
         </div>
         <!-- Newsletter widget - end -->
+        <!-- Reserved Messages - start -->
+        <div class="col-sm-4 col-md-5 col-lg-4">
+            <div class="box">
+                <div class="box-header">
+                    <h3>News Letters</h3>
+                </div>
+                <div class="box-tool">
+                    <ul class="nav">
+                        <li class="nav-item inline dropdown">
+                            <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-scale pull-right">
+                                <a class="dropdown-item" href="">New task</a>
+                                <a class="dropdown-item" href="">Make all finished</a>
+                                <a class="dropdown-item" href="">Make all unfinished</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item">Settings</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-body">
+                    {% for message in home.news|slice:"3" %}
+                    <div class="box-header dark m-a-sm">
+                        <a href="{% url 'index' user_key %}?page=newsletter">
+                            {% autoescape off %}
+                            {{ short_news.content|slice:"80" }}...
+                            {% endautoescape %}
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>            
+        </div>
+        <!-- Reserved Messages - end -->
+    </div>
+    <div class="row">        
         <!-- Chart widget - start -->
         <div class="col-sm-8 col-md-7 col-lg-8">
             <div class="row-col box dark bg">

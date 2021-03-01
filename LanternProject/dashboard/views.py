@@ -59,7 +59,8 @@ def index(request, user_key):
 
     # Individual pages
     if page == 'home':
-        home = get_home_data(user_key = user_key, news = news)    
+        home = get_home_data(user_key = user_key, news = news)
+        reservedmessages = get_reservedmessages_data(user_key = user_key)
     elif page == 'newsletter':        
         newsletter = get_newsletter_data(news = news)
     elif page == 'chatroom':        
@@ -249,7 +250,7 @@ def get_profile_data(user_key):
 def get_reservedmessages_data(user_key):
 
     user = get_user(user_key = user_key)
-    messages = ReservedMessages.objects.filter(user_id = user.id)
+    messages = ReservedMessages.objects.filter(user_id = user.id).order_by('-starred')
     types = messages.values('type').distinct()
 
     reservedmessages = {
