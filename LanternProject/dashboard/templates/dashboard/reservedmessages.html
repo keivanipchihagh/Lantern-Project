@@ -48,47 +48,40 @@
                 <!-- Header - end -->
                 <!-- Body - start -->
                 <div class="m-b list" id="accordion">
+                    {% csrf_token %}
                     {% for message in reservedmessages.messages %}
                     <div class="panel box no-border m-b-xs">
                         <!-- Header - start -->
                         <div class="box-header p-y-sm">
-                            <div class="list-left">
-                                <a id="controller_{{ message.id }}" href="" class="text-md w-40 danger reservedmessage-remove"><i id="controller_icon_{{ message.id }}" class="fa fa-trash text-white"></i></a>
+                            <div class="list-left" style="cursor: pointer" v-on:click="SendAction('{{ message.id }}')">
+                                <a id="controller_{{ message.id }}" class="text-md w-40 danger reservedmessage-remove"><i id="controller_icon_{{ message.id }}" class="fa fa-trash text-white"></i></a>
                             </div>
                             <div class="list-body">
                                 <div class="pull-right text-muted text-xs">
-                                    <span id="type_{{ message.id }}" class="hidden-xs label purple" style="vertical-align:text-top">{{ message.type }}</span>
+                                    <span class="hidden-xs label purple" style="vertical-align:text-top">{{ message.type }}</span>
                                     <span class="hidden-xs m-l-sm">{{ message.date_modified|date:'d, M' }}</span>
                                     <i class="fa {% if message.starred %}fa-star{% else%}fa-star-o{% endif %} m-l-sm text-warn"></i>
                                 </div>
-                                <div data-toggle="collapse" data-parent="#accordion" data-target="#c_{{ message.id }}" aria-expanded="false" class="collapsed" v-on:click="setAction({{ message.id }})">
-                                    <span id="title_{{ message.id }}" href="" class="_500" style="cursor: pointer">{{ message.title|safe|title }}</span>
+                                <div data-toggle="collapse" data-parent="#accordion" data-target="#c_{{ message.id }}" aria-expanded="false" class="collapsed" v-on:click="setActionId({{ message.id }})">
+                                    <span href="" class="_500" style="cursor: pointer">{{ message.title|safe|title }}</span>
                                 </div>
-                                <div id="content_{{ message.id }}" class="text-ellipsis text-muted text-sm">{{ message.content|safe }}</div>
+                                <div class="text-ellipsis text-muted text-sm">{{ message.content|safe }}</div>
                             </div>
                         </div>
                         <!-- Header - end -->
                         <!-- Body - start -->
                         <div id="c_{{ message.id }}" class="collapse" aria-expanded="false" style="height: 0px;">
                             <div class="box-body row">
-                                <div class="col-lg-3" style="padding: 5px 10px">
-                                    <div class="md-form-group float-label" style="padding-bottom: 0px">
-                                        <input type="text" ng-model="title" name="title" value="{{ message.title|title }}" class="md-input" style="border-bottom: 1px solid #999" maxlength="30" required="required">
-                                        <label>Title (Max length: 30)</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2" style="padding: 5px 10px">
-                                    <div class="md-form-group float-label" style="padding-bottom: 0px">
-                                        <input type="text" ng-model="type" name="type" value="{{ message.type }}" class="md-input" style="border-bottom: 1px solid #999" maxlength="15" required="required">
-                                        <label>Type (Max length: 15)</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-7" style="padding: 5px 10px">
-                                    <div class="md-form-group float-label" style="padding-bottom: 0px">
-                                        <input type="text" ng-model="content" name="content" value="{{ message.content }}" class="md-input" style="border-bottom: 1px solid #999" maxlength="500" required="required">
-                                        <label>Content (Max length: 500)</label>
-                                    </div>
-                                </div>                              
+                                <form id="form_{{ message.id }}" role="form" method="post" onsubmit="return false">                                    
+                                    {% for field in reservedmessages.form %}
+                                    <div class="{% if field.label == 'title' %}col-lg-3{% elif field.label == 'type' %}col-lg-2{% elif field.label == 'content' %}col-lg-7{% endif %}" style="padding: 5px 10px">
+                                        <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                            <input id="{{ field.label }}_{{ message.id }}" type="text" ng-model="{{ field.label }}" name="{{ field.label }}_{{ message.id }}" value="{% if field.label == 'title' %}{{ message.title }}{% elif field.label == 'type' %}{{ message.type}}{% elif field.label == 'content' %}{{ message.content}}{% endif %}" class="md-input" style="border-bottom: 1px solid #999" maxlength="{{ field.field.max_length }}" {% if field.field.required%}required="required"{% endif%}>
+                                            <label>Title (Max length: 30)</label>
+                                        </div>
+                                    </div>                                    
+                                    {% endfor %}
+                                </form>
                             </div>
                         </div>
                         <!-- Body - end -->

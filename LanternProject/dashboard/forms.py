@@ -64,3 +64,29 @@ class LoginForm(forms.Form):
             self.fields[field].type = field
 
         self.fields['remember_me'].type = 'checkbox'
+
+
+class ReservedMessagesForm(forms.Form):
+
+    # Title | Max Length: 30
+    title = forms.CharField(
+        label = 'title',
+        max_length = 30,
+        help_text = 'Max Length: 30' 
+    )
+
+    # Type | Max Length: 30
+    type = forms.CharField(
+        label = 'type',
+        max_length = 15,
+        help_text = 'Max Length: 15',
+        required = False,
+        initial = 'general',
+    )
+
+    # Content | Max Length: 500
+    content = forms.CharField(
+        label = 'content',
+        max_length = 500,
+        help_text = 'Max Length: 500',
+    )

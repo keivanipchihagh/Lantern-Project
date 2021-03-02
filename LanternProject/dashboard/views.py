@@ -3,7 +3,7 @@ from django.shortcuts import render
 from core.models import CoreRoom as Room, CoreUser as User, CoreMessage as Message, CoreSite as Site, CoreLog as Log
 from .models import DashboardMenu as Menu, DashboardNewsLetter as NewsLetter, DashboardReservedMessages as ReservedMessages
 import json
-from .forms import ProfileForm, LoginForm
+from .forms import ProfileForm, LoginForm, ReservedMessagesForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from datetime import datetime, timedelta
 
@@ -109,6 +109,23 @@ def profile_update(request, user_key):
         return HttpResponse('Updated, Reloading...')
     else:
         return HttpResponse(form.errors.as_text())  # Validation failed
+
+# ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
+
+@require_http_methods(['POST'])
+def reversedmessages_modify(request, user_key):
+
+    id = request.POST.get('id')
+    title = request.POST.get('title')
+    type = request.POST.get('type')
+    content = request.POST.get('content')
+
+    user = get_user(user_key = user_key)
+
+    reservedmessage = ReservedMessages.objects.get(id = id, user_id = user.id).delete()
+
+    return HttpResponse('Done')
+
 
 # ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
 
@@ -256,6 +273,7 @@ def get_reservedmessages_data(user_key):
     reservedmessages = {
         'messages': messages,
         'types': types,
+        'form': ReservedMessagesForm(auto_id = True),
     }
 
     return reservedmessages
