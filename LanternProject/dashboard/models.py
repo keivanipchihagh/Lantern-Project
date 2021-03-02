@@ -100,8 +100,8 @@ class DashboardReservedMessages(models.Model):
     # Type | Max Length: 30
     type = models.CharField(
         name = 'type',
-        max_length = 30,
-        help_text = 'Max Length: 30',
+        max_length = 15,
+        help_text = 'Max Length: 15',
         blank = True,
         default = 'general',
     )

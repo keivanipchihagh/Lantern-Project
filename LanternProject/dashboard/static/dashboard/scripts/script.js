@@ -34,16 +34,27 @@ const Profile = new Vue({
 
 // Reserved Messages Section
 const reservedMessages = new Vue({
+    
     el: "#reservedmessages",
 
     data: {
-
+        openedID: null
     },
 
     methods : {
-        edit: function(id) {
-            $('#edit_' + id).slideToggle('fast');
-        }
+        setAction: function(id) {
+            self = this
+            if (self.openedID == null || self.openedID == id) {
+                $("#controller_" + id).toggleClass('danger success')
+                $("#controller_icon_" + id).toggleClass('fa-trash fa-check')
+            } else {
+                $("#controller_" + id).toggleClass('danger success')
+                $("#controller_icon_" + id).toggleClass('fa-trash fa-check')
+                $("#controller_" + self.openedID).toggleClass('danger success')
+                $("#controller_icon_" + self.openedID).toggleClass('fa-trash fa-check')    
+            }
+            self.openedID = (self.openedID == id) ? null : id
+        },
     }
 })
 
