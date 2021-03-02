@@ -32,9 +32,9 @@
     </div>
     <!-- Nav - start -->
     <!-- Context - start -->
-    <div class="col-sm">
+    <div>
         <div ui-view="" class="padding pos-rlt">
-            <a href="" class="md-btn md-fab md-fab-bottom-right pos-fix red">
+            <a class="md-btn md-fab md-fab-bottom-right pos-fix red" data-toggle="modal" data-target="#wysiwyg">
                 <i class="material-icons i-24 text-white"></i>
             </a>
             <div>
@@ -70,29 +70,22 @@
                 <!-- Body - end -->
             </div>
         </div>
-        <button class="btn white" data-toggle="modal" data-target="#bottom">Bottom</button>
-    </div>    
+    </div>
     <!-- Context - end -->
-    <div class="modal fade" id="bottom" style="display: none;" aria-hidden="true">
-        <div class="bottom white b-t" style="height:90%">
-            <div class="row-col">
-                <a data-dismiss="modal" class="pull-right text-muted text-lg p-a-sm m-r-sm">×</a>
-                <div class="p-a b-b"><span class="h5">Members</span></div><div class="row-row">
-                    <div class="row-body">
-                        <div class="row-inner">
-                            <div class="list-group no-radius no-borders">
-                                <a data-toggle="modal" data-target="#chat" data-dismiss="modal" class="list-group-item p-x-md">
-                                    <img src="../assets/images/a1.jpg" class="pull-left w-40 m-r img-circle">
-                                    <div class="clear">
-                                        <span class="font-bold block">Jonathan Doe</span>
-                                        <span class="clear text-ellipsis text-xs">"Hey, What's up"</span>
-                                    </div>
-                                </a>                                
-                            </div>
-                        </div>
-                    </div>
-                </div><div class="p-a b-t"><a href="" class="text-muted"><i class="fa fa-fw fa-twitter"></i> Twitter</a> <a href="" class="text-muted m-h"><i class="fa fa-fw fa-facebook"></i> Facebook</a></div>
-            </div>
+    <div id="wysiwyg" class="modal" data-backdrop="true" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add / Edit message template</h5>
+                </div>
+                <div class="modal-body text-center p-lg">
+                    <div id="summernote" ui-jp="summernote"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">No</button>
+                    <button type="button" class="btn danger p-x-md" data-dismiss="modal">Yes</button>
+                </div>
+            </div><!-- /.modal-content -->
         </div>
     </div>
 </div>

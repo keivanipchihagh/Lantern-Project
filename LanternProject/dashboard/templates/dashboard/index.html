@@ -28,8 +28,8 @@
     <link rel="stylesheet" href="{% static 'dashboard/material-design-icons/material-design-icons.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />
-
+    <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />    
+    
     <!-- VueJS 2.0 -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 
@@ -64,8 +64,7 @@
                 {% if page == 'profile' %}
                 {% include 'dashboard/profile.html' with profile=profile %}
                 {% elif page == 'home' %}
-                {% comment %} {% include 'dashboard/home.html' with home=home %} {% endcomment %}
-                {% include 'dashboard/WYSIWYG.html' %}
+                {% include 'dashboard/home.html' with home=home %}
                 {% elif page == 'chatroom' %}
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages %}
                 {% elif page == 'newsletter' %}
@@ -75,7 +74,6 @@
                 {% endif %}
             </div>
             <!-- Body - end -->
-            <button class="btn white" data-toggle="modal" data-target="#m-md">Bottom</button>
         </div>
     </div>
     <!-- Error modal - start -->
