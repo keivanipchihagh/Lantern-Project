@@ -32,6 +32,21 @@ const Profile = new Vue({
     },
 })
 
+// Reserved Messages Section
+const reservedMessages = new Vue({
+    el: "#reservedmessages",
+
+    data: {
+
+    },
+
+    methods : {
+        edit: function(id) {
+            $('#edit_' + id).slideToggle('fast');
+        }
+    }
+})
+
 
 // Chatroom Section
 const Chatroom = new Vue({

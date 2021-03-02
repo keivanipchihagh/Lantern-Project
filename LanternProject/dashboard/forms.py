@@ -1,13 +1,13 @@
 from django import forms
-from core.models import CoreUser
-from .models import DashboardNewsLetter
+from core.models import CoreUser as User
+from .models import DashboardReservedMessages as ReservedMessages
 
 
 class ProfileForm(forms.ModelForm):
     ''' Profile form '''    
 
     class Meta:
-        model = CoreUser
+        model = User
 
         # Used fields
         fields = ['firstname', 'lastname', 'email', 'username', 'phonenumber', 'role', 'country', 'city', 'bio']
