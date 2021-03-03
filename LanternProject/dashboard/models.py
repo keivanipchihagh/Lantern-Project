@@ -121,7 +121,7 @@ class DashboardReservedMessages(models.Model):
         name = 'color',
         max_length = 15,
         choices = COLOR_CHOICES,
-        default = 'GREEN',
+        default = COLOR_CHOICES[0][0],
     )
 
     # Content | Max Length: 500
