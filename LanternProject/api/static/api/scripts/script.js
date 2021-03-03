@@ -126,7 +126,7 @@ const App = new Vue({
     },
 
     mounted: function () {
-        $('#app-content').css({ 'max-height': $(document).height() * 0.5 })       
+        $('#app-content').css({ 'max-height': $(document).height() * 0.6 })       
     },
 
     watch: {
