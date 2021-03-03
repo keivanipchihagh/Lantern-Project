@@ -58,18 +58,19 @@ const reservedMessages = new Vue({
         },
         SendAction: function(id, action) {
             action = (action != null) ? action : (self.openedID == null || self.openedID != id) ? 'DELETE' : 'UPDATE'
-
+            identifier = (action == 'INSERT') ? 'new' : id
+            
             $.ajax({
                 url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/reversedmessages/messages/modify',
                 type: 'POST',
                 data: {
-                    id: id,
+                    id: identifier,
                     action: action,
-                    title: $('#Title_' + id).val(),
-                    tag: $('#Tag_' + id).val(),
-                    color: $('#Color_' + id).val(),
-                    starred: $('#Starred_' + id).is(":checked"),
-                    content: $('#Content_' + id).val(),
+                    title: $('#rm_Title_' + identifier).val(),
+                    tag: $('#rm_Tag_' + identifier).val(),
+                    color: $('#rm_Color_' + identifier).val(),
+                    starred: $('#rm_Starred_' + identifier).is(":checked"),
+                    content: $('#rm_Content_' + identifier).val(),
                     csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
                 },
                 error: function(xhr, status, error) {
@@ -78,12 +79,7 @@ const reservedMessages = new Vue({
                 },
                 success: function (response) {
                     if (response == '') {
-
-                        if (action == 'DELETE')
-                            $('#' + id).remove()
-                        else
-                            setTimeout(function () { location.reload() }, 500)
-
+                        setTimeout(function () { location.reload() }, 500)
                         $('#rm_count').text(parseInt($('#rm_count').text()) - 1)
                     } else {
                         $("#error_model_body").text('We couldn\'t process your action at the moment. Please report the problem if persists.')

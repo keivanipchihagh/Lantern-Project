@@ -134,6 +134,16 @@ def reversedmessages_modify(request, user_key):
             starred = (starred == 'true'),
             content = content,
         )
+    elif request.POST.get('action') == 'INSERT':
+        ReservedMessages(
+            title = title,
+            tag = tag,
+            color = color,
+            starred = (starred == 'true'),
+            content = content,
+            user_id = user.id,
+            date_modified = datetime.now(),
+        ).save()
 
     return HttpResponse('')
 

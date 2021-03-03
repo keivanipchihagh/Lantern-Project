@@ -44,10 +44,10 @@ INSERT INTO dashboard_newsletter (title, type, date_published, content, tags, us
 
 /* Reserved Messages */    
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
-	VALUES ('starting the conversation', 'greeting', 'Greetings! How can I be of service?', 1, NOW(), 1, 'green');
+	VALUES ('starting the conversation', 'greeting', 'Greetings! How can I be of service?', 1, NOW(), 1, 'purple');
     
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
-	VALUES ('ending the conversation', 'ending', 'Glad I could help, Wish you a good day!', 0, NOW(), 1, 'indigo');
+	VALUES ('ending the conversation', 'ending', 'Glad I could help, Wish you a good day!', 0, NOW(), 1, 'cyan');
     
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
-	VALUES ('Asking for details', 'clarification', 'I can certainly help you with that, but I will more details regarding your request.', 0, NOW(), 1, 'pink');
+	VALUES ('Asking for details', 'clarification', 'I can certainly help you with that, but I will more details regarding your request.', 0, NOW(), 1, 'lime');
