@@ -74,7 +74,7 @@
                         <!-- Body - start -->
                         <div id="c_{{ message.id }}" class="collapse" aria-expanded="false" style="height: 0px;">
                             <div class="box-body row">
-                                <form role="form" method="post" onsubmit="return false">
+                                <form id="rm_form_{{ message.id }}" role="form" method="post" onsubmit="return false">
                                     {% for field in reservedmessages.form %}
                                     {% if field.label in 'Title,Tags' %}
                                     <div class="{% if field.label == 'Title' %}col-lg-3{% else %}col-lg-2{% endif %}" style="padding: 5px 10px">

@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from core.models import CoreRoom as Room, CoreUser as User, CoreMessage as Message, CoreSite as Site, CoreLog as Log
@@ -288,8 +289,8 @@ def get_profile_data(user_key):
 def get_reservedmessages_data(user_key):
 
     user = get_user(user_key = user_key)
-    messages = ReservedMessages.objects.filter(user_id = user.id).order_by('-starred')
-    tags = messages.values('tag', 'color').distinct()
+    messages = ReservedMessages.objects.filter(user_id = user.id).order_by('tag', 'title')
+    tags = messages.order_by().values('tag', 'color').distinct()
 
     reservedmessages = {
         'messages': messages,

@@ -110,12 +110,13 @@ class DashboardReservedMessages(models.Model):
     COLOR_CHOICES = (
         ['INDIGO', 'indigo'],
         ['GREEN', 'green'],
-        ['RED', 'red'],
+        ['BLACK', 'black'],
         ['PURPLE', 'purple'],
         ['PINK', 'pink'],
         ['LIME', 'lime'],
         ['TEAL', 'teal'],
-        ['CYAN', 'cyan']
+        ['CYAN', 'cyan'],
+        ['BLUE', 'blue'],
     )
     color = models.CharField(
         name = 'color',

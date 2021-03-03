@@ -2,6 +2,10 @@ window.onbeforeunload = function () {
     window.scrollTo(0, 0);
 }
 
+particlesJS.load('particles-js', '../../../../static/dashboard/scripts/particles/particles.json', function() {
+    console.log('callback - particles.js config loaded');
+});
+
 // Profile Section
 const Profile = new Vue({
 
@@ -71,6 +75,7 @@ const reservedMessages = new Vue({
                     color: $('#rm_Color_' + identifier).val(),
                     starred: $('#rm_Starred_' + identifier).is(":checked"),
                     content: $('#rm_Content_' + identifier).val(),
+                    form: $("rm_form_" + id).serialize(),
                     csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
                 },
                 error: function(xhr, status, error) {
@@ -78,10 +83,9 @@ const reservedMessages = new Vue({
                     $('#error_model').modal('toggle');
                 },
                 success: function (response) {
-                    if (response == '') {
+                    if (response == '')
                         setTimeout(function () { location.reload() }, 500)
-                        $('#rm_count').text(parseInt($('#rm_count').text()) - 1)
-                    } else {
+                    else {
                         $("#error_model_body").text('We couldn\'t process your action at the moment. Please report the problem if persists.')
                         $('#error_model').modal('toggle');
                     }                        
