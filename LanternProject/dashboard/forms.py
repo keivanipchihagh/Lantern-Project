@@ -75,9 +75,9 @@ class ReservedMessagesForm(forms.Form):
         help_text = 'Max Length: 30' 
     )
 
-    # Type | Max Length: 30
-    type = forms.CharField(
-        label = 'type',
+    # Tag | Max Length: 30
+    tag = forms.CharField(
+        label = 'tag',
         max_length = 15,
         help_text = 'Max Length: 15',
         required = False,
@@ -85,8 +85,8 @@ class ReservedMessagesForm(forms.Form):
     )
 
     # Content | Max Length: 500
-    content = forms.CharField(
-        label = 'content',
-        max_length = 500,
-        help_text = 'Max Length: 500',
-    )
+    # content = forms.CharField(
+    #     label = 'content',
+    #     max_length = 500,
+    #     help_text = 'Max Length: 500',
+    # )

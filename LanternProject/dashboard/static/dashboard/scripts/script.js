@@ -52,36 +52,36 @@ const reservedMessages = new Vue({
 
             if (!(self.openedID == null || self.openedID == id)) {
                 $("#controller_" + self.openedID).toggleClass('danger success')
-                $("#controller_icon_" + self.openedID).toggleClass('fa-trash fa-check')    
+                $("#controller_icon_" + self.openedID).toggleClass('fa-trash fa-check')
             }
 
             self.openedID = (self.openedID == id) ? null : id
         },
-        SendAction: function(id) {
+        SendAction: function(id, action) {
 
             $.ajax({
                 url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/reversedmessages/messages/modify',
                 type: 'POST',
                 data: {
                     id: id,
-                    action: (self.openedID == null || self.openedID != id) ? 'DEELTE' : 'UPDATE',                    
+                    action: (action != null) ? action : (self.openedID == null || self.openedID != id) ? 'DELETE' : 'UPDATE',
                     title: $('#title_' + id).val(),
-                    type: $('#type_' + id).val(),
+                    tag: $('#tag_' + id).val(),
                     content: $('#content_' + id).val(),
                     csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
                 },
-                // error: function () {
-                //     $("#submit_btn").prop('disabled', true)
-                //     $("#error_model_body").text('There was a problem processing your requet at the moment. Please try again in a few minutes.')
-                //     $('#error_model').modal('toggle');
-                // },
                 error: function(xhr, status, error) {
-                    alert(xhr + '\n' + status + '\n' + error)
+                    $("#error_model_body").text('We couldn\'t update your information at the moment. Please report the problem if persists.')
+                    $('#error_model').modal('toggle');
                 },
                 success: function (response) {
-                    alert(response)
-                    // $("#submit_btn").val(response).attr('class', (response == 'Updated, Reloading...' ? 'btn white m-b success' : 'btn white m-b warn'))
-                    // setTimeout(function () { location.reload() }, 500)
+                    if (response == '') {
+                        $('#' + id).remove()
+                        $('#rm_count').text(parseInt($('#rm_count').text()) - 1)
+                    } else {
+                        $("#error_model_body").text('We couldn\'t process your action at the moment. Please report the problem if persists.')
+                        $('#error_model').modal('toggle');
+                    }                        
                 },
             });
         }        

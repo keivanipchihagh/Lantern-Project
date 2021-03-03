@@ -97,13 +97,31 @@ class DashboardReservedMessages(models.Model):
         help_text = 'Max Length: 30' 
     )
 
-    # Type | Max Length: 30
-    type = models.CharField(
-        name = 'type',
+    # Tag | Max Length: 30
+    tag = models.CharField(
+        name = 'tag',
         max_length = 15,
         help_text = 'Max Length: 15',
         blank = True,
         default = 'general',
+    )
+
+    # Tag color | Max Length: 15
+    COLOR_CHOICES = (
+        ['INDIGO', 'indigo'],
+        ['GREEN', 'green'],
+        ['RED', 'red'],
+        ['PURPLE', 'purple'],
+        ['PINK', 'pink'],
+        ['LIME', 'lime'],
+        ['TEAL', 'teal'],
+        ['CYAN', 'cyan']
+    )
+    color = models.CharField(
+        name = 'color',
+        max_length = 15,
+        choices = COLOR_CHOICES,
+        default = 'GREEN',
     )
 
     # Content | Max Length: 500

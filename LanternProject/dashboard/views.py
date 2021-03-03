@@ -110,21 +110,28 @@ def profile_update(request, user_key):
     else:
         return HttpResponse(form.errors.as_text())  # Validation failed
 
-# ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
+# -------------------------------------------------------------------- Reserved Messages --------------------------------------------------------------------
 
 @require_http_methods(['POST'])
 def reversedmessages_modify(request, user_key):
 
     id = request.POST.get('id')
     title = request.POST.get('title')
-    type = request.POST.get('type')
+    tag = request.POST.get('tag')
     content = request.POST.get('content')
 
     user = get_user(user_key = user_key)
 
-    reservedmessage = ReservedMessages.objects.get(id = id, user_id = user.id).delete()
+    if request.POST.get('action') == 'DELETE':
+        reservedmessage = ReservedMessages.objects.get(id = id, user_id = user.id).delete()
+    elif request.POST.get('action') == 'UPDATE':
+        reservedmessage = ReservedMessages.objects.update(
+            title = title,
+            tag = tag,
+            content = content,
+        )
 
-    return HttpResponse('Done')
+    return HttpResponse('')
 
 
 # ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
@@ -268,11 +275,11 @@ def get_reservedmessages_data(user_key):
 
     user = get_user(user_key = user_key)
     messages = ReservedMessages.objects.filter(user_id = user.id).order_by('-starred')
-    types = messages.values('type').distinct()
+    tags = messages.values('tag', 'color').distinct()
 
     reservedmessages = {
         'messages': messages,
-        'types': types,
+        'tags': tags,
         'form': ReservedMessagesForm(auto_id = True),
     }
 

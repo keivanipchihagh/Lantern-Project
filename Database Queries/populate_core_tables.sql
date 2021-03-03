@@ -43,11 +43,11 @@ INSERT INTO dashboard_newsletter (title, type, date_published, content, tags, us
 	VALUES ('Release - Update v1.0.0', 'update', NOW(), 'Initial Release is out! <br/>We are drilled to announce that <b>Version 1.0.0</b> is officially out! This is the first release of the project after months of work. We have put our best effort to design, build and test every single component; however, as we are constantly developing the platform you might face some malfunctions here and there, so be patient and please notify the <b>Staff</b> if any problem persists.', 'staff,update,maintenance', 1);
 
 /* Reserved Messages */    
-INSERT INTO dashboard_reservedmessages (title, type, content, starred, date_modified, user_id)
-	VALUES ('starting the conversation', 'greeting', 'Greetings! How can I be of service?', 1, NOW(), 1);
+INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
+	VALUES ('starting the conversation', 'greeting', 'Greetings! How can I be of service?', 1, NOW(), 1, 'green');
     
-INSERT INTO dashboard_reservedmessages (title, type, content, starred, date_modified, user_id)
-	VALUES ('ending the conversation', 'ending', 'Glad I could help, Wish you a good day!', 0, NOW(), 1);
+INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
+	VALUES ('ending the conversation', 'ending', 'Glad I could help, Wish you a good day!', 0, NOW(), 1, 'indigo');
     
-INSERT INTO dashboard_reservedmessages (title, type, content, starred, date_modified, user_id)
-	VALUES ('Asking for details', 'clarification', 'I can certainly help you with that, but I will more details regarding your request.', 0, NOW(), 1);
+INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
+	VALUES ('Asking for details', 'clarification', 'I can certainly help you with that, but I will more details regarding your request.', 0, NOW(), 1, 'pink');

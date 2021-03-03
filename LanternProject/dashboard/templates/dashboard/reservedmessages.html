@@ -7,22 +7,23 @@
     <div class="col-sm w w-auto-xs light lt bg-auto">
         <div class="padding pos-rlt">
             <div class="hidden-xs-down m-t" id="inbox-menu">
+                <div class="text-muted m-b-sm">Groups</div>
                 <div class="m-b nav-sm nav-active-info">
                     <ul class="nav nav-pills nav-stacked" ui-nav="">
                         <li class="nav-item active">
-                            <a class="nav-link">All items<span class="pull-right"><span class="label success">{{ reservedmessages.messages|length }}</span></span></a>
+                            <a class="nav-link">All items<span class="pull-right"><span id='rm_count' class="label success">{{ reservedmessages.messages|length }}</span></span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link">Starred</a>
                         </li>
                     </ul>
                 </div>
-                <div>Tags</div>
+                <div class="text-muted m-b-sm">Recent Tags</div>
                 <div class="nav-active-white">
                     <ul class="nav nav-pills nav-stacked nav-sm">
                         <li class="nav-item">
-                            {% for type in reservedmessages.types %}
-                            <a class="nav-link"><i class="fa m-r-sm fa-circle text-primary"></i>{{ type.type }}</a>
+                            {% for tag in reservedmessages.tags %}
+                            <a class="nav-link text-muted"><i class="fa m-r-sm fa-circle" style="color: {{ tag.color }}"></i>{{ tag.tag }}</a>
                             {% endfor %}
                         </li>
                     </ul>
@@ -50,20 +51,20 @@
                 <div class="m-b list" id="accordion">
                     {% csrf_token %}
                     {% for message in reservedmessages.messages %}
-                    <div class="panel box no-border m-b-xs">
+                    <div id="{{ message.id }}" class="panel box no-border m-b-xs">
                         <!-- Header - start -->
                         <div class="box-header p-y-sm">
-                            <div class="list-left" style="cursor: pointer" v-on:click="SendAction('{{ message.id }}')">
+                            <div class="list-left" v-on:click="SendAction('{{ message.id }}')">
                                 <a id="controller_{{ message.id }}" class="text-md w-40 danger reservedmessage-remove"><i id="controller_icon_{{ message.id }}" class="fa fa-trash text-white"></i></a>
                             </div>
                             <div class="list-body">
                                 <div class="pull-right text-muted text-xs">
-                                    <span class="hidden-xs label purple" style="vertical-align:text-top">{{ message.type }}</span>
+                                    <span class="hidden-xs label {{ message.color }}" style="vertical-align:text-top">{{ message.tag }}</span>
                                     <span class="hidden-xs m-l-sm">{{ message.date_modified|date:'d, M' }}</span>
                                     <i class="fa {% if message.starred %}fa-star{% else%}fa-star-o{% endif %} m-l-sm text-warn"></i>
                                 </div>
-                                <div data-toggle="collapse" data-parent="#accordion" data-target="#c_{{ message.id }}" aria-expanded="false" class="collapsed" v-on:click="setActionId({{ message.id }})">
-                                    <span href="" class="_500" style="cursor: pointer">{{ message.title|safe|title }}</span>
+                                <div data-toggle="collapse" data-parent="#accordion" data-target="#c_{{ message.id }}" aria-expanded="false" class="collapsed" style="cursor: pointer" v-on:click="setActionId({{ message.id }})">
+                                    <span href="" class="_500">{{ message.title|safe|title }}</span>
                                 </div>
                                 <div class="text-ellipsis text-muted text-sm">{{ message.content|safe }}</div>
                             </div>
@@ -72,14 +73,14 @@
                         <!-- Body - start -->
                         <div id="c_{{ message.id }}" class="collapse" aria-expanded="false" style="height: 0px;">
                             <div class="box-body row">
-                                <form id="form_{{ message.id }}" role="form" method="post" onsubmit="return false">                                    
+                                <form id="form_{{ message.id }}" role="form" method="post" onsubmit="return false">
                                     {% for field in reservedmessages.form %}
-                                    <div class="{% if field.label == 'title' %}col-lg-3{% elif field.label == 'type' %}col-lg-2{% elif field.label == 'content' %}col-lg-7{% endif %}" style="padding: 5px 10px">
+                                    <div class="{% if field.label == 'title' %}col-lg-3{% elif field.label == 'tag' %}col-lg-2{% elif field.label == 'content' %}col-lg-7{% endif %}" style="padding: 5px 10px">
                                         <div class="md-form-group float-label" style="padding-bottom: 0px">
-                                            <input id="{{ field.label }}_{{ message.id }}" type="text" ng-model="{{ field.label }}" name="{{ field.label }}_{{ message.id }}" value="{% if field.label == 'title' %}{{ message.title }}{% elif field.label == 'type' %}{{ message.type}}{% elif field.label == 'content' %}{{ message.content}}{% endif %}" class="md-input" style="border-bottom: 1px solid #999" maxlength="{{ field.field.max_length }}" {% if field.field.required%}required="required"{% endif%}>
-                                            <label>Title (Max length: 30)</label>
+                                            <input id="{{ field.label }}_{{ message.id }}" type="text" ng-model="{{ field.label }}" name="{{ field.label }}_{{ message.id }}" value="{% if field.label == 'title' %}{{ message.title }}{% elif field.label == 'tag' %}{{ message.tag }}{% elif field.label == 'content' %}{{ message.content}}{% endif %}" class="md-input" style="border-bottom: 1px solid #999" maxlength="{{ field.field.max_length }}" {% if field.field.required%}required="required" {% endif%}>
+                                            <label>{{ field.label }} (Max length: {{ field.field.max_length}})</label>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     {% endfor %}
                                 </form>
                             </div>
