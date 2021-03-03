@@ -32,6 +32,65 @@ const Profile = new Vue({
     },
 })
 
+// Reserved Messages Section
+const reservedMessages = new Vue({
+
+    el: "#reservedmessages",
+
+    data: {
+        openedID: null,
+        user_key: '123456789'
+    },
+
+    methods : {
+        setActionId: function(id) {
+            self = this            
+
+            $("#controller_" + id).toggleClass('danger success')
+            $("#controller_icon_" + id).toggleClass('fa-trash fa-check')
+
+            if (!(self.openedID == null || self.openedID == id)) {
+                $("#controller_" + self.openedID).toggleClass('danger success')
+                $("#controller_icon_" + self.openedID).toggleClass('fa-trash fa-check')
+            }
+
+            self.openedID = (self.openedID == id) ? null : id
+        },
+        SendAction: function(id, action) {
+            action = (action != null) ? action : (self.openedID == null || self.openedID != id) ? 'DELETE' : 'UPDATE'
+            identifier = (action == 'INSERT') ? 'new' : id
+            
+            $.ajax({
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/reversedmessages/messages/modify',
+                type: 'POST',
+                data: {
+                    id: identifier,
+                    action: action,
+                    title: $('#rm_Title_' + identifier).val(),
+                    tag: $('#rm_Tag_' + identifier).val(),
+                    color: $('#rm_Color_' + identifier).val(),
+                    starred: $('#rm_Starred_' + identifier).is(":checked"),
+                    content: $('#rm_Content_' + identifier).val(),
+                    csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
+                },
+                error: function(xhr, status, error) {
+                    $("#error_model_body").text('We couldn\'t update your information at the moment. Please report the problem if persists.')
+                    $('#error_model').modal('toggle');
+                },
+                success: function (response) {
+                    if (response == '') {
+                        setTimeout(function () { location.reload() }, 500)
+                        $('#rm_count').text(parseInt($('#rm_count').text()) - 1)
+                    } else {
+                        $("#error_model_body").text('We couldn\'t process your action at the moment. Please report the problem if persists.')
+                        $('#error_model').modal('toggle');
+                    }                        
+                },
+            });
+        }        
+    },
+})
+
 
 // Chatroom Section
 const Chatroom = new Vue({
@@ -46,7 +105,9 @@ const Chatroom = new Vue({
     },
 
     methods: {
-
+        copyToMessage: function(reservedMessageId) {
+            self.message = $("#" + reservedMessageId).text()
+        },
         sendMessage: function () {
             document.querySelector('#chat-message-submit').click()
         },

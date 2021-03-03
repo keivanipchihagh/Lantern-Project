@@ -2,111 +2,150 @@
 
 <!DOCTYPE html>
 
-<div class="padding">
-    <div class='row'>
-        <!-- Profile widget - start -->
-        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="box">
-                <div class="item">
-                    <div class="item-bg">
-                        <img src="{% static 'dashboard/images/a3.jpg'%}" class="blur">
+<div class="dker">
+    <div class="tab-content tab-alt">
+        <div class="tab-pane fade in active" id="world">
+            <div class="padding">
+                <div class="row-col">
+                    <div class="col-xs-4 v-m">
+                        <h1 class="_800 l-s-n-4x inline m-r-sm">5,600</h1>
+                        <span class="inline l-h-1x">
+                            Markets <br>
+                            <small class="text-muted">From africa to asia</small>
+                        </span>
                     </div>
-                    <div class="p-a-lg pos-rlt text-center">
-                        <img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle w-56" style="margin-bottom: -7rem">
+                    <div class="col-xs-4 v-m">
+                        <h1 class="_800 l-s-n-4x inline m-r-sm text-primary">31,000</h1>
+                        <span class="inline l-h-1x">
+                            Employees  <br>
+                            <small class="text-muted">From 16 countries</small>
+                        </span>
                     </div>
-                </div>
-                <div class="p-a text-center">
-                    <span class="text-md m-t block">{{ home.firstname }} {{ home.lastname }}</span>
-                    <p><small class="label indigo m-a-sm">{{ home.role|title }}</small>
-                    <p style="margin:0px"><a href="{% url 'index' user_key %}?page=profile" class="btn btn-sm primary">Go to Profile</a></p>
+                    <div class="col-xs-4 v-m">
+                        <h1 class="_800 l-s-n-4x text-white text-shadow inline m-r-sm">4,300</h1>
+                        <span class="inline l-h-1x">
+                            Suppliers  <br>
+                            <small class="text-muted">From Nike to PE</small>
+                        </span>
+                    </div>
                 </div>
             </div>
+            <div style="height: 62vh" ui-jp="vectorMap" ui-options="{
+        map: 'world_mill_en',
+        markers: [{latLng: [52.5167, 13.3833], name: &#x27;Berlin&#x27;}, {latLng: [48.8567, 2.3508], name: &#x27;Paris&#x27;}, {latLng: [35.6833, 139.6833], name: &#x27;Tokyo&#x27;}, {latLng: [40.7127, -74.0059], name: &#x27;New York City&#x27;},{latLng: [49.2827, -123.1207], name: &#x27;City of Vancouver&#x27;},{latLng: [22.2783, 114.1747], name: &#x27;Hong Kong&#x27;},{latLng: [55.7500, 37.6167], name: &#x27;Moscow&#x27;},{latLng: [37.7833, -122.4167], name: &#x27;San Francisco&#x27;},{latLng: [39.9167, 116.3833], name: &#x27;Beijing&#x27;}],
+        normalizeFunction: 'polynomial',
+        backgroundColor: 'transparent',
+        regionsSelectable: true,
+        markersSelectable: true,
+        regionStyle: {
+          initial: {
+            fill: 'rgba(120,130,140,0.2)'
+          },
+          hover: {
+            fill: '#a88add',
+            stroke: '#fff'
+          },
+        },
+        markerStyle: {
+          initial: {
+            fill: 'rgba(0,0,0,0.1)',
+            stroke: '#fff'
+          },
+          hover: {
+            fill: '#0cc2aa',
+            stroke: '#fff'
+          }
+        },
+        series: {
+          markers: [{
+            attribute: 'fill',
+            scale: ['#0cc2aa','#a88add', '#fcc100'],
+            values: [ 605.16, 310.69, 405.17, 748.31, 207.35, 217.22, 137.70, 280.71, 210.32, 325.42 ]
+          },{
+            attribute: 'r',
+            scale: [5, 20],
+            values: [ 605.16, 310.69, 405.17, 748.31, 207.35, 217.22, 137.70, 280.71, 210.32, 325.42 ]
+          }]
+        }
+      }">
+            </div>
         </div>
-        <!-- Profile widget - end -->        
+        <div class="tab-pane fade" id="usa">
+            <div class="padding">
+                <div class="row-col">
+                    <div class="col-xs-4 v-m">
+                        <h1 class="_800 l-s-n-4x inline m-r-sm text-primary">580</h1>
+                        <span class="inline l-h-1x">
+                            Markets <br>
+                            <small class="text-muted">From africa to asia</small>
+                        </span>
+                    </div>
+                    <div class="col-xs-4 v-m">
+                        <h1 class="_800 l-s-n-4x inline m-r-sm">12,500</h1>
+                        <span class="inline l-h-1x">
+                            Employees  <br>
+                            <small class="text-muted">From 16 countries</small>
+                        </span>
+                    </div>
+                    <div class="col-xs-4 v-m">
+                        <h1 class="_800 l-s-n-4x text-white text-shadow inline m-r-sm">1,000</h1>
+                        <span class="inline l-h-1x">
+                            Suppliers  <br>
+                            <small class="text-muted">From Nike to PE</small>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div style="height: 62vh" ui-jp="vectorMap" ui-options="{
+        map: 'us_aea_en',
+        markers: [{latLng: [40.71, -74.00], name: &#x27;New York&#x27;},{latLng: [34.05, -118.24], name: &#x27;Los Angeles&#x27;},{latLng: [41.87, -87.62], name: &#x27;Chicago&#x27;},{latLng: [29.76, -95.36], name: &#x27;Houston&#x27;},{latLng: [39.95, -75.16], name: &#x27;Philadelphia&#x27;},{latLng: [38.90, -77.03], name: &#x27;Washington&#x27;},{latLng: [37.36, -122.03], name: &#x27;Silicon Valley&#x27;}],
+        backgroundColor: 'transparent',
+        regionsSelectable: true,
+        markersSelectable: true,
+        regionStyle: {
+          initial: {
+            fill: '#ffffff'
+          },
+          selected: {
+            fill: '#f44455'
+          }
+        },
+        series: {
+          markers: [{
+            attribute: 'fill',
+            scale: ['#0cc2aa','#f77a99', '#6cc788'],
+            values: [ 605.16, 310.69, 405.17, 748.31, 207.35, 217.22, 137.70, 280.71, 210.32, 325.42 ]
+          },{
+            attribute: 'r',
+            scale: [5, 20],
+            values: [ 605.16, 310.69, 405.17, 748.31, 207.35, 217.22, 137.70, 280.71, 210.32, 325.42 ]
+          }]
+        }
+      }">
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <!-- Newsletter widget - start -->
-        <div class="col-sm-4 col-md-5 col-lg-4">
-            <div class="box">
-                <div class="box-header">
-                    <h3>News Letters</h3>
-                </div>
-                <div class="box-tool">
-                    <ul class="nav">
-                        <li class="nav-item inline dropdown">
-                            <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
-                                <i class="fa fa-ellipsis-v"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-scale pull-right">
-                                <a class="dropdown-item" href="">New task</a>
-                                <a class="dropdown-item" href="">Make all finished</a>
-                                <a class="dropdown-item" href="">Make all unfinished</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item">Settings</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="box-body">
-                    {% for short_news in home.news|slice:"3" %}
-                    <div class="box-header dark m-a-sm">
-                        <a href="{% url 'index' user_key %}?page=newsletter">
-                            {% autoescape off %}
-                            {{ short_news.content|slice:"80" }}...
-                            {% endautoescape %}
+    <div class="row-col">
+        <div class="col-xs-3 v-m nav-active-primary">
+            <div class="p-a">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link p-x-sm active white" href data-toggle="tab" data-target="#world">
+                            <span class="h5 _700 l-s-n-2x">world</span>
                         </a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>            
-        </div>
-        <!-- Newsletter widget - end -->
-        <!-- Chart widget - start -->
-        <div class="col-sm-8 col-md-7 col-lg-8">
-            <div class="row-col box dark bg">
-                <div class="col-sm-8">
-                    <div class="box-header">
-                        <h3>Activities</h3>
-                        <small>Your last activity is posted 4 hours ago</small>
-                    </div>
-                    <div class="box-body">
-                        <div ui-jp="plot" ui-refresh="app.setting.color" ui-options="
-			              [
-			                {
-			                  data: [[1, 6.1], [2, 6.3], [3, 6.4], [4, 6.6], [5, 7.0], [6, 7.7], [7, 8.3]],
-			                  points: { show: true, radius: 0},
-			                  splines: { show: true, tension: 0.45, lineWidth: 2, fill: 0 }
-			                },
-			                {
-			                  data: [[1, 5.5], [2, 5.7], [3, 6.4], [4, 7.0], [5, 7.2], [6, 7.3], [7, 7.5]],
-			                  points: { show: true, radius: 0},
-			                  splines: { show: true, tension: 0.45, lineWidth: 2, fill: 0 }
-			                }
-			              ],
-			              {
-			                colors: ['#0cc2aa','#fcc100'],
-			                series: { shadowSize: 3 },
-			                xaxis: { show: true, font: { color: '#ccc' }, position: 'bottom' },
-			                yaxis:{ show: true, font: { color: '#ccc' }},
-			                grid: { hoverable: true, clickable: true, borderWidth: 0, color: 'rgba(120,120,120,0.5)' },
-			                tooltip: true,
-			                tooltipOpts: { content: '%x.0 is %y.4',  defaultTheme: false, shifts: { x: 0, y: -40 } }
-			              }
-			            " style="height: 162px; padding: 0px; position: relative;">
-                            <canvas class="flot-base" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 299px; height: 162px;" width="373" height="202"></canvas><div class="flot-text" style="position: absolute; inset: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; inset: 0px; display: block;"><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 17px; text-align: center;">1</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 63px; text-align: center;">2</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 109px; text-align: center;">3</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 155px; text-align: center;">4</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 201px; text-align: center;">5</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 247px; text-align: center;">6</div><div style="position: absolute; max-width: 42px; top: 149px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 293px; text-align: center;">7</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; inset: 0px; display: block;"><div style="position: absolute; top: 138px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">5.0</div><div style="position: absolute; top: 103px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">6.0</div><div style="position: absolute; top: 69px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">7.0</div><div style="position: absolute; top: 35px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">8.0</div><div style="position: absolute; top: 1px; font: 400 11px / 13px Roboto, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; color: rgb(204, 204, 204); left: 0px; text-align: right;">9.0</div></div></div><canvas class="flot-overlay" width="373" height="202" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 299px; height: 162px;"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 dker">
-                    <div class="box-header">
-                        <h3>Reports</h3>
-                    </div>
-                    <div class="box-body">
-                        <p class="text-muted">Dales nisi nec adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis</p>
-                        <a href="" class="btn btn-sm btn-outline rounded b-success">Read More</a>
-                    </div>
-                </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link p-x-sm white" href data-toggle="tab" data-target="#usa">
+                            <span class="h5 _700 l-s-n-2x">usa</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <!-- Chart - end -->
+        <div class="col-xs-6 v-m text-center text-sm text-muted p-a">Worldwide map data from 1990 - 2010</div>
+        <div class="col-xs-3 v-m text-right">
+            <span ui-jp="sparkline" ui-refresh="app.setting.color" ui-options="[70,30], {type:'pie', height:22, sliceColors:['#0cc2aa','transparent']}" class="sparkline inline m-r"></span>
+            <span ui-jp="sparkline" ui-refresh="app.setting.color" ui-options="[30,70], {type:'pie', height:22, sliceColors:['#0cc2aa','transparent']}" class="sparkline inline m-r"></span>
+        </div>
     </div>
+</div>

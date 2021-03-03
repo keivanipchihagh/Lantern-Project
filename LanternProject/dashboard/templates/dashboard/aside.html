@@ -105,15 +105,8 @@
                 <!-- Staff - end -->
                 <!-- Shared - start -->
                 <li class="nav-header hidden-folded"><small class="text-muted">{{ aside.menu.0.category }}</small></li>
-                <li>
-                    <a href="/dashboard/v1/user/123456789?page=newsletter">
-                        
-                        <span class="nav-icon"><i class="fa fa-newspaper-o" aria-hidden="true"></i></span>
-                        <span class="nav-text">Newsletter</span>
-                    </a>
-                </li>
                 {% for item in aside.menu %}
-                <li>
+                <li {% if item.name == page %}class="active"{% endif %}>
                     <a href="{% url 'index' user_key %}?page={{ item.name }}">
                         {% if item.label %}
                         <span class="nav-label"><b class="label rounded label-sm primary">{{ item.label }}</b></span>

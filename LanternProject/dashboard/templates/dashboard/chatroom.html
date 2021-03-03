@@ -56,10 +56,8 @@
     <!-- Right column - start -->
     <div class="col-md-8">
         <div class="box row-col" style="min-height:600px">
-            <div class="box-header b-b">                
-                <strong id="chatTitle">Chat</strong>
-                <a class="pull-right info btn-sm btn-groups m-l-sm">Close</a>
-                <a class="pull-right warn btn-sm btn-groups">Block</a>
+            <div class="box-header b-b">
+                <strong id="chatTitle">Chat</strong>                
             </div>
             <div class="row-row dker">
                 <div class="row-body">
@@ -72,6 +70,9 @@
             </div>
             <div class="box-footer b-t">
                 <div class="input-group">
+                    <span id="chat-app" class="input-group-btn">
+                        <button class="btn btn-block info text-u-c" title="Reserved Messages" data-toggle="modal" data-target="#reservedMessagesModel" ui-toggle-class="modal-open-aside" ui-target="body">RM</button>
+                    </span>
                     <input id="chat-message-input" type="text" class="form-control" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message">
                     <span id="chat-app" class="input-group-btn">
                         <button id="chat-message-submit" class="btn white b-a no-shadow">SEND</button>
@@ -80,5 +81,31 @@
             </div>
         </div>
     </div>
-    <!-- Right column - end -->
+    <!-- Right column - end -->    
+    <!-- Reserved Messages Modal - start -->
+    <div class="modal fade dark-overlay" id="reservedMessagesModel" data-backdrop="false" style="display: none;" aria-hidden="true" onclick="$(this).modal('toggle');">
+        <div class="right w-xxl white b-l">
+            <div class="row-col">
+                <a data-dismiss="modal" class="pull-right text-muted text-lg p-a-sm m-r-sm">×</a><div class="p-a b-b"><span class="h5">Reserved Messages</span></div><div class="row-row">
+                    <div class="row-body">
+                        <div class="row-inner">
+                            <div class="list-group no-radius">
+                                {% for message in reservedmessages.messages%}
+                                <div class="list-group-item b-3x {% if message.starred %}b-l-warn{% else %}b-l-info{% endif %} container-overlay">
+                                    <span class="hidden-xs label {{ message.color }} purple pull-right" style="vertical-align:text-top">{{ message.tag }}</span>                                    
+                                    <span class="block _500" style="font-weight: bold">{{ message.title|safe|title }}</span>
+                                    <span id="reservedmessage_{{ message.id }}" class="text-muted text-sm">{{ message.content|safe }}</span>
+                                    <div class="overlay"><button class="btn btn-sm btn-block {% if message.starred %}warn{% else %}info{% endif %} text-u-c" v-on:click="copyToMessage('reservedmessage_{{ message.id }}')">Copy As Message</button></div>
+                                </div>                                
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="p-a b-t text-center info">
+                    Go to <a href="{% url 'index' user_key %}?page=reserved%20messages" class="m-h text-dark" style="font-weight: bold; text-decoration: underline">Reserved Messages</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Reserved Messages Modal - start -->
 </div>

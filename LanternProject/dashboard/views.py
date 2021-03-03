@@ -1,14 +1,9 @@
-from django.http.response import Http404, HttpResponse, HttpResponseForbidden, HttpResponseNotFound, HttpResponseRedirect
+from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
-from core.models import CoreRoom as Room
-from core.models import CoreUser as User
-from core.models import CoreMessage as Message
-from core.models import CoreSite as Site
-from core.models import CoreLog as Log
-from .models import DashboardMenu as Menu
-from .models import DashboardNewsLetter as NewsLetter
+from core.models import CoreRoom as Room, CoreUser as User, CoreMessage as Message, CoreSite as Site, CoreLog as Log
+from .models import DashboardMenu as Menu, DashboardNewsLetter as NewsLetter, DashboardReservedMessages as ReservedMessages
 import json
-from .forms import ProfileForm, LoginForm
+from .forms import ProfileForm, LoginForm, ReservedMessagesForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from datetime import datetime, timedelta
 
@@ -56,7 +51,7 @@ def index(request, user_key):
 
     page = request.GET.get('page')
     news = NewsLetter.objects.order_by('-date_published')
-    home, aside, header, chatroom, profile, newsletter = None, None, None, None, None, None
+    home, aside, header, chatroom, profile, newsletter, reservedmessages = None, None, None, None, None, None, None
     
     # Shared pages
     aside = get_aside_data()
@@ -64,23 +59,28 @@ def index(request, user_key):
 
     # Individual pages
     if page == 'home':
-        home = get_home_data(user_key = user_key, news = news)    
+        home = get_home_data(user_key = user_key, news = news)
+        reservedmessages = get_reservedmessages_data(user_key = user_key)
     elif page == 'newsletter':        
         newsletter = get_newsletter_data(news = news)
     elif page == 'chatroom':        
         chatroom = get_chatroom_data(user_key = user_key)
+        reservedmessages = get_reservedmessages_data(user_key = user_key)
     elif page == 'profile':
-        profile = get_profile_data(user_key = user_key)    
+        profile = get_profile_data(user_key = user_key)
+    elif page == 'reserved messages':
+        reservedmessages = get_reservedmessages_data(user_key = user_key)
 
 
     # Data for index.html
     data = {
-        'profile': profile,                 # Data for profile.html
-        'aside': aside,                     # Data for aside.html
-        'home': home,                       # Data for home.html
-        'header': header,                   # Data for header.html
-        'chatroom': chatroom,               # Data for chatroom.html
-        'newsletter': newsletter,           # Data for newsletter.html
+        'profile': profile,                     # Data for profile.html
+        'aside': aside,                         # Data for aside.html
+        'home': home,                           # Data for home.html
+        'header': header,                       # Data for header.html
+        'chatroom': chatroom,                   # Data for chatroom.html
+        'newsletter': newsletter,               # Data for newsletter.html
+        'reservedmessages': reservedmessages,   # Data for reservedmessages.html
 
         'page': page,
         'user_key': user_key,
@@ -109,6 +109,44 @@ def profile_update(request, user_key):
         return HttpResponse('Updated, Reloading...')
     else:
         return HttpResponse(form.errors.as_text())  # Validation failed
+
+# -------------------------------------------------------------------- Reserved Messages --------------------------------------------------------------------
+
+@require_http_methods(['POST'])
+def reversedmessages_modify(request, user_key):
+
+    id = request.POST.get('id')
+    title = request.POST.get('title')
+    tag = request.POST.get('tag')
+    color = request.POST.get('color').lower()
+    starred = request.POST.get('starred')
+    content = request.POST.get('content')
+
+    user = get_user(user_key = user_key)
+
+    if request.POST.get('action') == 'DELETE':
+        reservedmessage = ReservedMessages.objects.get(id = id, user_id = user.id).delete()
+    elif request.POST.get('action') == 'UPDATE':
+        reservedmessage = ReservedMessages.objects.filter(id = id, user_id = user.id).update(
+            title = title,
+            tag = tag,
+            color = color,
+            starred = (starred == 'true'),
+            content = content,
+        )
+    elif request.POST.get('action') == 'INSERT':
+        ReservedMessages(
+            title = title,
+            tag = tag,
+            color = color,
+            starred = (starred == 'true'),
+            content = content,
+            user_id = user.id,
+            date_modified = datetime.now(),
+        ).save()
+
+    return HttpResponse('')
+
 
 # ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
 
@@ -245,3 +283,18 @@ def get_profile_data(user_key):
         'form': ProfileForm(auto_id = True, instance = user),
     }
     return profile
+
+
+def get_reservedmessages_data(user_key):
+
+    user = get_user(user_key = user_key)
+    messages = ReservedMessages.objects.filter(user_id = user.id).order_by('-starred')
+    tags = messages.values('tag', 'color').distinct()
+
+    reservedmessages = {
+        'messages': messages,
+        'tags': tags,
+        'form': ReservedMessagesForm(auto_id = True),
+    }
+
+    return reservedmessages

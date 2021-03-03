@@ -1,7 +1,5 @@
 from django.db import models
-from datetime import datetime, timedelta
 from core.models import CoreUser
-import django
 
 class DashboardMenu(models.Model):
     ''' Dashboard Menu model '''    
@@ -65,7 +63,7 @@ class DashboardNewsLetter(models.Model):
         verbose_name = 'Published Date',
     )
 
-    # Content | Max Length: 300
+    # Content | Max Length: 500
     content = models.TextField(
         name = 'content',
         max_length = 500,
@@ -87,3 +85,69 @@ class DashboardNewsLetter(models.Model):
     class Meta:
         managed = True          # Allow Create, Delete
         db_table = 'dashboard_newsletter'
+
+
+class DashboardReservedMessages(models.Model):
+    ''' Dashboard Reserved messages model '''
+
+    # Title | Max Length: 30
+    title = models.CharField(
+        name = 'title',
+        max_length = 30,
+        help_text = 'Max Length: 30' 
+    )
+
+    # Tag | Max Length: 30
+    tag = models.CharField(
+        name = 'tag',
+        max_length = 15,
+        help_text = 'Max Length: 15',
+        blank = True,
+        default = 'general',
+    )
+
+    # Tag color | Max Length: 15
+    COLOR_CHOICES = (
+        ['INDIGO', 'indigo'],
+        ['GREEN', 'green'],
+        ['RED', 'red'],
+        ['PURPLE', 'purple'],
+        ['PINK', 'pink'],
+        ['LIME', 'lime'],
+        ['TEAL', 'teal'],
+        ['CYAN', 'cyan']
+    )
+    color = models.CharField(
+        name = 'color',
+        max_length = 15,
+        choices = COLOR_CHOICES,
+        default = COLOR_CHOICES[0][0],
+    )
+
+    # Content | Max Length: 500
+    content = models.TextField(
+        name = 'content',
+        max_length = 500,
+        help_text = 'Max Length: 500',
+    )
+
+    # Starred | Boolean
+    starred = models.BooleanField(
+        name = 'starred',
+        default = 0,
+        null = True,
+        blank = True,
+    )
+
+    # Date_Modified | Datetime
+    date_modified = models.DateTimeField(
+        name = 'date_modified',
+        verbose_name = 'Modified Date'
+    )
+
+    # User Id  | Foreign Key (CoreUser.id)
+    user = models.ForeignKey(CoreUser, models.DO_NOTHING)
+
+    class Meta:
+        managed = True          # Allow Create, Delete
+        db_table = 'dashboard_reservedmessages'

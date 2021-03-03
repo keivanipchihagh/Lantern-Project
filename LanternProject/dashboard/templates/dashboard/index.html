@@ -28,8 +28,8 @@
     <link rel="stylesheet" href="{% static 'dashboard/material-design-icons/material-design-icons.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />
-
+    <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />    
+    
     <!-- VueJS 2.0 -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 
@@ -66,9 +66,11 @@
                 {% elif page == 'home' %}
                 {% include 'dashboard/home.html' with home=home %}
                 {% elif page == 'chatroom' %}
-                {% include 'dashboard/chatroom.html' with chatroom=chatroom %}
+                {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages %}
                 {% elif page == 'newsletter' %}
                 {% include 'dashboard/newsletter.html' with newsletter=newsletter %}
+                {% elif page == 'reserved messages' %}
+                {% include 'dashboard/reservedmessages.html' with reservedmessages=reservedmessages %}
                 {% endif %}
             </div>
             <!-- Body - end -->

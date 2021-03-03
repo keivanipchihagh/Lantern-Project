@@ -1,0 +1,173 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<div id="reservedmessages" class="row-col">
+    <!-- Nav - start -->
+    <div class="col-sm w w-auto-xs light lt bg-auto">
+        <div class="padding pos-rlt">
+            <div class="hidden-xs-down m-t" id="inbox-menu">
+                <span class="nav-link active m-b b-b text-md" style="width: 100%">Filters</span>
+                <div class="text-muted m-b-sm"><i class="fa m-r-sm fa-tasks"></i>Groups</div>
+                <div class="m-b nav-sm nav-active-info">
+                    <ul class="nav nav-pills nav-stacked" ui-nav="">
+                        <li class="nav-item active">
+                            <a class="nav-link">All items<span class="pull-right"><span id='rm_count' class="label success">{{ reservedmessages.messages|length }}</span></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Starred</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-muted m-b-sm"><i class="fa m-r-sm fa-tag"></i>Tags</div>
+                <div class="nav-active-white">
+                    <ul class="nav nav-pills nav-stacked nav-sm">
+                        <li class="nav-item">
+                            {% for tag in reservedmessages.tags %}
+                            <a class="nav-link text-muted"><span class="hidden-xs label {{ tag.color }}">{{ tag.tag }}</span></a>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Nav - start -->
+    <!-- Context - start -->
+    <div>
+        <div ui-view="" class="padding pos-rlt">
+            <a class="md-btn md-fab md-fab-bottom-right pos-fix success" data-toggle="modal" data-target="#new_rm">
+                <i class="material-icons i-24 text-white"></i>
+            </a>
+            <div>
+                <!-- Header - start -->
+                <div class="m-b box">
+                    <div class="box-header">
+                        <h2>Your Reserved Messages</h2>
+                        <small>Save yourself some time by pre-writing some common answers! You can always access them in the <a href="{% url 'index' user_key %}?page=chatroom" class="text-dark" style="font-weight: bold; text-decoration: underline">Chatroom</a> section.</small>
+                    </div>
+                </div>
+                <!-- Header - end -->
+                <!-- Body - start -->
+                <div class="m-b list" id="accordion">
+                    {% csrf_token %}
+                    {% for message in reservedmessages.messages %}
+                    <div id="{{ message.id }}" class="panel box no-border m-b-xs">
+                        <!-- Header - start -->
+                        <div class="box-header p-y-sm b-l-red">
+                            <div class="list-left" v-on:click="SendAction('{{ message.id }}')">
+                                <a id="controller_{{ message.id }}" class="text-md w-40 danger reservedmessage-remove"><i id="controller_icon_{{ message.id }}" class="fa fa-trash text-white"></i></a>
+                            </div>
+                            <div class="list-body">
+                                <div class="pull-right text-muted text-xs">
+                                    <span class="hidden-xs label {{ message.color }}" style="vertical-align:text-top">{{ message.tag }}</span>
+                                    <span class="hidden-xs m-l-sm">{{ message.date_modified|date:'d, M' }}</span>
+                                    <i class="fa {% if message.starred %}fa-star{% else%}fa-star-o{% endif %} m-l-sm text-warn"></i>
+                                </div>
+                                <div data-toggle="collapse" data-parent="#accordion" data-target="#c_{{ message.id }}" aria-expanded="false" class="collapsed" style="cursor: pointer" v-on:click="setActionId({{ message.id }})">
+                                    <span href="" class="_500">{{ message.title|safe|title }}</span>
+                                </div>
+                                <div class="text-ellipsis text-muted text-sm">{{ message.content|safe }}</div>
+                            </div>
+                        </div>
+                        <!-- Header - end -->
+                        <!-- Body - start -->
+                        <div id="c_{{ message.id }}" class="collapse" aria-expanded="false" style="height: 0px;">
+                            <div class="box-body row">
+                                <form role="form" method="post" onsubmit="return false">
+                                    {% for field in reservedmessages.form %}
+                                    {% if field.label in 'Title,Tags' %}
+                                    <div class="{% if field.label == 'Title' %}col-lg-3{% else %}col-lg-2{% endif %}" style="padding: 5px 10px">
+                                        <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                            <input id="rm_{{ field.label }}_{{ message.id }}" name="rm_{{ field.label }}_{{ message.id }}" value="{% if field.label == 'Title' %}{{ message.title }}{% else %}{{ message.tag }}{% endif %}" type="text" class="md-input" ng-model="{{ field.label }}" style="border-bottom: 1px solid #999; height: 29px" maxlength="{{ field.field.max_length }}" {% if field.field.required%}required="required" {% endif%} />
+                                            <label>{{ field.label }} (Max length: {{ field.field.max_length}})</label>
+                                        </div>
+                                    </div>
+                                    {% elif field.label == 'Color' %}
+                                    <div class="col-lg-2" style="padding: 5px 10px">
+                                        <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                            <select id="rm_{{ field.label }}_{{ message.id }}" name="rm_{{ field.label }}_{{ message.id }}" class="md-input form-control form-control-sm">
+                                                {% for key, value in field.field.choices %}
+                                                <option {% if key == message.color|upper %}selected="selected" {% endif %} value="{{ key }}">{{ value }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label style="top: 0px; font-size: smaller">{{ field.label }}</label>
+                                        </div>
+                                    </div>
+                                    {% elif field.label == 'Starred' %}
+                                    <div class="col-lg-5 pull-right m-r" style="padding: 5px 10px; width: fit-content">
+                                        <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                            <span class="m-r-sm">Star</span><label class="ui-switch" style="top:4px; background-color: #fcc100"><input id="rm_{{ field.label }}_{{ message.id }}" name="rm_{{ field.label }}_{{ message.id }}" type="checkbox" {% if message.starred %}checked="checked" {% endif %}><i></i></label>
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <div class="col-lg-12" style="padding: 5px 10px">
+                                        <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                            <input id="rm_{{ field.label }}_{{ message.id }}" name="rm_{{ field.label }}_{{ message.id }}" value="{{ message.content }}" type="text" class="md-input" ng-model="{{ field.label }}" style="border-bottom: 1px solid #999; height: 29px" maxlength="{{ field.field.max_length }}" {% if field.field.required%}required="required" {% endif%} />
+                                            <label>{{ field.label }} (Max length: {{ field.field.max_length}})</label>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% endfor %}                                    
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Body - end -->
+                    </div>
+                    {% endfor %}                    
+                </div>
+                <!-- Body - end -->
+            </div>
+        </div>
+        <!-- Context - end -->
+        <div class="modal fade" id="new_rm" style="display: none;" aria-hidden="true">
+            <div class="bottom white b-t" style="height:250px">
+                <div class="row-col">
+                    <a data-dismiss="modal" class="pull-right text-muted text-lg p-a-sm m-r-sm">×</a>
+                    <div class="p-a b-b"><span class="h5">Write a new Reserved Message</span></div>
+                    <div class="row-row">
+                        <div class="row-body p-a">
+                            {% for field in reservedmessages.form %}
+                            {% if field.label in 'Title,Tags' %}
+                            <div class="{% if field.label == 'Title' %}col-lg-3{% else %}col-lg-2{% endif %}" style="padding: 5px 10px">
+                                <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                    <input id="rm_{{ field.label }}_new" name="rm_{{ field.label }}_new" value="{% if field.label == 'Title' %}{{ message.title }}{% else %}{{ message.tag }}{% endif %}" type="text" class="md-input" ng-model="{{ field.label }}" style="border-bottom: 1px solid #999; height: 29px" maxlength="{{ field.field.max_length }}" {% if field.field.required%}required="required" {% endif%} />
+                                    <label>{{ field.label }} (Max length: {{ field.field.max_length}})</label>
+                                </div>
+                            </div>
+                            {% elif field.label == 'Color' %}
+                            <div class="col-lg-2" style="padding: 5px 10px">
+                                <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                    <select id="rm_{{ field.label }}_new" name="rm_{{ field.label }}_new" class="md-input form-control form-control-sm">
+                                        {% for key, value in field.field.choices %}
+                                        <option value="{{ key }}">{{ value }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label style="top: 0px; font-size: smaller">{{ field.label }}</label>
+                                </div>
+                            </div>
+                            {% elif field.label == 'Starred' %}
+                            <div class="col-lg-5 pull-right m-r" style="padding: 5px 10px; width: fit-content">
+                                <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                    <span class="m-r-sm">Star</span><label class="ui-switch" style="top:4px; background-color: #fcc100"><input id="rm_{{ field.label }}_new" name="rm_{{ field.label }}_new" type="checkbox" {% if message.starred %}checked="checked" {% endif %}><i></i></label>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col-lg-12" style="padding: 5px 10px">
+                                <div class="md-form-group float-label" style="padding-bottom: 0px">
+                                    <input id="rm_{{ field.label }}_new" name="rm_{{ field.label }}_new" value="{{ message.content }}" type="text" class="md-input" ng-model="{{ field.label }}" style="border-bottom: 1px solid #999; height: 29px" maxlength="{{ field.field.max_length }}" {% if field.field.required%}required="required" {% endif%} />
+                                    <label>{{ field.label }} (Max length: {{ field.field.max_length}})</label>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>                        
+                    </div>
+                    <div style="text-align: center">
+                        <button type="submit" class="btn success m-b" v-on:click="SendAction(null, 'INSERT')">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
