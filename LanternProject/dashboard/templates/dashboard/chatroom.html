@@ -96,7 +96,7 @@
                                     <span class="block _500" style="font-weight: bold">{{ message.title|safe|title }}</span>
                                     <span id="reservedmessage_{{ message.id }}" class="text-muted text-sm">{{ message.content|safe }}</span>
                                     <div class="overlay"><button class="btn btn-sm btn-block {% if message.starred %}warn{% else %}info{% endif %} text-u-c" v-on:click="copyToMessage('reservedmessage_{{ message.id }}')">Copy As Message</button></div>
-                                </div>
+                                </div>                                
                                 {% endfor %}
                             </div>
                         </div>

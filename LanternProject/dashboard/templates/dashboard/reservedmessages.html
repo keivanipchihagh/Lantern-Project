@@ -7,7 +7,8 @@
     <div class="col-sm w w-auto-xs light lt bg-auto">
         <div class="padding pos-rlt">
             <div class="hidden-xs-down m-t" id="inbox-menu">
-                <div class="text-muted m-b-sm">Groups</div>
+                <span class="nav-link active m-b b-b text-md" style="width: 100%">Filters</span>
+                <div class="text-muted m-b-sm"><i class="fa m-r-sm fa-tasks"></i>Groups</div>
                 <div class="m-b nav-sm nav-active-info">
                     <ul class="nav nav-pills nav-stacked" ui-nav="">
                         <li class="nav-item active">
@@ -18,12 +19,12 @@
                         </li>
                     </ul>
                 </div>
-                <div class="text-muted m-b-sm">Recent Tags</div>
+                <div class="text-muted m-b-sm"><i class="fa m-r-sm fa-tag"></i>Tags</div>
                 <div class="nav-active-white">
                     <ul class="nav nav-pills nav-stacked nav-sm">
                         <li class="nav-item">
                             {% for tag in reservedmessages.tags %}
-                            <a class="nav-link text-muted"><i class="fa m-r-sm fa-circle" style="color: {{ tag.color }}"></i>{{ tag.tag }}</a>
+                            <a class="nav-link text-muted"><span class="hidden-xs label {{ tag.color }}">{{ tag.tag }}</span></a>
                             {% endfor %}
                         </li>
                     </ul>
@@ -107,13 +108,13 @@
                                         </div>
                                     </div>
                                     {% endif %}
-                                    {% endfor %}
+                                    {% endfor %}                                    
                                 </form>
                             </div>
                         </div>
                         <!-- Body - end -->
                     </div>
-                    {% endfor %}
+                    {% endfor %}                    
                 </div>
                 <!-- Body - end -->
             </div>

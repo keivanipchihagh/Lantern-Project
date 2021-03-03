@@ -47,7 +47,7 @@ INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modif
 	VALUES ('starting the conversation', 'greeting', 'Greetings! How can I be of service?', 1, NOW(), 1, 'purple');
     
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
-	VALUES ('ending the conversation', 'ending', 'Glad I could help, Wish you a good day!', 0, NOW(), 1, 'cyan');
+	VALUES ('ending the conversation', 'ending', 'Glad I could help, Wish you a good day!', 0, NOW(), 1, 'teal');
     
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
 	VALUES ('Asking for details', 'clarification', 'I can certainly help you with that, but I will more details regarding your request.', 0, NOW(), 1, 'lime');
