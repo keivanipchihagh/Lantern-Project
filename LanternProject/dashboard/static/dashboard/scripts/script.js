@@ -44,8 +44,7 @@ const reservedMessages = new Vue({
 
     methods : {
         setActionId: function(id) {
-            self = this
-            
+            self = this            
 
             $("#controller_" + id).toggleClass('danger success')
             $("#controller_icon_" + id).toggleClass('fa-trash fa-check')
@@ -58,16 +57,19 @@ const reservedMessages = new Vue({
             self.openedID = (self.openedID == id) ? null : id
         },
         SendAction: function(id, action) {
+            action = (action != null) ? action : (self.openedID == null || self.openedID != id) ? 'DELETE' : 'UPDATE'
 
             $.ajax({
                 url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/reversedmessages/messages/modify',
                 type: 'POST',
                 data: {
                     id: id,
-                    action: (action != null) ? action : (self.openedID == null || self.openedID != id) ? 'DELETE' : 'UPDATE',
-                    title: $('#title_' + id).val(),
-                    tag: $('#tag_' + id).val(),
-                    content: $('#content_' + id).val(),
+                    action: action,
+                    title: $('#Title_' + id).val(),
+                    tag: $('#Tag_' + id).val(),
+                    color: $('#Color_' + id).val(),
+                    starred: $('#Starred_' + id).is(":checked"),
+                    content: $('#Content_' + id).val(),
                     csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
                 },
                 error: function(xhr, status, error) {
@@ -76,7 +78,12 @@ const reservedMessages = new Vue({
                 },
                 success: function (response) {
                     if (response == '') {
-                        $('#' + id).remove()
+
+                        if (action == 'DELETE')
+                            $('#' + id).remove()
+                        else
+                            setTimeout(function () { location.reload() }, 500)
+
                         $('#rm_count').text(parseInt($('#rm_count').text()) - 1)
                     } else {
                         $("#error_model_body").text('We couldn\'t process your action at the moment. Please report the problem if persists.')
@@ -85,7 +92,7 @@ const reservedMessages = new Vue({
                 },
             });
         }        
-    }
+    },
 })
 
 

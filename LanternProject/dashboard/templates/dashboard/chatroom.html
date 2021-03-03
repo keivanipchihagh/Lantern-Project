@@ -91,8 +91,8 @@
                         <div class="row-inner">
                             <div class="list-group no-radius">
                                 {% for message in reservedmessages.messages%}
-                                <div class="list-group-item b-3x {% if message.starred %}b-l-warn{% else %}b-l-info{% endif %} container-overlay">                                    
-                                    <span class="hidden-xs label purple pull-right" style="vertical-align:text-top">{{ message.type }}</span>                                    
+                                <div class="list-group-item b-3x {% if message.starred %}b-l-warn{% else %}b-l-info{% endif %} container-overlay">
+                                    <span class="hidden-xs label {{ message.color }} purple pull-right" style="vertical-align:text-top">{{ message.tag }}</span>                                    
                                     <span class="block _500" style="font-weight: bold">{{ message.title|safe|title }}</span>
                                     <span id="reservedmessage_{{ message.id }}" class="text-muted text-sm">{{ message.content|safe }}</span>
                                     <div class="overlay"><button class="btn btn-sm btn-block {% if message.starred %}warn{% else %}info{% endif %} text-u-c" v-on:click="copyToMessage('reservedmessage_{{ message.id }}')">Copy As Message</button></div>

@@ -75,8 +75,6 @@
                             <div class="box-body row">
                                 <form id="form_{{ message.id }}" role="form" method="post" onsubmit="return false">
                                     {% for field in reservedmessages.form %}
-
-
                                     {% if field.label in 'Title,Tags' %}
                                     <div class="{% if field.label == 'Title' %}col-lg-3{% else %}col-lg-2{% endif %}" style="padding: 5px 10px">
                                         <div class="md-form-group float-label" style="padding-bottom: 0px">
@@ -89,22 +87,23 @@
                                         <div class="md-form-group float-label" style="padding-bottom: 0px">
                                             <select id="{{ field.label }}_{{ message.id }}" name="{{ field.label }}_{{ message.id }}" class="md-input form-control form-control-sm">
                                                 {% for key, value in field.field.choices %}
-                                                <option {% if key == 'INDIGO' %}selected="selected" {% endif %} value="{{ key }}">{{ value }}</option>
+                                                <option {% if key == message.color|upper %}selected="selected" {% endif %} value="{{ key }}">{{ value }}</option>
                                                 {% endfor %}
                                             </select>
                                             <label style="top: 0px; font-size: smaller">{{ field.label }}</label>
                                         </div>
                                     </div>
                                     {% elif field.label == 'Starred' %}
-                                    <div class="col-lg-2 m-r pull-right" style="padding: 5px 10px; width: fit-content">
+                                    <div class="col-lg-5 pull-right m-r" style="padding: 5px 10px; width: fit-content">
                                         <div class="md-form-group float-label" style="padding-bottom: 0px">
-                                            <span class="m-r-sm">Star</span><label class="ui-switch" style="top:4px; background-color: #fcc100"><input type="checkbox" checked="" class="has-value"><i></i></label>
+                                            <span class="m-r-sm">Star</span><label class="ui-switch" style="top:4px; background-color: #fcc100"><input id="{{ field.label }}_{{ message.id }}" name="{{ field.label }}_{{ message.id }}" type="checkbox" {% if message.starred %}checked="checked"{% endif %}><i></i></label>
                                         </div>
                                     </div>
                                     {% else %}
                                     <div class="col-lg-12" style="padding: 5px 10px">
                                         <div class="md-form-group float-label" style="padding-bottom: 0px">
-                                            <div id="{{ field.label }}_{{ message.id }}" ui-jp="summernote"></div>
+                                            <input id="{{ field.label }}_{{ message.id }}" name="{{ field.label }}_{{ message.id }}" value="{{ message.content }}" type="text" class="md-input" ng-model="{{ field.label }}" style="border-bottom: 1px solid #999; height: 29px" maxlength="{{ field.field.max_length }}" {% if field.field.required%}required="required" {% endif%} />
+                                            <label>{{ field.label }} (Max length: {{ field.field.max_length}})</label>
                                         </div>
                                     </div>
                                     {% endif %}

@@ -118,6 +118,8 @@ def reversedmessages_modify(request, user_key):
     id = request.POST.get('id')
     title = request.POST.get('title')
     tag = request.POST.get('tag')
+    color = request.POST.get('color').lower()
+    starred = request.POST.get('starred')
     content = request.POST.get('content')
 
     user = get_user(user_key = user_key)
@@ -125,9 +127,11 @@ def reversedmessages_modify(request, user_key):
     if request.POST.get('action') == 'DELETE':
         reservedmessage = ReservedMessages.objects.get(id = id, user_id = user.id).delete()
     elif request.POST.get('action') == 'UPDATE':
-        reservedmessage = ReservedMessages.objects.update(
+        reservedmessage = ReservedMessages.objects.filter(id = id, user_id = user.id).update(
             title = title,
             tag = tag,
+            color = color,
+            starred = (starred == 'true'),
             content = content,
         )
 
