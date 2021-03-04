@@ -11,7 +11,20 @@
 </head>
 
 <body>
-    <div id="app" class="app" v-bind:class="{'uk-app-dark': isDark, 'uk-app-light': !isDark, 'app-hide': !showApp}">
+
+    <div id="app" class="app">
+
+        <div class="toggler" @click="toggleApp">
+            <img src="{% static 'api/images/logo.png' %}" v-show="!toggled" />
+            <div class="spinner" v-show="toggled" style="display: none"><div class="spinner-bars"><div></div><div><div></div></div></div></div>
+        </div>
+        <div class="container">
+
+        </div>
+
+    </div>
+
+    {% comment %} <div id="app" class="app" v-bind:class="{'uk-app-dark': isDark, 'uk-app-light': !isDark, 'app-hide': !showApp}">
 
         <!-- Head - start -->
         <div class="head">
@@ -80,7 +93,7 @@
             <!-- Footer - end -->
         </div>        
         <!-- Content - end -->
-    </div>
+    </div> {% endcomment %}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'api/scripts/script.js' %}"></script>
