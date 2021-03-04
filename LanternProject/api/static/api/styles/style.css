@@ -92,7 +92,7 @@
     right: 40px;
     box-shadow: 0px 0px 20px rgb(0 0 0 / 10%);
     border-radius: 5px;
-    max-width: 300px;
+    max-width: 320px;
 }
 
 .app-hide {
@@ -137,7 +137,7 @@
 }
 
 .app-header-expand {
-    width: 300px;
+    width: 320px;
     height: 40px;
     opacity: 1;
     transition: ease-in-out 0.5s;
