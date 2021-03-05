@@ -6,40 +6,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/css/uikit.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/js/uikit.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/js/uikit-icons.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>  
     <link href="{% static 'api/styles/style.css' %}" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
-
     <div id="app" class="app">
 
         <div class="app-container uk-margin-small-bottom">
-            <div class="app-header uk-width-1-1 h-30">
+            <div class="app-header uk-width-1-1 height-30">
                 <div class="app-header-container " style="background-image:url({% static 'api/images/background.png' %}">
-                    <h4>Hello There!<br/></h4><span>Ask us anything, or share your feedback.</span>
+                    <h4>Hello There!<br/></h4><span>Ask us anything, or share your feedback.</span>                
                 </div>                
             </div>
 
-            <div class="app-body uk-width-1-1 h-63">
+            <div class="app-body uk-width-1-1 height-63">
 
                 <div class="body-nav">
                     <div class="nav-item">
-                        {% comment %} <span uk-icon="happy" class="nav-icon"></span> {% endcomment %}
-                        Virtual Agent
-                    </div>
-                    <div class="nav-item">
-                        <span uk-icon="happy" class="nav-icon"></span>
-                        Start a Conversation
-                    </div>
-                    <div class="nav-item">
-                        {% comment %} <span uk-icon="pencil" class="nav-icon"></span> {% endcomment %}
-                        Submit a Ticket
-                    </div>
-                    <div class="nav-item">
-                        {% comment %} <span uk-icon="comments" class="nav-icon"></span> {% endcomment %}
-                        “Share your Feedback”
-                        <span class="uk-text-meta">Drop us a few lines regarding our website.</span>
+                        <h5>Start a Conversation</h5>
+                        <span class="uk-text-meta">We are ready to assist!</span>
+                        <button><span class="material-icons">send</span><span class="btn-text">start</span></button>
                     </div>
                 </div>
 
@@ -53,7 +41,7 @@
         <div class="app-toggler" @click="toggleApp">
             <img class="app-toggler-logo" src="{% static 'api/images/logo.png' %}" />
             <div class="app-toggler-spinner" style="display: none;"><div class="spinner-ring"><div></div><div><div></div></div></div></div>
-            <span class="app-toggler-icon" uk-icon="icon: chevron-down; ratio: 1.5"></span>
+            <span class="material-icons app-toggler-icon" style="font-size: 30px;">chevron_left</span>
         </div>        
     </div>
 
