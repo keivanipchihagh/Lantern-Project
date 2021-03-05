@@ -40,13 +40,13 @@ const App = new Vue({
                     $('#nav_1 #nav_1_placeholder').text(data['livechat']['placeholder'])
                     if (!data['livechat']['service']) $('#nav_1 button').remove()
 
-                    $('#nav_2 h5').text(data['virtualagent']['title'])
-                    $('#nav_2 #nav_2_placeholder').text(data['virtualagent']['placeholder'])
-                    if (!data['virtualagent']['service']) $('#nav_2 button').remove()
+                    $('#nav_2 h5').text(data['ticket']['title'])
+                    $('#nav_2 #nav_2_placeholder').text(data['ticket']['placeholder'])
+                    if (!data['ticket']['service']) $('#nav_2 button').remove()
 
-                    $('#nav_3 h5').text(data['ticket']['title'])
-                    $('#nav_3 #nav_3_placeholder').text(data['ticket']['placeholder'])
-                    if (!data['ticket']['service']) $('#nav_3 button').remove()
+                    $('#nav_3 h5').text(data['virtualagent']['title'])
+                    $('#nav_3 #nav_3_placeholder').text(data['virtualagent']['placeholder'])
+                    if (!data['virtualagent']['service']) $('#nav_3 button').remove()                    
 
                     self.active = true;
                     $('.app-toggler-spinner').fadeOut('fast');

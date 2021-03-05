@@ -134,11 +134,23 @@ class CoreSite(models.Model):
         null = True,
     )
 
-    # Service | Boolean
-    service = models.BooleanField(
-        name = 'service',
+    # LiveChat Service | Boolean
+    livechat_service = models.BooleanField(
+        name = 'livechat_service',
         default = True,
-        )
+    )
+
+    # Ticket Service | Boolean
+    ticket_service = models.BooleanField(
+        name = 'ticket_service',
+        default = True,
+    )
+
+    # VirtualAgent | Boolean
+    virtualagent_service = models.BooleanField(
+        name = 'virtualagent_service',
+        default = False
+    )
 
     class Meta:
         managed = True          # Allow Create, Delete

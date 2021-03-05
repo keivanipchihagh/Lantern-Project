@@ -61,7 +61,7 @@ def create_room(request):
 
 def initialize(name, public_key):
 
-    try: site_id = Site.objects.get(name = name, public_key = public_key).id
+    try: site = Site.objects.get(name = name, public_key = public_key)
     except:
         response = JsonResponse({"msg": "Access Denied"})
         response.status_code = 403
@@ -69,24 +69,24 @@ def initialize(name, public_key):
 
     try:
 
-        customization = Customization.objects.get(site_id = site_id)
+        customization = Customization.objects.get(site_id = site.id)
 
         return JsonResponse({
             'livechat': {
-                'service': True if (User.objects.filter(site_id = site_id, is_online = True).count() > 0) else False,
+                'service': True if (User.objects.filter(site_id = site.id, is_online = True).count() > 0 and site.livechat_service) else False,
                 'title': customization.livechat_title,
                 'placeholder': customization.livechat_placeholder_online,
             },
-            'virtualagent': {
-                'service': True,
+            'ticket': {
+                'service': site.ticket_service,
                 'title': customization.ticket_title,
                 'placeholder': customization.ticket_placeholder,
             },
-            'ticket': {
-                'service': True,
+            'virtualagent': {
+                'service': site.virtualagent_service,
                 'title': customization.virtualagent_title,
                 'placeholder': customization.virtualagent_placeholder,
-            }
+            },            
         })
 
     except:
