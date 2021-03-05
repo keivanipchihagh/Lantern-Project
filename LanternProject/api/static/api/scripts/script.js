@@ -3,18 +3,45 @@ const App = new Vue({
     el: '#app',
 
     data: {
-        toggled: false
+        toggled: false,
+        active: false,
     },
 
     methods: {
 
-        toggleApp: function() {
-            this.toggled = true;
+        toggleApp: function () {
+            self = this
+
+            if (self.toggled) {
+                $('.app-toggler-icon').fadeOut('fast');
+                $('.app-toggler-logo').fadeIn('fast');
+                $('.app-container').fadeOut('fast');
+                self.toggled = false;
+            } else {
+                if (!self.active)
+                    $('.app-toggler-spinner').fadeIn('fast');
+
+                $('.app-toggler-logo').fadeOut('fast');
+                self.StartApp();
+            }
         },
 
+        StartApp: function () {
+            
+            self = this
+            setTimeout(function () {                
+                if (!self.toggled) {                    
+                    $('.app-toggler-icon').fadeIn('fast');
+                    $('.app-toggler-spinner').fadeOut('fast');
+                    $('.app-container').fadeIn('fast');
+                }
+
+                self.toggled = self.active = true
+            }, (!self.active) ? 500 : 0)
+        }
     },
 
-    mounted: function() {
+    mounted: function () {
 
     },
 
@@ -32,7 +59,7 @@ const App = new Vue({
 //         messages: [],
 //         api_key: '123456789',
 //         room_token: '',
-        
+
 //         // Ready server
 //         ready: false,
 
@@ -124,7 +151,7 @@ const App = new Vue({
 //                 // Push agent messages only
 //                 if (!App.messageExists(message['id'])) App.messages.push(message)
 //             }
-            
+
 //             document.querySelector('#chat-message-submit').onclick = function (e) {
 //                 // const message = self.message
 
