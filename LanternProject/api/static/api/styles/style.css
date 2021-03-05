@@ -271,11 +271,20 @@ ul, li {
 } */
 
 @keyframes spinner-ring {
-    0% { transform: rotate(0) }
-    100% { transform: rotate(360deg) }
-  }
-  .spinner-ring div { box-sizing: border-box!important }
-  .spinner-ring > div {
+    0% {
+        transform: rotate(0)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.spinner-ring div {
+    box-sizing: border-box !important
+}
+
+.spinner-ring > div {
     position: absolute;
     width: 47px;
     height: 47px;
@@ -285,50 +294,61 @@ ul, li {
     border: 7px solid #000;
     border-color: #0536df transparent #0536df transparent;
     animation: spinner-ring 1s linear infinite;
-  }
-  .spinner-ring > div:nth-child(2) { border-color: transparent }
-  .spinner-ring > div:nth-child(2) div {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    transform: rotate(45deg);
-  }
-  .spinner-ring > div:nth-child(2) div:before, .spinner-ring > div:nth-child(2) div:after { 
-    content: "";
-    display: block;
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    top: -7px;
-    left: 13px;
-    background: #0536df;
-    border-radius: 50%;
-    box-shadow: 0 40px 0 0 #0536df;
-  }
-  .spinner-ring > div:nth-child(2) div:after { 
-    left: -7px;
-    top: 13px;
-    box-shadow: 40px 0 0 0 #0536df;
-  }
-  .app-toggler-spinner {
+}
+
+    .spinner-ring > div:nth-child(2) {
+        border-color: transparent
+    }
+
+        .spinner-ring > div:nth-child(2) div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: rotate(45deg);
+        }
+
+            .spinner-ring > div:nth-child(2) div:before, .spinner-ring > div:nth-child(2) div:after {
+                content: "";
+                display: block;
+                position: absolute;
+                width: 7px;
+                height: 7px;
+                top: -7px;
+                left: 13px;
+                background: #0536df;
+                border-radius: 50%;
+                box-shadow: 0 40px 0 0 #0536df;
+            }
+
+            .spinner-ring > div:nth-child(2) div:after {
+                left: -7px;
+                top: 13px;
+                box-shadow: 40px 0 0 0 #0536df;
+            }
+
+.app-toggler-spinner {
     width: 60px;
     height: 60px;
     display: inline-block;
     overflow: hidden;
     background: none;
-  }
-  .spinner-ring {
+}
+
+.spinner-ring {
     width: 100%;
     height: 100%;
     position: relative;
     transform: translateZ(0) scale(0.6);
     backface-visibility: hidden;
     transform-origin: 0 0;
-  }
-  .spinner-ring div { box-sizing: content-box; }
+}
+
+    .spinner-ring div {
+        box-sizing: content-box;
+    }
 
 * {
-    box-sizing: border-box;   
+    box-sizing: border-box;
 }
 
 span, div, img {
@@ -371,43 +391,34 @@ img {
     color: #fff;
     margin: 15px;
     display: none;
-    position: absolute;    
-    transform: rotate(-90deg);    
+    position: absolute;
+    transform: rotate(-90deg);
 }
 
 .app-container {
     width: 320px;
     height: 500px;
-    background-color: #fff;
     border-radius: 7px;
     display: none;
     box-shadow: 0 0px 8px 0 rgb(0 0 0 / 20%);
 }
 
 .app-header {
-    height: 10%;
+    height: 30%;
     border-radius: 7px 7px 0px 0px;
     border-bottom: 1px solid #999;
-    background: linear-gradient(135deg, rgb(5, 52, 223) 0%, rgb(3, 25, 97) 100%);    
+    background: linear-gradient(135deg, rgb(5, 52, 223) 0%, rgb(3, 25, 97) 100%);
 }
 
-.app-header * {
-    font-family: cursive;
-}
+    .app-header * {
+        font-family: cursive;
+    }
 
 .app-header-container {
     width: 100%;
     height: 100%;
     background-size: cover;
     padding: 20px;
-}
-
-.height-30 {
-    height: 30%;
-}
-
-.height-63 {
-    height: 63%;
 }
 
 .app-header * {
@@ -424,71 +435,62 @@ img {
 }
 
 .app-body {
-    border-bottom: 1px solid rgba(153, 153, 153, 0.2);    
+    height: 63%;
+    border-bottom: 1px solid rgba(153, 153, 153, 0.2);
 }
 
-.app-body h1, h2, h3, h4, h5, h6, span {
-    font-family: Arial, Helvetica, sans-serif;
-}
+    .app-body h1, h2, h3, h4, h5, h6, span {
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-.app-body h5 {
-    font-weight: 600;
-    margin: 0;
-}
+    .app-body h5 {
+        margin: 0;
+    }
 
 .nav-item button {
     background-color: #000;
     outline: none;
     cursor: pointer;
     border: none;
-    padding: 0px 15px;
+    padding: 5px 15px;
     float: right;
-    height: 40px;
-    text-align: center;
     border-radius: 20px;
-    width: fit-content;
     color: #fff;
 }
 
 .body-nav {
     padding: 20px;
     position: relative;
-    top: -25%;
+    top: -20%;
 }
 
-.body-nav .nav-item {
-    width: 100%;
-    height: 90px;
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 3px;
-    box-shadow: 0 3px 8px 0 rgb(0 0 0 / 20%);
-    margin-bottom: 10px;
-}
+    .body-nav .nav-item {
+        width: 100%;
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 3px;
+        box-shadow: 0 3px 8px 0 rgb(0 0 0 / 20%);
+        margin-bottom: 10px;
+    }
 
-.body-nav .nav-item span {
-    font-size: .8rem;
-}
+        .body-nav .nav-item span {
+            font-size: .8rem;
+        }
 
+        .body-nav .nav-item button {
+            display: inline-flex;
+            -webkit-box-align: center;
+            align-items: center;
+        }
 
-.body-nav .nav-item button {
-    display: inline-flex;
-    -webkit-box-align: center;
-    align-items: center;
-}
+        .body-nav .nav-item .btn-text {
+            margin-left: 5px;
+        }
 
-.body-nav .nav-item button span {
-    font-size: 14px !important;
-}
-
-.body-nav .nav-item .btn-text {
-    margin-left: 5px;
-}
-
-.body-nav .nav-item .nav-icon {
-    position: relative;
-    top: -2px;
-}
+        .body-nav .nav-item .nav-icon {
+            position: relative;
+            top: -2px;
+        }
 
 .app-footer {
     height: 7%;
@@ -496,7 +498,7 @@ img {
     font-family: cursive;
 }
 
-.app-footer span {
-    font-size: .8rem;
-    font-family: inherit;
-}
+    .app-footer span {
+        font-size: .8rem;
+        font-family: inherit;
+    }
