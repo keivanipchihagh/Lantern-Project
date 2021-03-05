@@ -72,6 +72,10 @@ def initialize(name, public_key):
         customization = Customization.objects.get(site_id = site.id)
 
         return JsonResponse({
+            'app': {
+                'title': customization.title,
+                'placeholder': customization.placeholder,
+            },
             'livechat': {
                 'service': True if (User.objects.filter(site_id = site.id, is_online = True).count() > 0 and site.livechat_service) else False,
                 'title': customization.livechat_title,

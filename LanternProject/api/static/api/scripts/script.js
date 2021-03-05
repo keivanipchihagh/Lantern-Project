@@ -22,6 +22,15 @@ const App = new Vue({
             this.toggled = !this.toggled;
         },
 
+        toggleForm: function() {
+            $('.app-header').css('height', '16%')            
+            $('.app-body').css('height', '77%')
+            $('.app-title').text('Fill The Form')
+            $('.app-placeholder').text('Tell us about yourself before we start.')
+            $('.body-nav').stop(true, false).animate({ height:"toggle", opacity:"toggle" }, 400);
+            $('.body-form').stop(true, false).animate({ opacity:"toggle" }, 1000);
+        },
+
         StartApp: function () {
             $('.app-toggler-spinner').fadeIn('fast');
             self = this
@@ -36,6 +45,10 @@ const App = new Vue({
                 },
                 error: function (error) { $('.app-toggler').toggleClass('app-failure').text(error.responseJSON.msg); $('.app-container').remove() },
                 success: function (data) {
+
+                    $('.app-title').text(data['app']['title'])
+                    $('.app-placeholder').text(data['app']['placeholder'])
+
                     $('#nav_1 h5').text(data['livechat']['title'])
                     $('#nav_1 #nav_1_placeholder').text(data['livechat']['placeholder'])
                     if (!data['livechat']['service']) $('#nav_1 button').remove()
