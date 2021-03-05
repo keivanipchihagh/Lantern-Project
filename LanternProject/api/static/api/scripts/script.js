@@ -12,23 +12,18 @@ const App = new Vue({
     methods: {
 
         toggleApp: function () {
-            self = this
 
-            if (self.toggled) {
-                $('.app-toggler-icon').fadeOut('fast');
-                $('.app-toggler-logo').fadeIn('fast');
-                $('.app-container').fadeOut('fast');
-                self.toggled = false;
-            } else {
-                if (!self.active)
-                    $('.app-toggler-spinner').fadeIn('fast');
+            $('.app-toggler-icon').fadeToggle('fast');
+            $('.app-toggler-logo').fadeToggle('fast');
+            $('.app-container').fadeToggle('fast');
+            
+            if (!this.active && !this.toggled) this.StartApp()
 
-                $('.app-toggler-logo').fadeOut('fast');
-                self.StartApp();
-            }
+            this.toggled = !this.toggled;
         },
 
         StartApp: function () {
+            $('.app-toggler-spinner').fadeIn('fast');
             self = this
 
             $.ajax({
@@ -39,16 +34,22 @@ const App = new Vue({
                     apikey: self.apikey,
                     action: "initialize",
                 },
-                error: function (error) { $('.app-toggler').toggleClass('app-failure').text(error.responseJSON.msg) },
+                error: function (error) { $('.app-toggler').toggleClass('app-failure').text(error.responseJSON.msg); $('.app-container').remove() },
                 success: function (data) {
-                    data = JSON.parse(data)
+                    $('#nav_1 h5').text(data['livechat']['title'])
+                    $('#nav_1 #nav_1_placeholder').text(data['livechat']['placeholder'])
+                    if (!data['livechat']['service']) $('#nav_1 button').remove()
 
-                    if (!self.toggled) {
-                        $('.app-toggler-icon').fadeIn('fast');
-                        $('.app-toggler-spinner').fadeOut('fast');
-                        $('.app-container').fadeIn('fast');
-                    }
-                    self.toggled = self.active = true
+                    $('#nav_2 h5').text(data['virtualagent']['title'])
+                    $('#nav_2 #nav_2_placeholder').text(data['virtualagent']['placeholder'])
+                    if (!data['virtualagent']['service']) $('#nav_2 button').remove()
+
+                    $('#nav_3 h5').text(data['ticket']['title'])
+                    $('#nav_3 #nav_3_placeholder').text(data['ticket']['placeholder'])
+                    if (!data['ticket']['service']) $('#nav_3 button').remove()
+
+                    self.active = true;
+                    $('.app-toggler-spinner').fadeOut('fast');
                 },
             });
         },

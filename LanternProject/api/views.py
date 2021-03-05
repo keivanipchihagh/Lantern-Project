@@ -11,6 +11,7 @@ from django.views.decorators.http import require_http_methods
 from core.models import CoreSite as Site
 from core.models import CoreRoom as Room
 from core.models import CoreUser as User
+from core.models import CoreCustomization as Customization
 
 
 def room(request):
@@ -56,7 +57,6 @@ def create_room(request):
     except Site.DoesNotExist:   # Request URL match not found in database
         return HttpResponseBadRequest()
 
-
 # ------------------------------------------------------------------------  Methods ------------------------------------------------------------------------
 
 def initialize(name, public_key):
@@ -68,12 +68,27 @@ def initialize(name, public_key):
         return response
 
     try:
-        users_count = User.objects.filter(site_id = site_id, is_online = True).count()
 
-        return HttpResponse(json.dumps({
-            'service': True,
-            'livechat': True if (users_count > 0) else False
-        }))
+        customization = Customization.objects.get(site_id = site_id)
+
+        return JsonResponse({
+            'livechat': {
+                'service': True if (User.objects.filter(site_id = site_id, is_online = True).count() > 0) else False,
+                'title': customization.livechat_title,
+                'placeholder': customization.livechat_placeholder_online,
+            },
+            'virtualagent': {
+                'service': True,
+                'title': customization.ticket_title,
+                'placeholder': customization.ticket_placeholder,
+            },
+            'ticket': {
+                'service': True,
+                'title': customization.virtualagent_title,
+                'placeholder': customization.virtualagent_placeholder,
+            }
+        })
+
     except:
         response = JsonResponse({"msg": "Server Unavailable"})
         response.status_code = 503
