@@ -54,4 +54,4 @@ INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modif
     
 /* Default customization */
 INSERT INTO core_customization (title, placeholder, livechat_title, livechat_placeholder_online, livechat_placeholder_offline, ticket_title, ticket_placeholder, virtualagent_title, virtualagent_placeholder, site_id)
-	VALUES ('Hello There!', 'Ask us anything, or share your feedback.', 'Start a Conversation', 'We are ready to assist', 'We are not currently online.', 'Leave a Ticket', 'We will contact you by email.', 'Virtual Agent', 'Try our AI powered agent.', 1);
+	VALUES ('Hello There!', 'Ask us anything, or share your feedback.', 'Start a Conversation', 'We are ready to assist', 'We are not currently online.', 'Post a Ticket', 'We will contact you by email.', 'Virtual Agent', 'Try our AI powered agent.', 1);

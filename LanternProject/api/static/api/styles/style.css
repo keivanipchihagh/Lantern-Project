@@ -416,6 +416,7 @@ img {
     width: 320px;
     height: 500px;
     border-radius: 7px;
+    margin-bottom: 10px;
     display: none;
     box-shadow: 0 0px 8px 0 rgb(0 0 0 / 20%);
 }
@@ -513,9 +514,26 @@ img {
     height: 7%;
     border-radius: 0px 0px 7px 7px;
     font-family: cursive;
+    text-align: center;
 }
 
     .app-footer span {
         font-size: .8rem;
         font-family: inherit;
     }
+
+.text-meta {
+    font-size: .875rem;
+    line-height: 1.4;
+    color: #999;
+}
+
+.text-meta a {
+    text-decoration: none;
+    cursor: pointer;
+    color: #999;
+}
+
+.text-meta a:hover {
+    color: rgb(104, 104, 104);
+}

@@ -5,6 +5,7 @@
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/css/uikit.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.6.14/dist/js/uikit-icons.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <link href="{% static 'api/styles/style.css' %}" type="text/css" rel="stylesheet" />
@@ -12,42 +13,43 @@
 
 <body>
     <div id="app" class="app">
-        <div class="app-container">
-            <div class="app-header">
+
+        <div class="app-container uk-margin-small-bottom">
+            <div class="app-header uk-width-1-1 height-30">
                 <div class="app-header-container " style="background-image:url({% static 'api/images/background.png' %}">
                     <h4>Hello There!<br /></h4><span>Ask us anything, or share your feedback.</span>
                 </div>
             </div>
 
-            <div class="app-body">
+            <div class="app-body uk-width-1-1 height-63">
                 <div class="body-nav">
-                    <div id="nav_1" class="nav-item">
-                        <h5></h5>
-                        <span id="nav_1_placeholder" class="text-meta"></span>
-                        <button @click="alert('a')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
-                    </div>
-                    <div id="nav_2" class="nav-item">
-                        <h5></h5>
-                        <span id="nav_2_placeholder" class="text-meta"></span>
+                    <div class="nav-item">
+                        <h5>Start a Conversation</h5>
+                        <span class="uk-text-meta">We are ready to assist.</span>
                         <button><span class="material-icons">send</span><span class="btn-text">start</span></button>
                     </div>
-                    <div id="nav_3" class="nav-item">
-                        <h5></h5>
-                        <span id="nav_3_placeholder" class="text-meta"></span>
-                        <button><span class="material-icons">send</span><span class="btn-text">start</span></button>
+                    <div class="nav-item">
+                        <h5>Leave Us a Ticket</h5>
+                        <span class="uk-text-meta">We will respond ASAP!</span>
+                        <button><span class="material-icons">send</span><span class="btn-text">send</span></button>
                     </div>
-                </div>                
+                    <div class="nav-item">
+                        <h5>Virtual Agent</h5>
+                        <span class="uk-text-meta">Try our AI powered agent.</span>
+                        <button><span class="material-icons">send</span><span class="btn-text">open</span></button>
+                    </div>
+                </div>
             </div>
 
-            <div class="app-footer">
-                <span class="text-meta app-footer-text">We run on <a href="#" target="_blank">Lantern</a></span>
+            <div class="app-footer uk-width-1-1 uk-text-center">
+                <span class="uk-text-meta app-footer-text">We run on <a href="#" target="_blank">Lantern</a></span>
             </div>
         </div>
 
         <div class="app-toggler" @click="toggleApp">
             <img class="app-toggler-logo" src="{% static 'api/images/logo.png' %}" />
             <div class="app-toggler-spinner" style="display: none;"><div class="spinner-ring"><div></div><div><div></div></div></div></div>
-            <span class="material-icons app-toggler-icon chevron" style="display: none;">chevron_left</span>
+            <span class="material-icons app-toggler-icon" style="font-size: 30px;">chevron_left</span>
         </div>
     </div>
 

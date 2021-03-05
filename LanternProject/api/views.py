@@ -14,8 +14,8 @@ from core.models import CoreUser as User
 from core.models import CoreCustomization as Customization
 
 
-def room(request):
-    return render(request=request, context={}, template_name='api/template.html')
+def index(request, site_name):
+    return render(request = request, context = {}, template_name = 'api/template.html')
 
 
 @require_http_methods(['GET'])

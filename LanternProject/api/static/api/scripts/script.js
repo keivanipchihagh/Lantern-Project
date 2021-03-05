@@ -46,7 +46,7 @@ const App = new Vue({
 
                     $('#nav_3 h5').text(data['virtualagent']['title'])
                     $('#nav_3 #nav_3_placeholder').text(data['virtualagent']['placeholder'])
-                    if (!data['virtualagent']['service']) $('#nav_3 button').remove()                    
+                    if (!data['virtualagent']['service']) $('#nav_3 button').remove()
 
                     self.active = true;
                     $('.app-toggler-spinner').fadeOut('fast');
