@@ -15,12 +15,34 @@
     <div id="app" class="app">
 
         <div class="app-container uk-margin-small-bottom">
-            <div class="app-header uk-width-1-1 h-30p" style="background-image:url({% static 'api/images/background.png' %})">
-                <h4>Hello There!<br/></h4><span>Ask us anything, or share your feedback.</span>
+            <div class="app-header uk-width-1-1 h-30">
+                <div class="app-header-container " style="background-image:url({% static 'api/images/background.png' %}">
+                    <h4>Hello There!<br/></h4><span>Ask us anything, or share your feedback.</span>
+                </div>                
             </div>
 
-            <div class="app-body uk-width-1-1 h-63p">
-                
+            <div class="app-body uk-width-1-1 h-63">
+
+                <div class="body-nav">
+                    <div class="nav-item">
+                        {% comment %} <span uk-icon="happy" class="nav-icon"></span> {% endcomment %}
+                        Virtual Agent
+                    </div>
+                    <div class="nav-item">
+                        <span uk-icon="happy" class="nav-icon"></span>
+                        Start a Conversation
+                    </div>
+                    <div class="nav-item">
+                        {% comment %} <span uk-icon="pencil" class="nav-icon"></span> {% endcomment %}
+                        Submit a Ticket
+                    </div>
+                    <div class="nav-item">
+                        {% comment %} <span uk-icon="comments" class="nav-icon"></span> {% endcomment %}
+                        “Share your Feedback”
+                        <span class="uk-text-meta">Drop us a few lines regarding our website.</span>
+                    </div>
+                </div>
+
             </div>
 
             <div class="app-footer uk-width-1-1 uk-text-center">
