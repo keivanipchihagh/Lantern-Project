@@ -258,6 +258,13 @@ class CoreUser(models.Model):
         verbose_name = 'Profile Picture'
         )
 
+    # Is Online | Boolean
+    is_online = models.BooleanField(
+        name = 'is_online',
+        null = True,
+        default = False,
+    )
+
     # Site Id | Foreign Key (CoreSite.id)
     site = models.ForeignKey(CoreSite, models.DO_NOTHING, verbose_name = 'Assigned Site')
 

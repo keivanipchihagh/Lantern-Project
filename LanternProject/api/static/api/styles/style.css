@@ -371,6 +371,15 @@ img {
     overflow: hidden;
 }
 
+.app-failure {
+    border-radius: 5px !important;
+    width: fit-content !important;
+    height: auto !important;    
+    padding: 7px 10px;
+    color: white;
+    cursor: initial !important;
+}
+
 .app-toggler {
     width: 60px;
     height: 60px;
@@ -388,11 +397,20 @@ img {
 }
 
 .app-toggler-icon {
-    color: #fff;
     margin: 15px;
     display: none;
     position: absolute;
+}
+
+.app-toggler .chevron {
+    color: #fff;
     transform: rotate(-90deg);
+    font-size: 30px;
+}
+
+.app-toggler .err {
+    color: #ffee00;
+    font-size: 28px;
 }
 
 .app-container {

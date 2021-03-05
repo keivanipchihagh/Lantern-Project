@@ -5,6 +5,8 @@ const App = new Vue({
     data: {
         toggled: false,
         active: false,
+        apikey: '123456789',
+        sitename: 'localhost',
     },
 
     methods: {
@@ -27,18 +29,29 @@ const App = new Vue({
         },
 
         StartApp: function () {
-            
             self = this
-            setTimeout(function () {                
-                if (!self.toggled) {                    
-                    $('.app-toggler-icon').fadeIn('fast');
-                    $('.app-toggler-spinner').fadeOut('fast');
-                    $('.app-container').fadeIn('fast');
-                }
 
-                self.toggled = self.active = true
-            }, (!self.active) ? 500 : 0)
-        }
+            $.ajax({
+                url: 'http://127.0.0.1:8000/api/v1/sites/' + self.sitename + '/services',
+                type: 'GET',
+                context: this,
+                data: {
+                    apikey: self.apikey,
+                    action: "initialize",
+                },
+                error: function (error) { $('.app-toggler').toggleClass('app-failure').text(error.responseJSON.msg) },
+                success: function (data) {
+                    data = JSON.parse(data)
+
+                    if (!self.toggled) {
+                        $('.app-toggler-icon').fadeIn('fast');
+                        $('.app-toggler-spinner').fadeOut('fast');
+                        $('.app-container').fadeIn('fast');
+                    }
+                    self.toggled = self.active = true
+                },
+            });
+        },
     },
 
     mounted: function () {
