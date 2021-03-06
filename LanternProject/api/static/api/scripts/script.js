@@ -13,8 +13,8 @@ const App = new Vue({
 
         toggleApp: function () {
 
-            $('.app-toggler-icon').fadeToggle('fast');
             $('.app-toggler-logo').fadeToggle('fast');
+            $('.app-toggler-icon').fadeToggle('fast');
             $('.app-container').fadeToggle('fast');
             
             if (!this.active && !this.toggled) this.StartApp()
@@ -22,13 +22,13 @@ const App = new Vue({
             this.toggled = !this.toggled;
         },
 
-        toggleForm: function() {
-            $('.app-header').css('height', '16%')            
-            $('.app-body').css('height', '77%')
+        toggleForm: function(id) {
+
+            $('.body-nav').find('.nav-item:not(:eq(' + id + '))').animate({ 'height': 0, 'opacity': 0, 'padding-top': 0, 'padding-bottom': 0, 'margin': 0 }, 50);
+
             $('.app-title').text('Fill The Form')
             $('.app-placeholder').text('Tell us about yourself before we start.')
-            $('.body-nav').stop(true, false).animate({ height:"toggle", opacity:"toggle" }, 400);
-            $('.body-form').stop(true, false).animate({ opacity:"toggle" }, 1000);
+            $('.body-form').stop(false, true).animate({ opacity: 'toggle' }, 50);
         },
 
         StartApp: function () {

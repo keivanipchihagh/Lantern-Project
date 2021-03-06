@@ -13,51 +13,57 @@
 <body>
     <div id="app" class="app">
         <div class="app-container">
-            <div class="app-header">
-                <div class="app-header-container" style="background-image:url({% static 'api/images/background.png' %}">
-                    <h4 class="app-title">Hello There!<br /></h4><span class="app-placeholder">Ask us anything, or share your feedback.</span>
-                </div>
-            </div>
-
-            <div class="app-body">
-                <div class="body-nav" style="display: none;">
-                    <div id="nav_1" class="nav-item">
-                        <h5></h5>
-                        <span id="nav_1_placeholder" class="text-meta"></span>
-                        <button @click="toggleForm"><span class="material-icons">send</span><span class="btn-text">start</span></button>
-                    </div>
-                    <div id="nav_2" class="nav-item">
-                        <h5></h5>
-                        <span id="nav_2_placeholder" class="text-meta"></span>
-                        <button><span class="material-icons">send</span><span class="btn-text">start</span></button>
-                    </div>
-                    <div id="nav_3" class="nav-item">
-                        <h5></h5>
-                        <span id="nav_3_placeholder" class="text-meta"></span>
-                        <button><span class="material-icons">send</span><span class="btn-text">start</span></button>
+            <div class="overflow-hidden">
+                <div class="app-header">
+                    <div class="app-header-container" style="background-image:url({% static 'api/images/background.png' %}">
+                        <h4 class="app-title">Hello There!<br /></h4><span class="app-placeholder">Ask us anything, or share your feedback.</span>
                     </div>
                 </div>
 
-                <div class="body-form">
-                    <form>
-                        <div class="form-item float-label">
-                            <input type="text" required="required">
-                            <label class="text-meta">Full Name</label>
+                <div class="app-body">
+                    <div class="body-nav">
+                        <div id="nav_1" class="nav-item">
+                            <h5></h5>
+                            <span id="nav_1_placeholder" class="text-meta"></span>
+                            <button class="button" @click="toggleForm('0')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
                         </div>
-                        <div class="form-item float-label">
-                            <input type="text" required="required">
-                            <label class="text-meta">Email Address</label>
+                        <div id="nav_2" class="nav-item">
+                            <h5></h5>
+                            <span id="nav_2_placeholder" class="text-meta"></span>
+                            <button class="button" @click="toggleForm('1')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
                         </div>
-                        <div class="form-item float-label">
-                            <input type="text" required="required">
-                            <label class="text-meta">Topic</label>
+                        <div id="nav_3" class="nav-item">
+                            <h5></h5>
+                            <span id="nav_3_placeholder" class="text-meta"></span>
+                            <button class="button" @click="toggleForm('2')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
                         </div>
-                    </form>
+                    </div>
+
+                    <div class="body-form" style="display: none; height: 0px">
+                        <form>
+                            <div class="form-item float-label">
+                                <input type="text" required="required">
+                                <label class="text-meta">Full Name</label>
+                            </div>
+                            <div class="form-item float-label">
+                                <input type="text" required="required">
+                                <label class="text-meta">Email Address</label>
+                            </div>
+                            <div class="form-item float-label">
+                                <input type="text" required="required">
+                                <label class="text-meta">Topic</label>
+                            </div>
+                            <div class="body-form-button-container">
+                                <button class="button"><span class="material-icons">send</span><span class="btn-text">Start</span></button>
+                                <span class="text-meta">Go Back</span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             <div class="app-footer">
-                <span class="text-meta app-footer-text">We run on <a href="#" target="_blank">Lantern</a></span>
+                <span class="text-meta">We run on <a href="#" target="_blank">Lantern</a></span>
             </div>
         </div>
 

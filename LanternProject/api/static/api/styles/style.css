@@ -422,7 +422,12 @@ img {
     border-radius: 7px;
     margin-bottom: 10px;
     display: none;
-    box-shadow: 0 0px 8px 0 rgb(0 0 0 / 20%);
+    box-shadow: 0 0px 8px 0 rgb(0 0 0 / 20%);    
+}
+
+.app-container .overflow-hidden {
+    height: 93%;
+    overflow: hidden !important;
 }
 
 .app-header {
@@ -457,7 +462,7 @@ img {
 }
 
 .app-body {
-    height: 63%;
+    height: 70%;    
     border-bottom: 1px solid rgba(153, 153, 153, 0.2);
 }
 
@@ -469,7 +474,7 @@ img {
         margin: 0;
     }
 
-.nav-item button {
+.button {
     background-color: #000;
     outline: none;
     cursor: pointer;
@@ -493,32 +498,56 @@ img {
         border-radius: 3px;
         box-shadow: 0 3px 8px 0 rgb(0 0 0 / 20%);
         margin-bottom: 10px;
+        overflow: hidden;
     }
 
         .body-nav .nav-item span {
             font-size: .8rem;
         }
 
-        .body-nav .nav-item button {
+        .button {
             display: inline-flex;
             -webkit-box-align: center;
             align-items: center;
+        }
+
+        .button span:nth-child(1) {
+            font-size: .8rem;
+            margin-right: 10px;
         }
 
         .body-nav .nav-item .btn-text {
             margin-left: 5px;
         }
 
-        .body-nav .nav-item .nav-icon {
-            position: relative;
-            top: -2px;
-        }
-
 .body-form {
-    height: 100px;
     position: relative;
-    top: -0%;
+    top: -25%;
     padding: 20px;
+}
+
+.body-form-button-container {
+    text-align: center;
+}
+
+.body-form-button-container .button ~ span {
+    display: block;
+    margin: 5px;
+    cursor: pointer;    
+}
+
+.body-form-button-container .button ~ span:hover {
+    color: rgb(41, 41, 41);
+}
+
+.body-form-button-container span {
+    text-align: center;
+    font-size: 12px !important;
+}
+
+.body-form .button {
+    float: unset;
+    padding: 12px 30px;    
 }
 
 .body-form div {
@@ -534,12 +563,22 @@ img {
     width: 100%;
 }
 
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 .body-form input:valid ~ label {
-    top: -42px;
+    top: -45px;
+    color: #0536df;
+    font-size: 12px;
+    font-weight: bold !important;
 }
 
 .body-form input:focus ~ label {
-    top: -42px;
+    top: -45px;
+    color: #0536df;
+    font-size: 12px;
+    font-weight: bold !important;
 }
 
 .body-form label {
