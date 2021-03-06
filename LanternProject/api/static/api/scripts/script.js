@@ -3,32 +3,41 @@ const App = new Vue({
     el: '#app',
 
     data: {
-        toggled: false,
-        active: false,
+        tabIndex: -1,
+        /*
+            -1 : Not Active
+             0 : Minimized
+             1 : Maximized
+             2 : Form
+        */
+
         apikey: '123456789',
         sitename: 'localhost',
+
+        appTitle: null,
+        appPlaceholder: null,
     },
 
     methods: {
 
-        toggleApp: function () {
-
-            $('.app-toggler-logo').fadeToggle('fast');
-            $('.app-toggler-icon').fadeToggle('fast');
+        toggle: function () {
+            $('.app-toggler-icon,.app-toggler-logo').toggle();
             $('.app-container').fadeToggle('fast');
-            
-            if (!this.active && !this.toggled) this.StartApp()
 
-            this.toggled = !this.toggled;
+            if (this.tabIndex == -1) this.StartApp()
+            this.tabIndex = (this.tabIndex == -1) ? 1 : (this.tabIndex == 0) ? 1 : 0
         },
 
         toggleForm: function(id) {
 
-            $('.body-nav').find('.nav-item:not(:eq(' + id + '))').animate({ 'height': 0, 'opacity': 0, 'padding-top': 0, 'padding-bottom': 0, 'margin': 0 }, 50);
+            self = this
+            $('.body-nav').find('.nav-item:not(:eq(' + id + '))').animate({ 'height': (self.tabIndex == 1) ? '0px' : '76px', 'opacity': (self.tabIndex == 1) ? '0' : '1', 'padding-top': (self.tabIndex == 1) ? '0px' : '15px', 'padding-bottom': (self.tabIndex == 1) ? '0px' : '15px', 'margin-bottom': (self.tabIndex == 1) ? '0px' : '10px' }, 30);
 
-            $('.app-title').text('Fill The Form')
-            $('.app-placeholder').text('Tell us about yourself before we start.')
-            $('.body-form').stop(false, true).animate({ opacity: 'toggle' }, 50);
+            $('.app-title').text(($('.app-title').text() == 'Fill The Form') ? self.appTitle : 'Fill The Form')
+            $('.app-placeholder').text(($('.app-placeholder').text() == 'Tell us about yourself before we start.') ? self.appPlaceholder : 'Tell us about yourself before we start.')
+            
+            $('.body-form').animate({ 'opacity': 'toggle' }, 'slow');
+            self.tabIndex = (self.tabIndex == 1) ? 2 : 1
         },
 
         StartApp: function () {
@@ -40,17 +49,19 @@ const App = new Vue({
                 type: 'GET',
                 context: this,
                 data: {
-                    apikey: self.apikey,
                     action: "initialize",
+                    apikey: self.apikey,                    
                 },
-                error: function (error) { $('.app-toggler').toggleClass('app-failure').text(error.responseJSON.msg); $('.app-container').remove() },
+                error: function (error) { $('.app-toggler').text(error.responseJSON.msg).toggleClass('app-failure'); $('.app-container').remove() },
                 success: function (data) {
                     
                     $('form select').html('<option style="display: none;"></option>')
                     data['app']['formtitles'].split(',').forEach(formtitle => { $('form select').append('<option>' + formtitle + '</option>') })
 
-                    $('.app-title').text(data['app']['title'])
-                    $('.app-placeholder').text(data['app']['placeholder'])
+                    self.appTitle = data['app']['title']
+                    $('.app-title').text(self.appTitle)
+                    self.appPlaceholder = data['app']['placeholder']
+                    $('.app-placeholder').text(self.appPlaceholder)
 
                     $('#nav_1 h5').text(data['livechat']['title'])
                     $('#nav_1 #nav_1_placeholder').text(data['livechat']['placeholder'])
@@ -64,19 +75,10 @@ const App = new Vue({
                     $('#nav_3 #nav_3_placeholder').text(data['virtualagent']['placeholder'])
                     if (!data['virtualagent']['service']) $('#nav_3 button').remove()
 
-                    self.active = true;
                     $('.app-toggler-spinner').fadeOut('fast');
                 },
             });
         },
-    },
-
-    mounted: function () {
-
-    },
-
-    components: {
-
     },
 })
 

@@ -376,6 +376,7 @@ img {
 }
 
 .app-failure {
+    transition: 0s;
     border-radius: 5px !important;
     width: fit-content !important;
     height: auto !important;    
@@ -542,6 +543,7 @@ img {
 .body-form-button-container span {
     text-align: center;
     font-size: 12px !important;
+    margin-left: 5px;
 }
 
 .body-form .button {
@@ -555,11 +557,19 @@ img {
     margin-bottom: 10px;
 }
 
-.body-form input, select {
+.body-form input {
     border: none;
     outline: none;
     border-bottom: 1px solid #999;
     width: 100%;
+}
+
+.body-form select {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #999;
+    width: 80%;
+    float: right;
 }
 
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
@@ -577,6 +587,12 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
     top: -45px;
     color: #0536df;
     font-size: 12px;
+    font-weight: bold !important;
+}
+
+.body-form select:focus ~ label {
+    color: #0536df;
+    font-size: 13px;
     font-weight: bold !important;
 }
 
