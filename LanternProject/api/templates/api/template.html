@@ -25,21 +25,21 @@
                         <div id="nav_1" class="nav-item">
                             <h5></h5>
                             <span id="nav_1_placeholder" class="text-meta"></span>
-                            <button class="button" @click="toggleForm('0')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
+                            <button class="button nav-button" @click="toggleForm('0')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
                         </div>
                         <div id="nav_2" class="nav-item">
                             <h5></h5>
                             <span id="nav_2_placeholder" class="text-meta"></span>
-                            <button class="button" @click="toggleForm('1')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
+                            <button class="button nav-button" @click="toggleForm('1')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
                         </div>
                         <div id="nav_3" class="nav-item">
                             <h5></h5>
                             <span id="nav_3_placeholder" class="text-meta"></span>
-                            <button class="button" @click="toggleForm('2')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
+                            <button class="button nav-button" @click="toggleForm('2')"><span class="material-icons">send</span><span class="btn-text">start</span></button>
                         </div>
                     </div>
 
-                    <div class="body-form" style="opacity: 0">
+                    <div class="body-form">
                         <form>
                             <div class="form-item float-label">
                                 <input type="text" required="required">
@@ -56,7 +56,7 @@
                             </div>
                             <div class="body-form-button-container">
                                 <button class="button"><span class="material-icons">send</span><span class="btn-text">Start</span></button>
-                                <span class="text-meta">Go Back</span>
+                                <span class="text-meta" @click="toggleForm('-1')">Go Back</span>
                             </div>
                         </form>
                     </div>

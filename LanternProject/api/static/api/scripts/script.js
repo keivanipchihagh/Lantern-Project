@@ -4,6 +4,7 @@ const App = new Vue({
 
     data: {
         tabIndex: -1,
+        backId: null,
         /*
             -1 : Not Active
              0 : Minimized
@@ -30,8 +31,12 @@ const App = new Vue({
 
         toggleForm: function(id) {
 
+            if (id != -1) this.backId = id
+            else id = this.backId
+
             self = this
             $('.body-nav').find('.nav-item:not(:eq(' + id + '))').animate({ 'height': (self.tabIndex == 1) ? '0px' : '76px', 'opacity': (self.tabIndex == 1) ? '0' : '1', 'padding-top': (self.tabIndex == 1) ? '0px' : '15px', 'padding-bottom': (self.tabIndex == 1) ? '0px' : '15px', 'margin-bottom': (self.tabIndex == 1) ? '0px' : '10px' }, 30);
+            $('.nav-button').toggle()
 
             $('.app-title').text(($('.app-title').text() == 'Fill The Form') ? self.appTitle : 'Fill The Form')
             $('.app-placeholder').text(($('.app-placeholder').text() == 'Tell us about yourself before we start.') ? self.appPlaceholder : 'Tell us about yourself before we start.')
