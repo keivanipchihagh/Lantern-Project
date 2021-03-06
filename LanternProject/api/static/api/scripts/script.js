@@ -45,6 +45,9 @@ const App = new Vue({
                 },
                 error: function (error) { $('.app-toggler').toggleClass('app-failure').text(error.responseJSON.msg); $('.app-container').remove() },
                 success: function (data) {
+                    
+                    $('form select').html('<option style="display: none;"></option>')
+                    data['app']['formtitles'].split(',').forEach(formtitle => { $('form select').append('<option>' + formtitle + '</option>') })
 
                     $('.app-title').text(data['app']['title'])
                     $('.app-placeholder').text(data['app']['placeholder'])

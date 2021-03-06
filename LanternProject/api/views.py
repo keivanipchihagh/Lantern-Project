@@ -3,7 +3,6 @@ from django.http.response import HttpResponse, HttpResponseBadRequest, HttpRespo
 from django.shortcuts import render
 import secrets
 from datetime import datetime
-import json
 
 from django.views.decorators.http import require_http_methods
 
@@ -11,7 +10,8 @@ from django.views.decorators.http import require_http_methods
 from core.models import CoreSite as Site
 from core.models import CoreRoom as Room
 from core.models import CoreUser as User
-from core.models import CoreCustomization as Customization
+from .models import ApiCustomization as Customization
+from .models import ApiTitle as Title
 
 
 def index(request, site_name):
@@ -68,13 +68,13 @@ def initialize(name, public_key):
         return response
 
     try:
-
         customization = Customization.objects.get(site_id = site.id)
 
         return JsonResponse({
             'app': {
                 'title': customization.title,
                 'placeholder': customization.placeholder,
+                'formtitles': ','.join([str(item.title) for item in Title.objects.filter(customization_id = customization.id)]),
             },
             'livechat': {
                 'service': True if (User.objects.filter(site_id = site.id, is_online = True).count() > 0 and site.livechat_service) else False,

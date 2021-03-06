@@ -513,7 +513,6 @@ img {
 
         .button span:nth-child(1) {
             font-size: .8rem;
-            margin-right: 10px;
         }
 
         .body-nav .nav-item .btn-text {
@@ -556,7 +555,7 @@ img {
     margin-bottom: 10px;
 }
 
-.body-form input {
+.body-form input, select {
     border: none;
     outline: none;
     border-bottom: 1px solid #999;
