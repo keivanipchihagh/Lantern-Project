@@ -35,8 +35,8 @@ const App = new Vue({
 
             $('.app-title').text(($('.app-title').text() == 'Fill The Form') ? self.appTitle : 'Fill The Form')
             $('.app-placeholder').text(($('.app-placeholder').text() == 'Tell us about yourself before we start.') ? self.appPlaceholder : 'Tell us about yourself before we start.')
-            
-            $('.body-form').animate({ 'opacity': 'toggle' }, 'slow');
+
+            $('.body-form').animate({ 'opacity': (self.tabIndex == 2) ? '0' : '1' }, 'fast');
             self.tabIndex = (self.tabIndex == 1) ? 2 : 1
         },
 
@@ -55,8 +55,7 @@ const App = new Vue({
                 error: function (error) { $('.app-toggler').text(error.responseJSON.msg).toggleClass('app-failure'); $('.app-container').remove() },
                 success: function (data) {
                     
-                    $('form select').html('<option style="display: none;"></option>')
-                    data['app']['formtitles'].split(',').forEach(formtitle => { $('form select').append('<option>' + formtitle + '</option>') })
+                    data['app']['formtitles'].split(',').forEach(formtitle => { $('form select').append('<option value="' + formtitle + '">' + formtitle + '</option>') })
 
                     self.appTitle = data['app']['title']
                     $('.app-title').text(self.appTitle)
