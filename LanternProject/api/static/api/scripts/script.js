@@ -43,8 +43,6 @@ const App = new Vue({
             $('.body-nav').find('.nav-item:not(:eq(' + id + '))').toggleClass('nav-item-hide')
             $('.nav-button').toggle()
 
-            $('.body-nav').find('.nav-item:eq(' + id + ')').toggleClass('nav-item-center')
-
             $('.body-form').animate({ 'opacity': (self.tabIndex == 2) ? '0' : '1' }, 'fast');
             self.tabIndex = (self.tabIndex == 1) ? 2 : 1
         },
