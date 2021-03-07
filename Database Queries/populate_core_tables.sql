@@ -54,11 +54,11 @@ INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modif
     
 /* Customization */
 INSERT INTO api_customization (title, placeholder, livechat_title, livechat_placeholder_online, livechat_placeholder_offline, ticket_title, ticket_placeholder, virtualagent_title, virtualagent_placeholder, site_id)
-	VALUES ('Hello There!', 'Ask us anything, or share your feedback.', 'Start a Conversation', 'We are ready to assist', 'We are not currently online.', 'Post a Ticket', 'We will contact you by email.', 'Virtual Agent', 'Try our AI powered agent.', 1);
+	VALUES ('Hello There!', 'Ask us anything, or share your feedback.', 'Start a Conversation', 'We are ready to assist.', 'We are not currently online.', 'Post a Ticket', 'We will contact you by email.', 'Virtual Agent', 'Try our AI powered agent.', 1);
     
 /* Title */
 INSERT INTO api_title (title, customization_id)
-	VALUES ('Genral', 1);
+	VALUES ('Genral', 2);
     
 INSERT INTO api_title (title, customization_id)
-	VALUES ('Technical', 1);    
+	VALUES ('Technical', 2);    

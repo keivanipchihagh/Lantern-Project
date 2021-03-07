@@ -3,8 +3,10 @@ const App = new Vue({
     el: '#app',
 
     data: {
+        selectedOption: null,
+        selectedPlaceholder: null,
         tabIndex: -1,
-        backId: null,
+        
         /*
             -1 : Not Active
              0 : Minimized
@@ -21,7 +23,7 @@ const App = new Vue({
 
     methods: {
 
-        toggle: function () {
+        toggleApp: function () {
             $('.app-toggler-icon,.app-toggler-logo').toggle();
             $('.app-container').fadeToggle('fast');
 
@@ -31,18 +33,42 @@ const App = new Vue({
 
         toggleForm: function(id) {
 
-            if (id != -1) this.backId = id
-            else id = this.backId
+            sphO = $('.body-nav').find('.nav-item:eq(' + id + ') .text-meta')
+
+            if (id != -1) {
+                this.selectedOption = id
+                this.selectedPlaceholder = sphO.text()
+            } else id = this.selectedOption
 
             self = this
-            $('.body-nav').find('.nav-item:not(:eq(' + id + '))').animate({ 'height': (self.tabIndex == 1) ? '0px' : '76px', 'opacity': (self.tabIndex == 1) ? '0' : '1', 'padding-top': (self.tabIndex == 1) ? '0px' : '15px', 'padding-bottom': (self.tabIndex == 1) ? '0px' : '15px', 'margin-bottom': (self.tabIndex == 1) ? '0px' : '10px' }, 30);
+            $('.body-nav').find('.nav-item:not(:eq(' + id + '))').toggleClass('nav-item-hide')
             $('.nav-button').toggle()
 
-            $('.app-title').text(($('.app-title').text() == 'Fill The Form') ? self.appTitle : 'Fill The Form')
-            $('.app-placeholder').text(($('.app-placeholder').text() == 'Tell us about yourself before we start.') ? self.appPlaceholder : 'Tell us about yourself before we start.')
+            sphO.text((sphO.text() == self.selectedPlaceholder) ? 'Fill out the form to continue...' : self.selectedPlaceholder)
+            $('.body-nav').find('.nav-item:eq(' + id + ')').toggleClass('nav-item-center')
 
             $('.body-form').animate({ 'opacity': (self.tabIndex == 2) ? '0' : '1' }, 'fast');
             self.tabIndex = (self.tabIndex == 1) ? 2 : 1
+        },
+
+        toggleChat: function() {
+            // self = this
+
+            // $.ajax({
+            //     url: 'http://127.0.0.1:8000/api/v1/sites/' + self.sitename + '/services',
+            //     type: 'GET',
+            //     context: this,
+            //     data: {
+            //         action: (self.selectedOption == 0) ? 'livechat' : (self.selectedOption == 1) ? 'ticket' : 'virtualagent',
+            //         fullname: $('#fullname').val(),
+            //         email: $('#email').val(),
+            //         topic: $('#topic').find(":selected").text(),
+            //     },
+            //     error: function (error) { $('.app-toggler').text(error.responseJSON.msg).toggleClass('app-failure'); $('.app-container').remove() },
+            //     success: function (data) {
+
+            //     },
+            // });
         },
 
         StartApp: function () {
