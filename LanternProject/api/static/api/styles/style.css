@@ -270,6 +270,30 @@ ul, li {
     user-select: none;
 } */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+
 @keyframes spinner-ring {
     0% {
         transform: rotate(0)
@@ -489,7 +513,7 @@ img {
 .body-nav {
     padding: 20px;
     position: relative;
-    top: -18%;
+    top: -1%;
 }
 
     .body-nav .nav-item {
@@ -511,6 +535,10 @@ img {
         padding-top: 0px !important;
         padding-bottom: 0px !important;
         margin-bottom: 0px !important;
+    }
+
+    .nav-item-center {
+        text-align: center;        
     }
 
         .body-nav .nav-item span {
@@ -642,4 +670,306 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
 
 .text-meta a:hover {
     color: rgb(104, 104, 104);
+} */
+
+* {
+    box-sizing: border-box;
+}
+
+span, div, img {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+}
+
+img {
+    -webkit-user-drag: none;
+    -ms-user-drag: none;
+    -moz-user-drag: none;
+}
+
+.main {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    padding: 30px;
+    overflow: hidden;
+}
+
+.app {
+    width: 320px;
+    height: 550px;
+    position: relative;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 20%);
+    overflow: hidden;
+    display: none;
+}
+
+.header {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(135deg, rgb(5, 52, 223) 0%, rgb(6, 37, 139) 100%);
+    border-radius: 15px 15px 0px 0px;
+    color: #fff;
+    font-family: cursive;
+    transition: 0.5s;
+}
+
+.header-shrink {
+    height: 80px;
+}
+
+.header-primary {
+    font-size: 20px;
+    opacity: 1;
+}
+
+    .header-primary h4 {
+        margin: 0px;
+    }
+
+.header .cover {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    padding: 15px;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 5%);
+}
+
+.header .slogan {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    display: block;
+    margin: 5px 0px;
+}
+
+.header-secondary {
+    display: none;
+}
+
+.header .material-icons {
+    position: relative;
+    top: 3px;
+    font-size: 20px;
+    vertical-align: top;
+}
+
+.header-secondary h5 {
+    display: inline-block;
+    font-size: 15px;
+    margin: 0px;
+}
+
+.body {
+    width: 100%;
+    height: 64%;
+    font-family: system-ui;
+}
+
+    .body .body-card {
+        width: 90%;
+        margin: auto;
+        height: 115px;
+        margin-bottom: 10px;
+        background-color: #fff;
+        box-shadow: 0px 5px 20px 1px rgb(0 47 122 / 10%);
+        border-radius: 5px;
+        padding: 10px 15px;
+        opacity: 1;
+        position: relative;
+        top: -70px;
+        transition: 0.3s;
+        overflow: hidden;
+    }
+
+.body-card-hide {
+    height: 0px;
+    opacity: 0 !important;
+    padding: 0px !important;
+    transition: 0.3s;
+}
+
+.body-card .card-title {
+    margin-top: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.body-extend {
+    height: 470px;
+}
+
+.body-chat {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+    .body-chat .input-area {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        padding: 5px 10px;
+    }
+
+.input-area .textarea {
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    width: 80%;
+    overflow: hidden;
+    min-height: 40px;
+    line-height: 20px;
+    resize: none;
+    outline: none;
+    max-height: 60px;
+    font-size: 14px;
+}
+
+[contenteditable=true]:empty:before{
+    content: attr('Hi');
+    pointer-events: none;
+    display: block; /* For Firefox */
+  }
+
+.input-area .material-icons {
+    padding: 0px;
+    width: fit-content;
+    font-size: 24px;
+    vertical-align: super;
+    color: #0536df;
+}
+
+.card-title .material-icons {
+    font-size: 20px;
+    padding-left: 0px;
+}
+
+.body-card .card-btn {
+    color: #fff;
+    background-color: rgb(5, 52, 223);
+    margin-top: 15px;
+    padding: 7px 15px;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.card-btn:hover {
+    background-color: rgb(8, 49, 182);
+}
+
+.footer {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    padding: 5px;
+    opacity: 1;
+    text-align: center;
+    bottom: 0px;
+    border-radius: 0px 0px 15px 15px;
+    box-shadow: 0 -5px 10px 0 rgb(0 0 0 / 5%);
+    transition: 0.3s;
+}
+
+.footer-hide {
+    height: 0px;
+    opacity: 0;
+    padding: 0px;
+    transition: 0.3s;
+}
+
+.footer span {
+    font-size: 0.7rem;
+    font-family: cursive;
+    color: rgb(143, 143, 143);
+}
+
+.footer a {
+    text-decoration: none;
+    color: rgb(116, 116, 116);
+    cursor: pointer;
+}
+
+    .footer a:hover {
+        color: rgb(75, 75, 75);
+    }
+
+.toggler {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    background: linear-gradient(135deg, rgb(5, 52, 223) 0%, rgb(6, 37, 139) 100%);
+    border-radius: 50%;
+    box-shadow: 0px 0px 15px 1px rgb(0 0 0 / 20%);
+    z-index: 999;
+    cursor: pointer;
+}
+
+    .toggler img {
+        width: 60%;
+        margin: 13px;
+    }
+
+    .toggler .chevron-up {
+        position: absolute;
+        top: 12px;
+        left: 8px;
+        transform: rotate(-90deg);
+        color: #fff;
+        font-size: 35px;
+        display: none;
+    }
+
+.spinner {
+    width: 52px;
+    height: 52px;
+    position: relative;
+    left: 56px;
+    top: 4px;
+    border-radius: 50% 50% 1px 50%;
+    background-color: rgb(6, 37, 139);
+    transform: rotate(0deg);
+    transition: ease-in-out 0.2s;
+}
+
+.spinner-active {
+    background-color: rgb(5, 52, 223);
+    transform: rotate(-135deg);
+}
+
+.text-muted {
+    color: #999;
+    font-size: .8rem;
+}
+
+.pull-right {
+    float: right;
+}
+
+.block-line {
+    display: block;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0px 5px;
+    vertical-align: bottom;
 }
