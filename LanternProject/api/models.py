@@ -26,18 +26,11 @@ class ApiCustomization(models.Model):
         default = 'Start a Conversation',
     )
 
-    # LiveChat Placeholder Online | Max Length: 30
-    livechat_placeholder_online = models.CharField(
-        name = 'livechat_placeholder_online',
+    # LiveChat Placeholder | Max Length: 30
+    livechat_placeholder = models.CharField(
+        name = 'livechat_placeholder',
         max_length = 30,
         default = 'We are ready to assist',
-    )
-
-    # LiveChat Placeholder Offline | Max Length: 30
-    livechat_placeholder_offline = models.CharField(
-        name = 'livechat_placeholder_offline',
-        max_length = 30,
-        default = 'We are not currently online.',
     )
 
     # Ticket Title | Max Length: 20

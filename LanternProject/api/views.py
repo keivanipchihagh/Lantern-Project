@@ -78,21 +78,23 @@ def initialize(name, public_key):
                 'placeholder': customization.placeholder,
                 'formtitles': ','.join([str(item.title) for item in Title.objects.filter(customization_id = customization.id)]),
             },
-            'livechat': {
-                'service': True if (User.objects.filter(site_id = site.id, is_online = True).count() > 0 and site.livechat_service) else False,
-                'title': customization.livechat_title,
-                'placeholder': customization.livechat_placeholder_online,
-            },
-            'ticket': {
-                'service': site.ticket_service,
-                'title': customization.ticket_title,
-                'placeholder': customization.ticket_placeholder,
-            },
-            'virtualagent': {
-                'service': site.virtualagent_service,
-                'title': customization.virtualagent_title,
-                'placeholder': customization.virtualagent_placeholder,
-            },            
+            'options': [
+                {
+                    'service': True if (User.objects.filter(site_id = site.id, is_online = True).count() > 0 and site.livechat_service) else False,
+                    'title': customization.livechat_title,
+                    'placeholder': customization.livechat_placeholder,
+                },
+                {
+                    'service': site.ticket_service,
+                    'title': customization.ticket_title,
+                    'placeholder': customization.ticket_placeholder,
+                },
+                {
+                    'service': site.virtualagent_service,
+                    'title': customization.virtualagent_title,
+                    'placeholder': customization.virtualagent_placeholder,    
+                }
+            ],            
         })
 
     except:

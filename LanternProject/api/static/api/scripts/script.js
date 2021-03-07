@@ -3,8 +3,8 @@ const App = new Vue({
     el: '#app',
 
     data: {
+        options: [],
         selectedOption: null,
-        selectedPlaceholder: null,
         tabIndex: -1,
         
         /*
@@ -16,9 +16,6 @@ const App = new Vue({
 
         apikey: '123456789',
         sitename: 'localhost',
-
-        appTitle: null,
-        appPlaceholder: null,
     },
 
     methods: {
@@ -38,13 +35,14 @@ const App = new Vue({
             if (id != -1) {
                 this.selectedOption = id
                 this.selectedPlaceholder = sphO.text()
-            } else id = this.selectedOption
+            } else {
+                id = this.selectedOption
+            }
 
             self = this
             $('.body-nav').find('.nav-item:not(:eq(' + id + '))').toggleClass('nav-item-hide')
             $('.nav-button').toggle()
 
-            sphO.text((sphO.text() == self.selectedPlaceholder) ? 'Fill out the form to continue...' : self.selectedPlaceholder)
             $('.body-nav').find('.nav-item:eq(' + id + ')').toggleClass('nav-item-center')
 
             $('.body-form').animate({ 'opacity': (self.tabIndex == 2) ? '0' : '1' }, 'fast');
@@ -52,23 +50,6 @@ const App = new Vue({
         },
 
         toggleChat: function() {
-            // self = this
-
-            // $.ajax({
-            //     url: 'http://127.0.0.1:8000/api/v1/sites/' + self.sitename + '/services',
-            //     type: 'GET',
-            //     context: this,
-            //     data: {
-            //         action: (self.selectedOption == 0) ? 'livechat' : (self.selectedOption == 1) ? 'ticket' : 'virtualagent',
-            //         fullname: $('#fullname').val(),
-            //         email: $('#email').val(),
-            //         topic: $('#topic').find(":selected").text(),
-            //     },
-            //     error: function (error) { $('.app-toggler').text(error.responseJSON.msg).toggleClass('app-failure'); $('.app-container').remove() },
-            //     success: function (data) {
-
-            //     },
-            // });
         },
 
         StartApp: function () {
@@ -88,23 +69,13 @@ const App = new Vue({
                     
                     data['app']['formtitles'].split(',').forEach(formtitle => { $('form select').append('<option value="' + formtitle + '">' + formtitle + '</option>') })
 
-                    self.appTitle = data['app']['title']
-                    $('.app-title').text(self.appTitle)
-                    self.appPlaceholder = data['app']['placeholder']
-                    $('.app-placeholder').text(self.appPlaceholder)
+                    $('.app-title').text(data['app']['title'])
+                    $('.app-placeholder').text(data['app']['placeholder'])
 
-                    $('#nav_1 h5').text(data['livechat']['title'])
-                    $('#nav_1 #nav_1_placeholder').text(data['livechat']['placeholder'])
-                    if (!data['livechat']['service']) $('#nav_1 button').remove()
-
-                    $('#nav_2 h5').text(data['ticket']['title'])
-                    $('#nav_2 #nav_2_placeholder').text(data['ticket']['placeholder'])
-                    if (!data['ticket']['service']) $('#nav_2 button').remove()
-
-                    $('#nav_3 h5').text(data['virtualagent']['title'])
-                    $('#nav_3 #nav_3_placeholder').text(data['virtualagent']['placeholder'])
-                    if (!data['virtualagent']['service']) $('#nav_3 button').remove()
-
+                    data['options'].forEach(function(option, i) {
+                        if (option.service == true) $('.body-nav').append('<div id="nav_' + (i + 1) + '" class="nav-item"><h5>' + option.title + '</h5><span id="nav_' + (i + 1) + '_placeholder" class="text-meta">' + option.placeholder + '</span><button class="button nav-button" onclick="App.toggleForm(\'' + (i + 1) + '\')"><span class="material-icons">send</span><span class="btn-text">start</span></button></div>')
+                        self.options.push(option)
+                    });
                     $('.app-toggler-spinner').fadeOut('fast');
                 },
             });
