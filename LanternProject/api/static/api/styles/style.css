@@ -812,7 +812,7 @@ img {
         width: 100%;
         position: absolute;
         bottom: 0;
-        padding: 5px 10px;
+        padding: 10px 10px;
     }
 
 .input-area .textarea {
@@ -820,26 +820,34 @@ img {
     display: inline-block;
     width: 80%;
     overflow: hidden;
-    min-height: 40px;
+    padding: 5px;
     line-height: 20px;
     resize: none;
     outline: none;
-    max-height: 60px;
+    max-height: 80px;
+    overflow: auto;
     font-size: 14px;
 }
 
-[contenteditable=true]:empty:before{
-    content: attr('Hi');
-    pointer-events: none;
-    display: block; /* For Firefox */
-  }
+[placeholder]:empty::before {
+    content: attr(placeholder);
+    color: rgb(198 198 198); 
+}
+
+[placeholder]:empty:focus::before {
+    content: "";
+}
 
 .input-area .material-icons {
     padding: 0px;
     width: fit-content;
     font-size: 24px;
-    vertical-align: super;
+    vertical-align: top;
     color: #0536df;
+}
+
+.input-area .gray-icon {
+    color: rgba(150, 150, 150, 0.63);
 }
 
 .card-title .material-icons {

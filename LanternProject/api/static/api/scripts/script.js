@@ -2,17 +2,22 @@ $(document).ready(function() {
 
     $('.toggler, #close').on('click', appToggler)
     $('.body-card .card-btn, #back').on('click', chatToggler)
-    $('.body-chat .input-area textarea').on('focus', function() {
-        $('.input-area').css('box-shadow', '0px -10px 10px 1px rgb(0 0 0 / 4%)')
-    })
+    $('.body-chat .input-area .textarea').on('focus', function() { $('.input-area').css('box-shadow', '0px -10px 10px 1px rgb(0 0 0 / 4%)') })
+
+    $("[contenteditable]").focusout(function(){
+        var element = $(this);
+        console.log(element);
+        if (!element.text().trim().length) {
+            $('.input-area').css('box-shadow', 'none')
+            element.empty();
+        }
+    });
 
     function appToggler() {
         $('.spinner').toggleClass('spinner-active')
         $('.toggler img').fadeToggle('fast')
         $('.app').fadeToggle('fast')
         $('.toggler .chevron-up').fadeToggle('fast')
-
-        chatToggler()
     }    
 
     function chatToggler() {
