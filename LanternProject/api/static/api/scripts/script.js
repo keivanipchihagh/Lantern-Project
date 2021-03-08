@@ -1,8 +1,15 @@
 $(document).ready(function() {
 
+    var toggled = false
+
+    setInterval(function() {
+        if (toggled == false)
+            $('.spinner').toggleClass('spinner-notice')
+    }, 5000)
+
     $('.toggler, #close').on('click', appToggler)
-    $('.body-card .card-btn, #back').on('click', chatToggler)
-    $('.body-chat .input-area .textarea').on('focus', function() { $('.input-area').css('box-shadow', '0px -10px 10px 1px rgb(0 0 0 / 4%)') })
+    $('.overlay .overlay-btn, #back').on('click', chatToggler)
+    $('.body .input-area .textarea').on('focus', function() { $('.input-area').css('box-shadow', '0px -10px 10px 1px rgb(0 0 0 / 4%)') })
 
     $(".input-area .textarea").on('input', function() {
 
@@ -20,6 +27,12 @@ $(document).ready(function() {
         }
     });
 
+    $("[contenteditable]").keydown(function(e){
+        if (e.keyCode === 13) {
+            
+        }
+    });    
+
     function appToggler() {
         $('.spinner').toggleClass('spinner-active')
         $('.toggler img').fadeToggle('fast')
@@ -31,18 +44,21 @@ $(document).ready(function() {
 
     function chatToggler() {
         $('.header-secondary, .header-primary').toggle('fast')
-        
         $('.header').toggleClass('header-shrink')
+        $('.spinner').toggleClass('spinner-slow')
+
+        $('.overlay').toggleClass('overlay-hide')
+        setTimeout(function() { $('.overlay').toggle() }, 300)
 
         $('.footer').toggleClass('footer-hide')      
         setTimeout(function() { $('.footer').toggle() }, 300)
-
-        $('.body-card').toggleClass('body-card-hide')
-        $('.body-chat').fadeToggle('slow')
-        setTimeout(function() { $('.body-card').toggle() }, 300)
         
-        $('.body').toggleClass('body-extend')
-    }    
+        
+        $('.body').toggleClass('body-hide')
+        setTimeout(function() { $('.body').toggle() }, 300)
+
+        toggled = !toggled
+    }
 })
 
 // const App = new Vue({

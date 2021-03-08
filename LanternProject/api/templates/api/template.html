@@ -17,55 +17,48 @@
 <body>
     <div class="main">
 
-        <div class="app">
+        <div class="app" style="display: none;">
 
             <div class="header">
                 <div class="cover" style="background-image:url({% static 'api/images/background.png' %}">
+                    <div class="green">
+                    </div>
                     <div class="header-primary">
                         <h4>Hello There!</h4>
                         <span class="text-meta slogan">Ask us anything, or share your feedback.</span>
                     </div>
-                    <div class="header-secondary">
-                        <span id="back" class="material-icons">chevron_left</span>
-                        <span id="close" class="material-icons pull-right">close</span>
-                        <h5>Virtual Agent</h5>
-                        <div class="stats-container">
-                            <span class="text-meta stats">Online</span>
-                        </div>
+                    <div class="header-secondary" style="display: none;">
+                        <span id="back" class="material-icons">chevron_left</span>                        
+                        <span class="material-icons agent-logo">headset_mic</span>
+                        <span class="title">Virtual Assistant</span>
                     </div>
                 </div>
             </div>
 
-            <div class="body body-primary">
-                <div class="body-card">
-                    <span class="block-line card-title"><span class="material-icons">how_to_reg</span>Start a Coversation</span>
-                    <span class="block-line text-muted">We are online and ready to help.</span>
-                    <div class="card-btn">
-                        <span><span class="material-icons">send</span>New Conversation</span>
-                    </div>
+            <div class="overlay">
+                <span class="block-line overlay-title"><span class="material-icons">how_to_reg</span>Start a Coversation</span>
+                <span class="block-line text-muted">We are online and ready to help.</span>
+                <div class="overlay-btn">
+                    <span><span class="material-icons">send</span>New Conversation</span>
                 </div>
-                <div class="body-chat">
-                    
-                    <div class="card-wrapper">
-                        <div class="card left">
-                            <div class="card-icon">
-                                <span class="material-icons">person</span>
-                            </div>
+            </div>
 
+            <div class="body body-hide" style="display: none;">                
+                    <div class="card-wrapper left">
+                        <div class="card">
                             <div class="card-content">
                                 Hello, How can I help?
                             </div>
+                            <div class="card-footer">10:31 AM</div>
                         </div>
                     </div>
 
-                    <div class="card-wrapper">
-                        <div class="card right">
+                    <div class="card-wrapper right">
+                        <div class="card">
                             <div class="card-content">
                                 Hi, I need help with my account.
                             </div>
-                            <div class="card-icon">
-                                <span class="material-icons">person</span>
-                            </div>
+                            <div class="card-footer">9:27 MM</div>
                         </div>
                     </div>
                     
@@ -74,8 +67,6 @@
                         <span class="textarea" role="textbox" placeholder="Send a message..." contenteditable></span>
                         <span class="material-icons icon-hide send">send</span>
                     </div>
-
-                </div>
             </div>
 
             <div class="footer">
@@ -91,7 +82,7 @@
         <div class="spinner pull-right"></div>
 
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'api/scripts/jquery.min.js' %}"></script>
     <script src="{% static 'api/scripts/script.js' %}"></script>    
 </body>
 </html>
