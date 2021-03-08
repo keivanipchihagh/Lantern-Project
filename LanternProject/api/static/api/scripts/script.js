@@ -4,9 +4,16 @@ $(document).ready(function() {
     $('.body-card .card-btn, #back').on('click', chatToggler)
     $('.body-chat .input-area .textarea').on('focus', function() { $('.input-area').css('box-shadow', '0px -10px 10px 1px rgb(0 0 0 / 4%)') })
 
+    $(".input-area .textarea").on('input', function() {
+
+        if (($(this).text().length == 0))
+            $('.input-area .send').attr('class', 'material-icons icon-hide send')
+        else
+            $('.input-area .send').attr('class', 'material-icons icon-show send')
+    })   
+
     $("[contenteditable]").focusout(function(){
         var element = $(this);
-        console.log(element);
         if (!element.text().trim().length) {
             $('.input-area').css('box-shadow', 'none')
             element.empty();
@@ -18,6 +25,8 @@ $(document).ready(function() {
         $('.toggler img').fadeToggle('fast')
         $('.app').fadeToggle('fast')
         $('.toggler .chevron-up').fadeToggle('fast')
+
+        chatToggler()
     }    
 
     function chatToggler() {
@@ -26,11 +35,11 @@ $(document).ready(function() {
         $('.header').toggleClass('header-shrink')
 
         $('.footer').toggleClass('footer-hide')      
-        setTimeout(function() { $('.footer').toggle($(this).hasClass('footer-hide')) }, 300)
+        setTimeout(function() { $('.footer').toggle() }, 300)
 
         $('.body-card').toggleClass('body-card-hide')
         $('.body-chat').fadeToggle('slow')
-        setTimeout(function() { $('.body-card').toggle($(this).hasClass('body-card-hide')) }, 300)
+        setTimeout(function() { $('.body-card').toggle() }, 300)
         
         $('.body').toggleClass('body-extend')
     }    
