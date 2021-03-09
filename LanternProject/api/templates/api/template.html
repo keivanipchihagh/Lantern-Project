@@ -10,7 +10,7 @@
             font-style: normal;
             font-weight: 400;
             src: url({% static 'api/fonts/Material_Icons.woff2' %}) format('woff2');
-        }
+            }
     </style>
 </head>
 
@@ -28,10 +28,10 @@
                         <span class="text-meta slogan">Ask us anything, or share your feedback.</span>
                     </div>
                     <div class="header-secondary" style="display: none;">
-                        <span id="back" class="material-icons chevron_left">chevron_left</span>                        
+                        <span id="back" class="material-icons chevron_left">chevron_left</span>
                         <span class="material-icons logo">headset_mic</span>
                         <span class="title">Virtual Assistant</span>
-                        <br/>
+                        <br />
                         <span class="slogan">General Support</span>
                     </div>
                 </div>
@@ -45,48 +45,30 @@
                 </div>
             </div>
 
-            <div id="body" class="body body-hide" style="display: none;">                
+            <div id="body" class="body body-hide" style="display: none;">
+                <div id="cards-container" class="cards-container">
                     <div class="card-wrapper left">
-                        <div class="card">
+                    <div class="card">
                         <div class="card-header">Virtual Assistant</div>
-                            <div class="card-content">Hello, How can I help?</div>
-                            <div class="card-footer">
-                                9:27 AM
-                            </div>
+                        <div class="card-content">Hello, How can I help?</div>
+                        <div class="card-footer">
+                            9:27 AM
                         </div>
                     </div>
+                </div>
+                </div>
 
-                    <div class="card-wrapper right">
-                        <div class="card">
-                            <div class="card-header">You</div>
-                            <div class="card-content">Hi, I need help with my account.</div>
-                            <div class="card-footer">
-                                9:28 AM
-                            </div>
-                        </div>
-                    </div>                    
-
-                    <div class="card-wrapper left">
-                        <div class="card">
-                            <div class="card-header">Virtual Assistant</div>
-                            <div class="card-content">Sure, What's wrong with your account?</div>
-                            <div class="card-footer">
-                                9:29 AM
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="input-area">
-                        <span class="material-icons gray-icon">emoji_emotions</span>
-                        <span class="textarea" role="textbox" placeholder="Send a message..." contenteditable></span>
-                        <span class="material-icons icon-hide send">send</span>
-                    </div>
+                <div class="input-area">
+                    <span class="material-icons gray-icon">emoji_emotions</span>
+                    <span class="textarea" role="textbox" placeholder="Send a message..." contenteditable></span>
+                    <span class="material-icons icon-hide send">send</span>
+                </div>
             </div>
 
             <div class="footer">
                 <span>Powered by <a href="#" target="_blank">Lantern</a></span>
             </div>
-        </div>
+        </div>        
 
         <div class="toggler pull-right">
             <img src="{% static 'api/images/logo.png' %}" />
@@ -97,6 +79,6 @@
 
     </div>
     <script src="{% static 'api/scripts/jquery.min.js' %}"></script>
-    <script src="{% static 'api/scripts/script.js' %}"></script>    
+    <script src="{% static 'api/scripts/script.js' %}"></script>
 </body>
 </html>

@@ -157,7 +157,12 @@ img {
     margin: 5px 0px;
 }
 
-.body .card-wrapper {
+.body .cards-container {
+    height: 415px;
+    overflow: hidden auto;
+}
+
+.cards-container .card-wrapper {
     width: 100%;
     padding: 0px 10px;
 }
@@ -191,42 +196,43 @@ img {
 
 .card .card-footer {
     font-size: 10px;
-    color: #999;    
-    margin: 3px;    
+    color: #999;
+    margin: 3px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.card .card-footer div {
-    width: 50%;
-    float: left;
-}
+    .card .card-footer div {
+        width: 50%;
+        float: left;
+    }
 
 .left .card-content {
     background: rgb(47 50 74 / 78%);
     border-radius: 0px 7px 7px 7px;
 }
 
-.body .left {
+.cards-container .left {
     text-align: -webkit-left;
 }
 
-.body .left .card-footer {
-    text-align: end;
-}
+    .cards-container .left .card-footer {
+        text-align: end;
+    }
 
 .right .card-content {
-    background: #0265ffde;    
+    background: #18c139;
     border-radius: 7px 0px 7px 7px;
     text-align: start;
+    min-width: 40px;
 }
 
-.body .right {
+.cards-container .right {
     text-align: -webkit-right;
 }
 
-.body .right .card-footer {
-    text-align: start;
-}
+    .cards-container .right .card-footer {
+        text-align: start;
+    }
 
 .body .input-area {
     width: 100%;
@@ -234,6 +240,7 @@ img {
     bottom: 0;
     padding: 10px 10px;
     border-top: 1px solid #9993;
+    height: 55px;
 }
 
 .input-area .textarea {
@@ -370,28 +377,28 @@ img {
 }
 
 @keyframes spin {
-	0% {
-		transform: rotate(0deg);
-	}
+    0% {
+        transform: rotate(0deg);
+    }
 
     30% {
         transform: rotate(90deg);
     }
 
-	60% {
-		transform: rotate(0deg);
-	}
+    60% {
+        transform: rotate(0deg);
+    }
 
-	100% {
-		transform: rotate(360deg);
-	}
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .spinner-slow {
     transform: rotate(135deg);
 }
 
-.spinner-notice {    
+.spinner-notice {
     animation: spin 5s infinite;
 }
 
@@ -446,4 +453,14 @@ img {
 .send {
     position: relative;
     transition: ease-in-out 0.2s;
+}
+
+.app *::-webkit-scrollbar {
+    width: 12px;
+}
+
+.app *::-webkit-scrollbar-thumb {
+    background-color: rgba(66, 72, 103, 0.74);
+    border-radius: 20px;
+    border: 2px solid #fff;
 }
