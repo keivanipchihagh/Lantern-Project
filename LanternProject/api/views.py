@@ -1,5 +1,5 @@
 from django.http import response
-from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
+from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import render
 import secrets
 from datetime import datetime
@@ -12,12 +12,16 @@ from core.models import CoreRoom as Room
 from core.models import CoreUser as User
 
 # API Models
-from .models import ApiCustomization as Customization
 from .models import ApiTitle as Title
 
 
+@require_http_methods(['GET'])
 def index(request, site_name):
-    return render(request = request, context = {}, template_name = 'api/template.html')
+    
+    try:
+        site = Site.objects.get(name = site_name, public_key = request.GET.get('token'))
+        return render(request = request, context = {}, template_name = 'api/template.html')
+    except: return HttpResponse()
 
 
 @require_http_methods(['GET'])

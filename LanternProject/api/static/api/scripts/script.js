@@ -1,11 +1,9 @@
 $(document).ready(function() {
 
-    var toggled = false
+    var activeApp = false
+    var toggledChat = false
 
-    setInterval(function() {
-        if (toggled == false)
-            $('.spinner').toggleClass('spinner-notice')
-    }, 5000)
+    setInterval(function() { if (toggledChat == false) $('.spinner').toggleClass('spinner-notice') }, 5000)
 
     $('.toggler, #close').on('click', appToggler)
     $('.overlay .overlay-btn, #back').on('click', chatToggler)
@@ -39,7 +37,7 @@ $(document).ready(function() {
         var contenteditable = document.querySelector('[contenteditable]')
         content = (contenteditable.textContent || contenteditable.innerText).trim()
         if (content != '') {
-            console.log(content)
+            $('#body').append('<div class="card-wrapper right"><div class="card"><div class="card-header">You</div><div class="card-content">' + content + '</div><div class="card-footer">9:28 AM</div></div></div>')
             contenteditable.innerHTML = ''
         }
     }
@@ -68,7 +66,7 @@ $(document).ready(function() {
         $('.body').toggleClass('body-hide')
         setTimeout(function() { $('.body').toggle() }, 300)
 
-        toggled = !toggled
+        toggledChat = !toggledChat
     }
 })
 
