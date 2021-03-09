@@ -10,10 +10,10 @@ $(document).ready(function() {
     $('.toggler, #close').on('click', appToggler)
     $('.overlay .overlay-btn, #back').on('click', chatToggler)
     $('.body .input-area .textarea').on('focus', function() { $('.input-area').css('box-shadow', '0px -10px 10px 1px rgb(0 0 0 / 4%)') })
+    $('.send').on('click',function() { sendMessage() })
 
     $(".input-area .textarea").on('input', function() {
-
-        if (($(this).text().length == 0))
+        if (($(this).text().trim().length == 0))
             $('.input-area .send').attr('class', 'material-icons icon-hide send')
         else
             $('.input-area .send').attr('class', 'material-icons icon-show send')
@@ -29,9 +29,20 @@ $(document).ready(function() {
 
     $("[contenteditable]").keydown(function(e){
         if (e.keyCode === 13) {
-            
+            sendMessage()
+            e.preventDefault();
+            return false;
         }
-    });    
+    });
+
+    function sendMessage() {
+        var contenteditable = document.querySelector('[contenteditable]')
+        content = (contenteditable.textContent || contenteditable.innerText).trim()
+        if (content != '') {
+            console.log(content)
+            contenteditable.innerHTML = ''
+        }
+    }
 
     function appToggler() {
         $('.spinner').toggleClass('spinner-active')
@@ -60,89 +71,6 @@ $(document).ready(function() {
         toggled = !toggled
     }
 })
-
-// const App = new Vue({
-
-//     el: '#app',
-
-//     data: {
-//         options: [],
-//         selectedOption: null,
-//         tabIndex: -1,
-        
-//         /*
-//             -1 : Not Active
-//              0 : Minimized
-//              1 : Maximized
-//              2 : Form
-//         */
-
-//         apikey: '123456789',
-//         sitename: 'localhost',
-//     },
-
-//     methods: {
-
-//         toggleApp: function () {
-//             $('.app-toggler-icon,.app-toggler-logo').toggle();
-//             $('.app-container').fadeToggle('fast');
-
-//             if (this.tabIndex == -1) this.StartApp()
-//             this.tabIndex = (this.tabIndex == -1) ? 1 : (this.tabIndex == 0) ? 1 : 0
-//         },
-
-//         toggleForm: function(id) {
-
-//             sphO = $('.body-nav').find('.nav-item:eq(' + id + ') .text-meta')
-
-//             if (id != -1) {
-//                 this.selectedOption = id
-//                 this.selectedPlaceholder = sphO.text()
-//             } else {
-//                 id = this.selectedOption
-//             }
-
-//             self = this
-//             $('.body-nav').find('.nav-item:not(:eq(' + id + '))').toggleClass('nav-item-hide')
-//             $('.nav-button').toggle()
-
-//             $('.body-form').animate({ 'opacity': (self.tabIndex == 2) ? '0' : '1' }, 'fast');
-//             self.tabIndex = (self.tabIndex == 1) ? 2 : 1
-//         },
-
-//         toggleChat: function() {
-//         },
-
-//         StartApp: function () {
-//             $('.app-toggler-spinner').fadeIn('fast');
-//             self = this
-
-//             $.ajax({
-//                 url: 'http://127.0.0.1:8000/api/v1/sites/' + self.sitename + '/services',
-//                 type: 'GET',
-//                 context: this,
-//                 data: {
-//                     action: "initialize",
-//                     apikey: self.apikey,                    
-//                 },
-//                 error: function (error) { $('.app-toggler').text(error.responseJSON.msg).toggleClass('app-failure'); $('.app-container').remove() },
-//                 success: function (data) {
-                    
-//                     data['app']['formtitles'].split(',').forEach(formtitle => { $('form select').append('<option value="' + formtitle + '">' + formtitle + '</option>') })
-
-//                     $('.app-title').text(data['app']['title'])
-//                     $('.app-placeholder').text(data['app']['placeholder'])
-
-//                     data['options'].forEach(function(option, i) {
-//                         if (option.service == true) $('.body-nav').append('<div id="nav_' + (i + 1) + '" class="nav-item"><h5>' + option.title + '</h5><span id="nav_' + (i + 1) + '_placeholder" class="text-meta">' + option.placeholder + '</span><button class="button nav-button" onclick="App.toggleForm(\'' + (i + 1) + '\')"><span class="material-icons">send</span><span class="btn-text">start</span></button></div>')
-//                         self.options.push(option)
-//                     });
-//                     $('.app-toggler-spinner').fadeOut('fast');
-//                 },
-//             });
-//         },
-//     },
-// })
 
 // const App = new Vue({
 

@@ -723,10 +723,11 @@ img {
         top: -6px;
         background-color: #18c139;
         border-radius: 10px 40px 10px 40px;
+        box-shadow: 0px 0px 100px 0px #fff;
     }
 
 .header-shrink {
-    height: 50px !important;
+    height: 70px !important;
 }
 
 .header-primary {
@@ -757,21 +758,38 @@ img {
     font-size: 18px;
 }
 
+.header-secondary .chevron_left {
+    margin-top: 15px !important;
+}
+
+.header-secondary .slogan {
+    font-size: 11px;
+    position: relative;
+    left: -117px;
+    top: -3px;
+}
+
+.header-secondary .logo {
+    font-size: 25px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    padding: 7px;
+    cursor: default;
+    margin: 2px 5px 0px 0px !important;
+}
+
 .header-secondary .title {
     font-size: 15px;
     margin: 3px 0px 0px 3px;
 }
 
-.header-secondary .material-icons {
-    margin-top: 6px;
-}
-
 .body {
     width: 100%;
-    height: 500px;
+    height: 480px;
     background: #fff;
     opacity: 1;
     transition: 0.3s;
+    padding: 10px 0px;
 }
 
 .body-hide {
@@ -998,21 +1016,39 @@ img {
     top: 4px;
     border-radius: 50% 50% 1px 50%;
     background: #18c139;
-    transition: ease-in-out 1s;
+    transition: ease-in-out 0.5s;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+    30% {
+        transform: rotate(90deg);
+    }
+
+	60% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
 }
 
 .spinner-slow {
-    transition: ease-in-out 0.5s;
     transform: rotate(135deg);
 }
 
-.spinner-notice {
-    transform: rotate(360deg);
+.spinner-notice {    
+    animation: spin 5s infinite;
 }
 
 .spinner-active {
     background-color: #18c139;
     transform: rotate(-135deg);
+    animation: none;
 }
 
 .text-muted {
