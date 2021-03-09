@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\static",
+    "\\static\\api",
+    "\\static\\api\\scripts",
+    "\\static\\api\\styles",
+    "\\templates",
+    "\\templates\\api"
+  ],
+  "SelectedNode": "\\templates\\api\\template.html",
+  "PreviewInSolutionExplorer": false
+}

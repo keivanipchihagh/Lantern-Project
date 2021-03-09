@@ -11,20 +11,12 @@ class CoreMessage(models.Model):
         max_length = 300,
         name = 'content',
         )
-
-    # IP Address | Max Length: 15
-    ip = models.CharField(
-        max_length = 15,
-        name = 'ip',
-        blank = True,
-        null = True,
-        )
     
-    # Sender | Max Length: 6 | client, agent
-    sender = models.CharField(
-        max_length = 6,
-        name = 'sender',
-        )
+    # Sender | Max Length: 6 | {1: client, 0: server}
+    client = models.BooleanField(
+        name = 'client',
+        default = True,
+    )
 
     # DateTime | DateTime
     datetime = models.DateTimeField(
@@ -64,6 +56,14 @@ class CoreRoom(models.Model):
         validators = [RegexValidator('^{open|closed}$', message = "Status Unknonw")],
         default = 'open',
         )
+    
+    # IP Address | Max Length: 15
+    ip = models.CharField(
+        max_length = 15,
+        name = 'ip',
+        blank = True,
+        null = True,
+        )
 
     # Date Opened | DateTime
     date_opened = models.DateTimeField(
@@ -79,6 +79,12 @@ class CoreRoom(models.Model):
         default = None,
         )
 
+    # Topic | Max Length: 30
+    topic = models.CharField(
+        name = 'topic',
+        max_length = 30,
+    )
+
     # User Id  | Foreign Key (CoreUser.id)
     user = models.ForeignKey('CoreUser', models.DO_NOTHING)
 
@@ -93,10 +99,10 @@ class CoreRoom(models.Model):
 class CoreSite(models.Model):
     ''' Core Site model '''
 
-    # Name | Max Length: 50
-    name = models.CharField(
+    # Host | Max Length: 50
+    host = models.CharField(
         max_length = 50,
-        name = 'name',
+        name = 'host',
         unique = True,
         )
 
@@ -134,11 +140,23 @@ class CoreSite(models.Model):
         null = True,
     )
 
-    # Service | Boolean
-    service = models.BooleanField(
-        name = 'service',
+    # LiveChat Service | Boolean
+    livechat_service = models.BooleanField(
+        name = 'livechat_service',
         default = True,
-        )
+    )
+
+    # Ticket Service | Boolean
+    ticket_service = models.BooleanField(
+        name = 'ticket_service',
+        default = True,
+    )
+
+    # VirtualAgent | Boolean
+    virtualagent_service = models.BooleanField(
+        name = 'virtualagent_service',
+        default = False
+    )
 
     class Meta:
         managed = True          # Allow Create, Delete
@@ -257,6 +275,13 @@ class CoreUser(models.Model):
         help_text = 'Size < 1Mb',
         verbose_name = 'Profile Picture'
         )
+
+    # Is Online | Boolean
+    is_online = models.BooleanField(
+        name = 'is_online',
+        null = True,
+        default = False,
+    )
 
     # Site Id | Foreign Key (CoreSite.id)
     site = models.ForeignKey(CoreSite, models.DO_NOTHING, verbose_name = 'Assigned Site')

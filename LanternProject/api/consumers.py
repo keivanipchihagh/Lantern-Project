@@ -31,14 +31,21 @@ class ChatConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
 
         id = text_data_json['id']
-        message = text_data_json['message']
+        content = text_data_json['content']
         datetime = text_data_json['datetime']
         room_key = text_data_json['room_key']
-        sender = text_data_json['sender']
 
-        # Save the message
+        try: client = text_data_json['client']
+        except: client = 1
+
+        # Save the transmission
         room_id = Room.objects.get(room_key = room_key).id
-        Message(content = message, ip = None, datetime = dt.now(), sender = sender, room_id = room_id).save()
+        Message (
+            content = content,
+            datetime = dt.now(),
+            room_id = room_id,
+            client = client,
+        ).save()
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
@@ -46,10 +53,10 @@ class ChatConsumer(WebsocketConsumer):
             {
                 'type': 'room_gate',
                 'id': id,
-                'message': message,
+                'content': content,
                 'datetime': datetime,
                 'room_key': room_key,
-                'sender': sender,
+                'client': client,
             }
         )        
 
@@ -57,16 +64,14 @@ class ChatConsumer(WebsocketConsumer):
     def room_gate(self, event):
 
         id = event['id']
-        message = event['message']
+        content = event['content']
         datetime = event['datetime']
         room_key = event['room_key']
-        sender = event['sender']
 
         # Send message to WebSocket
         self.send(text_data = json.dumps({
             'id': id,
-            'message': message,
+            'content': content,
             'datetime': datetime,
             'room_key': room_key,
-            'sender': sender,
         }))

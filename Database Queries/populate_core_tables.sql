@@ -1,6 +1,6 @@
 /* Sites */
-INSERT INTO core_site (name, url, private_key, public_key, date_joined, date_expires, service)
-	VALUES ("localhost", "127.0.0.1:8000", "123456789", "123456789", NOW(), NOW(), 1);
+INSERT INTO core_site (name, url, private_key, public_key, date_joined, date_expires, livechat_service, ticket_service, virtualagent_service)
+	VALUES ("127.0.0.1", "127.0.0.1:8000", "123456789", "123456789", NOW(), NOW(), 1, 1, 1, 0);
     
 /* Users */
 INSERT INTO core_user (firstname, lastname, email, username, password, phonenumber, role, country, city, bio, rating, user_key, image, site_id)
@@ -51,3 +51,14 @@ INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modif
     
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
 	VALUES ('Asking for details', 'clarification', 'I can certainly help you with that, but I will more details regarding your request.', 0, NOW(), 1, 'lime');
+
+/* Customization */
+INSERT INTO api_customization (title, placeholder, livechat_title, livechat_placeholder, ticket_title, ticket_placeholder, virtualagent_title, virtualagent_placeholder, site_id)
+	VALUES ('Hello There!', 'Ask us anything, or share your feedback.', 'Start a Conversation', 'We are ready to assist.', 'Post a Ticket', 'We will contact you by email.', 'Virtual Agent', 'Try our AI powered agent.', 1);
+    
+/* Title */
+INSERT INTO api_title (title, customization_id)
+	VALUES ('Genral', 2);
+    
+INSERT INTO api_title (title, customization_id)
+	VALUES ('Technical', 2);    

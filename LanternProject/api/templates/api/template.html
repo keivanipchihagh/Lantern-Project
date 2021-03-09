@@ -1,0 +1,84 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="{% static 'api/styles/style.css' %}" type="text/css" rel="stylesheet" />
+    <style>
+        @font-face {
+            font-family: 'Material Icons';
+            font-style: normal;
+            font-weight: 400;
+            src: url({% static 'api/fonts/Material_Icons.woff2' %}) format('woff2');
+            }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        <div class="app" style="display: none;">
+
+            <div class="header">
+                <div class="cover" style="background-image:url({% static 'api/images/background.png' %}">
+                    <div class="green">
+                    </div>
+                    <div class="header-primary">
+                        <h4>Hello There!</h4>
+                        <span class="text-meta slogan">Ask us anything, or share your feedback.</span>
+                    </div>
+                    <div class="header-secondary" style="display: none;">
+                        <span id="back" class="material-icons chevron_left">chevron_left</span>
+                        <span class="material-icons logo">headset_mic</span>
+                        <span class="title">Virtual Assistant</span>
+                        <br />
+                        <span class="slogan">General Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overlay">
+                <span class="block-line overlay-title"><span class="material-icons">how_to_reg</span>Start a Coversation</span>
+                <span class="block-line text-muted">We are online and ready to help.</span>
+                <div class="overlay-btn">
+                    <span><span class="material-icons">send</span>New Conversation</span>
+                </div>
+            </div>
+
+            <div id="body" class="body body-hide" style="display: none;">
+                <div id="cards-container" class="cards-container">
+                    <div class="card-wrapper left">
+                    <div class="card">
+                        <div class="card-header">Virtual Assistant</div>
+                        <div class="card-content">Hello, How can I help?</div>
+                        <div class="card-footer">
+                            9:27 AM
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="input-area">
+                    <span class="material-icons gray-icon">emoji_emotions</span>
+                    <span class="textarea" role="textbox" placeholder="Send a message..." contenteditable></span>
+                    <span class="material-icons icon-hide send">send</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <span>Powered by <a href="#" target="_blank">Lantern</a></span>
+            </div>
+        </div>        
+
+        <div class="toggler pull-right">
+            <img src="{% static 'api/images/logo.png' %}" />
+            <span class="material-icons chevron-up">chevron_left</span>
+        </div>
+
+        <div class="spinner pull-right"></div>
+
+    </div>
+    <script src="{% static 'api/scripts/jquery.min.js' %}"></script>
+    <script src="{% static 'api/scripts/script.js' %}"></script>
+</body>
+</html>
