@@ -1,23 +1,25 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
-    var activeApp = false
     var toggledChat = false
+    var socketStarted = false
+    var token = '123456789'
+    var chatSocket = null
 
-    setInterval(function() { if (toggledChat == false) $('.spinner').toggleClass('spinner-notice') }, 5000)
+    setInterval(function () { if (toggledChat == false) $('.spinner').toggleClass('spinner-notice') }, 5000)
 
     $('.toggler, #close').on('click', appToggler)
     $('.overlay .overlay-btn, #back').on('click', chatToggler)
-    $('.body .input-area .textarea').on('focus', function() { $('.input-area').css('box-shadow', '0px -10px 10px 1px rgb(0 0 0 / 4%)') })
-    $('.send').on('click',function() { sendMessage() })
+    $('.body .input-area .textarea').on('focus', function () { $('.input-area').css('box-shadow', '0px -10px 10px 1px rgb(0 0 0 / 4%)') })
+    $('.send').on('click', function () { sendMessage() })
 
-    $(".input-area .textarea").on('input', function() {
+    $(".input-area .textarea").on('input', function () {
         if (($(this).text().trim().length == 0))
             $('.input-area .send').attr('class', 'material-icons icon-hide send')
         else
             $('.input-area .send').attr('class', 'material-icons icon-show send')
-    })   
+    })
 
-    $("[contenteditable]").focusout(function(){
+    $("[contenteditable]").focusout(function () {
         var element = $(this);
         if (!element.text().trim().length) {
             $('.input-area').css('box-shadow', 'none')
@@ -25,7 +27,7 @@ $(document).ready(function() {
         }
     });
 
-    $("[contenteditable]").keydown(function(e){
+    $("[contenteditable]").keydown(function (e) {
         if (e.keyCode === 13) {
             sendMessage()
             e.preventDefault();
@@ -37,7 +39,12 @@ $(document).ready(function() {
         var contenteditable = document.querySelector('[contenteditable]')
         content = (contenteditable.textContent || contenteditable.innerText).trim()
         if (content != '') {
-            $('#body').append('<div class="card-wrapper right"><div class="card"><div class="card-header">You</div><div class="card-content">' + content + '</div><div class="card-footer">9:28 AM</div></div></div>')
+            $('#body').append('<div class="card-wrapper right"><div class="card"><div class="card-header">You</div><div class="card-content">' + content + '</div><div class="card-footer">9:28 AM</div></div></div>')            
+
+            chatSocket.send(JSON.stringify({
+                'message': content
+            }));
+
             contenteditable.innerHTML = ''
         }
     }
@@ -48,25 +55,63 @@ $(document).ready(function() {
         $('.app').fadeToggle('fast')
         $('.toggler .chevron-up').fadeToggle('fast')
 
-        chatToggler()
-    }    
+        // chatToggler()
+    }
 
     function chatToggler() {
+
+        if (!socketStarted) openRoom()
+        else showChat()
+    }
+
+    function showChat() {
         $('.header-secondary, .header-primary').toggle('fast')
         $('.header').toggleClass('header-shrink')
         $('.spinner').toggleClass('spinner-slow')
 
         $('.overlay').toggleClass('overlay-hide')
-        setTimeout(function() { $('.overlay').toggle() }, 300)
+        setTimeout(function () { $('.overlay').toggle() }, 300)
 
-        $('.footer').toggleClass('footer-hide')      
-        setTimeout(function() { $('.footer').toggle() }, 300)
-        
-        
+        $('.footer').toggleClass('footer-hide')
+        setTimeout(function () { $('.footer').toggle() }, 300)
+
+
         $('.body').toggleClass('body-hide')
-        setTimeout(function() { $('.body').toggle() }, 300)
+        setTimeout(function () { $('.body').toggle() }, 300)
 
         toggledChat = !toggledChat
+    }
+
+    function openRoom() {
+
+        $.ajax({
+            url: 'http://127.0.0.1:8000/api/v1/hosts/' + window.location.hostname + '/services/rooms/start',
+            type: 'GET',
+            context: this,      // Essential for VueJS
+            data: {
+                'token': token,
+            },
+            error: function (xhr) {
+                $('.overlay-btn').css('background', 'red').find('span').text(xhr.responseText)
+            },
+            success: function (room_key) {
+                startSocket(room_key)                      // Start socket
+                socketStarted = true
+                showChat()
+            },
+        });
+    }
+
+    function startSocket(room_key) {
+
+        chatSocket = new WebSocket('ws://' + window.location.host + '/ws/rooms/' + room_key + '/');
+
+        chatSocket.onmessage = function (e) {
+            const data = JSON.parse(e.data)
+            console.log(data)
+        }
+
+        chatSocket.onclose = function (e) { console.error('Server connection was terminated.'); console.log(e);}
     }
 })
 

@@ -99,10 +99,10 @@ class CoreRoom(models.Model):
 class CoreSite(models.Model):
     ''' Core Site model '''
 
-    # Name | Max Length: 50
-    name = models.CharField(
+    # Host | Max Length: 50
+    host = models.CharField(
         max_length = 50,
-        name = 'name',
+        name = 'host',
         unique = True,
         )
 

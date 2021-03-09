@@ -16,14 +16,42 @@ from .models import ApiTitle as Title
 
 
 @require_http_methods(['GET'])
-def index(request, site_name):
+def index(request, host):
+    ''' Authenticates & loads the initial template '''
     
     try:
-        site = Site.objects.get(name = site_name, public_key = request.GET.get('token'))
+        # Check site name, url, key for authentication
+        Site.objects.get(host = host, url = request.META['HTTP_HOST'], public_key = request.GET.get('token'))
+
         return render(request = request, context = {}, template_name = 'api/template.html')
-    except: return HttpResponse()
+    except Site.DoesNotExist:
+        return HttpResponseForbidden('Forbidden')
 
 
+def start(request, host):
+    ''' Authenticates & creates a room, then returns the room_key to the socket end-point '''
+
+    try:
+        # Check authenticity
+        site = Site.objects.get(host = host, url = request.META['HTTP_HOST'], public_key = request.GET.get('token'))
+
+        # Save Room
+        room = Room (
+            room_key = secrets.token_hex(16),
+            status = 'open',
+            date_opened = datetime.now(),
+            user_id = 1,
+            site_id = site.id
+        )
+        room.save()
+
+        return HttpResponse(room.room_key)
+
+    except Site.DoesNotExist:   # Request URL match not found in database
+        return HttpResponseForbidden('Server refused to connect.')
+    except:
+        return HttpResponseBadRequest()
+        
 @require_http_methods(['GET'])
 def service(request, site_name):
 
@@ -32,36 +60,8 @@ def service(request, site_name):
     if request.GET.get('action') == 'initialize':
         response = initialize(site_name, request.GET.get('apikey'))
 
-
     return response
 
-
-def create_room(request):
-
-    try:
-        # Get site entry
-        site = Site.objects.get(url=request.META['HTTP_HOST'])
-
-        # Check key authenticity
-        if site.public_key == request.GET['key']:
-
-            # Room properties
-            room_key = secrets.token_hex(16)
-            status = 'open'
-            date_opened = datetime.now()
-            user_id = 1
-            site_id = site.id
-
-            # Save Room
-            Room(room_key=room_key, status=status, date_opened=date_opened,
-                 user_id=user_id, site_id=site_id).save()
-
-            return HttpResponse(room_key)            # Return room key
-        else:
-            return HttpResponseForbidden()              # Invalid API key
-
-    except Site.DoesNotExist:   # Request URL match not found in database
-        return HttpResponseBadRequest()
 
 # ------------------------------------------------------------------------  Methods ------------------------------------------------------------------------
 

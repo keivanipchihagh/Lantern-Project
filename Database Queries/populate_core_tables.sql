@@ -1,6 +1,6 @@
 /* Sites */
 INSERT INTO core_site (name, url, private_key, public_key, date_joined, date_expires, livechat_service, ticket_service, virtualagent_service)
-	VALUES ("localhost", "127.0.0.1:8000", "123456789", "123456789", NOW(), NOW(), 1, 1, 1, 0);
+	VALUES ("127.0.0.1", "127.0.0.1:8000", "123456789", "123456789", NOW(), NOW(), 1, 1, 1, 0);
     
 /* Users */
 INSERT INTO core_user (firstname, lastname, email, username, password, phonenumber, role, country, city, bio, rating, user_key, image, site_id)

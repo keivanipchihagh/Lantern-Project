@@ -30,43 +30,47 @@ class ChatConsumer(WebsocketConsumer):
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
 
-        id = text_data_json['id']
+        # id = text_data_json['id']
+        # message = text_data_json['message']
+        # datetime = text_data_json['datetime']
+        # room_key = text_data_json['room_key']
+        # sender = text_data_json['sender']
         message = text_data_json['message']
-        datetime = text_data_json['datetime']
-        room_key = text_data_json['room_key']
-        sender = text_data_json['sender']
 
         # Save the message
-        room_id = Room.objects.get(room_key = room_key).id
-        Message(content = message, ip = None, datetime = dt.now(), sender = sender, room_id = room_id).save()
+        # room_id = Room.objects.get(room_key = room_key).id
+        # Message(content = message, ip = None, datetime = dt.now(), sender = sender, room_id = room_id).save()
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'room_gate',
-                'id': id,
-                'message': message,
-                'datetime': datetime,
-                'room_key': room_key,
-                'sender': sender,
+                # 'id': id,
+                # 'message': message,
+                # 'datetime': datetime,
+                # 'room_key': room_key,
+                # 'sender': sender,
+                'message': message
             }
         )        
 
     # Receive message from room group
     def room_gate(self, event):
 
-        id = event['id']
+        # id = event['id']
+        # message = event['message']
+        # datetime = event['datetime']
+        # room_key = event['room_key']
+        # sender = event['sender']
         message = event['message']
-        datetime = event['datetime']
-        room_key = event['room_key']
-        sender = event['sender']
 
         # Send message to WebSocket
         self.send(text_data = json.dumps({
-            'id': id,
-            'message': message,
-            'datetime': datetime,
-            'room_key': room_key,
-            'sender': sender,
+            # 'id': id,
+            # 'message': message,
+            # 'datetime': datetime,
+            # 'room_key': room_key,
+            # 'sender': sender,
+            'message': message
         }))
