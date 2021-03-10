@@ -1,5 +1,6 @@
 from django import forms
 from .models import ReservedMessages, User
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 
 class ProfileForm(forms.ModelForm):
@@ -9,7 +10,8 @@ class ProfileForm(forms.ModelForm):
         model = User
 
         # Used fields
-        fields = ['firstname', 'lastname', 'email', 'username', 'phonenumber', 'role']
+        # fields = ['firstname', 'lastname', 'email', 'username', 'phonenumber', 'role']
+        fields = ['first_name', 'last_name', 'email', 'username', 'phonenumber']        
 
         # Error messages
         error_messages = {
@@ -22,7 +24,8 @@ class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for field in ['username', 'email', 'role']:
+        # for field in ['username', 'email', 'role']:
+        for field in ['username', 'email']:
             self.fields[field].disabled = True
             self.fields[field].required = False
 
@@ -68,3 +71,16 @@ class ReservedMessagesForm(forms.ModelForm):
             'max_length': 'Field is too long!',
             'required': 'This field is required',
         }
+
+
+class UserCreationForm(UserCreationForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+class UserChangeForm(UserChangeForm):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email')

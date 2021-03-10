@@ -3,7 +3,7 @@ INSERT INTO dashboard_site (host, url, private_key, public_key, date_joined, dat
 	VALUES ("127.0.0.1", "127.0.0.1:8000", "123456789", "123456789", NOW(), NOW(), 1, 1, 0);
     
 /* Users */
-INSERT INTO dashboard_user (firstname, lastname, email, username, password, phonenumber, role, title, rating, user_key, site_id)
+INSERT INTO dashboard_user (first_name, last_name, email, username, password, phonenumber, role, title, rating, user_key, site_id)
 	VALUES ("Keivan", "Ipchi Hagh", "keivanipchihagh@gmail.com", "keivanipchi", "25251380", "09197270223", "staff", "staff", 10.0, "123456789", 1);
 
 INSERT INTO dashboard_user (firstname, lastname, email, username, password, phonenumber, role, title, rating, user_key, site_id)
@@ -34,7 +34,7 @@ INSERT INTO dashboard_menu (name, icon, label, category)
 
 INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("settings", "fa fa-cogs", null, "Shared");
-    
+
 /* News Letters */
 INSERT INTO dashboard_newsletter (title, type, date_published, content, tags, user_id)
 	VALUES ('Welcome to Lantern-Project', 'Announcement', NOW(), 'Bonjour! Ciao! Willkommen! Hello!<br/>We are so thrilled you decided to join our community! Hats off on making this excellent desicion! You are now officially in the loop to hear all about our awesome features, new released and many many more.', 'Staff Accouncement', 1);

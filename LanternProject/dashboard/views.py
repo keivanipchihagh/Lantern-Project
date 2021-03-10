@@ -102,8 +102,8 @@ def profile_update(request, username):
 
     if form.is_valid():
         User.objects.filter(username = username).update(
-            firstname = form.cleaned_data.get('firstname'),
-            lastname = form.cleaned_data.get('lastname'),
+            first_name = form.cleaned_data.get('first_name'),
+            last_name = form.cleaned_data.get('last_name'),
             phonenumber = form.cleaned_data.get('phonenumber'),
             country = form.cleaned_data.get('country'),
             city = form.cleaned_data.get('city'),
@@ -227,7 +227,7 @@ def get_header_data(username, news):
 
     header = {        
         'username': user.username,                
-        'role': user.role,
+        # 'role': user.role,
         'notifications': notifications,
     }
     return header
@@ -239,10 +239,10 @@ def get_home_data(username, news):
     site = get_site(user = user)
 
     home = {
-        'firstname': user.firstname,
-        'lastname': user.lastname,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
         'hostname': site.host,
-        'role': user.role,
+        # 'role': user.role,
         'news': news,
     }
     return home
@@ -271,11 +271,11 @@ def get_profile_data(username):
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
 
     profile = {
-        'firstname': user.firstname,
-        'lastname': user.lastname,
+        'first_name': user.first_name,
+        'last_name': user.last_name,
         'username': user.username,
         'email': user.email,
-        'role': user.role,
+        # 'role': user.role,
         'hostname': site.host,
         'rating': user.rating,
         'last_login': log.datetime,

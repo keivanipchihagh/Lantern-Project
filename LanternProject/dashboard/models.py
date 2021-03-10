@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
 from django.db import models
 from datetime import datetime
@@ -315,99 +316,6 @@ class Site(models.Model):
         db_table = 'dashboard_site'
 
 
-class User(models.Model):
-    ''' User model '''
-
-    # Firstname | Max Length: 30
-    firstname = models.CharField(
-        max_length = 30,
-        name = 'firstname',
-        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
-    )
-
-    # Lastname | Max Length: 30
-    lastname = models.CharField(
-        max_length = 30,
-        name = 'lastname',
-        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
-    )
-
-    # Email Address | Max Length: 50
-    email = models.EmailField(
-        unique = True,
-        max_length = 50,
-        name = 'email',
-        help_text = 'Max length: 30',
-        verbose_name = 'Email Address'
-    )
-
-    # Username | Max Length: 30
-    username = models.CharField(
-        unique = True,
-        max_length = 30,
-        name = 'username',
-        help_text = 'Max length: 30',
-    )
-
-    # Password | Max Length: 30
-    password = models.CharField(
-        max_length = 64,
-        name = 'password',
-    )
-
-    # Phone Number | Max Length: 12
-    phonenumber = models.CharField(
-        max_length = 11,
-        name = 'phonenumber',        
-        validators = [RegexValidator('^[0-9]+$', message = "Numbers allowed only!")],
-        help_text = 'Format: XXXX XXX XXXX',
-        verbose_name = 'Phone Number'
-    )
-
-    # Role | Max Length: 5
-    role = models.CharField(
-        max_length = 5,
-        name = 'role',
-        validators = [RegexValidator('{staff|admin|agent}', message = 'Unknown Role')],
-    )
-
-    # Title | Max Length: 30 | ie. Sales Manager
-    title = models.CharField(
-        name = 'title',
-        max_length = 30,
-        null = True,
-        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
-    )
-
-    # Rating | Float
-    rating = models.FloatField(
-        blank = True,
-        name = 'rating',
-        null = True,        
-    )
-
-    # User Key | Max Length: 128
-    user_key = models.CharField(
-        unique = True,
-        name = 'user_key',
-        max_length = 128,
-    )
-
-    # Is Online | Boolean
-    is_online = models.BooleanField(
-        name = 'is_online',
-        null = True,
-        default = False,
-    )
-
-    # Site Id | Foreign Key (Site.id)
-    site = models.ForeignKey('Site', models.DO_NOTHING, verbose_name = 'Assigned Site')
-
-    class Meta:
-        managed = True          # Allow Create, Delete
-        db_table = 'dashboard_user'
-
-
 class Log(models.Model):
     ''' Log model '''
 
@@ -432,3 +340,104 @@ class Log(models.Model):
     class Meta:
         managed = True          # Allow Create, Delete
         db_table = 'dashboard_log'
+
+
+class User(AbstractUser):
+    ''' User model '''
+
+    # # Firstname | Max Length: 30
+    # firstname = models.CharField(
+    #     max_length = 30,
+    #     name = 'firstname',
+    #     validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
+    # )
+
+    # # Lastname | Max Length: 30
+    # lastname = models.CharField(
+    #     max_length = 30,
+    #     name = 'lastname',
+    #     validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
+    # )
+
+    # # Email Address | Max Length: 50
+    # email = models.EmailField(
+    #     unique = True,
+    #     max_length = 50,
+    #     name = 'email',
+    #     help_text = 'Max length: 30',
+    #     verbose_name = 'Email Address'
+    # )
+
+    # # Username | Max Length: 30
+    # username = models.CharField(
+    #     unique = True,
+    #     max_length = 30,
+    #     name = 'username',
+    #     help_text = 'Max length: 30',
+    # )
+
+    # # Password | Max Length: 30
+    # password = models.CharField(
+    #     max_length = 64,
+    #     name = 'password',
+    # )
+
+    # Phone Number | Max Length: 12
+    phonenumber = models.CharField(
+        max_length = 11,
+        name = 'phonenumber',        
+        validators = [RegexValidator('^[0-9]+$', message = "Numbers allowed only!")],
+        help_text = 'Format: XXXX XXX XXXX',
+        verbose_name = 'Phone Number'
+    )
+
+    # # Role | Max Length: 5
+    # role = models.CharField(
+    #     max_length = 5,
+    #     name = 'role',
+    #     validators = [RegexValidator('{staff|admin|agent}', message = 'Unknown Role')],
+    # )
+
+    # Title | Max Length: 30 | ie. Sales Manager
+    title = models.CharField(
+        name = 'title',
+        max_length = 30,
+        null = True,
+        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
+    )
+
+    # Rating | Float
+    rating = models.FloatField(
+        blank = True,
+        name = 'rating',
+        null = True,        
+    )
+
+    # # User Key | Max Length: 128
+    # user_key = models.CharField(
+    #     unique = True,
+    #     name = 'user_key',
+    #     max_length = 128,
+    # )
+
+    # # Is Online | Boolean
+    # is_online = models.BooleanField(
+    #     name = 'is_online',
+    #     null = True,
+    #     default = False,
+    # )
+
+    # Site Id | Foreign Key (Site.id)
+    site = models.ForeignKey('Site', models.DO_NOTHING, verbose_name = 'Assigned Site')
+
+    class Meta:
+        managed = True          # Allow Create, Delete
+        db_table = 'dashboard_user'
+
+
+# class AuthUser(AbstractUser):
+    
+#     pass
+
+#     def __str__(self):
+#         return self.username
