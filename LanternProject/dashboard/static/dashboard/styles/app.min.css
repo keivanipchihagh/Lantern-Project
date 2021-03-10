@@ -6682,7 +6682,7 @@ a.text-blue:hover {
 
 .float-label .md-input ~ label {
     top: 20px;
-    font-size: 1em
+    font-size: 1em;
 }
 
 .float-label .md-input.has-value ~ label, .float-label .md-input.ng-dirty ~ label, .md-input ~ label {

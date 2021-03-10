@@ -1,4 +1,5 @@
 from hashlib import sha256
+import secrets
 from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from core.models import CoreRoom as Room, CoreUser as User, CoreMessage as Message, CoreSite as Site, CoreLog as Log
@@ -34,14 +35,13 @@ def login(request):
         if form.is_valid():
             try:
                 # Get user if exists
-                SHA_256 = sha256(form.cleaned_data['password'].encode('utf-8')).hexdigest()
                 user = User.objects.get(emailaddress = form.cleaned_data['emailaddress'], password = form.cleaned_data['password'])
 
                 # Log
-                Log(title = 'Sign In', user_id = user.id, site_id = user.site_id).save()
+                Log(title = 'Sign In', user_id = user.id, site_id = user.site_id).save()                
 
-                return HttpResponseRedirect('v1/user/' + user.user_key)
-            except:                
+                return HttpResponseRedirect('v1/user/' + user.username)
+            except:
                 return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'emailaddress': form.cleaned_data['emailaddress'], 'password': ''}), 'message': 'Invalid Email/Password'}, template_name = 'dashboard/login.html')
         else:
             return HttpResponseForbidden(form.errors.values())
@@ -49,7 +49,7 @@ def login(request):
 # ------------------------------------------------------------------------ Index ------------------------------------------------------------------------
 
 @require_http_methods(['GET'])
-def index(request, user_key):
+def index(request, username):
 
     page = request.GET.get('page')
     news = NewsLetter.objects.order_by('-date_published')
@@ -57,21 +57,26 @@ def index(request, user_key):
     
     # Shared pages
     aside = get_aside_data()
-    header = get_header_data(user_key = user_key, news = news)
+    header = get_header_data(username = username, news = news)
+
+    # Set Cookies(Session: username & expire time)
+    return HttpResponse(request.session['username'])
+    # request.session['username'] = username
+    # request.session.set_expiry(60)
 
     # Individual pages
     if page == 'home':
-        home = get_home_data(user_key = user_key, news = news)
-        reservedmessages = get_reservedmessages_data(user_key = user_key)
+        home = get_home_data(username = username, news = news)
+        reservedmessages = get_reservedmessages_data(username = username)
     elif page == 'newsletter':        
         newsletter = get_newsletter_data(news = news)
     elif page == 'chatroom':        
-        chatroom = get_chatroom_data(user_key = user_key)
-        reservedmessages = get_reservedmessages_data(user_key = user_key)
+        chatroom = get_chatroom_data(username = username)
+        reservedmessages = get_reservedmessages_data(username = username)
     elif page == 'profile':
-        profile = get_profile_data(user_key = user_key)
+        profile = get_profile_data(username = username)
     elif page == 'reserved messages':
-        reservedmessages = get_reservedmessages_data(user_key = user_key)
+        reservedmessages = get_reservedmessages_data(username = username)
 
 
     # Data for index.html
@@ -85,7 +90,7 @@ def index(request, user_key):
         'reservedmessages': reservedmessages,   # Data for reservedmessages.html
 
         'page': page,
-        'user_key': user_key,
+        'username': username,
         'title': page,
     }
 
@@ -94,12 +99,12 @@ def index(request, user_key):
 # ------------------------------------------------------------------------ Profile ------------------------------------------------------------------------
 
 @require_http_methods(['POST'])
-def profile_update(request, user_key):
+def profile_update(request, username):
 
     form = ProfileForm(request.POST, request.FILES)
 
     if form.is_valid():
-        User.objects.filter(user_key = user_key).update(
+        User.objects.filter(username = username).update(
             firstname = form.cleaned_data.get('firstname'),
             lastname = form.cleaned_data.get('lastname'),
             phonenumber = form.cleaned_data.get('phonenumber'),
@@ -115,7 +120,7 @@ def profile_update(request, user_key):
 # -------------------------------------------------------------------- Reserved Messages --------------------------------------------------------------------
 
 @require_http_methods(['POST'])
-def reversedmessages_modify(request, user_key):
+def reversedmessages_modify(request, username):
 
     id = request.POST.get('id')
     title = request.POST.get('title')
@@ -124,7 +129,7 @@ def reversedmessages_modify(request, user_key):
     starred = request.POST.get('starred')
     content = request.POST.get('content')
 
-    user = get_user(user_key = user_key)
+    user = get_user(username = username)
 
     if request.POST.get('action') == 'DELETE':
         reservedmessage = ReservedMessages.objects.get(id = id, user_id = user.id).delete()
@@ -152,10 +157,10 @@ def reversedmessages_modify(request, user_key):
 
 # ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
 
-def chatroom_assign_room(request, user_key):
+def chatroom_assign_room(request, username):
     ''' Return the earliest created room key and it's messages assigned to the site that the agent belogns '''
 
-    user = User.objects.get(user_key = user_key)
+    user = User.objects.get(username = username)
     assigned_room = Room.objects.filter(status = 'open', user_id = user.id).order_by('date_opened')[0]
     # assigned_room.status = 'assigned'
     # assigned_room.save()
@@ -177,10 +182,10 @@ def chatroom_assign_room(request, user_key):
 def chatroom_close_room(request):
 
     # Get request data
-    room_key, user_key = request.GET['room_key'], request.GET['user_key']
+    room_key, username = request.GET['room_key'], request.GET['username']
 
     # Verification & update
-    user = User.objects.get(user_key = user_key)
+    user = User.objects.get(username = username)
     room = Room.objects.get(room_key = room_key, user_id = user.id)
     room.status = 'closed'
     room.save()
@@ -193,8 +198,8 @@ def chatroom_close_room(request):
 
 # ------------------------------------------------------------------------ Methods ------------------------------------------------------------------------
 
-def get_user(user_key):
-    return User.objects.get(user_key = user_key)
+def get_user(username):
+    return User.objects.get(username = username)
 
 
 def get_site(user):
@@ -218,9 +223,9 @@ def get_aside_data():
     return aside
 
 
-def get_header_data(user_key, news):
+def get_header_data(username, news):
 
-    user = get_user(user_key = user_key)   
+    user = get_user(username = username)   
     notifications = news.filter(date_published__gte = datetime.now() - timedelta(days = 7)) 
 
     header = {        
@@ -231,9 +236,9 @@ def get_header_data(user_key, news):
     return header
 
 
-def get_home_data(user_key, news):
+def get_home_data(username, news):
 
-    user = get_user(user_key = user_key)
+    user = get_user(username = username)
     site = get_site(user = user)
 
     home = {
@@ -246,12 +251,12 @@ def get_home_data(user_key, news):
     return home
 
 
-def get_chatroom_data(user_key):
+def get_chatroom_data(username):
 
-    user = get_user(user_key = user_key)
+    user = get_user(username = username)
     site = get_site(user = user)
     open_rooms = Room.objects.exclude(status = 'closed').order_by('-date_opened')       # Fetch open rooms
-    assigned_rooms = open_rooms.filter(user_id__user_key = user_key)                    # Query assigned rooms
+    assigned_rooms = open_rooms.filter(user_id__username = username)                    # Query assigned rooms
 
     chatroom = {
         'open_rooms': open_rooms,
@@ -261,9 +266,9 @@ def get_chatroom_data(user_key):
     return chatroom
 
 
-def get_profile_data(user_key):
+def get_profile_data(username):
 
-    user = get_user(user_key = user_key)
+    user = get_user(username = username)
     site = get_site(user = user)
     log = Log.objects.filter(user_id = user.id).latest('datetime')
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
@@ -284,9 +289,9 @@ def get_profile_data(user_key):
     return profile
 
 
-def get_reservedmessages_data(user_key):
+def get_reservedmessages_data(username):
 
-    user = get_user(user_key = user_key)
+    user = get_user(username = username)
     messages = ReservedMessages.objects.filter(user_id = user.id).order_by('tag', 'title')
     tags = messages.order_by().values('tag', 'color').distinct()
 

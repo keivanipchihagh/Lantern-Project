@@ -16,9 +16,7 @@
     <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboard/styles/custom.css' %}">
-    <script src="{% static 'dashboard/scripts/particles/particles.min.js'%}"></script>
-    <script>particlesJS.load('particles-js', '../../../../static/dashboard/scripts/particles/package.json')</script>
+    <link rel="stylesheet" href="{% static 'dashboard/styles/custom.css' %}">    
 </head>
 <body id="particles-js" class="dark-linear-background text-white">    
     <div class="app">
@@ -37,7 +35,7 @@
                         <label>{{ field.label|title }}</label>
                     </div>
                     {% elif field.field.type == 'password' %}
-                    <div class="md-form-group float-label">
+                    <div class="md-form-group floating-label">
                         <input type="password" autocomplete="off" ng-model="password" id="password" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
                         <input type="hidden" name="password" class="md-input" />
                         <label>{{ field.label|title }}</label>                        
@@ -56,16 +54,17 @@
 
             <div class="p-v-lg text-center">
                 <div class="m-b"><a ui-sref="access.forgot-password" href="forgot-password.html" class="text-primary _600">Forgot password?</a></div>
-                <div>Do not have an account? <a ui-sref="access.signup" href="signup.html" class="text-primary _600">Login</a></div>
+                <div>Do not have an account? <a ui-sref="access.signup" href="signup.html" class="text-primary _600">Register</a></div>
             </div>
         </div>
     </div>
 
     <!-- Scripts -->    
     <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous"></script>
+    <script src="{% static 'dashboard/scripts/particles/particles.min.js'%}"></script>
     <script>
+    particlesJS.load('particles-js', '../../../../static/dashboard/scripts/particles/package.json')
     function removeErr() { $('#err').text('') }
     window.onload = function() { document.querySelector('canvas').style.height = window.innerHeight + 'px' }
     document.querySelector('#password').addEventListener('input',function(){document.querySelector('[name=password]').value = sha256(this.value)})

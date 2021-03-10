@@ -50,3 +50,15 @@
 body {
     overflow: hidden;
 }
+
+.floating-label label {
+    top: 20px;
+    font-size: 1em;
+}
+
+.float-label input:focus ~ label {
+    color: #18c139;
+    opacity: 1;
+    top: 0 !important;
+    font-size: .85em !important
+}

@@ -8,14 +8,14 @@ const Profile = new Vue({
     el: "#profile",
 
     data: {
-        user_key: '123456789'
+        username: 'keivanipchi'
     },
 
     mounted: function () {
         self = this
         $('form#profile_form').submit(function (e) {
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/profile/update',
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/profile/update',
                 type: $(this).attr('method'),
                 data: $(this).serialize(),
                 error: function () {
@@ -39,7 +39,7 @@ const reservedMessages = new Vue({
 
     data: {
         openedID: null,
-        user_key: '123456789'
+        username: 'keivanipchi'
     },
 
     methods : {
@@ -61,7 +61,7 @@ const reservedMessages = new Vue({
             identifier = (action == 'INSERT') ? 'new' : id
             
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/reversedmessages/messages/modify',
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/reversedmessages/messages/modify',
                 type: 'POST',
                 data: {
                     id: identifier,
@@ -101,7 +101,7 @@ const Chatroom = new Vue({
         messages: [],
         rooms: [],
         message: '',
-        user_key: '123456789',
+        username: 'keivanipchi',
     },
 
     methods: {
@@ -115,7 +115,7 @@ const Chatroom = new Vue({
             var self = this
             
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/chatroom/assign_room',
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/chatroom/assign_room',
                 type: 'GET',
                 context: this,      // Essential for VueJS
                 data: {
@@ -176,9 +176,9 @@ const Chatroom = new Vue({
         closeRoom: function(room_key) {
             // Close the room, delete the chats and remove the room from dashboard
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.user_key + '/chatroom/close_room',
+                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/chatroom/close_room',
                 type: 'GET',
-                data: { 'room_key': room_key, 'user_key': this.user_key },
+                data: { 'room_key': room_key, 'username': this.username },
                 error: function () { console.error('Session could not be closed') },
                 success: function () {
                     console.log('Session Closed.')

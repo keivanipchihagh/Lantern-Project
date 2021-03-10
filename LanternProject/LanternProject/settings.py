@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',       # dashboard
 ]
 
+# AUTH_USER_MODEL = 'accounts.CoreUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
