@@ -1,9 +1,7 @@
-from hashlib import sha256
-import secrets
 from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
-from core.models import CoreRoom as Room, CoreUser as User, CoreMessage as Message, CoreSite as Site, CoreLog as Log
-from .models import DashboardMenu as Menu, DashboardNewsLetter as NewsLetter, DashboardReservedMessages as ReservedMessages
+from core.models import Room, User, Message, Site, Log
+from .models import Menu, NewsLetter, ReservedMessages
 import json
 from .forms import ProfileForm, LoginForm, ReservedMessagesForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
@@ -60,7 +58,7 @@ def index(request, username):
     header = get_header_data(username = username, news = news)
 
     # Set Cookies(Session: username & expire time)
-    return HttpResponse(request.session['username'])
+    # return HttpResponse(request.session['username'])
     # request.session['username'] = username
     # request.session.set_expiry(60)
 

@@ -1,6 +1,6 @@
 from django import forms
-from core.models import CoreUser as User
-from .models import DashboardReservedMessages as ReservedMessages
+from core.models import User as User
+from .models import ReservedMessages
 
 
 class ProfileForm(forms.ModelForm):

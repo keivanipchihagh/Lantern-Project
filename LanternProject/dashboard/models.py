@@ -1,8 +1,8 @@
 from django.db import models
-from core.models import CoreUser
+from core.models import User
 
-class DashboardMenu(models.Model):
-    ''' Dashboard Menu model '''    
+class Menu(models.Model):
+    ''' Menu model '''    
 
     # Name | Max Length: 20
     name = models.CharField(
@@ -35,8 +35,8 @@ class DashboardMenu(models.Model):
         db_table = 'dashboard_menu'
 
 
-class DashboardNewsLetter(models.Model):
-    ''' Dashboard News Letter Model '''
+class NewsLetter(models.Model):
+    ''' News Letter Model '''
 
     # Title | Max Length: 50
     title = models.CharField(
@@ -76,8 +76,8 @@ class DashboardNewsLetter(models.Model):
         max_length = 100,
     )
 
-    # User Id  | Foreign Key (CoreUser.id)
-    user = models.ForeignKey(CoreUser, models.DO_NOTHING)
+    # User Id  | Foreign Key (User.id)
+    user = models.ForeignKey(User, models.DO_NOTHING)
 
     def tags_as_list(self):
         return self.tags.split(',')
@@ -87,8 +87,8 @@ class DashboardNewsLetter(models.Model):
         db_table = 'dashboard_newsletter'
 
 
-class DashboardReservedMessages(models.Model):
-    ''' Dashboard Reserved messages model '''
+class ReservedMessages(models.Model):
+    ''' Reserved messages model '''
 
     # Title | Max Length: 30
     title = models.CharField(
@@ -146,8 +146,8 @@ class DashboardReservedMessages(models.Model):
         verbose_name = 'Modified Date'
     )
 
-    # User Id  | Foreign Key (CoreUser.id)
-    user = models.ForeignKey(CoreUser, models.DO_NOTHING)
+    # User Id  | Foreign Key (User.id)
+    user = models.ForeignKey(User, models.DO_NOTHING)
 
     class Meta:
         managed = True          # Allow Create, Delete

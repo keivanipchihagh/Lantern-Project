@@ -7,8 +7,8 @@ from datetime import datetime
 from django.views.decorators.http import require_http_methods
 
 # Core Models
-from core.models import CoreSite as Site
-from core.models import CoreRoom as Room
+from core.models import Site
+from core.models import Room
 
 
 @require_http_methods(['GET'])

@@ -3,8 +3,8 @@ from django.core.validators import RegexValidator
 from datetime import datetime
 
 
-class CoreMessage(models.Model):
-    ''' Core Message model '''
+class Message(models.Model):
+    ''' Message model '''
 
     # Content | Max Length: 300
     content = models.CharField(
@@ -23,8 +23,8 @@ class CoreMessage(models.Model):
         name = 'datetime',
     )
 
-    # Room Id | Foreign Key (CoreRoom.id)
-    room = models.ForeignKey('CoreRoom', models.DO_NOTHING)
+    # Room Id | Foreign Key (Room.id)
+    room = models.ForeignKey('Room', models.DO_NOTHING)
 
     def as_dict(self):
         return {
@@ -39,8 +39,8 @@ class CoreMessage(models.Model):
         db_table = 'core_message'
 
 
-class CoreRoom(models.Model):
-    ''' Core Room model '''
+class Room(models.Model):
+    ''' Room model '''
 
     # Room Key | Max Length: 64
     room_key = models.CharField(
@@ -85,19 +85,19 @@ class CoreRoom(models.Model):
         max_length = 30,
     )
 
-    # User Id  | Foreign Key (CoreUser.id)
-    user = models.ForeignKey('CoreUser', models.DO_NOTHING)
+    # User Id  | Foreign Key (User.id)
+    user = models.ForeignKey('User', models.DO_NOTHING)
 
-    # Site Id | Foreign Key (CoreSite.id)
-    site = models.ForeignKey('CoreSite', models.DO_NOTHING)
+    # Site Id | Foreign Key (Site.id)
+    site = models.ForeignKey('Site', models.DO_NOTHING)
 
     class Meta:
         managed = True          # Allow Create, Delete
         db_table = 'core_room'
 
 
-class CoreSite(models.Model):
-    ''' Core Site model '''
+class Site(models.Model):
+    ''' Site model '''
 
     # Host | Max Length: 50
     host = models.CharField(
@@ -163,8 +163,8 @@ class CoreSite(models.Model):
         db_table = 'core_site'
 
 
-class CoreUser(models.Model):
-    ''' Core User model '''
+class User(models.Model):
+    ''' User model '''
 
     # Firstname | Max Length: 30
     firstname = models.CharField(
@@ -255,16 +255,16 @@ class CoreUser(models.Model):
         default = False,
     )
 
-    # Site Id | Foreign Key (CoreSite.id)
-    site = models.ForeignKey(CoreSite, models.DO_NOTHING, verbose_name = 'Assigned Site')
+    # Site Id | Foreign Key (Site.id)
+    site = models.ForeignKey('Site', models.DO_NOTHING, verbose_name = 'Assigned Site')
 
     class Meta:
         managed = True          # Allow Create, Delete
         db_table = 'core_user'
 
 
-class CoreLog(models.Model):
-    ''' Core Log model '''
+class Log(models.Model):
+    ''' Log model '''
 
     # Title | Max Length: 30
     title = models.CharField(
@@ -278,11 +278,11 @@ class CoreLog(models.Model):
         default = datetime.now(),
     )
 
-    # User Id  | Foreign Key (CoreUser.id)
-    user = models.ForeignKey('CoreUser', models.DO_NOTHING)
+    # User Id  | Foreign Key (User.id)
+    user = models.ForeignKey('User', models.DO_NOTHING)
 
-    # Site Id | Foreign Key (CoreSite.id)
-    site = models.ForeignKey('CoreSite', models.DO_NOTHING)
+    # Site Id | Foreign Key (Site.id)
+    site = models.ForeignKey('Site', models.DO_NOTHING)
 
     class Meta:
         managed = True          # Allow Create, Delete
