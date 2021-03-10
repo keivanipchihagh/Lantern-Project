@@ -5,7 +5,8 @@ import json
 from .forms import ProfileForm, LoginForm, ReservedMessagesForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from datetime import datetime, timedelta
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
 
 
 # ------------------------------------------------------------------------ Errors -------------------------------------------------------------------------
@@ -34,6 +35,8 @@ def login(request):
             try:
                 # Get user if exists
                 user = authenticate(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
+
+                auth_login(request, user)   # Login the user (authomates cookies)
                 
                 # Invalid credentials
                 if user is None: raise Exception('')
@@ -49,6 +52,7 @@ def login(request):
 
 # ------------------------------------------------------------------------ Index ------------------------------------------------------------------------
 
+@login_required(login_url = 'login')
 @require_http_methods(['GET'])
 def dashboard(request, username):
 
@@ -99,6 +103,7 @@ def dashboard(request, username):
 
 # ------------------------------------------------------------------------ Profile ------------------------------------------------------------------------
 
+@login_required(login_url = 'login')
 @require_http_methods(['POST'])
 def profile_update(request, username):
 
@@ -120,6 +125,7 @@ def profile_update(request, username):
 
 # -------------------------------------------------------------------- Reserved Messages --------------------------------------------------------------------
 
+@login_required(login_url = 'login')
 @require_http_methods(['POST'])
 def reversedmessages_modify(request, username):
 
@@ -158,6 +164,7 @@ def reversedmessages_modify(request, username):
 
 # ------------------------------------------------------------------------ Chatroom ------------------------------------------------------------------------
 
+@login_required(login_url = 'login')
 def chatroom_assign_room(request, username):
     ''' Return the earliest created room key and it's messages assigned to the site that the agent belogns '''
 

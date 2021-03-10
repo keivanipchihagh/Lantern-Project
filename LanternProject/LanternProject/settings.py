@@ -147,5 +147,6 @@ CHANNEL_LAYERS = {
 }
 
 # Redirect pages
-LOGIN_REDIRECT_URL = 'login'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'dashboard/login'
+LOGIN_REDIRECT_URL = 'dashboard/login'
+LOGOUT_REDIRECT_URL = 'dashboard/login'
