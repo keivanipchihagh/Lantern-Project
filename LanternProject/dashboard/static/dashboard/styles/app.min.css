@@ -6668,13 +6668,13 @@ a.text-blue:hover {
 }
 
     .md-input.focus, .md-input:focus {
-        border-color: #0cc2aa;
+        border-color: #18c139;
         border-bottom-width: 2px;
         padding-bottom: 1px
     }
 
         .md-input.focus ~ label, .md-input:focus ~ label {
-            color: #0cc2aa;
+            color: #18c139;
             opacity: 1;
             top: 0 !important;
             font-size: .85em !important

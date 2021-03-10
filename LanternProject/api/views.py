@@ -9,10 +9,6 @@ from django.views.decorators.http import require_http_methods
 # Core Models
 from core.models import CoreSite as Site
 from core.models import CoreRoom as Room
-from core.models import CoreUser as User
-
-# API Models
-from .models import ApiTitle as Title
 
 
 @require_http_methods(['GET'])
@@ -51,57 +47,3 @@ def start(request, host):
         return HttpResponseForbidden('Server refused to connect.')
     except:
         return HttpResponseBadRequest()
-        
-@require_http_methods(['GET'])
-def service(request, site_name):
-
-    response = HttpResponse('')
-
-    if request.GET.get('action') == 'initialize':
-        response = initialize(site_name, request.GET.get('apikey'))
-
-    return response
-
-
-# ------------------------------------------------------------------------  Methods ------------------------------------------------------------------------
-
-def initialize(name, public_key):
-
-    try: site = Site.objects.get(name = name, public_key = public_key)
-    except:
-        response = JsonResponse({"msg": "Access Denied"})
-        response.status_code = 403
-        return response
-
-    try:
-        customization = Customization.objects.get(site_id = site.id)
-
-        return JsonResponse({
-            'app': {
-                'title': customization.title,
-                'placeholder': customization.placeholder,
-                'formtitles': ','.join([str(item.title) for item in Title.objects.filter(customization_id = customization.id)]),
-            },
-            'options': [
-                {
-                    'service': True if (User.objects.filter(site_id = site.id, is_online = True).count() > 0 and site.livechat_service) else False,
-                    'title': customization.livechat_title,
-                    'placeholder': customization.livechat_placeholder,
-                },
-                {
-                    'service': site.ticket_service,
-                    'title': customization.ticket_title,
-                    'placeholder': customization.ticket_placeholder,
-                },
-                {
-                    'service': site.virtualagent_service,
-                    'title': customization.virtualagent_title,
-                    'placeholder': customization.virtualagent_placeholder,    
-                }
-            ],            
-        })
-
-    except:
-        response = JsonResponse({"msg": "Server Unavailable"})
-        response.status_code = 503
-        return response

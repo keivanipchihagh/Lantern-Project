@@ -170,26 +170,24 @@ class CoreUser(models.Model):
     firstname = models.CharField(
         max_length = 30,
         name = 'firstname',
-        help_text = 'Max Length: 30',
         validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
-        )
+    )
 
     # Lastname | Max Length: 30
     lastname = models.CharField(
         max_length = 30,
         name = 'lastname',
-        help_text = 'Max Length: 30',
         validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
-        )
+    )
 
     # Email Address | Max Length: 50
-    email = models.EmailField(
+    emailaddress = models.EmailField(
         unique = True,
         max_length = 50,
-        name = 'email',
+        name = 'emailaddress',
         help_text = 'Max length: 30',
         verbose_name = 'Email Address'
-        )
+    )
 
     # Username | Max Length: 30
     username = models.CharField(
@@ -197,84 +195,58 @@ class CoreUser(models.Model):
         max_length = 30,
         name = 'username',
         help_text = 'Max length: 30',
-        )
+    )
 
     # Password | Max Length: 30
     password = models.CharField(
         max_length = 30,
         name = 'password',
-        )
+    )
 
     # Phone Number | Max Length: 12
     phonenumber = models.CharField(
-        max_length = 12,
+        max_length = 11,
         name = 'phonenumber',        
         validators = [RegexValidator('^[0-9]+$', message = "Numbers allowed only!")],
-        help_text = 'Format: XXXX XXX XXX',
+        help_text = 'Format: XXXX XXX XXXX',
         verbose_name = 'Phone Number'
-        )
+    )
 
     # Role | Max Length: 5
     role = models.CharField(
         max_length = 5,
         name = 'role',
-        validators = [RegexValidator('{staff|admin|agent}', message = 'Role Unknown')],
-        )
+        validators = [RegexValidator('{staff|admin|agent}', message = 'Unknown Role')],
+    )
 
-    # Country | Max Length: 30
-    country = models.CharField(
+    # Title | Max Length: 30 | ie. Sales Manager
+    title = models.CharField(
+        name = 'title',
         max_length = 30,
-        name = 'country',
-        blank = True,
         null = True,
-        help_text = 'Max length: 30',
-        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")],
-        )
+        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")]
+    )
 
-    # City | Max Length: 30
-    city = models.CharField(
-        max_length = 30,
-        name = 'city',
-        blank = True,
-        null = True,
-        help_text = 'Max length: 30',
-        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")],
-        )
-
-    # Bio | Max Length: 75
-    bio = models.CharField(
-        max_length = 75,
-        name = 'bio',
-        blank = True,
-        null = True,
-        default = 'Howdy!',
-        help_text = 'Max length: 30',
-        )
+    # Number of Rooms assinged
+    assigned_rooms_count = models.IntegerField(
+        name = 'assigned_rooms_count',
+        default = 0,
+        verbose_name = 'Number of assigned rooms'
+    )
 
     # Rating | Float
     rating = models.FloatField(
         blank = True,
         name = 'rating',
         null = True,        
-        )
+    )
 
     # User Key | Max Length: 128
     user_key = models.CharField(
         unique = True,
         name = 'user_key',
         max_length = 128,
-        )
-
-    # Profile Image | File (Image)
-    image = models.ImageField(
-        upload_to = './',
-        name = 'image',
-        null = True,
-        blank = True,
-        default = None,
-        help_text = 'Size < 1Mb',
-        verbose_name = 'Profile Picture'
-        )
+    )
 
     # Is Online | Boolean
     is_online = models.BooleanField(

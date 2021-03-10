@@ -5,7 +5,7 @@ from . import views
 urlpatterns = [
 
     # SignIn Section
-    path(route = 'signin', view = views.signin, name = 'signin'),
+    path(route = 'login', view = views.login, name = 'login'),
 
     # Index Section
     path(route = 'v1/user/<int:user_key>', view = views.index, name = 'index'),

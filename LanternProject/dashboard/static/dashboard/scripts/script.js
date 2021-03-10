@@ -2,10 +2,6 @@ window.onbeforeunload = function () {
     window.scrollTo(0, 0);
 }
 
-particlesJS.load('particles-js', '../../../../static/dashboard/scripts/particles/particles.json', function() {
-    console.log('callback - particles.js config loaded');
-});
-
 // Profile Section
 const Profile = new Vue({
 

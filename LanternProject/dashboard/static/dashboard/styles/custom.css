@@ -1,0 +1,52 @@
+.dark-linear-background {
+    background: linear-gradient(95deg, rgb(47, 50, 74) 20%, rgb(66, 72, 103) 80%)
+}
+
+.text-white *{
+    color: #fff;
+}
+
+.text-black * {
+    color: #000;
+}
+
+.theme-primary-color {
+    color: #18c139;
+}
+
+.theme-primary-bgcolor {
+    background-color: #18c139;
+    color: rgb(47, 50, 74);
+}
+
+.theme-secondary-color {
+    color: rgb(47, 50, 74)    
+}
+
+.theme-secondary-bgcolor {
+    background: linear-gradient(95deg, rgb(47, 50, 74) 20%, rgb(66, 72, 103) 80%);
+    color: #fff;
+}
+
+.absolute-center {
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+.title {
+    width: fit-content;
+    margin: auto;
+    font-size: 30px;
+    font-family: 'Pacifico', cursive;
+}
+
+.text-center {
+    text-align: center;
+}
+
+body {
+    overflow: hidden;
+}

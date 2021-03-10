@@ -1,4 +1,3 @@
-from django.db.models.query import QuerySet
 from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from core.models import CoreRoom as Room, CoreUser as User, CoreMessage as Message, CoreSite as Site, CoreLog as Log
@@ -24,24 +23,24 @@ def handler500(request, exception = None):
 # ------------------------------------------------------------------------ Signin ------------------------------------------------------------------------
 
 @require_http_methods(['GET', 'POST'])
-def signin(request):
+def login(request):
 
     if request.method == 'GET':
-        return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': '', 'password': ''})}, template_name = 'dashboard/signin.html')
+        return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'emailaddress': '', 'password': ''})}, template_name = 'dashboard/login.html')
     else:
         form = LoginForm(request.POST)
 
         if form.is_valid():
             try:
                 # Get user if exists
-                user = User.objects.get(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
+                user = User.objects.get(emailaddress = form.cleaned_data['emailaddress'], password = form.cleaned_data['password'])
 
                 # Log
                 Log(title = 'Sign In', user_id = user.id, site_id = user.site_id).save()
 
                 return HttpResponseRedirect('v1/user/' + user.user_key)
             except:
-                return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': form.cleaned_data['email'], 'password': ''}), 'message': 'Invalid Email/Password'}, template_name = 'dashboard/signin.html')
+                return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'emailaddress': form.cleaned_data['emailaddress'], 'password': ''}), 'message': 'Invalid Email/Password'}, template_name = 'dashboard/login.html')
         else:
             return HttpResponseForbidden(form.errors.values())
 
@@ -238,7 +237,7 @@ def get_home_data(user_key, news):
     home = {
         'firstname': user.firstname,
         'lastname': user.lastname,
-        'sitename': site.name,
+        'hostname': site.host,
         'role': user.role,
         'news': news,
     }
@@ -271,15 +270,12 @@ def get_profile_data(user_key):
         'firstname': user.firstname,
         'lastname': user.lastname,
         'username': user.username,
-        'email': user.email,
+        'emailaddress': user.emailaddress,
         'role': user.role,
-        'sitename': site.name,
-        'country': user.country,
-        'city': user.city,        
-        'bio': user.bio,
+        'hostname': site.host,
         'rating': user.rating,
         'last_login': log.datetime,
-        'activities': len(Room.objects.filter(user_id = user.id)),
+        'assigned_rooms_count': len(Room.objects.filter(user_id = user.id)),
         'other_users': other_users,        
         'form': ProfileForm(auto_id = True, instance = user),
     }
