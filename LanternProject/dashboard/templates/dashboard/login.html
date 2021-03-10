@@ -31,10 +31,16 @@
                 <form name="login" id="login" role="form" method="post" action="{% url 'login' %}">
                     {% csrf_token %}
                     {% for field in form %}
-                    {% if field.field.type != 'checkbox' %}
+                    {% if field.field.type == 'email' %}
                     <div class="md-form-group float-label">
-                        <input type="{{ field.field.type }}" autocomplete="off" ng-model="{{ field.html_name }}" name="{{ field.html_name }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
+                        <input type="email" autocomplete="off" ng-model="emailaddress" name="emailaddress" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
                         <label>{{ field.label|title }}</label>
+                    </div>
+                    {% elif field.field.type == 'password' %}
+                    <div class="md-form-group float-label">
+                        <input type="password" autocomplete="off" ng-model="password" id="password" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
+                        <input type="hidden" name="password" class="md-input" />
+                        <label>{{ field.label|title }}</label>                        
                     </div>
                     {% else %}
                     <div class="m-b-md">
@@ -58,10 +64,11 @@
     <!-- Scripts -->    
     <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous"></script>
     <script>
     function removeErr() { $('#err').text('') }
-    window.onresize = function() { $('canvas').css('height', window.innerHeight); }
-    window.onload = function() { $('canvas').css('height', window.innerHeight); }
+    window.onload = function() { document.querySelector('canvas').style.height = window.innerHeight + 'px' }
+    document.querySelector('#password').addEventListener('input',function(){document.querySelector('[name=password]').value = sha256(this.value)})
     </script>
 </body>
 </html>

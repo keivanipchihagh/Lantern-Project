@@ -1,3 +1,4 @@
+from hashlib import sha256
 from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from core.models import CoreRoom as Room, CoreUser as User, CoreMessage as Message, CoreSite as Site, CoreLog as Log
@@ -33,13 +34,14 @@ def login(request):
         if form.is_valid():
             try:
                 # Get user if exists
+                SHA_256 = sha256(form.cleaned_data['password'].encode('utf-8')).hexdigest()
                 user = User.objects.get(emailaddress = form.cleaned_data['emailaddress'], password = form.cleaned_data['password'])
 
                 # Log
                 Log(title = 'Sign In', user_id = user.id, site_id = user.site_id).save()
 
                 return HttpResponseRedirect('v1/user/' + user.user_key)
-            except:
+            except:                
                 return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'emailaddress': form.cleaned_data['emailaddress'], 'password': ''}), 'message': 'Invalid Email/Password'}, template_name = 'dashboard/login.html')
         else:
             return HttpResponseForbidden(form.errors.values())

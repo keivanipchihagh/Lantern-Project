@@ -38,7 +38,6 @@ class LoginForm(forms.Form):
         )
 
     password = forms.CharField(
-        max_length = 30,
         min_length = 8,
         label = 'password',
         help_text = 'Min length: 8',
