@@ -44,11 +44,10 @@ INSTALLED_APPS = [
     'channels',                             # channels
     
     'api.apps.ApiConfig',                   # api
-    'core.apps.CoreConfig',                 # core
     'dashboard.apps.DashboardConfig',       # dashboard
 ]
 
-# AUTH_USER_MODEL = 'accounts.CoreUser'
+# AUTH_USER_MODEL = 'accounts.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

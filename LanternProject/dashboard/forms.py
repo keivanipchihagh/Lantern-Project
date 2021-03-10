@@ -1,6 +1,5 @@
 from django import forms
-from core.models import User as User
-from .models import ReservedMessages
+from .models import ReservedMessages, User
 
 
 class ProfileForm(forms.ModelForm):
@@ -10,7 +9,7 @@ class ProfileForm(forms.ModelForm):
         model = User
 
         # Used fields
-        fields = ['firstname', 'lastname', 'emailaddress', 'username', 'phonenumber', 'role']
+        fields = ['firstname', 'lastname', 'email', 'username', 'phonenumber', 'role']
 
         # Error messages
         error_messages = {
@@ -23,7 +22,7 @@ class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for field in ['username', 'emailaddress', 'role']:
+        for field in ['username', 'email', 'role']:
             self.fields[field].disabled = True
             self.fields[field].required = False
 
@@ -31,9 +30,9 @@ class ProfileForm(forms.ModelForm):
 class LoginForm(forms.Form):
     ''' Login Form '''
 
-    emailaddress = forms.EmailField(
+    email = forms.EmailField(
         max_length = 50,
-        label = 'emailaddress',
+        label = 'email',
         help_text = 'Max length: 50',
         )
 
@@ -53,7 +52,7 @@ class LoginForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         self.fields['remember_me'].type = 'checkbox'
-        self.fields['emailaddress'].type = 'email'
+        self.fields['email'].type = 'email'
         self.fields['password'].type = 'password'
 
 
