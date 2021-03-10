@@ -107,7 +107,7 @@
                 <li class="nav-header hidden-folded"><small class="text-muted">{{ aside.menu.0.category }}</small></li>
                 {% for item in aside.menu %}
                 <li {% if item.name == page %}class="active"{% endif %}>
-                    <a href="{% url 'index' username %}?page={{ item.name }}">
+                    <a href="{% url 'dashboard' username %}?page={{ item.name }}">
                         {% if item.label %}
                         <span class="nav-label"><b class="label rounded label-sm primary">{{ item.label }}</b></span>
                         {% endif %}

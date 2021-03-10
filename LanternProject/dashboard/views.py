@@ -5,6 +5,7 @@ import json
 from .forms import ProfileForm, LoginForm, ReservedMessagesForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from datetime import datetime, timedelta
+from django.contrib.auth import authenticate
 
 
 # ------------------------------------------------------------------------ Errors -------------------------------------------------------------------------
@@ -27,12 +28,15 @@ def login(request):
     if request.method == 'GET':
         return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': '', 'password': ''})}, template_name = 'dashboard/login.html')
     else:
-        form = LoginForm(request.POST)
+        form = LoginForm(request.POST)  # Apply validation rules
 
         if form.is_valid():
             try:
                 # Get user if exists
-                user = User.objects.get(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
+                user = authenticate(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
+                
+                # Invalid credentials
+                if user is None: raise Exception('')
 
                 # Log
                 Log(title = 'Sign In', user_id = user.id, site_id = user.site_id).save()                
@@ -46,7 +50,7 @@ def login(request):
 # ------------------------------------------------------------------------ Index ------------------------------------------------------------------------
 
 @require_http_methods(['GET'])
-def index(request, username):
+def dashboard(request, username):
 
     page = request.GET.get('page')
     news = NewsLetter.objects.order_by('-date_published')
@@ -104,7 +108,7 @@ def profile_update(request, username):
         User.objects.filter(username = username).update(
             first_name = form.cleaned_data.get('first_name'),
             last_name = form.cleaned_data.get('last_name'),
-            phonenumber = form.cleaned_data.get('phonenumber'),
+            phone_number = form.cleaned_data.get('phone_number'),
             country = form.cleaned_data.get('country'),
             city = form.cleaned_data.get('city'),
             bio = form.cleaned_data.get('bio'),

@@ -1,3 +1,4 @@
+from django import VERSION
 from django.urls import path
 from . import views
 
@@ -8,7 +9,7 @@ urlpatterns = [
     path(route = 'login', view = views.login, name = 'login'),
 
     # Index Section
-    path(route = 'v1/user/<str:username>', view = views.index, name = 'index'),
+    path(route = 'v1/user/<str:username>', view = views.dashboard, name = 'dashboard'),
 
     # Profile Section
     path(route = 'v1/user/<str:username>/profile/update', view = views.profile_update, name = 'update personal information'),

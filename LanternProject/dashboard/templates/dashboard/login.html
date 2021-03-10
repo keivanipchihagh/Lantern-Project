@@ -31,7 +31,7 @@
                     {% for field in form %}
                     {% if field.field.type == 'email' %}
                     <div class="md-form-group float-label">
-                        <input type="email" autocomplete="off" ng-model="emailaddress" name="emailaddress" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
+                        <input type="email" autocomplete="off" ng-model="email" name="email" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
                         <label>{{ field.label|title }}</label>
                     </div>
                     {% elif field.field.type == 'password' %}
@@ -67,7 +67,20 @@
     particlesJS.load('particles-js', '../../../../static/dashboard/scripts/particles/package.json')
     function removeErr() { $('#err').text('') }
     window.onload = function() { document.querySelector('canvas').style.height = window.innerHeight + 'px' }
-    document.querySelector('#password').addEventListener('input',function(){document.querySelector('[name=password]').value = sha256(this.value)})
+    {% comment %} document.querySelector('#password').addEventListener('input',function(){document.querySelector('[name=password]').value = sha256(this.value)}) {% endcomment %}
+    document.querySelector('#password').addEventListener('input',function(){document.querySelector('[name=password]').value = this.value})
     </script>
 </body>
 </html>
+
+{% comment %} {% block content %}
+
+    <div class="container">
+        <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+            <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Login</button>
+        </form>
+        Don't have an account? <a href="/register" target="blank"><strong>register here</strong></a>!
+    </div>
+{% endblock %} {% endcomment %}

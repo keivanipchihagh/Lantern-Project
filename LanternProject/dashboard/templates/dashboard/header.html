@@ -32,7 +32,7 @@
                                 {% elif notification.type == 'update' %}
                                 <i class="fa fa-certificate text-md pull-left w-40 m-r rounded success" aria-hidden="true"></i>
                                 {% endif %}
-                                <a href="{% url 'index' username %}?page=newsletter" class="clear block">
+                                <a href="{% url 'dashboard' username %}?page=newsletter" class="clear block">
                                     <b>{{ notification.title }}</b>
                                     <br><small class="text-muted">{{ notification.date_published|date:'Y-m-d H:i' }}</small>
                                 </a>
