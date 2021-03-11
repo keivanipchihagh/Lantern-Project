@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
@@ -147,6 +147,10 @@ CHANNEL_LAYERS = {
 }
 
 # Redirect pages
-LOGIN_URL = 'dashboard/login'
-LOGIN_REDIRECT_URL = 'dashboard/login'
-LOGOUT_REDIRECT_URL = 'dashboard/login'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'login'
+LOGIN_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'login'
+
+# Cookies
+SESSION_COOKIE_AGE = 60 * 60 * 24

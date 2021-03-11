@@ -22,31 +22,21 @@
     <div class="app">
         <div class="center-block w-xxl w-auto-xs p-y-md absolute-center text-center">
             <span class="title">Lantern Project</span>
-            <div class="p-a-md box-color r box-shadow-z1 m-a text-black">
+            <div class="p-a-md white-bg r-sm m-a text-black">
                 {% if message %}
                 <p id="err" class="text-danger" style="text-align: center">{{ message|title }}</p>
                 {% endif %}
                 <form name="login" id="login" role="form" method="post" action="{% url 'login' %}">
                     {% csrf_token %}
                     {% for field in form %}
-                    {% if field.field.type == 'email' %}
-                    <div class="md-form-group float-label">
-                        <input type="email" autocomplete="off" ng-model="email" name="email" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
-                        <label>{{ field.label|title }}</label>
+                    <div class="{% if field.field.type != 'checkbox'%}md-form-group float-label{% else %}m-b-md{% endif %}">
+                        {% if field.field.type == 'checkbox' %}
+                        <label class="md-check"><input type="{{ field.field.type }}" autocomplete="off" name="{{ field.name }}" /><i class="theme-primary-bgcolor"></i></label>
+                        {% else %}
+                        <input type="{{ field.field.type }}" autocomplete="off" ng-model="{{ field.name }}" name="{{ field.name }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
+                        {% endif %}
+                        <label for="{{ field.field.name }}">{{ field.label|title }}</label>                        
                     </div>
-                    {% elif field.field.type == 'password' %}
-                    <div class="md-form-group floating-label">
-                        <input type="password" autocomplete="off" ng-model="password" id="password" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
-                        <input type="hidden" name="password" class="md-input" />
-                        <label>{{ field.label|title }}</label>                        
-                    </div>
-                    {% else %}
-                    <div class="m-b-md">
-                        <label class="md-check">
-                            <input type="checkbox" name="{{ field.name }}"><i class="theme-primary-bgcolor"></i><label for="{{ field.name }}">{{ field.label }}</label>
-                        </label>
-                    </div>
-                    {% endif %}
                     {% endfor %}
                     <input type="submit" class="btn theme-secondary-bgcolor btn-block p-x-md" value="Login" />
                 </form>
@@ -61,26 +51,11 @@
 
     <!-- Scripts -->    
     <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js" integrity="sha512-szJ5FSo9hEmXXe7b5AUVtn/WnL8a5VofnFeYC2i2z03uS2LhAch7ewNLbl5flsEmTTimMN0enBZg/3sQ+YOSzQ==" crossorigin="anonymous"></script>
     <script src="{% static 'dashboard/scripts/particles/particles.min.js'%}"></script>
     <script>
     particlesJS.load('particles-js', '../../../../static/dashboard/scripts/particles/package.json')
     function removeErr() { $('#err').text('') }
     window.onload = function() { document.querySelector('canvas').style.height = window.innerHeight + 'px' }
-    {% comment %} document.querySelector('#password').addEventListener('input',function(){document.querySelector('[name=password]').value = sha256(this.value)}) {% endcomment %}
-    document.querySelector('#password').addEventListener('input',function(){document.querySelector('[name=password]').value = this.value})
     </script>
 </body>
 </html>
-
-{% comment %} {% block content %}
-
-    <div class="container">
-        <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-            <button style="background-color:#F4EB16; color:blue" class="btn btn-outline-info" type="submit">Login</button>
-        </form>
-        Don't have an account? <a href="/register" target="blank"><strong>register here</strong></a>!
-    </div>
-{% endblock %} {% endcomment %}

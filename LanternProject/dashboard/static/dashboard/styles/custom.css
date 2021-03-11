@@ -10,6 +10,10 @@
     color: #000;
 }
 
+.text-danger {
+    
+}
+
 .theme-primary-color {
     color: #18c139;
 }
@@ -26,6 +30,10 @@
 .theme-secondary-bgcolor {
     background: linear-gradient(95deg, rgb(47, 50, 74) 20%, rgb(66, 72, 103) 80%);
     color: #fff;
+}
+
+.white-bg {
+    background-color: #fff;
 }
 
 .absolute-center {
@@ -61,4 +69,16 @@ body {
     opacity: 1;
     top: 0 !important;
     font-size: .85em !important
+}
+
+.r-sm {
+    border-radius: 3px;
+}
+
+.p-a-md {
+    padding: 1.5rem !important;
+}
+
+.m-a {
+    margin: 1rem !important;
 }

@@ -21,7 +21,12 @@ def handler500(request, exception = None):
     response.status_code = 500
     return response
 
-# ------------------------------------------------------------------------ Signin ------------------------------------------------------------------------
+# -------------------------------------------------------------------- Authentication -------------------------------------------------------------------
+
+@require_http_methods(['GET'])
+def logout(request):
+    auth_logout(request)
+
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
@@ -32,21 +37,24 @@ def login(request):
         form = LoginForm(request.POST)  # Apply validation rules
 
         if form.is_valid():
-            try:
-                # Get user if exists
-                user = authenticate(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
 
-                auth_login(request, user)   # Login the user (authomates cookies)
+            # Get user if exists                
+            user = authenticate(email = form.cleaned_data['email'], password = form.cleaned_data['password'])            
+
+            auth_login(request, user)   # Login the user (authomates cookies)
                 
-                # Invalid credentials
-                if user is None: raise Exception('')
-
-                # Log
-                Log(title = 'Sign In', user_id = user.id, site_id = user.site_id).save()                
-
-                return HttpResponseRedirect('v1/user/' + user.username)
-            except:
+            # Invalid credentials
+            if user is None:
                 return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': form.cleaned_data['email'], 'password': ''}), 'message': 'Invalid Email/Password'}, template_name = 'dashboard/login.html')
+
+            # Cookie & remember_me
+            if not form.cleaned_data['remember_me']:
+                request.session.set_expiry(0)
+
+            # Log
+            Log(title = 'Sign In', user_id = user.id, site_id = user.site_id).save()                
+
+            return HttpResponseRedirect('v1/user/' + user.username)
         else:
             return HttpResponseForbidden(form.errors.values())
 

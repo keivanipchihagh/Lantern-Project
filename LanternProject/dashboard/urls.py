@@ -1,12 +1,14 @@
 from django import VERSION
 from django.urls import path
 from . import views
-
+from django.conf import settings
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
 
-    # SignIn Section
+    # Authentication
     path(route = 'login', view = views.login, name = 'login'),
+    path(route = 'logout', view = LogoutView.as_view(), kwargs = {'next_page': settings.LOGOUT_REDIRECT_URL}, name = 'logout'),
 
     # Index Section
     path(route = 'v1/user/<str:username>', view = views.dashboard, name = 'dashboard'),
