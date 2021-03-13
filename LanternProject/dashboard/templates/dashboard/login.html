@@ -16,12 +16,12 @@
     <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboard/styles/custom.css' %}">    
+    <link rel="stylesheet" href="{% static 'dashboard/styles/custom.css' %}">
 </head>
 <body id="particles-js" class="dark-linear-background text-white">    
     <div class="app">
         <div class="center-block w-xxl w-auto-xs p-y-md absolute-center text-center">
-            <span class="title">Lantern Project</span>
+            <span class="title font-size-30">Lantern Project</span>
             <div class="p-a-md white-bg r-sm m-a text-black" style="background-color: rgba(255, 255, 255, 0.95)">
                 {% if message %}
                 <p id="err" class="text-danger" style="text-align: center">{{ message|title }}</p>

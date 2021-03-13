@@ -24,9 +24,6 @@ INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("chatroom", "fa fa-child", null, "Shared");
 
 INSERT INTO dashboard_menu (name, icon, label, category)
-	VALUES ("newsletter", "fa fa-newspaper-o", null, "Shared");
-    
-INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("profile", "fa fa-user-o", null, "Shared");
 
 INSERT INTO dashboard_menu (name, icon, label, category)
@@ -35,19 +32,19 @@ INSERT INTO dashboard_menu (name, icon, label, category)
 INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("settings", "fa fa-cogs", null, "Shared");
 
-/* News Letters */
-INSERT INTO dashboard_newsletter (title, type, date_published, content, tags, user_id)
-	VALUES ('Welcome to Lantern-Project', 'Announcement', NOW(), 'Bonjour! Ciao! Willkommen! Hello!<br/>We are so thrilled you decided to join our community! Hats off on making this excellent desicion! You are now officially in the loop to hear all about our awesome features, new released and many many more.', 'Staff Accouncement', 1);
+/* Notifications */
+INSERT INTO dashboard_notification (title, date_published, content, tags, user_id)
+	VALUES ('Welcome to Lantern-Project', NOW(), 'Bonjour! Ciao! Willkommen! Hello!<br/>We are so thrilled you decided to join our community! Hats off on making this excellent desicion! You are now officially in the loop to hear all about our awesome features, new released and many many more.', 'Staff Accouncement', 4);
     
-INSERT INTO dashboard_newsletter (title, type, date_published, content, tags, user_id)
-	VALUES ('Release - Update v1.0.0', 'update', NOW(), 'Initial Release is out! <br/>We are drilled to announce that <b>Version 1.0.0</b> is officially out! This is the first release of the project after months of work. We have put our best effort to design, build and test every single component; however, as we are constantly developing the platform you might face some malfunctions here and there, so be patient and please notify the <b>Staff</b> if any problem persists.', 'staff,update,maintenance', 1);
+INSERT INTO dashboard_notification (title, date_published, content, tags, user_id)
+	VALUES ('Release - Update v1.0.0', NOW(), 'Initial Release is out! <br/>We are drilled to announce that <b>Version 1.0.0</b> is officially out! This is the first release of the project after months of work. We have put our best effort to design, build and test every single component; however, as we are constantly developing the platform you might face some malfunctions here and there, so be patient and please notify the <b>Staff</b> if any problem persists.', 'staff,update,maintenance', 4);
 
 /* Reserved Messages */    
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
-	VALUES ('starting the conversation', 'greeting', 'Greetings! How can I be of service?', 1, NOW(), 1, 'purple');
+	VALUES ('starting the conversation', 'greeting', 'Greetings! How can I be of service?', 1, NOW(), 4, 'purple');
     
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
-	VALUES ('ending the conversation', 'ending', 'Glad I could help, Wish you a good day!', 0, NOW(), 1, 'teal');
+	VALUES ('ending the conversation', 'ending', 'Glad I could help, Wish you a good day!', 0, NOW(), 4, 'teal');
     
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
-	VALUES ('Asking for details', 'clarification', 'I can certainly help you with that, but I will more details regarding your request.', 0, NOW(), 1, 'lime');
+	VALUES ('Asking for details', 'clarification', 'I can certainly help you with that, but I will more details regarding your request.', 0, NOW(), 4, 'lime');

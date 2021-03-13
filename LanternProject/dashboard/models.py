@@ -37,26 +37,14 @@ class Menu(models.Model):
         db_table = 'dashboard_menu'
 
 
-class NewsLetter(models.Model):
-    ''' News Letter Model '''
+class Notification(models.Model):
+    ''' Notification Model '''
 
     # Title | Max Length: 50
     title = models.CharField(
         name = 'title',
-        max_length = 50,
-        help_text = 'Max length: 50',
-    )
-
-    # Type | Max Length: 30
-    type = models.CharField(
-        name = 'type',
         max_length = 30,
-        choices = [
-            ('general', 'general'),
-            ('maintenance', 'maintenance'),
-            ('update', 'update'),
-        ],
-        default = 'general',
+        help_text = 'Max length: 50',
     )
 
     # DateTime
@@ -75,7 +63,7 @@ class NewsLetter(models.Model):
     # Tags | Max Length: 30 | announcement, user.role, update, maintenance, automated
     tags = models.CharField(
         name = 'tags',
-        max_length = 100,
+        max_length = 30,
     )
 
     # User Id  | Foreign Key (User.id)
@@ -86,7 +74,20 @@ class NewsLetter(models.Model):
 
     class Meta:
         managed = True          # Allow Create, Delete
-        db_table = 'dashboard_newsletter'
+        db_table = 'dashboard_notification'
+
+
+class NotificationPanel(models.Model):
+
+    # Notification Id  | Foreign Key (Notification.id)
+    notification = models.ForeignKey('Notification', models.DO_NOTHING)
+
+    # User Id  | Foreign Key (User.id)
+    user = models.ForeignKey('User', models.DO_NOTHING)
+
+    class Meta:
+        managed = True          # Allow Create, Delete
+        db_table = 'dashboard_notification_panel'
 
 
 class ReservedMessages(models.Model):

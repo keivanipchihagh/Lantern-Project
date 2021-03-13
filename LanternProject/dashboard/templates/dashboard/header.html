@@ -25,16 +25,10 @@
                     <ul class="list-group list-group-gap m-a-0">
                         {% for notification in header.notifications %}
                             <li class="list-group-item dark-white lt box-shadow-z0 b">
-                                {% if notification.type == 'announcement'%}
-                                <i class="fa fa-bullhorn text-md pull-left w-40 m-r rounded info" aria-hidden="true"></i>
-                                {% elif notification.type == 'maintenance' %}
-                                <i class="fa fa-wrench text-md pull-left w-40 m-r rounded warn" aria-hidden="true"></i>
-                                {% elif notification.type == 'update' %}
-                                <i class="fa fa-certificate text-md pull-left w-40 m-r rounded success" aria-hidden="true"></i>
-                                {% endif %}
-                                <a href="{% url 'dashboard' username %}?page=newsletter" class="clear block">
+                                <span class="text-md pull-left w-40 m-r rounded info" aria-hidden="true">{{ notification.title.0 }}</span>                                
+                                <a href="" class="clear block">
                                     <b>{{ notification.title }}</b>
-                                    <br><small class="text-muted">{{ notification.date_published|date:'Y-m-d H:i' }}</small>
+                                    <br/><span class="text-muted">{{ notification.content|safe|truncatewords:3 }}</span>
                                 </a>
                             </li>
                         {% endfor %}
@@ -55,12 +49,8 @@
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link p-l b-l" href="" data-toggle="dropdown" aria-expanded="false"><i class="material-icons"></i></a>
-            <div class="dropdown-menu dropdown-menu-scale pull-right text-color" role="menu">
-                <a class="dropdown-item" href="">Action</a>
-                <a class="dropdown-item" href="">Another action</a>
-                <a class="dropdown-item" href="">Something else here</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="">Separated link</a>
+            <div class="dropdown-menu dropdown-menu-scale pull-right r-x2 dark" role="menu">
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
             </div>
         </li>
         <li class="nav-item hidden-md-up">

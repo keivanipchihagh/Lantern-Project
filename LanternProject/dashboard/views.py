@@ -1,11 +1,10 @@
 from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
-from .models import Menu, NewsLetter, ReservedMessages, Room, User, Message, Site, Log
+from .models import Menu, Notification, NotificationPanel, ReservedMessages, Room, User, Message, Site, Log
 import json
 from .forms import ProfileForm, LoginForm, ReservedMessagesForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from datetime import datetime, timedelta
-from django.utils import timezone
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 
@@ -71,33 +70,26 @@ def login(request):
 @require_http_methods(['GET'])
 def dashboard(request, username):
 
-    page = request.GET.get('page')
-    news = NewsLetter.objects.order_by('-date_published')
+    page = request.GET.get('page') if (request.GET.get('page') is not None) else 'Home'
     home, aside, header, chatroom, profile, newsletter, reservedmessages = None, None, None, None, None, None, None
-    
+
+    user = get_user(username = username)
+
     # Shared pages
     aside = get_aside_data()
-    header = get_header_data(username = username, news = news)
-
-    # Set Cookies(Session: username & expire time)
-    # return HttpResponse(request.session['username'])
-    # request.session['username'] = username
-    # request.session.set_expiry(60)
+    header = get_header_data(user = user)
 
     # Individual pages
     if page == 'home':
-        home = get_home_data(username = username, news = news)
-        reservedmessages = get_reservedmessages_data(username = username)
-    elif page == 'newsletter':        
-        newsletter = get_newsletter_data(news = news)
+        home = get_home_data(user = user)
+        reservedmessages = get_reservedmessages_data(user = user)
     elif page == 'chatroom':        
-        chatroom = get_chatroom_data(username = username)
-        reservedmessages = get_reservedmessages_data(username = username)
+        chatroom = get_chatroom_data(user = user)
+        reservedmessages = get_reservedmessages_data(user = user)
     elif page == 'profile':
-        profile = get_profile_data(username = username)
+        profile = get_profile_data(user = user)
     elif page == 'reserved messages':
-        reservedmessages = get_reservedmessages_data(username = username)
-
+        reservedmessages = get_reservedmessages_data(user = user)
 
     # Data for index.html
     data = {
@@ -229,14 +221,6 @@ def get_site(user):
     return Site.objects.get(id = user.site_id)
 
 
-def get_newsletter_data(news):
-
-    newsletter = {
-        'letters': news,
-    }
-    return newsletter
-
-
 def get_aside_data():
     
     menu = Menu.objects.filter(category = 'Shared')
@@ -246,9 +230,9 @@ def get_aside_data():
     return aside
 
 
-def get_header_data(username, news):
+def get_header_data(user):
 
-    user = get_user(username = username)   
+    news = Notification.objects.order_by('-date_published')
     notifications = news.filter(date_published__gte = datetime.now() - timedelta(days = 7)) 
 
     header = {        
@@ -259,9 +243,8 @@ def get_header_data(username, news):
     return header
 
 
-def get_home_data(username, news):
+def get_home_data(user):
 
-    user = get_user(username = username)
     site = get_site(user = user)
 
     home = {
@@ -269,17 +252,15 @@ def get_home_data(username, news):
         'last_name': user.last_name,
         'hostname': site.host,
         # 'role': user.role,
-        'news': news,
     }
     return home
 
 
-def get_chatroom_data(username):
+def get_chatroom_data(user):
 
-    user = get_user(username = username)
     site = get_site(user = user)
     open_rooms = Room.objects.exclude(status = 'closed').order_by('-date_opened')       # Fetch open rooms
-    assigned_rooms = open_rooms.filter(user_id__username = username)                    # Query assigned rooms
+    assigned_rooms = open_rooms.filter(user_id__username = user.username)               # Query assigned rooms
 
     chatroom = {
         'open_rooms': open_rooms,
@@ -289,9 +270,8 @@ def get_chatroom_data(username):
     return chatroom
 
 
-def get_profile_data(username):
-
-    user = get_user(username = username)
+def get_profile_data(user):
+    
     site = get_site(user = user)
     log = Log.objects.filter(user_id = user.id).latest('datetime')
     other_users = User.objects.filter(site_id = user.site_id).exclude(id = user.id)
@@ -312,9 +292,8 @@ def get_profile_data(username):
     return profile
 
 
-def get_reservedmessages_data(username):
+def get_reservedmessages_data(user):
 
-    user = get_user(username = username)
     messages = ReservedMessages.objects.filter(user_id = user.id).order_by('tag', 'title')
     tags = messages.order_by().values('tag', 'color').distinct()
 
