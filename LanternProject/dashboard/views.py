@@ -77,7 +77,7 @@ def dashboard(request, username):
 
     # Shared pages
     aside = get_aside_data()
-    
+
     unread_notifications = NotificationPanel.objects.values_list('notification_id').filter(user__id = user.id)
     notifications = Notification.objects.exclude(pk__in = unread_notifications).order_by('-date_published')
 
@@ -110,6 +110,12 @@ def dashboard(request, username):
     }
 
     return render(request = request, context = data, template_name = 'dashboard/index.html')
+
+
+@login_required(login_url = 'login')
+@require_http_methods(['GET'])
+def mark_notification(request, username):
+    return HttpResponse('Fuck you')
 
 # ------------------------------------------------------------------------ Profile ------------------------------------------------------------------------
 

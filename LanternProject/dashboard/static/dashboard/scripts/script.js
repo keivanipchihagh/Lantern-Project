@@ -2,6 +2,26 @@ window.onbeforeunload = function () {
     window.scrollTo(0, 0);
 }
 
+// Global
+function markAsRead(Id) {
+    $.ajax({
+        url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/notifications/markasread',
+        type: $(this).attr('GET'),
+        data: {
+            notificationId: Id,
+        },
+        error: function () { },
+        success: function (response) {
+            $('#notification_model_' + Id).remove()
+            $('#notification_tray_' + Id).remove()
+            $('#notification_count').text(parseInt($('#notification_count').text()) - 1)
+            if ($('#notification_count').text() == '0')
+                $('#notification_count').remove()
+        },
+    });
+}
+
+
 // Profile Section
 const Profile = new Vue({
 

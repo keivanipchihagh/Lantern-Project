@@ -85,7 +85,7 @@
 
 
     {% for notification in notifications %}
-    <div id="notification_{{ notification.id }}" class="modal" data-backdrop="true" style="display: none;" aria-hidden="true">
+    <div id="notification_model_{{ notification.id }}" class="modal" data-backdrop="true" style="display: none;" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -93,11 +93,11 @@
                 </div>
                 <div class="modal-body p-lg">
                     {% autoescape off %}
-                    <p>{{ notification.content }}</p>
+                    {{ notification.content }}
                     {% endautoescape %}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn success p-x-md" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn success p-x-md" data-dismiss="modal" onclick="markAsRead('{{ notification.id }}')">{{ notification.accept_text|title }}</button>
                 </div>
             </div><!-- /.modal-content -->
         </div>

@@ -12,6 +12,7 @@ urlpatterns = [
 
     # Index Section
     path(route = 'v1/user/<str:username>', view = views.dashboard, name = 'dashboard'),
+    path(route = 'v1/user/<str:username>/notifications/markasread', view = views.mark_notification, name = 'mark_notification'),
 
     # Profile Section
     path(route = 'v1/user/<str:username>/profile/update', view = views.profile_update, name = 'update personal information'),

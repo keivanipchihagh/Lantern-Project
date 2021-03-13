@@ -60,10 +60,16 @@ class Notification(models.Model):
         help_text = 'Max Length: 500',
     )
 
-    # Tags | Max Length: 30 | announcement, user.role, update, maintenance, automated
-    tags = models.CharField(
-        name = 'tags',
+    # Tag | Max Length: 30
+    tag = models.CharField(
+        name = 'tag',
         max_length = 30,
+    )
+
+    # Accept Text | Max Length: 30
+    accept_text = models.CharField(
+        name = 'accept_text',
+        max_length = 30
     )
 
     # User Id  | Foreign Key (User.id)

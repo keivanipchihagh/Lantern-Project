@@ -33,11 +33,11 @@ INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("settings", "fa fa-cogs", null, "Shared");
 
 /* Notifications */
-INSERT INTO dashboard_notification (title, date_published, content, tags, user_id)
-	VALUES ('Welcome to Lantern-Project', NOW(), 'Bonjour! Ciao! Willkommen! Hello!<br/>We are so thrilled you decided to join our community! Hats off on making this excellent desicion! You are now officially in the loop to hear all about our awesome features, new released and many many more.', 'Staff Accouncement', 4);
+INSERT INTO dashboard_notification (title, date_published, content, tag, accept_text, user_id)
+	VALUES ('Welcome to Lantern-Project', NOW(), '<h6>Welcome on board, captain!</h6>Welcome to the team! We are thrilled you decided to join the community; Hats off for making such great decision!<br/><br/>We have automatically subscribed you to our newsletter to keep you in the loop to hear all about the new features that are about to be released. However; you can unsubscribe anytime from the <b> profile section</b> of your account.', 'automated', 'close', 4);
     
-INSERT INTO dashboard_notification (title, date_published, content, tags, user_id)
-	VALUES ('Release - Update v1.0.0', NOW(), 'Initial Release is out! <br/>We are drilled to announce that <b>Version 1.0.0</b> is officially out! This is the first release of the project after months of work. We have put our best effort to design, build and test every single component; however, as we are constantly developing the platform you might face some malfunctions here and there, so be patient and please notify the <b>Staff</b> if any problem persists.', 'staff,update,maintenance', 4);
+INSERT INTO dashboard_notification (title, date_published, content, tag, accept_text, user_id)
+	VALUES ('Release - Update v1.0.0', NOW(), 'Initial Release is out! <br/>We are drilled to announce that <b>Version 1.0.0</b> is officially out! This is the first release of the project after months of work. We have put our best effort to design, build and test every single component; however, as we are constantly developing the platform you might face some malfunctions here and there, so be patient and please notify the <b>Staff</b> if any problem persists.', 'automated', 'close', 4);
 
 /* Reserved Messages */    
 INSERT INTO dashboard_reservedmessages (title, tag, content, starred, date_modified, user_id, color)
