@@ -16,17 +16,17 @@
         <li class="nav-item dropdown pos-stc-xs">
             <a class="nav-link" href data-toggle="dropdown">
                 <i class="material-icons">&#xe7f5;</i>
-                {% if header.notifications|length > 0 %}
-                <span class="label label-sm up info">{{ header.notifications|length }}</span>
+                {% if notifications|length > 0 %}
+                <span class="label label-sm up info">{{ notifications|length }}</span>
                 {% endif %}
             </a>
             <div class="dropdown-menu pull-right w-xl animated fadeInUp no-bg no-border no-shadow">
                 <div class="scrollable" style="max-height: 220px">
                     <ul class="list-group list-group-gap m-a-0">
-                        {% for notification in header.notifications %}
+                        {% for notification in notifications %}
                             <li class="list-group-item dark-white lt box-shadow-z0 b">
-                                <span class="text-md pull-left w-40 m-r rounded info" aria-hidden="true">{{ notification.title.0 }}</span>                                
-                                <a href="" class="clear block">
+                                <span class="text-md pull-left w-40 m-r rounded info" aria-hidden="true">{{ notification.title.0 }}</span>
+                                <a data-toggle="modal" data-target="#notification_{{ notification.id }}" class="clear block">
                                     <b>{{ notification.title }}</b>
                                     <br/><span class="text-muted">{{ notification.content|safe|truncatewords:3 }}</span>
                                 </a>

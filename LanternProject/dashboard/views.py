@@ -77,7 +77,9 @@ def dashboard(request, username):
 
     # Shared pages
     aside = get_aside_data()
-    header = get_header_data(user = user)
+    
+    unread_notifications = NotificationPanel.objects.values_list('notification_id').filter(user__id = user.id)
+    notifications = Notification.objects.exclude(pk__in = unread_notifications).order_by('-date_published')
 
     # Individual pages
     if page == 'home':
@@ -104,6 +106,7 @@ def dashboard(request, username):
         'page': page,
         'username': username,
         'title': page,
+        'notifications': notifications,
     }
 
     return render(request = request, context = data, template_name = 'dashboard/index.html')
@@ -225,22 +228,9 @@ def get_aside_data():
     
     menu = Menu.objects.filter(category = 'Shared')
     aside = {
-        'menu': menu,        
+        'menu': menu,
     }
     return aside
-
-
-def get_header_data(user):
-
-    news = Notification.objects.order_by('-date_published')
-    notifications = news.filter(date_published__gte = datetime.now() - timedelta(days = 7)) 
-
-    header = {        
-        'username': user.username,                
-        # 'role': user.role,
-        'notifications': notifications,
-    }
-    return header
 
 
 def get_home_data(user):

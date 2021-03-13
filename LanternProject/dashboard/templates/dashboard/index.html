@@ -43,7 +43,7 @@
         <div id="aside" class="app-aside modal fade md nav-expand dark">{% include 'dashboard/aside.html' with aside=aside %}</div>
         <!-- navbar - end -->
         <div id="content" class="app-content box-shadow-z0" role="main">
-            <div class="app-header white box-shadow">{% include 'dashboard/header.html' with header=header %}</div>
+            <div class="app-header white box-shadow">{% include 'dashboard/header.html' with notifications=notifications %}</div>
             <!-- footer - start -->
             <div class="app-footer">{% include 'dashboard/footer.html' %}</div>
             <!-- footer - end -->
@@ -55,8 +55,6 @@
                 {% include 'dashboard/home.html' with home=home %}
                 {% elif page == 'chatroom' %}
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages %}
-                {% elif page == 'newsletter' %}
-                {% include 'dashboard/newsletter.html' with newsletter=newsletter %}
                 {% elif page == 'reserved messages' %}
                 {% include 'dashboard/reservedmessages.html' with reservedmessages=reservedmessages %}
                 {% endif %}
@@ -84,6 +82,28 @@
             </div>
         </div>
     </div>
+
+
+    {% for notification in notifications %}
+    <div id="notification_{{ notification.id }}" class="modal" data-backdrop="true" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ notification.title }}</h5>
+                </div>
+                <div class="modal-body p-lg">
+                    {% autoescape off %}
+                    <p>{{ notification.content }}</p>
+                    {% endautoescape %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn success p-x-md" data-dismiss="modal">Ok</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
+    </div>
+    {% endfor %}
+
     <!-- Error modal - end -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'dashboard/scripts/script.js' %}"></script>
