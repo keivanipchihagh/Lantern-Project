@@ -151,6 +151,3 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'login'
 LOGIN_REDIRECT_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login'
-
-# Cookies
-SESSION_COOKIE_AGE = 60 * 60 * 24

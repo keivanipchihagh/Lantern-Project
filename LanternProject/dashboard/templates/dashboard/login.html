@@ -22,18 +22,18 @@
     <div class="app">
         <div class="center-block w-xxl w-auto-xs p-y-md absolute-center text-center">
             <span class="title">Lantern Project</span>
-            <div class="p-a-md white-bg r-sm m-a text-black">
+            <div class="p-a-md white-bg r-sm m-a text-black" style="background-color: rgba(255, 255, 255, 0.95)">
                 {% if message %}
                 <p id="err" class="text-danger" style="text-align: center">{{ message|title }}</p>
                 {% endif %}
                 <form name="login" id="login" role="form" method="post" action="{% url 'login' %}">
                     {% csrf_token %}
                     {% for field in form %}
-                    <div class="{% if field.field.type != 'checkbox'%}md-form-group float-label{% else %}m-b-md{% endif %}">
+                    <div class="{% if field.field.type != 'checkbox'%}md-form-group floating-label{% else %}m-b-md{% endif %}">
                         {% if field.field.type == 'checkbox' %}
-                        <label class="md-check"><input type="{{ field.field.type }}" autocomplete="off" name="{{ field.name }}" /><i class="theme-primary-bgcolor"></i></label>
+                        <label class="md-check text-top"><input type="{{ field.field.type }}" autocomplete="off" name="{{ field.name }}" /><i class="theme-primary-bgcolor"></i></label>
                         {% else %}
-                        <input type="{{ field.field.type }}" autocomplete="off" ng-model="{{ field.name }}" name="{{ field.name }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
+                        <input type="{{ field.field.type }}" placeholder=" " autocomplete="off" ng-model="{{ field.name }}" name="{{ field.name }}" value="{{ field.initial }}" class="md-input" {% if field.field.required %}required="required"{% endif %} {% if field.field.min_length %}minlength="{{ field.field.min_length }}" {% endif %} {% if field.field.max_length %}maxlength="{{ field.field.max_length }}"{% endif %} />
                         {% endif %}
                         <label for="{{ field.field.name }}">{{ field.label|title }}</label>                        
                     </div>
@@ -43,14 +43,13 @@
             </div>
 
             <div class="p-v-lg text-center">
-                <div class="m-b"><a ui-sref="access.forgot-password" href="forgot-password.html" class="text-primary _600">Forgot password?</a></div>
-                <div>Do not have an account? <a ui-sref="access.signup" href="signup.html" class="text-primary _600">Register</a></div>
+                <div class="m-b"><a ui-sref="access.forgot-password" href="forgot-password.html" class="underline _600">Forgot password?</a></div>
+                <div>Do not have an account? <a ui-sref="access.signup" href="register.html" class="underline _600">Register</a></div>
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->    
-    <script src="{% static 'dashboard/scripts/app/app.html.js'%}"></script>
+    <!-- Scripts -->
     <script src="{% static 'dashboard/scripts/particles/particles.min.js'%}"></script>
     <script>
     particlesJS.load('particles-js', '../../../../static/dashboard/scripts/particles/package.json')

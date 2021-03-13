@@ -10,10 +10,6 @@
     color: #000;
 }
 
-.text-danger {
-    
-}
-
 .theme-primary-color {
     color: #18c139;
 }
@@ -30,6 +26,14 @@
 .theme-secondary-bgcolor {
     background: linear-gradient(95deg, rgb(47, 50, 74) 20%, rgb(66, 72, 103) 80%);
     color: #fff;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.text-top {
+    vertical-align: top;
 }
 
 .white-bg {
@@ -64,7 +68,7 @@ body {
     font-size: 1em;
 }
 
-.float-label input:focus ~ label {
+.floating-label input:focus ~ label, .floating-label input:not(:placeholder-shown) ~ label {
     color: #18c139;
     opacity: 1;
     top: 0 !important;

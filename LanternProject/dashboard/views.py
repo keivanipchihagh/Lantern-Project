@@ -5,6 +5,7 @@ import json
 from .forms import ProfileForm, LoginForm, ReservedMessagesForm
 from django.views.decorators.http import require_http_methods   # Request restrictions
 from datetime import datetime, timedelta
+from django.utils import timezone
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 
@@ -39,13 +40,19 @@ def login(request):
         if form.is_valid():
 
             # Get user if exists                
-            user = authenticate(email = form.cleaned_data['email'], password = form.cleaned_data['password'])            
-
-            auth_login(request, user)   # Login the user (authomates cookies)
+            user = authenticate(email = form.cleaned_data['email'], password = form.cleaned_data['password'])
                 
             # Invalid credentials
             if user is None:
                 return render(request = request, context = {'form': LoginForm(auto_id = True, initial = {'email': form.cleaned_data['email'], 'password': ''}), 'message': 'Invalid Email/Password'}, template_name = 'dashboard/login.html')
+
+            # Session            
+            if form.cleaned_data['remember_me']:
+                request.session.set_expiry(24 * 60 * 60)    # 1 Day
+            else:
+                request.session.set_expiry(0)               # Logout on browser close
+
+            auth_login(request, user)   # Authenticate
 
             # Cookie & remember_me
             if not form.cleaned_data['remember_me']:

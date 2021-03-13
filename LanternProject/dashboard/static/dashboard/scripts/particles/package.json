@@ -1,7 +1,7 @@
 {
   "particles": {
     "number": {
-      "value": 50,
+      "value": 30,
       "density": {
         "enable": true,
         "value_area": 1000
@@ -54,14 +54,14 @@
     },
     "move": {
       "enable": true,
-      "speed": 7,
+      "speed": 5,
       "direction": "none",
-      "random": false,
+      "random": true,
       "straight": false,
       "out_mode": "out",
-      "bounce": true,
+      "bounce": false,
       "attract": {
-        "enable": true,
+        "enable": false,
         "rotateX": 600,
         "rotateY": 1200
       }
