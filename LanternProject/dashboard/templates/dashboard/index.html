@@ -43,7 +43,7 @@
         <div id="aside" class="app-aside modal fade md nav-expand dark">{% include 'dashboard/aside.html' with aside=aside %}</div>
         <!-- navbar - end -->
         <div id="content" class="app-content box-shadow-z0" role="main">
-            <div class="app-header white box-shadow">{% include 'dashboard/header.html' with notifications=notifications %}</div>
+            <div class="app-header white box-shadow">{% include 'dashboard/header.html' with notifications=notifications username=username role=role %}</div>
             <!-- footer - start -->
             <div class="app-footer">{% include 'dashboard/footer.html' %}</div>
             <!-- footer - end -->

@@ -1,4 +1,4 @@
-from django.http.response import  HttpResponse, HttpResponseForbidden, HttpResponseRedirect
+from django.http.response import  HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Menu, Notification, NotificationPanel, ReservedMessages, Room, User, Message, Site, Log
 import json
@@ -107,6 +107,7 @@ def dashboard(request, username):
         'username': username,
         'title': page,
         'notifications': notifications,
+        'role': get_role(user)
     }
 
     return render(request = request, context = data, template_name = 'dashboard/index.html')
@@ -115,7 +116,17 @@ def dashboard(request, username):
 @login_required(login_url = 'login')
 @require_http_methods(['GET'])
 def mark_notification(request, username):
-    return HttpResponse('Fuck you')
+    
+    try:
+        user = get_user(username = username)
+
+        if user is not None:
+            NotificationPanel(user_id = user.id, notification_id = request.GET.get('notificationId')).save()
+            return HttpResponse('Marked')
+        else:
+            return HttpResponseForbidden()
+    except:
+        return HttpResponseBadRequest()
 
 # ------------------------------------------------------------------------ Profile ------------------------------------------------------------------------
 
@@ -300,3 +311,13 @@ def get_reservedmessages_data(user):
     }
 
     return reservedmessages
+
+
+def get_role(user):
+
+    if user.is_staff:
+        return 'staff'
+    elif user.is_superuser:
+        return 'admin'
+    else:
+        return 'agent'

@@ -1,17 +1,14 @@
+// Global
 window.onbeforeunload = function () {
     window.scrollTo(0, 0);
 }
 
-// Global
 function markAsRead(Id) {
     $.ajax({
-        url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/notifications/markasread',
-        type: $(this).attr('GET'),
-        data: {
-            notificationId: Id,
-        },
-        error: function () { },
-        success: function (response) {
+        url: window.location.origin + '/dashboard/v1/user/' + self.username + '/notifications/markasread',
+        type: 'GET',
+        data: { notificationId: Id },
+        success: function () {
             $('#notification_model_' + Id).remove()
             $('#notification_tray_' + Id).remove()
             $('#notification_count').text(parseInt($('#notification_count').text()) - 1)
@@ -35,7 +32,7 @@ const Profile = new Vue({
         self = this
         $('form#profile_form').submit(function (e) {
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/profile/update',
+                url: window.location.origin + '/dashboard/v1/user/' + self.username + '/profile/update',
                 type: $(this).attr('method'),
                 data: $(this).serialize(),
                 error: function () {
@@ -81,7 +78,7 @@ const reservedMessages = new Vue({
             identifier = (action == 'INSERT') ? 'new' : id
             
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/reversedmessages/messages/modify',
+                url: window.location.origin + '/dashboard/v1/user/' + self.username + '/reversedmessages/messages/modify',
                 type: 'POST',
                 data: {
                     id: identifier,
@@ -135,7 +132,7 @@ const Chatroom = new Vue({
             var self = this
             
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/chatroom/assign_room',
+                url: window.location.origin + '/dashboard/v1/user/' + self.username + '/chatroom/assign_room',
                 type: 'GET',
                 context: this,      // Essential for VueJS
                 data: {
@@ -196,7 +193,7 @@ const Chatroom = new Vue({
         closeRoom: function(room_key) {
             // Close the room, delete the chats and remove the room from dashboard
             $.ajax({
-                url: 'http://127.0.0.1:8000/dashboard/v1/user/' + self.username + '/chatroom/close_room',
+                url: window.location.origin + '/dashboard/v1/user/' + self.username + '/chatroom/close_room',
                 type: 'GET',
                 data: { 'room_key': room_key, 'username': this.username },
                 error: function () { console.error('Session could not be closed') },
