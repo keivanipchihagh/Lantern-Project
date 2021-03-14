@@ -122,8 +122,13 @@ const Chatroom = new Vue({
     },
 
     methods: {
-        copyToMessage: function(reservedMessageId) {
-            self.message = $("#" + reservedMessageId).text()
+        openEditor: function(id) {
+            $('#reservedmessage_modal_title').text($('#reservedmessage_title_' + id).text())
+            $('#reservedmessage_modal_content').text($('#reservedmessage_content_' + id).text())
+            $('#reservedmessages_modal').modal('toggle');
+        },
+        copyAsMessage: function() {
+            self.message = $("#reservedmessage_modal_content").text()
         },
         sendMessage: function () {
             document.querySelector('#chat-message-submit').click()

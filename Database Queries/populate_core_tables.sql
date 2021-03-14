@@ -18,10 +18,10 @@ INSERT INTO dashboard_log (title, datetime, site_id, user_id)
     
 /* Menus */
 INSERT INTO dashboard_menu (name, icon, label, category)
-	VALUES ("home", "fa fa-tachometer", null, "Shared");
+	VALUES ("home", "fa fa-home", null, "Shared");
 
 INSERT INTO dashboard_menu (name, icon, label, category)
-	VALUES ("chatroom", "fa fa-child", null, "Shared");
+	VALUES ("chatroom", "fa fa-weixin", null, "Shared");
 
 INSERT INTO dashboard_menu (name, icon, label, category)
 	VALUES ("profile", "fa fa-user-o", null, "Shared");

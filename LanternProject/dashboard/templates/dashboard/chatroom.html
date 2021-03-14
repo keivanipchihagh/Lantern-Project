@@ -1,111 +1,170 @@
 {% load static %}
-<div id="chatroom" class="padding">
-    <!-- Left column - start -->
-    <div class="col-md-4">
-        <div class="navside white r box-shadow-z0 m-b">
-            <div class="nav-stacked nav-active-primary" flex="">
-                <input id="hall_key" type="hidden" value="{{ chatroom.hall_key }}" />
-                <div class="box">
-                    <div class="box-header">
-                        <h3>Rooms</h3>
-                    </div>
-                    <div class="box-tool">
-                        <ul class="nav">
-                            <li class="nav-item inline dropdown">
-                                <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
-                                    <i class="fa fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-scale pull-right">
-                                    <a class="dropdown-item" href="">New task</a>
-                                    <a class="dropdown-item" href="">Make all finished</a>
-                                    <a class="dropdown-item" href="">Make all unfinished</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item">Settings</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="p-a"><button class="btn btn-sm btn-block info text-u-c" v-on:click="assignRoom">Assign me a room</button></div>
-                    <div class="p-a">
-                        <small class="text-muted m-a-sm">Hall</small>
-                        <div class="streamline b-l m-l">
-                            {% for room in chatroom.open_rooms %}
-                            <div class="sl-item {% if room.status == 'open' %}b-success{% elif room.status == 'closed' %}b-warning{% else %}b-warn{% endif %}">
-                                <div class="sl-content" style="padding-bottom: 5px">
-                                    <div class="row p-r-sm p-l-sm">
-                                        <span class="sl-date text-muted pull-left">{{ room.date_opened }}</span>
-                                        {% if room.status == 'open' %}
-                                        <span class="label green-200 pull-right" style="text-align: end">{{ room.status }}</span>
-                                        {% elif room.status == 'closed' %}
-                                        <span class="label red-200 pull-right" style="text-align: end">{{ room.status }}</span>
-                                        {% else %}
-                                        <span class="label yellow-200 pull-right" style="text-align: end">{{ room.status }}</span>
-                                        {% endif %}
+
+<!DOCTYPE html>
+<div id="chatroom">
+    <div class="row-col light">
+        <div class="col-md-3">
+            <div class="navside" style="height: 100%;">
+                <div class="nav-stacked nav-active-primary">
+                    <input id="hall_key" type="hidden" value="{{ chatroom.hall_key }}" />
+                    <div class="box">
+                        <div class="box-header">
+                            <h3>Active Rooms</h3>
+                        </div>
+                        <div class="box-tool">
+                            <ul class="nav">
+                                <li class="nav-item inline dropdown">
+                                    <a class="nav-link text-muted p-x-xs" data-toggle="dropdown">
+                                        <i class="fa fa-ellipsis-v"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-scale pull-right">
+                                        <a class="dropdown-item" href="">New task</a>
+                                        <a class="dropdown-item" href="">Make all finished</a>
+                                        <a class="dropdown-item" href="">Make all unfinished</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item">Settings</a>
                                     </div>
-                                    <span style="font-size: small">Room - {{ room.id }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p-a"><button class="btn btn-sm btn-block info text-u-c" v-on:click="assignRoom">Assign me a room</button></div>
+                        <div class="p-a">
+                            <small class="text-muted m-a-sm">Hall</small>
+                            <div class="streamline b-l m-l">
+                                {% for room in chatroom.open_rooms %}
+                                <div class="sl-item {% if room.status == 'open' %}b-success{% elif room.status == 'closed' %}b-warning{% else %}b-warn{% endif %}">
+                                    <div class="sl-content" style="padding-bottom: 5px">
+                                        <div class="row p-r-sm p-l-sm">
+                                            <span class="sl-date text-muted pull-left">{{ room.date_opened }}</span>
+                                            {% if room.status == 'open' %}
+                                            <span class="label green-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                            {% elif room.status == 'closed' %}
+                                            <span class="label red-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                            {% else %}
+                                            <span class="label yellow-200 pull-right" style="text-align: end">{{ room.status }}</span>
+                                            {% endif %}
+                                        </div>
+                                        <span style="font-size: small">Room - {{ room.id }}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Left column - end -->
-    <!-- Right column - start -->
-    <div class="col-md-8">
-        <div class="box row-col" style="min-height:600px">
-            <div class="box-header b-b">
-                <strong id="chatTitle">Chat</strong>                
-            </div>
-            <div class="row-row dker">
-                <div class="row-body">
-                    <div class="row-inner">
-                        <div class="p-a-md">
-                            <div id="chat-log" is="Message" v-for="message in messages" v-bind:key="message.id" v-bind:_sender="message.sender" v-bind:message="message.message" v-bind:datetime="message.datetime" v-bind:id="message.id"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="box-footer b-t">
-                <div class="input-group">
-                    <span id="chat-app" class="input-group-btn">
-                        <button class="btn btn-block info text-u-c" title="Reserved Messages" data-toggle="modal" data-target="#reservedMessagesModel" ui-toggle-class="modal-open-aside" ui-target="body">RM</button>
-                    </span>
-                    <input id="chat-message-input" type="text" class="form-control" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message">
-                    <span id="chat-app" class="input-group-btn">
-                        <button id="chat-message-submit" class="btn white b-a no-shadow">SEND</button>
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Right column - end -->    
-    <!-- Reserved Messages Modal - start -->
-    <div class="modal fade dark-overlay" id="reservedMessagesModel" data-backdrop="false" style="display: none;" aria-hidden="true" onclick="$(this).modal('toggle');">
-        <div class="right w-xxl white b-l">
-            <div class="row-col">
-                <a data-dismiss="modal" class="pull-right text-muted text-lg p-a-sm m-r-sm">×</a><div class="p-a b-b"><span class="h5">Reserved Messages</span></div><div class="row-row">
-                    <div class="row-body">
-                        <div class="row-inner">
-                            <div class="list-group no-radius">
-                                {% for message in reservedmessages.messages%}
-                                <div class="list-group-item b-3x {% if message.starred %}b-l-warn{% else %}b-l-info{% endif %} container-overlay">
-                                    <span class="hidden-xs label {{ message.color }} pull-right" style="vertical-align:text-top">{{ message.tag }}</span>                                    
-                                    <span class="block _500" style="font-weight: bold">{{ message.title|safe|title }}</span>
-                                    <span id="reservedmessage_{{ message.id }}" class="text-muted text-sm">{{ message.content|safe }}</span>
-                                    <div class="overlay"><button class="btn btn-sm btn-block {% if message.starred %}warn{% else %}info{% endif %} text-u-c" v-on:click="copyToMessage('reservedmessage_{{ message.id }}')">Copy As Message</button></div>
-                                </div>                                
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
-                </div><div class="p-a b-t text-center info">
-                    Go to <a href="{% url 'dashboard' user.username %}?page=reserved%20messages" class="m-h text-dark" style="font-weight: bold; text-decoration: underline">Reserved Messages</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6">
+            <div class="box row-col" style="min-height:600px">
+                <div class="box-header b-b">
+                    <strong id="chatTitle">Chat</strong>
+                </div>
+                <div class="row-row dker">
+                    <div class="row-body">
+                        <div class="row-inner">
+                            <div class="p-a-md">
+                                <div id="chat-log" is="Message" v-for="message in messages" v-bind:key="message.id" v-bind:_sender="message.sender" v-bind:message="message.message" v-bind:datetime="message.datetime" v-bind:id="message.id"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer b-t">
+                    <div class="input-group">
+                        <span id="chat-app" class="input-group-btn">
+                            <button class="btn btn-block info text-u-c" title="Reserved Messages" data-toggle="modal" data-target="#reservedMessagesModel" ui-toggle-class="modal-open-aside" ui-target="body">RM</button>
+                        </span>
+                        <input id="chat-message-input" type="text" class="form-control" placeholder="Send a message..." v-on:keyup.enter="sendMessage" v-model="message">
+                        <span id="chat-app" class="input-group-btn">
+                            <button id="chat-message-submit" class="btn white b-a no-shadow">SEND</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 white">
+
+            <div class="box text-center" style="margin-bottom: 0px; box-shadow: none">
+                <div class="box-tool">
+                    <ul class="nav">
+                        <li class="nav-item inline dropdown">
+                            <a class="nav-link text-muted" data-toggle="dropdown">
+                                <i class="material-icons md-18"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-scale pull-right dark">
+                                <a class="dropdown-item" href="">Activities</a>
+                                <a class="dropdown-item" href="">Feed</a>
+                                <a class="dropdown-item" href="">Photo</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item">Follow</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-t">
+                    <p><img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle w-70"></p>
+                    <span href="" class="text-md">{{ user.first_name }} {{ user.last_name }}</span>
+                    <p><small>@{{ user.username }}</small></p>
+                </div>
+            </div>
+
+            <div class="nav-active-primary">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link link-p-sm text-sm _500 active" href="" data-toggle="tab" data-target="#tab1" aria-expanded="true">Reserved Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-p-sm text-sm _500" href="" data-toggle="tab" data-target="#tab2" aria-expanded="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link-p-sm text-sm _500" href="" data-toggle="tab" data-target="#tab3">Agents</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content m-b-md">
+                <div class="tab-pane animated fadeIn text-muted active" id="tab1" aria-expanded="true">
+                    <!-- Reserved Messages - start -->
+                    <div class="list-group no-radius lt" style="max-height: 450px; overflow: auto">
+                        {% for message in reservedmessages.messages %}
+                        <div class="list-group-item b-b container-overlay">
+                            <i class="fa {% if message.starred %}fa-star{% else%}fa-star-o{% endif %} pull-right text-warn" style="font-size: 10px"></i>
+                            <span id="reservedmessage_title_{{ message.id }}" class="block _500 text-sm">{{ message.title|safe|title }}</span>
+                            <span class="text-muted text-xs">{{ message.content|truncatewords:20|safe }}</span>
+                            <span id="reservedmessage_content_{{ message.id }}" class="text-muted text-xs hide">{{ message.content|safe }}</span>
+                            <div class="overlay"><button class="btn btn-sm btn-block {% if message.starred %}warn{% else %}info{% endif %} text-u-c" @click="openEditor('{{ message.id }}')">Select</button></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Reserved Messages - end -->
+                </div>
+                <div class="tab-pane animated fadeIn text-muted" id="tab2" aria-expanded="false">
+                    Components
+                </div>
+                <div class="tab-pane animated fadeIn text-muted" id="tab3" aria-expanded="false">
+                    UI kits
                 </div>
             </div>
         </div>
     </div>
-    <!-- Reserved Messages Modal - start -->
+
+    <!-- Modals - start -->
+    <div id="reservedmessages_modal" class="modal" data-backdrop="true" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="reservedmessage_modal_title" class="modal-title">Modal</h5>
+                </div>
+                <div class="modal-body text-center p-lg">
+                    <p id="reservedmessage_modal_content">Are you sure to execute this action?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn success p-x-md" data-dismiss="modal" @click="copyAsMessage">Use</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div>
+    </div>
+    <!-- Modals - end -->
 </div>

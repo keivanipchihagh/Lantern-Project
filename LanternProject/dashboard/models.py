@@ -189,8 +189,8 @@ class Message(models.Model):
     def as_dict(self):
         return {
             'content': self.content,
-            'datetime': self.datetime.strftime("%I:%M %p"),     # Ex. 12:34 AM
-            'sender': self.sender,
+            'datetime': self.datetime.strftime("%I:%M %p"),
+            'client': 1 if (self.client) else 0,
             'room_id': self.room.id,
         }
 

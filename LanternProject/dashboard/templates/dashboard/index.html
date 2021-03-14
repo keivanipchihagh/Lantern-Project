@@ -50,9 +50,9 @@
                 {% if page == 'profile' %}
                 {% include 'dashboard/profile.html' with profile=profile %}
                 {% elif page == 'home' %}
-                {% include 'dashboard/home.html' with user=user notifications=notifications reservedmessages=reservedmessages %}
+                {% include 'dashboard/home.html' with user=user notifications=notifications %}
                 {% elif page == 'chatroom' %}
-                {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages %}
+                {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages user=user %}
                 {% elif page == 'reserved messages' %}
                 {% include 'dashboard/reservedmessages.html' with reservedmessages=reservedmessages %}
                 {% endif %}
