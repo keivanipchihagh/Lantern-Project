@@ -10,7 +10,6 @@ class ProfileForm(forms.ModelForm):
         model = User
 
         # Used fields
-        # fields = ['firstname', 'lastname', 'email', 'username', 'phone_number', 'role']
         fields = ['first_name', 'last_name', 'email', 'username', 'phone_number']        
 
         # Error messages
@@ -24,7 +23,6 @@ class ProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # for field in ['username', 'email', 'role']:
         for field in ['username', 'email']:
             self.fields[field].disabled = True
             self.fields[field].required = False

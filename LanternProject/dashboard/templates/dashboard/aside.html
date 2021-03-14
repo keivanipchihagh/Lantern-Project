@@ -8,7 +8,6 @@
         <!-- brand - start -->
         <a class="navbar-brand">
             <div ui-include="{% static 'dashboard/images/logo.png' %}"></div>
-            <img src="{% static 'dashboard/images/logo.png' %}" alt="." class="hide">
             <span class="hidden-folded inline title font-size-20">Lantern Project</span>
         </a>
         <!-- brand - end -->
@@ -107,7 +106,7 @@
                 <li class="nav-header hidden-folded"><small class="text-muted">{{ aside.menu.0.category }}</small></li>
                 {% for item in aside.menu %}
                 <li {% if item.name == page %}class="active"{% endif %}>
-                    <a href="{% url 'dashboard' username %}?page={{ item.name }}">
+                    <a href="{% url 'dashboard' user.username %}?page={{ item.name }}">
                         {% if item.label %}
                         <span class="nav-label"><b class="label rounded label-sm primary">{{ item.label }}</b></span>
                         {% endif %}

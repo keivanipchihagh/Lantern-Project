@@ -12,7 +12,7 @@
                     <img src="{% static 'dashboard/images/a3.jpg'%}">
                 </span>
                 <div class="clear m-b">
-                    <h3 class="m-a-0 m-b-xs">{{ profile.firstname }} {{ profile.lastname }}</h3>
+                    <h3 class="m-a-0 m-b-xs">{{ profile.first_name }} {{ profile.last_name }}</h3>
                     <p class="text-muted">
                         {% if profile.role == 'Staff' %}
                         <small class="label deep-purple-A700 m-r">{{ profile.role|title }}</small>
@@ -21,8 +21,7 @@
                         {% else %}
                         <small class="label green-600 m-r">{{ profile.role|title }}</small>
                         {% endif %}
-                        <small class="label light-blue-700 m-r">{{ profile.sitename|title }}</small>
-                        <small><i class="fa fa-map-marker m-r-xs"></i>{{ profile.city|title }}, {{ profile.country|title }}</small>
+                        <small class="label light-blue-700 m-r">{{ profile.hostname|title }}</small>
                     </p>
                     <div class="block clearfix m-b">
                         <a href="" class="btn btn-icon btn-social rounded white btn-sm">
@@ -42,7 +41,6 @@
                             <i class="fa fa-linkedin cyan-600"></i>
                         </a>
                     </div>
-                    <span class="text-muted">"{{ profile.bio }}"</span>
                 </div>
             </div>
         </div>
@@ -80,7 +78,7 @@
                         <a class="nav-link active" href data-toggle="tab" data-target="#tab_1">Information</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href data-toggle="tab" data-target="#tab_2">Security</a>
+                        <a class="nav-link" href data-toggle="tab" data-target="#tab_2">Preferences</a>
                     </li>
                 </ul>
             </div>
@@ -122,10 +120,36 @@
                                 </form>
                             </div>
                         </div>
+
+                        <div class="box">
+                            <div class="box-header">
+                                <h2>Security Information</h2>
+                                <small>Remember to check your inbox for further instrcutions. Emails are valid for 24h only!</small>
+                            </div>
+                            <div class="box-divider m-a-0"></div>
+                            <div class="box-body">
+                                <ul class="list-group m-b">
+                                    <li class="list-group-item">
+                                        <span>
+                                            <button class="btn btn-fw white pull-right">Send Email</button>
+                                            <span class="block _500">Change Password</span>
+                                            <small class="text-muted">&nbsp;</small>
+                                        </span>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span>
+                                            <button class="btn btn-fw white pull-right">Send Email</button>
+                                            <span class="block _500">Revoke security token</span>
+                                            <small class="text-muted">If you feel unsafe, better plug the cable out! This action will renew your token.</small>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Information - end -->
-                <!-- Security - start -->
+                <!-- Preferences - start -->
                 <div class="tab-pane p-v-sm" id="tab_2">
                     <div class="col-md-12">
                         <div class="box">
@@ -155,7 +179,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Security - end -->
+                <!-- Preferences - end -->
             </div>
         </div>
         <div class="col-sm-4 col-lg-3">

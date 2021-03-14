@@ -357,6 +357,14 @@ class User(AbstractUser):
         name = 'email',
         unique = True,
         max_length = 150,
+        verbose_name = 'Email Address',
+    )
+
+    username = models.CharField(
+        name = 'username',
+        max_length = 50,
+        validators = [RegexValidator('^[A-Za-z ]+$', message = "Letters allowed only!")],
+        unique = True,        
     )
 
     # Phone Number | Max Length: 12

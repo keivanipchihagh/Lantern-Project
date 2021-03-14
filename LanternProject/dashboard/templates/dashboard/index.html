@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="{% static 'dashboard/material-design-icons/material-design-icons.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboard/styles/custom.css' %}">
     <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     
@@ -43,7 +42,7 @@
         <div id="aside" class="app-aside modal fade md nav-expand dark">{% include 'dashboard/aside.html' with aside=aside %}</div>
         <!-- navbar - end -->
         <div id="content" class="app-content box-shadow-z0" role="main">
-            <div class="app-header white box-shadow">{% include 'dashboard/header.html' with notifications=notifications username=username role=role %}</div>
+            <div class="app-header white box-shadow">{% include 'dashboard/header.html' with notifications=notifications user=user role=role %}</div>
             <!-- footer - start -->
             <div class="app-footer">{% include 'dashboard/footer.html' %}</div>
             <!-- footer - end -->
@@ -52,7 +51,7 @@
                 {% if page == 'profile' %}
                 {% include 'dashboard/profile.html' with profile=profile %}
                 {% elif page == 'home' %}
-                {% include 'dashboard/home.html' with home=home %}
+                {% include 'dashboard/home.html' with home=home user=user %}
                 {% elif page == 'chatroom' %}
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages %}
                 {% elif page == 'reserved messages' %}

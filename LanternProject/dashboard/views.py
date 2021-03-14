@@ -71,7 +71,7 @@ def login(request):
 def dashboard(request, username):
 
     page = request.GET.get('page') if (request.GET.get('page') is not None) else 'Home'
-    home, aside, header, chatroom, profile, newsletter, reservedmessages = None, None, None, None, None, None, None
+    aside, header, chatroom, profile, newsletter, reservedmessages = None, None, None, None, None, None
 
     user = get_user(username = username)
 
@@ -82,10 +82,7 @@ def dashboard(request, username):
     notifications = Notification.objects.exclude(pk__in = unread_notifications).order_by('-date_published')
 
     # Individual pages
-    if page == 'home':
-        home = get_home_data(user = user)
-        reservedmessages = get_reservedmessages_data(user = user)
-    elif page == 'chatroom':        
+    if page == 'chatroom':        
         chatroom = get_chatroom_data(user = user)
         reservedmessages = get_reservedmessages_data(user = user)
     elif page == 'profile':
@@ -97,14 +94,13 @@ def dashboard(request, username):
     data = {
         'profile': profile,                     # Data for profile.html
         'aside': aside,                         # Data for aside.html
-        'home': home,                           # Data for home.html
         'header': header,                       # Data for header.html
         'chatroom': chatroom,                   # Data for chatroom.html
         'newsletter': newsletter,               # Data for newsletter.html
         'reservedmessages': reservedmessages,   # Data for reservedmessages.html
 
         'page': page,
-        'username': username,
+        'user': user,
         'title': page,
         'notifications': notifications,
         'role': get_role(user)
@@ -141,9 +137,6 @@ def profile_update(request, username):
             first_name = form.cleaned_data.get('first_name'),
             last_name = form.cleaned_data.get('last_name'),
             phone_number = form.cleaned_data.get('phone_number'),
-            country = form.cleaned_data.get('country'),
-            city = form.cleaned_data.get('city'),
-            bio = form.cleaned_data.get('bio'),
         )
 
         return HttpResponse('Updated, Reloading...')
@@ -166,9 +159,9 @@ def reversedmessages_modify(request, username):
     user = get_user(username = username)
 
     if request.POST.get('action') == 'DELETE':
-        reservedmessage = ReservedMessages.objects.get(id = id, user_id = user.id).delete()
+        ReservedMessages.objects.get(id = id, user_id = user.id).delete()
     elif request.POST.get('action') == 'UPDATE':
-        reservedmessage = ReservedMessages.objects.filter(id = id, user_id = user.id).update(
+        ReservedMessages.objects.filter(id = id, user_id = user.id).update(
             title = title,
             tag = tag,
             color = color,
@@ -185,6 +178,8 @@ def reversedmessages_modify(request, username):
             user_id = user.id,
             date_modified = datetime.now(),
         ).save()
+    else:
+        return HttpResponseBadRequest()
 
     return HttpResponse('')
 
@@ -214,6 +209,7 @@ def chatroom_assign_room(request, username):
     return HttpResponse(json.dumps(response), content_type = 'application/json')
 
 
+@login_required(login_url = 'login')
 def chatroom_close_room(request):
 
     # Get request data
@@ -250,19 +246,6 @@ def get_aside_data():
     return aside
 
 
-def get_home_data(user):
-
-    site = get_site(user = user)
-
-    home = {
-        'first_name': user.first_name,
-        'last_name': user.last_name,
-        'hostname': site.host,
-        # 'role': user.role,
-    }
-    return home
-
-
 def get_chatroom_data(user):
 
     site = get_site(user = user)
@@ -288,12 +271,12 @@ def get_profile_data(user):
         'last_name': user.last_name,
         'username': user.username,
         'email': user.email,
-        # 'role': user.role,
+        'role': get_role(user = user),
         'hostname': site.host,
         'rating': user.rating,
         'last_login': log.datetime,
         'assigned_rooms_count': len(Room.objects.filter(user_id = user.id)),
-        'other_users': other_users,        
+        'other_users': other_users,
         'form': ProfileForm(auto_id = True, instance = user),
     }
     return profile
