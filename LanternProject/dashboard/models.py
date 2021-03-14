@@ -216,14 +216,7 @@ class Room(models.Model):
         validators = [RegexValidator('^{open|closed}$', message = "Status Unknonw")],
         default = 'open',
         )
-    
-    # IP Address | Max Length: 15
-    ip = models.CharField(
-        max_length = 15,
-        name = 'ip',
-        blank = True,
-        null = True,
-        )
+
 
     # Date Opened | DateTime
     date_opened = models.DateTimeField(

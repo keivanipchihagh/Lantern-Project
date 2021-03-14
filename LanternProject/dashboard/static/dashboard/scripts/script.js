@@ -91,7 +91,7 @@ const reservedMessages = new Vue({
                     form: $("rm_form_" + id).serialize(),
                     csrfmiddlewaretoken: $('[name="csrfmiddlewaretoken"]').val()
                 },
-                error: function(xhr, status, error) {
+                error: function() {
                     $("#error_model_body").text('We couldn\'t update your information at the moment. Please report the problem if persists.')
                     $('#error_model').modal('toggle');
                 },

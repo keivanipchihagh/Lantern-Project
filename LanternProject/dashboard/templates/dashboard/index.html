@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="{% static 'dashboard/material-design-icons/material-design-icons.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/bootstrap/dist/css/bootstrap.min.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'dashboard/styles/app.min.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboard/styles/font.css' %}" type="text/css" />
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     
     <!-- VueJS 2.0 -->
@@ -51,7 +50,7 @@
                 {% if page == 'profile' %}
                 {% include 'dashboard/profile.html' with profile=profile %}
                 {% elif page == 'home' %}
-                {% include 'dashboard/home.html' with home=home user=user %}
+                {% include 'dashboard/home.html' with user=user notifications=notifications %}
                 {% elif page == 'chatroom' %}
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages %}
                 {% elif page == 'reserved messages' %}

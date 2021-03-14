@@ -36,7 +36,7 @@ def start(request, host):
             room_key = secrets.token_hex(16),
             status = 'open',
             date_opened = datetime.now(),
-            user_id = 1,
+            user_id = 4,
             site_id = site.id
         )
         room.save()
