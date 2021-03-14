@@ -90,6 +90,8 @@ def dashboard(request, username):
     elif page == 'reserved messages':
         reservedmessages = get_reservedmessages_data(user = user)
 
+    reservedmessages = get_reservedmessages_data(user = user)
+
     # Data for index.html
     data = {
         'profile': profile,                     # Data for profile.html
@@ -284,7 +286,7 @@ def get_profile_data(user):
 
 def get_reservedmessages_data(user):
 
-    messages = ReservedMessages.objects.filter(user_id = user.id).order_by('tag', 'title')
+    messages = ReservedMessages.objects.filter(user_id = user.id).order_by('-starred')
     tags = messages.order_by().values('tag', 'color').distinct()
 
     reservedmessages = {

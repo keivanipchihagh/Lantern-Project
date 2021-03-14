@@ -38,7 +38,7 @@
 <body>
     <div class="app">
         <!-- navbar - start -->
-        <div id="aside" class="app-aside modal fade md nav-expand dark">{% include 'dashboard/aside.html' with aside=aside %}</div>
+        <div id="aside" class="app-aside modal fade dark">{% include 'dashboard/aside.html' with aside=aside %}</div>
         <!-- navbar - end -->
         <div id="content" class="app-content box-shadow-z0" role="main">
             <div class="app-header white box-shadow">{% include 'dashboard/header.html' with notifications=notifications user=user role=role %}</div>
@@ -50,7 +50,7 @@
                 {% if page == 'profile' %}
                 {% include 'dashboard/profile.html' with profile=profile %}
                 {% elif page == 'home' %}
-                {% include 'dashboard/home.html' with user=user notifications=notifications %}
+                {% include 'dashboard/home.html' with user=user notifications=notifications reservedmessages=reservedmessages %}
                 {% elif page == 'chatroom' %}
                 {% include 'dashboard/chatroom.html' with chatroom=chatroom reservedmessages=reservedmessages %}
                 {% elif page == 'reserved messages' %}

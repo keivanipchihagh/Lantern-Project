@@ -2,134 +2,51 @@
 
 <!DOCTYPE html>
 
-<div class="left navside indigo-900 dk" layout="column">
-    <div class="navbar navbar-md no-radius">
-
-        <!-- brand - start -->
+<div class="navside white r box-shadow-z0 m-b hover-top folded nav-dropdown" layout="column" style="height: 100%">
+    <div class="navbar">
         <a class="navbar-brand">
-            <div ui-include="{% static 'dashboard/images/logo.png' %}"></div>
-            <span class="hidden-folded inline title font-size-20">Lantern Project</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="24" height="24">
+                <path d="M 4 4 L 44 4 L 44 44 Z" fill="#a88add"></path>
+                <path d="M 4 4 L 34 4 L 24 24 Z" fill="rgba(0,0,0,0.15)"></path>
+                <path d="M 4 4 L 24 4 L 4  44 Z" fill="#0cc2aa"></path>
+            </svg><img src="{% static 'dashboard/images/a3.jpg'%}" alt="." class="hide"> <span class="hidden-folded inline v-m">Flatkit <span class="text-xs text-muted _300 block m-t-xs tagline">awesome uikit</span></span>
         </a>
-        <!-- brand - end -->
-
     </div>
-    <div flex class="hide-scroll">
-        <nav class="scroll nav-active-primary">
-            <ul class="nav" ui-nav>
-
-                <!-- Agent - start -->
-                <li class="nav-header hidden-folded">
-                    <small class="text-muted">Agent</small>
-                </li>
-                <!-- Agent - end -->
-                <!-- Admin - start -->
-                <li class="nav-header hidden-folded">
-                    <small class="text-muted">Admin</small>
-                </li>
-                <li>
-                    <a>
-                        <span class="nav-caret">
-                            <i class="fa fa-caret-down"></i>
-                        </span>
-                        <span class="nav-icon">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                        </span>
-                        <span class="nav-text">Agents</span>
-                    </a>
-                    <ul class="nav-sub" style="padding-left:10px">
-                        <li>
-                            <span class="avatar w-24">
-                                <img src="{% static 'dashboard/images/a0.jpg' %}" alt="Alex">
-                            </span>
-                            <a href="" style="display:inline-block; padding-left: 18px">
-                                <span class="nav-text">Alex</span>
-                            </a>
-                        </li>
-                        <li>
-                            <span class="avatar w-24">
-                                <img src="{% static 'dashboard/images/a3.jpg' %}" alt="Alex">
-                            </span>
-                            <a href="" style="display:inline-block; padding-left: 18px">
-                                <span class="nav-text">Janet</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a>
-                        <span class="nav-caret">
-                            <i class="fa fa-caret-down"></i>
-                        </span>
-                        <span class="nav-icon">
-                            <i class="fa fa-pie-chart" aria-hidden="true"></i>
-                        </span>
-                        <span class="nav-text">Charts</span>
-                    </a>
-                    <ul class="nav-sub">
-                        <li>
-                            <a href="">
-                                <span class="nav-text">System</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- Admin - end -->
-                <!-- Staff - start -->
-                <li class="nav-header hidden-folded">
-                    <small class="text-muted">Staff</small>
-                </li>
-                <li>
-                    <a>
-                        <span class="nav-caret">
-                            <i class="fa fa-caret-down"></i>
-                        </span>
-                        <span class="nav-icon">
-                            <i class="fa fa-users" aria-hidden="true"></i>
-                        </span>
-                        <span class="nav-text">Sites</span>
-                    </a>
-                    <ul class="nav-sub">
-                        <li>
-                            <a href="">
-                                <span class="nav-text">Google.com</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                <span class="nav-text">Amazon.com</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- Staff - end -->
-                <!-- Shared - start -->
-                <li class="nav-header hidden-folded"><small class="text-muted">{{ aside.menu.0.category }}</small></li>
-                {% for item in aside.menu %}
-                <li {% if item.name == page %}class="active"{% endif %}>
-                    <a href="{% url 'dashboard' user.username %}?page={{ item.name }}">
-                        {% if item.label %}
-                        <span class="nav-label"><b class="label rounded label-sm primary">{{ item.label }}</b></span>
-                        {% endif %}
-                        <span class="nav-icon"><i class="{{ item.icon }}" aria-hidden="true"></i></span>
-                        <span class="nav-text">{{ item.name|title }}</span>
-                    </a>
-                </li>
-                {% endfor %}
-                <!-- Shared - end -->
-            </ul>
-        </nav>
+    <div flex-no-shrink="">
+        <div class="nav-fold">
+            <a href="#/app/page/profile" ui-sref="app.page.profile">
+                <span class="pull-right m-v-sm hidden-folded">
+                    <b class="label warn">9</b>
+                </span> <span class="pull-left"><img src="{% static 'dashboard/images/a3.jpg'%}" alt="..." class="w-40 img-circle"></span>
+                <span class="clear hidden-folded p-x">
+                    <span class="block _500">{{ user.first_name }} {{ user.last_name }}</span>
+                    <small class="block text-muted">{{ role }}</small>
+                </span>
+            </a>
+        </div>
+    </div>
+    <div class="nav-border b-primary" flex="">
+        <ul class="nav" ui-nav="">
+            {% for item in aside.menu %}
+            <li {% if item.name == page %}class="active"{% endif %} title="{{ item.name|title }}">
+                <a href="{% url 'dashboard' user.username %}?page={{ item.name }}">
+                    {% if item.label %}
+                    <span class="nav-label"><b class="label rounded label-sm primary">{{ item.label }}</b></span>
+                    {% endif %}
+                    <span class="nav-icon"><i class="{{ item.icon }}" aria-hidden="true"></i></span>
+                    <span class="nav-text">{{ item.name|title }}</span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
     <div flex-no-shrink="">
         <nav ui-nav="">
             <ul class="nav">
-                <li>
-                    <div class="b-b b m-t-sm"></div>
-                </li>
+                <li><div class="b-b b m-t-sm"></div></li>
                 <li class="no-bg">
-                    <a href="{% url 'logout' %}">
-                        <span class="nav-icon">
-                            <i class="fa fa-power-off" aria-hidden="true"></i>
-                        </span>
+                    <a>
+                        <span class="nav-icon"><i class="material-icons">power_settings_new</i></span>
                         <span class="nav-text">Logout</span>
                     </a>
                 </li>

@@ -975,10 +975,10 @@ a.list-group-item {
         color: inherit !important
     }
 
-        .nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus, .nav-tabs .nav-link.active:hover, .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+        /* .nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus, .nav-tabs .nav-link.active:hover, .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
             border-color: rgba(120,130,140,.13);
             border-bottom-color: transparent
-        }
+        } */
 
 .tab-content.tab-alt .tab-pane {
     display: block;
@@ -2910,8 +2910,8 @@ body {
 }
 
 .nav-active-primary .nav-link.active, .nav-active-primary .nav > li.active > a {
-    color: rgba(255,255,255,.87) !important;
-    background-color: #0cc2aa !important
+    border: none !important;
+    border-bottom: 2px solid #0cc2aa !important;    
 }
 
 .nav-active-accent .nav-link.active, .nav-active-accent .nav > li.active > a {
@@ -7034,4 +7034,18 @@ img {
 .overlay button {
     width: 100%;
     height: 100%;   
+}
+
+.nav-item-sm {
+    float: left;
+    margin-bottom: -1px;
+    border: 1px solid rgba(120,130,140,.13);
+    border-bottom: none;
+    border-top-right-radius: .25rem;
+    border-top-left-radius: .25rem;
+}
+
+.link-p-sm {
+    padding: 5px !important;
+    border-radius: 0px !important;
 }
