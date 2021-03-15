@@ -2911,7 +2911,7 @@ body {
 
 .nav-active-primary .nav-link.active, .nav-active-primary .nav > li.active > a {
     border: none !important;
-    border-bottom: 2px solid #0cc2aa !important;    
+    border-bottom: 2px solid #6887ff !important;    
 }
 
 .nav-active-accent .nav-link.active, .nav-active-accent .nav > li.active > a {

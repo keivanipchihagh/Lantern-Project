@@ -1,9 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\static",
     "\\templates",
     "\\templates\\dashboard"
   ],
-  "SelectedNode": "\\templates\\dashboard\\home.html",
+  "SelectedNode": "\\templates\\dashboard\\chatroom.html",
   "PreviewInSolutionExplorer": false
 }

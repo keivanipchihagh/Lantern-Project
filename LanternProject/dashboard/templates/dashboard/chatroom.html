@@ -2,8 +2,8 @@
 
 <!DOCTYPE html>
 <div id="chatroom">
-    <div class="row-col light">
-        <div class="col-md-3">
+    <div class="row-col white">
+        <div class="col-md-2 light">
             <div class="navside" style="height: 100%;">
                 <div class="nav-stacked nav-active-primary">
                     <input id="hall_key" type="hidden" value="{{ chatroom.hall_key }}" />
@@ -55,13 +55,12 @@
             </div>
         </div>
 
-
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="box row-col" style="min-height:600px">
                 <div class="box-header b-b">
                     <strong id="chatTitle">Chat</strong>
                 </div>
-                <div class="row-row dker">
+                <div class="row-row">
                     <div class="row-body">
                         <div class="row-inner">
                             <div class="p-a-md">
@@ -85,7 +84,6 @@
         </div>
 
         <div class="col-md-3 white">
-
             <div class="box text-center" style="margin-bottom: 0px; box-shadow: none">
                 <div class="box-tool">
                     <ul class="nav">
@@ -106,7 +104,7 @@
                 <div class="p-t">
                     <p><img src="{% static 'dashboard/images/a3.jpg'%}" class="img-circle w-70"></p>
                     <span href="" class="text-md">{{ user.first_name }} {{ user.last_name }}</span>
-                    <p><small>@{{ user.username }}</small></p>
+                    <p><small>{{ role|title }} - @{{ user.username }}</small></p>
                 </div>
             </div>
 
@@ -128,7 +126,7 @@
                     <!-- Reserved Messages - start -->
                     <div class="list-group no-radius lt" style="max-height: 450px; overflow: auto">
                         {% for message in reservedmessages.messages %}
-                        <div class="list-group-item b-b container-overlay">
+                        <div class="list-group-item container-overlay">
                             <i class="fa {% if message.starred %}fa-star{% else%}fa-star-o{% endif %} pull-right text-warn" style="font-size: 10px"></i>
                             <span id="reservedmessage_title_{{ message.id }}" class="block _500 text-sm">{{ message.title|safe|title }}</span>
                             <span class="text-muted text-xs">{{ message.content|truncatewords:20|safe }}</span>
@@ -157,7 +155,7 @@
                     <h5 id="reservedmessage_modal_title" class="modal-title">Modal</h5>
                 </div>
                 <div class="modal-body text-center p-lg">
-                    <p id="reservedmessage_modal_content">Are you sure to execute this action?</p>
+                    <div ui-jp="summernote">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Cancel</button>
